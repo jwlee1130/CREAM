@@ -1,5 +1,5 @@
 package com.cream.controller;
 
 public interface Controller {
-	//연습용
+	//연습용 ㄹㅇ
 }
