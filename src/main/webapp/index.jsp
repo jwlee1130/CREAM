@@ -9,8 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+    <h2> A Minor Upgrade </h2>
+
 	   <ul class="nav navbar-nav">
-     
+
       <li><a href="${path}/user/login.jsp">Login</a></li>
       <li><a href="${pageContext.request.contextPath}/front">Board</a></li>
      </ul>
@@ -20,5 +23,7 @@
 	      	<li><a href="${pageContext.request.contextPath}/front?key=user&methodName=logout" class="btn btn-danger">Logout</a></li>
 	     </ul>
      </c:if>
+
+
 </body>
 </html>
