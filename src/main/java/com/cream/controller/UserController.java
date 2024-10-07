@@ -43,4 +43,16 @@ public class UserController implements Controller {
 			return new ModelAndView("index.jsp",true);
 		
 	}
+	
+	public ModelAndView bid(HttpServletRequest request, HttpServletResponse response) {
+		String user_no = request.getParameter("user_no");
+		String product_no = request.getParameter("product_no");
+		String price = request.getParameter("price");
+		//기존 입찰자인지 확인
+		UserDTO user = service.findBidByUserId();
+		
+	
+		return new ModelAndView("index.jsp",true);
+	
+}
 }

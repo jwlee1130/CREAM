@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.cream.dto.BidDTO;
 import com.cream.dto.UserDTO;
 import com.cream.util.DbUtil;
 
@@ -51,6 +52,32 @@ public class UserDAOImpl implements UserDAO {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		return dbDTO;
+	}
+
+	public BidDTO findBidByUserNo(int no) {
+		Connection con =null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		BidDTO bid = null;
+		
+		String sql= proFile.getProperty("query.findBidByUserNo");//select * from users where user_id=? and pwd=?
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+			}
+			
+		}catch(Exception e) {
+			
+		}finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		return bid;
 	}
 
 }
