@@ -1,9 +1,10 @@
 package com.cream.dao;
 
-import java.sql.SQLException;
-
 import com.cream.dto.BidDTO;
 import com.cream.dto.UserDTO;
+import com.cream.exception.AuthenticationException;
+
+import java.sql.SQLException;
 
 public interface UserDAO {
   /**
@@ -18,4 +19,14 @@ public interface UserDAO {
 	 * 
 	 */
 	BidDTO findBidByUserNo(int no) throws SQLException;
+
+	int deleteUser(String id,String pw)throws SQLException , AuthenticationException;
+
+	int getUserRank(String userId) throws SQLException;
+
+	String updateRank(String userId,int cash) throws SQLException;
+
+	// 누락된 항목 있음->노션 보고 추가하기
+
+
 }
