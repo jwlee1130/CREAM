@@ -15,7 +15,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public int deleteUserById(int userNo) throws SQLException {
-        String sql="delete from users where user_no=?";
+        String sql="delete from users where no=?";
         Connection conn=null;
         PreparedStatement ps=null;
 
@@ -111,7 +111,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public int submitSurvey(SurveyDTO surveyData) throws SQLException {
-        String sql="insert into survey values(user_no,category,brand,color,price) values (?,?,?,?,?)";
+        String sql="insert into survey (user_no,category,brand,color,price) values (?,?,?,?,?)";
 
         Connection conn=null;
         PreparedStatement ps=null;

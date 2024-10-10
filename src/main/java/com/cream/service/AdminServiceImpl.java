@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
     }// 검수 받지 못한 상품 목록들 확인
 
     @Override
-    public int updateSalesStatus(int salesNo, int salesStatus, String grade) throws SQLException {
+    public int updateSalesStatus(int salesNo, int salesStatus, char grade) throws SQLException {
         return adminDAO.updateSalesStatus(salesNo, salesStatus, grade);
     }// 업데이트 결과 반환
 

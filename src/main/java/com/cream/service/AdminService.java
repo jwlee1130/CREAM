@@ -13,7 +13,7 @@ public interface AdminService {
 
     List<SalesDTO> getUnapprovedProducts() throws SQLException;
 
-    int updateSalesStatus(int salesNo, int salesStatus, String grade) throws SQLException;
+    int updateSalesStatus(int salesNo, int salesStatus, char grade) throws SQLException;
 
     int submitSurvey(SurveyDTO surveyData) throws SQLException;
 }
