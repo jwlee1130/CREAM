@@ -11,7 +11,7 @@
             <a href="#">고객</a>
             <a href="${pageContext.request.contextPath}/page/mypage.jsp">마이페이지</a>
             <a href="#">알림</a>
-            <a href="#">로그인</a>
+            <a href="${pageContext.request.contextPath}/page/login.jsp">로그인</a>
         </div>
         <div class="header-main">
             <div class="logo">
@@ -46,7 +46,7 @@
                 </div>
                 <span><a href="">Home</a></span>
                 <span><a href="">Shop</a></span>
-                <span><a href="">Login</a></span>
+                <span><a href="${pageContext.request.contextPath}/page/login.jsp">Login</a></span>
             </div>
         </div>
         <div class="header-bottom">

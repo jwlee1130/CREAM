@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+.login-container .login-main {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+}
+.login-container .login-main .logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.login-container .login-main .logo img {
+  max-width: 66%;
+}
+.login-container .login-main .login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-container .login-main .form-group {
+  margin-bottom: 2rem;
+}
+.login-container .login-main .form-group label {
+  margin-bottom: 2rem;
+}
+.login-container .login-main .form-group .form-control {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 0.5px solid #ced4da;
+  border-radius: 0;
+  border-bottom: 2px solid #ced4da;
+}
+.login-container .login-main .form-group .form-control:focus {
+  border: none;
+  border-bottom: 2px solid rgb(49.5, 49.5, 49.5);
+  outline: none;
+}
+.login-container .login-main .btn {
+  align-self: center;
+  width: 75% !important;
+}
+.login-container .login-main .btn-primary {
+  width: 100%;
+  background-color: #4b4b4b;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+.login-container .login-main .btn-primary:hover {
+  background-color: rgb(49.5, 49.5, 49.5);
+}
+.login-container .login-main .register-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+.login-container .login-main .register-link a {
+  color: #008ad7;
+  text-decoration: none;
+}
+.login-container .login-main .register-link a:hover {
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=login.css.map */
