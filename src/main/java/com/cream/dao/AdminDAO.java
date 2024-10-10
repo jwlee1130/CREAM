@@ -1,5 +1,6 @@
 package com.cream.dao;
 
+import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
 
@@ -31,5 +32,9 @@ public interface AdminDAO {
 	 * 	설문조사 제출
 	 * */
 	int submitSurvey(SurveyDTO surveyData) throws SQLException;
-	
+
+	/**
+	 *  설문조사 마지막에 제품 추천 해주는 코드
+	 */
+	public ProductDTO getRecommendedProduct(String brand,String  color,int maxPrice) throws SQLException;
 }

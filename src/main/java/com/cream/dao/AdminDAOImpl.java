@@ -1,5 +1,6 @@
 package com.cream.dao;
 
+import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
 import com.cream.util.DbUtil;
@@ -131,5 +132,50 @@ public class AdminDAOImpl implements AdminDAO {
         {
             DbUtil.dbClose(conn,ps);
         }
+    }
+
+    public ProductDTO getRecommendedProduct(String brand, String color, int maxPrice) throws SQLException {
+        String sql = "SELECT * FROM product " +
+                "WHERE brand_no = (SELECT no FROM brand WHERE brand = ?) " +
+                "AND color_no = (SELECT no FROM color WHERE color = ?) " +
+                "AND release_price <= ? " +
+                "ORDER BY release_price DESC " +
+                "LIMIT 1";
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ProductDTO recommendedProduct = null;
+
+        try {
+            conn = DbUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, brand);
+            ps.setString(2, color);
+            ps.setInt(3, maxPrice);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // ProductDTO 객체에 결과 세팅
+                recommendedProduct = new ProductDTO();
+                recommendedProduct.setId(rs.getInt("no"));
+                recommendedProduct.setBrandNo(rs.getInt("brand_no"));
+                recommendedProduct.setCategoryNo(rs.getInt("category_no"));
+                recommendedProduct.setShoesNo(rs.getInt("shoes_no"));
+                recommendedProduct.setColorNo(rs.getInt("color_no"));
+                recommendedProduct.setEngName(rs.getString("eng_name"));
+                recommendedProduct.setKorName(rs.getString("kor_name"));
+                recommendedProduct.setRelease(rs.getString("release"));
+                recommendedProduct.setReleasePrice(rs.getInt("release_price"));
+                recommendedProduct.setModelNumber(rs.getString("modelnumber"));
+                recommendedProduct.setRegdate(rs.getString("regdate"));
+                recommendedProduct.setSalesQuantity(rs.getInt("sales_quantity"));
+            }
+        } finally {
+            DbUtil.dbClose(conn, ps, rs);
+        }
+
+        return recommendedProduct;
     }
 }
