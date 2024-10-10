@@ -15,8 +15,8 @@
         </div>
         <div class="header-main">
             <div class="logo">
-                <a href="">
-                    <img height="100px" src="./Cream850_550.png">
+                <a href="${pageContext.request.contextPath}">
+                    <img height="100px" src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/logo.png">
                 </a>
             </div>
             <div class="header-searchbar">
