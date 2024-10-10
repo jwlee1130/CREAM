@@ -21,7 +21,7 @@ public class S3Test {
     public static void main(String[] args) throws UnsupportedEncodingException {
         // AWS 자격 증명
         final String accessKey =  System.getenv("AWS_ACCESS_KEY_ID"); // 여기에 액세스 키 입력
-        final String secretKey = System.getenv("AWS_SECRET_ACCESS_KEY"); // 여기에 비밀 키 입력
+        final String secretKey = System.getenv("AWS_SECRET_ACCESS_KEY");	 // 여기에 비밀 키 입력
         final String bucketName = "kosta-286-cream"; // S3 버킷 이름 입력
         final String filePath = "C:\\Edu/윤성바오.jpg"; // 업로드할 파일 경로 입력
         final String keyName = "img/윤성바오1.jpg"; // S3에서 사용할 파일 이름

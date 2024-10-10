@@ -2,7 +2,7 @@ package com.cream.dto;
 
 public class ProductImgDTO {
     private int no;
-    private int productId;
+    private int productNo;
     private int no2;
     private String filePath;
     private String fileSize;
@@ -10,9 +10,9 @@ public class ProductImgDTO {
 
     public ProductImgDTO() {}
 
-    public ProductImgDTO(int no, int productId, int no2, String filePath, String fileSize, String regdate) {
+    public ProductImgDTO(int no, int productNo, int no2, String filePath, String fileSize, String regdate) {
         this.no = no;
-        this.productId = productId;
+        this.productNo = productNo;
         this.no2 = no2;
         this.filePath = filePath;
         this.fileSize = fileSize;
@@ -22,8 +22,8 @@ public class ProductImgDTO {
     public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }
 
-    public int getProductId() { return productId; }
-    public void setProductId(int productId) { this.productId = productId; }
+    public int getProductId() { return productNo; }
+    public void setProductId(int productNo) { this.productNo = productNo; }
 
     public int getNo2() { return no2; }
     public void setNo2(int no2) { this.no2 = no2; }

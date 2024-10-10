@@ -8,14 +8,13 @@ public class UsersSalesDTO {
     private int no2;
     private int startingPrice;
     private int nowPrice;
-    private int status;
     private int salesStatus;
     private String regdate;
     private char grade;
 
     public UsersSalesDTO() {}
 
-    public UsersSalesDTO(int no, int userNo, int productNo, int shoesNo, int no2, int startingPrice, int nowPrice, int status, int salesStatus, String regdate, char grade) {
+    public UsersSalesDTO(int no, int userNo, int productNo, int shoesNo, int no2, int startingPrice, int nowPrice, int salesStatus, String regdate, char grade) {
         this.no = no;
         this.userNo = userNo;
         this.productNo = productNo;
@@ -23,7 +22,6 @@ public class UsersSalesDTO {
         this.no2 = no2;
         this.startingPrice = startingPrice;
         this.nowPrice = nowPrice;
-        this.status = status;
         this.salesStatus = salesStatus;
         this.regdate = regdate;
         this.grade = grade;
@@ -49,9 +47,6 @@ public class UsersSalesDTO {
 
     public int getNowPrice() { return nowPrice; }
     public void setNowPrice(int nowPrice) { this.nowPrice = nowPrice; }
-
-    public int getStatus() { return status; }
-    public void setStatus(int status) { this.status = status; }
 
     public int getSalesStatus() { return salesStatus; }
     public void setSalesStatus(int salesStatus) { this.salesStatus = salesStatus; }
