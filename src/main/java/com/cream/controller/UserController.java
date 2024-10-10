@@ -27,7 +27,7 @@ public class UserController implements Controller {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", checkUser);
 				
-				return new ModelAndView("index.jsp");
+				return new ModelAndView("a.jsp");
 			
 		}catch(Exception e) {
 			request.setAttribute("errorMsg", "로그인 실패");

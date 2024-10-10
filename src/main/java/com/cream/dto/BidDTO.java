@@ -8,7 +8,16 @@ public class BidDTO {
     private int regdate;
 
     public BidDTO() {}
-
+    
+    public BidDTO(int no, int userNo, int salesId, int productPrice, int regdate) {
+        this.no = no;
+        this.userNo = userNo;
+        this.salesId = salesId;
+        this.productPrice = productPrice;
+        this.regdate = regdate;
+    }
+    
+    
     public BidDTO(int no, int userNo, int salesId, int productPrice, int regdate) {
         this.no = no;
         this.userNo = userNo;
