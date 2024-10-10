@@ -1,0 +1,160 @@
+*{
+  box-sizing: border-box;
+}
+
+.container{
+  max-width: 1200px;
+  margin: 2rem auto;
+  .item-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #9a9a9a;
+    padding-bottom: 3.5rem;
+    .item-image{
+      border-radius: 5%;
+      background-color: #59a892;
+    }
+    .item-description{
+      height: inherit;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid #ababab;
+      padding-left: 3.5rem;
+      .item-price{
+        margin-bottom: 2rem;
+        p{
+          font-size: 1.25rem;
+          font-weight: normal;
+        }
+        h1{
+          font-size: 2.5rem;
+          font-weight: bold;
+        }
+      }
+      .item-name{
+        margin-bottom: 2rem;
+        h2{
+          font-size: 1.5rem;
+          :first-child{
+            font-weight: bold;
+          }
+        }
+      }
+      .item-detail{
+        ul{
+          display: flex;
+          justify-content: space-between;
+          li {
+            padding-right: 1rem;
+            border-right: 1px solid #333;
+
+            // 첫 번째 자식 요소를 제외한 나머지에 스타일 적용
+            &:not(:first-child) {
+              margin-left: 1rem; // 추가
+              padding-right: 1rem; // 추가
+              border-right: 1px solid #333; // 추가
+            }
+
+            &:last-child {
+              border-right: none; // 오른쪽 보더 제거
+            }
+          }
+
+        }
+        margin-bottom: 2rem;
+      }
+      .item-transaction{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        .item-parchase{
+          padding: 1rem;
+          border-radius: 0.75rem;
+          background-color: #EF6253;
+          display: flex;
+          span{
+            font-size: 1.2rem;
+            text-align: center;
+            align-content: center;
+            padding-right: 0.5rem;
+            margin-right: 1rem;
+            border-right: 1px solid #fff;
+          }
+          p{
+            margin-right: 6.5rem;
+          }
+        }
+        .item-sell{
+          padding: 1rem;
+          border-radius: 0.75rem;
+          background-color: #41B979;
+          display: flex;
+          span{
+            font-size: 1.2rem;
+            text-align: center;
+            align-content: center;
+            padding-right: 0.5rem;
+            margin-right: 1rem;
+            border-right: 1px solid #fff;
+          }
+          p{
+            margin-right: 6.5rem;
+          }
+        }
+        margin-bottom: 2rem;
+      }
+      .item-wish{
+        padding: 1.33rem 2rem;
+        background-color: #fff;
+        border-radius: 0.75rem;
+        border: 1px solid #333  ;
+        display: flex;
+        justify-content: center;
+      }
+
+    }
+  }
+  .item-info-wrapper{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .item-quote{
+      h2{
+        font-size: 2rem;
+      }
+      padding: 2rem;
+      button{
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      .item-quote-chart{
+        width: 450px;
+        height: 300px;
+        text-align: center;
+        align-content: center;
+        background-color: #fff;
+        border : 1px solid #333;
+
+      }
+    }
+
+    .item-concluded{
+      h2{
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 4rem;
+      }
+      .concluded-transaction{
+        width: 450px;
+        height: 300px;
+        text-align: center;
+        align-content: center;
+        background-color: #fff;
+        border : 1px solid #333;
+      }
+    }
+
+  }
+}

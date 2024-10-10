@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+.container .item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #9a9a9a;
+  padding-bottom: 3.5rem;
+}
+.container .item-wrapper .item-image {
+  border-radius: 5%;
+  background-color: #59a892;
+}
+.container .item-wrapper .item-description {
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #ababab;
+  padding-left: 3.5rem;
+}
+.container .item-wrapper .item-description .item-price {
+  margin-bottom: 2rem;
+}
+.container .item-wrapper .item-description .item-price p {
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+.container .item-wrapper .item-description .item-price h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.container .item-wrapper .item-description .item-name {
+  margin-bottom: 2rem;
+}
+.container .item-wrapper .item-description .item-name h2 {
+  font-size: 1.5rem;
+}
+.container .item-wrapper .item-description .item-name h2 :first-child {
+  font-weight: bold;
+}
+.container .item-wrapper .item-description .item-detail {
+  margin-bottom: 2rem;
+}
+.container .item-wrapper .item-description .item-detail ul {
+  display: flex;
+  justify-content: space-between;
+}
+.container .item-wrapper .item-description .item-detail ul li {
+  padding-right: 1rem;
+  border-right: 1px solid #333;
+}
+.container .item-wrapper .item-description .item-detail ul li:not(:first-child) {
+  margin-left: 1rem;
+  padding-right: 1rem;
+  border-right: 1px solid #333;
+}
+.container .item-wrapper .item-description .item-detail ul li:last-child {
+  border-right: none;
+}
+.container .item-wrapper .item-description .item-transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin-bottom: 2rem;
+}
+.container .item-wrapper .item-description .item-transaction .item-parchase {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: #EF6253;
+  display: flex;
+}
+.container .item-wrapper .item-description .item-transaction .item-parchase span {
+  font-size: 1.2rem;
+  text-align: center;
+  align-content: center;
+  padding-right: 0.5rem;
+  margin-right: 1rem;
+  border-right: 1px solid #fff;
+}
+.container .item-wrapper .item-description .item-transaction .item-parchase p {
+  margin-right: 6.5rem;
+}
+.container .item-wrapper .item-description .item-transaction .item-sell {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: #41B979;
+  display: flex;
+}
+.container .item-wrapper .item-description .item-transaction .item-sell span {
+  font-size: 1.2rem;
+  text-align: center;
+  align-content: center;
+  padding-right: 0.5rem;
+  margin-right: 1rem;
+  border-right: 1px solid #fff;
+}
+.container .item-wrapper .item-description .item-transaction .item-sell p {
+  margin-right: 6.5rem;
+}
+.container .item-wrapper .item-description .item-wish {
+  padding: 1.33rem 2rem;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #333;
+  display: flex;
+  justify-content: center;
+}
+.container .item-info-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.container .item-info-wrapper .item-quote {
+  padding: 2rem;
+}
+.container .item-info-wrapper .item-quote h2 {
+  font-size: 2rem;
+}
+.container .item-info-wrapper .item-quote button {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.container .item-info-wrapper .item-quote .item-quote-chart {
+  width: 450px;
+  height: 300px;
+  text-align: center;
+  align-content: center;
+  background-color: #fff;
+  border: 1px solid #333;
+}
+.container .item-info-wrapper .item-concluded h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 4rem;
+}
+.container .item-info-wrapper .item-concluded .concluded-transaction {
+  width: 450px;
+  height: 300px;
+  text-align: center;
+  align-content: center;
+  background-color: #fff;
+  border: 1px solid #333;
+}
+
+/*# sourceMappingURL=product.css.map */
