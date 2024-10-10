@@ -5,11 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import com.cream.dto.BidDTO;
 import com.cream.dto.ProductDTO;
+import com.cream.dto.ProductImgDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
 import com.cream.util.DbUtil;
@@ -51,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userDTO.getUserId());
-			ps.setString(2, userDTO.getPwd());
+			ps.setString(2, userDTO.getUserPw());
 			
 			rs = ps.executeQuery();
 			if(rs.next()) {
@@ -122,14 +124,65 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int addToWishlist(int user_no, int product_no) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		Connection con = null;
+        PreparedStatement ps = null;
+        int result = 0;
+
+        try {
+        	con = DbUtil.getConnection();
+            
+            String sql =proFile.getProperty("query.addToWishlist");
+            
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, user_no);
+            ps.setInt(2, product_no);
+
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("관심상품 추가 중 오류 발생");
+        } finally {
+        	DbUtil.dbClose(con, ps);
+        }
+
+        return result;
+    }
+
 
 	@Override
 	public List<ProductDTO> selectWishlist(int user_no) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    List<ProductDTO> list = new ArrayList<>();
+
+	    String sql = proFile.getProperty("query.selectWishlist");
+
+	    try {
+	        con = DbUtil.getConnection();
+	        ps = con.prepareStatement(sql);
+	        ps.setInt(1, user_no);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            ProductDTO product = new ProductDTO();
+	            product.setBrandNo(rs.getInt("brandNo"));
+	            product.setEngName(rs.getString("engName"));
+	            product.setReleasePrice(rs.getInt("releasePrice"));
+
+	            ProductImgDTO img = new ProductImgDTO();
+	            img.setFilePath(rs.getString("filePath"));
+	            img.setFileSize(rs.getString("fileSize"));
+
+	            product.setProductImgDTO(img); 
+
+	            list.add(product);
+	        }
+	    } finally {
+	        DbUtil.dbClose(con, ps, rs);
+	    }
+	    return list;
 	}
 
 	@Override
