@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import com.cream.dto.BidDTO;
 
 public class BidServiceImpl {
-	public BidDTO getHighestBid(int sales_no) throws SQLException {
+	public BidDTO getHighestBid(BidDTO bid) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
