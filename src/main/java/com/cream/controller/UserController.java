@@ -1,9 +1,11 @@
 package com.cream.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.tomcat.websocket.AuthenticationException;
 
+import com.cream.dto.ProductDTO;
 import com.cream.dto.UserDTO;
 import com.cream.service.UserServiceImpl;
 
@@ -44,15 +46,43 @@ public class UserController implements Controller {
 		
 	}
 	
-	public ModelAndView bid(HttpServletRequest request, HttpServletResponse response) {
-		String user_no = request.getParameter("user_no");
-		String product_no = request.getParameter("product_no");
-		String price = request.getParameter("price");
-		//기존 입찰자인지 확인
-		UserDTO user = service.findBidByUserNo();
+	public ModelAndView addToWishlist(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		
+		if (loginUser == null) {
+	        return new ModelAndView("user/login.jsp",true);
+		}
+		try {
+	        int product_no = Integer.parseInt(request.getParameter("product_no"));
+	        int result = service.addToWishlist(loginUser.getNo(), product_no);
+
+	        if (result > 0) {
+	            return new ModelAndView("index.jsp");
+	        } else {
+	            return new ModelAndView("error/error.jsp");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new ModelAndView("error/error.jsp");
+	    }
+	}
 	
-		return new ModelAndView("index.jsp",true);
-	
-}
+	public ModelAndView selectWishlist(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+	    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+	    if (loginUser == null) {
+	        return new ModelAndView("user/login.jsp", true);
+	    }
+
+	    try {
+	        List<ProductDTO> wishlist = service.selectWishlist(loginUser.getNo());
+	        request.setAttribute("wishlist", wishlist);
+	        return new ModelAndView("index.jsp");
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ModelAndView("error/error.jsp", true);
+	    }
+	}
 }

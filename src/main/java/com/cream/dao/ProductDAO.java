@@ -20,4 +20,6 @@ public interface ProductDAO {
 	 * 	상품 전체 출력
 	 * */
 	List<ProductDTO> selectAllProduct() throws SQLException;
+	
+	
 }

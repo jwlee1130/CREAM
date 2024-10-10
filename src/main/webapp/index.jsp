@@ -23,7 +23,41 @@
 	      	<li><a href="${pageContext.request.contextPath}/front?key=user&methodName=logout" class="btn btn-danger">Logout</a></li>
 	     </ul>
      </c:if>
-
-
+	
+	<c:if test="${empty wishlist}">
+        <p>관심상품이 없습니다.</p>
+    </c:if>
+    
+    <c:if test="${not empty wishlist}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>브랜드명</th>
+                    <th>영어 이름</th>
+                    <th>발매가</th>
+                    <th>이미지</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="product" items="${wishlist}">
+                    <tr>
+                        <td>${product.brandNo}</td>
+                        <td>${product.engName}</td>
+                        <td>${product.releasePrice}</td>
+                        <td>
+                            <c:if test="${not empty product.productImgDTO.filePath}">
+                                <img src="${pageContext.request.contextPath}/images/${product.productImgDTO.filePath}" alt="${product.engName}" width="100" height="100">
+                            </c:if>
+                            <c:if test="${empty product.productImgDTO.filePath}">
+                                <p>이미지 없음</p>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
+	
+	
 </body>
 </html>

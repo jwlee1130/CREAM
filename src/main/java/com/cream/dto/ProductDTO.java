@@ -14,6 +14,8 @@ public class ProductDTO {
     private String modelNumber;
     private String regdate;
     private int salesQuantity;
+    
+    private ProductImgDTO productImgDTO;
 
     public ProductDTO() {}
 
@@ -31,6 +33,13 @@ public class ProductDTO {
         this.modelNumber = modelNumber;
         this.regdate = regdate;
         this.salesQuantity = salesQuantity;
+    }
+    public ProductImgDTO getProductImgDTO() {
+        return productImgDTO;
+    }
+
+    public void setProductImgDTO(ProductImgDTO productImgDTO) {
+        this.productImgDTO = productImgDTO;
     }
 
     public int getId() { return id; }
