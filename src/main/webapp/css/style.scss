@@ -143,7 +143,10 @@ $space-between-slides: 30px;
 
 
   .main-wrapper {
+    display: flex;
+    flex-direction: column;
     .main-slider { //Main-Slider
+      align-self: center;
       width: $slide-width;
       position: relative;
       left: -20%;
