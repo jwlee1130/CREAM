@@ -1,15 +1,13 @@
 package com.cream.controller;
 
-import java.sql.SQLException;
-
-import org.apache.tomcat.websocket.AuthenticationException;
-
 import com.cream.dto.UserDTO;
+import com.cream.exception.AuthenticationException;
 import com.cream.service.UserServiceImpl;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.sql.SQLException;
 
 
 public class UserController implements Controller {
@@ -49,7 +47,7 @@ public class UserController implements Controller {
 		String product_no = request.getParameter("product_no");
 		String price = request.getParameter("price");
 		//기존 입찰자인지 확인
-		UserDTO user = service.findBidByUserNo();
+//		UserDTO user = service.findBidByUserNo();
 		
 	
 		return new ModelAndView("index.jsp",true);
