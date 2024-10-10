@@ -49,7 +49,7 @@ public class UserController implements Controller {
 		String product_no = request.getParameter("product_no");
 		String price = request.getParameter("price");
 		//기존 입찰자인지 확인
-		UserDTO user = service.findBidByUserId();
+		UserDTO user = service.findBidByUserNo();
 		
 	
 		return new ModelAndView("index.jsp",true);

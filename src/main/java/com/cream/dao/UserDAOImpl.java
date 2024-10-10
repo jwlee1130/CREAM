@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import com.cream.dto.BidDTO;
 import com.cream.dto.ProductDTO;
+import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
 import com.cream.util.DbUtil;
 
@@ -29,6 +30,13 @@ public class UserDAOImpl implements UserDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@Override
+	public int register(UserDTO user) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -130,6 +138,12 @@ public class UserDAOImpl implements UserDAO {
 		return 0;
 	}
 
+	@Override
+	public int insertSales(SalesDTO sales) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }
 
 

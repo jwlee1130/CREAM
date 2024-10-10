@@ -1,6 +1,6 @@
 package com.cream.dto;
 
-public class UsersSalesDTO {
+public class SalesDTO {
     private int no;
     private int userNo;
     private int productNo;
@@ -12,9 +12,9 @@ public class UsersSalesDTO {
     private String regdate;
     private char grade;
 
-    public UsersSalesDTO() {}
+    public SalesDTO() {}
 
-    public UsersSalesDTO(int no, int userNo, int productNo, int shoesNo, int no2, int startingPrice, int nowPrice, int salesStatus, String regdate, char grade) {
+    public SalesDTO(int no, int userNo, int productNo, int shoesNo, int no2, int startingPrice, int nowPrice, int salesStatus, String regdate, char grade) {
         this.no = no;
         this.userNo = userNo;
         this.productNo = productNo;

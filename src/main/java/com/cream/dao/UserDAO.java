@@ -5,9 +5,15 @@ import java.util.List;
 
 import com.cream.dto.BidDTO;
 import com.cream.dto.ProductDTO;
+import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
 
 public interface UserDAO {
+	/**
+	 * 	회원가입
+	 * */
+	int register(UserDTO user) throws SQLException;
+	
   /**
    * 로그인 기능
    * select user_id , pwd, name from users where user_id=? and pwd=?
@@ -63,5 +69,8 @@ public interface UserDAO {
 
 	// 누락된 항목 있음->노션 보고 추가하기
 
-
+	/**
+	 * 	판매 등록
+	 * */
+	int insertSales(SalesDTO sales) throws SQLException;
 }
