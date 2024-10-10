@@ -5,9 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import com.cream.dto.BidDTO;
+import com.cream.dto.ProductDTO;
 import com.cream.dto.UserDTO;
 import com.cream.util.DbUtil;
 
@@ -54,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
 		return dbDTO;
 	}
 
-	public BidDTO findBidByUserNo(int no) {
+	public BidDTO findBidByUserNo(int no) throws SQLException{
 		Connection con =null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -78,6 +80,54 @@ public class UserDAOImpl implements UserDAO {
 		}
 		
 		return bid;
+	}
+
+	@Override
+	public int updateCash(String user_Id, int cash) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getUserRank(String user_Id) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int deleUser(String user_Id, String pwd) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateUser(UserDTO user) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public UserDTO selectUserById(int user_no) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int addToWishlist(int user_no, int product_no) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<ProductDTO> selectWishlist(int user_no) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int deleteWishlist(int user_no, int product_no) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
