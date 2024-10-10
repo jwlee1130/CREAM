@@ -8,10 +8,10 @@
 <div class="header">
     <div class="header-wrapper">
         <div class="header-top">
-            <a href="/">고객</a>
-            <a href="../page/mypage.html">마이페이지</a>
-            <a href="">알림</a>
-            <a href="">로그인</a>
+            <a href="#">고객</a>
+            <a href="${pageContext.request.contextPath}/page/mypage.jsp">마이페이지</a>
+            <a href="#">알림</a>
+            <a href="#">로그인</a>
         </div>
         <div class="header-main">
             <div class="logo">
