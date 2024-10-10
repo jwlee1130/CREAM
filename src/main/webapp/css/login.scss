@@ -1,0 +1,90 @@
+
+$primary-color: #4b4b4b; // 기본 색상
+$background-color: #f8f9fa; // 배경색
+$box-background-color: #fff; // 로그인 박스 배경색
+$border-color: #ced4da; // 기본 테두리 색상
+$focus-border-color: darken($primary-color, 10%); // 포커스 상태의 테두리 색상
+*{
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $background-color; // 배경색
+
+  .login-main {
+    background-color: $box-background-color; // 로그인 박스 배경색
+    padding: 2rem; // 패딩
+    border-radius: 0.5rem; // 모서리 둥글게
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // 그림자
+    width: 500px; // 너비 설정
+
+    .logo{
+      text-align: center;
+      img {
+        max-width: 66%;
+      }
+      margin-bottom: 2rem;
+    }
+    .login-form{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .form-group {
+      margin-bottom: 2rem; // 입력 필드 아래 여백
+
+      label {
+        margin-bottom: 2rem; // 레이블 아래 여백
+      }
+
+      .form-control {
+        width: 100%; // 입력 필드 너비 100%
+        padding: 1rem; // 패딩
+        margin-top: 1rem;
+        border: 0.5px solid $border-color; // 기본 테두리 색상
+        border-radius: 0; // 각진 모서리
+        border-bottom: 2px solid $border-color; // 아래쪽 테두리 굵게
+
+        &:focus {
+          border: none; // 기본 테두리 제거
+          border-bottom: 2px solid $focus-border-color; // 포커스 시 아래쪽 테두리 색상 변경
+          outline: none; // 기본 포커스 아웃라인 제거
+        }
+      }
+    }
+    .btn{
+      align-self: center;
+      width: 75% !important;
+    }
+    .btn-primary {
+      width: 100%; // 버튼 너비 100%
+      background-color: $primary-color; // 버튼 배경색
+      color: white; // 글자색
+      border: none; // 테두리 제거
+      padding: 0.5rem; // 패딩
+      border-radius: 0.25rem; // 모서리 둥글게
+
+      &:hover {
+        background-color: darken($primary-color, 10%); // 호버 시 색상 변화
+      }
+    }
+
+    .register-link {
+      text-align: center; // 가운데 정렬
+      margin-top: 1rem; // 위 여백
+
+      a {
+        color: #008ad7; // 링크 색상
+        text-decoration: none; // 기본 밑줄 제거
+
+        &:hover {
+          text-decoration: underline; // 호버 시 밑줄 추가
+        }
+      }
+    }
+  }
+}
