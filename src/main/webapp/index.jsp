@@ -23,7 +23,17 @@
 	      	<li><a href="${pageContext.request.contextPath}/front?key=user&methodName=logout" class="btn btn-danger">Logout</a></li>
 	     </ul>
      </c:if>
+	
+	
 
+	<!-- 상품검색 -->
+	<form method="post" action="${pageContext.request.contextPath}/front">
+	<input type="hidden" name="key" value="product">
+	<input type="hidden" name="methodName" value="selectAll">
+	<input type="text">
+	<button>검색</button>
+	</form>
+	
 
 </body>
 </html>

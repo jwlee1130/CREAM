@@ -36,8 +36,11 @@ public class DispatcherServlet extends HttpServlet {
 	}
 	@Override
 	public void service(HttpServletRequest request,HttpServletResponse response) {
+			System.out.println("servlet service 왔는가..??");
+		
 			String key = request.getParameter("key");
 			String methodName = request.getParameter("methodName");
+			System.out.println("key : " + key + ", methodName : " + methodName);
 			
 			try {
 				Controller con = map.get(key);

@@ -26,7 +26,7 @@ public class UserDAOImpl implements UserDAO {
 			InputStream is = getClass().getClassLoader().getResourceAsStream("dbQuery.properties");
 			proFile.load(is);
 			
-			System.out.println("query.userlogin = " +proFile.getProperty("query.userlogin"));
+			System.out.println("query.selectAllProduct = " +proFile.getProperty("query.selectAllProduct"));
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
