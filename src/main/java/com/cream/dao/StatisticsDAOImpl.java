@@ -69,7 +69,7 @@ public class StatisticsDAOImpl implements StatisticsDAO
     /*
     SELECT regdate, SUM(price) AS DAILY_SALES
     FROM PURCHASE
-    WHERE productNo = 1 AND regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    WHERE product_no = 1 AND regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
     GROUP BY regdate
     ORDER BY regdate ASC;
 
@@ -79,7 +79,7 @@ public class StatisticsDAOImpl implements StatisticsDAO
     {
         String sql = "SELECT regdate, SUM(price) AS DAILY_SALES " +
                 "FROM PURCHASE " +
-                "WHERE productNo = ? AND regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
+                "WHERE product_no = ? AND regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
                 "GROUP BY regdate " +
                 "ORDER BY regdate ASC";
 
@@ -154,7 +154,7 @@ public class StatisticsDAOImpl implements StatisticsDAO
 
     /*
     SELECT s.brand, COUNT(s.brand) AS pop
-    FROM survey s
+    FROM SURVEY s
     GROUP BY s.brand
     ORDER BY pop DESC
     LIMIT 3;
