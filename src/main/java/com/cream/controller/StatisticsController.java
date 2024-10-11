@@ -1,16 +1,15 @@
 package com.cream.controller;
 
+import com.cream.service.StatisticService;
+import com.cream.service.StatisticsServiceImpl;
+import com.google.gson.Gson;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Map;
-
-import com.cream.service.StatisticService;
-import com.cream.service.StatisticsServiceImpl;
-import com.google.gson.Gson;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class StatisticsController implements RestController {
 
@@ -55,18 +54,25 @@ public class StatisticsController implements RestController {
         out.print(jsonResponse);
     }
 
-    public void getSalesData(HttpServletRequest request,HttpServletResponse response)throws IOException, SQLException
-    {
-        int productNo=Integer.parseInt(request.getParameter("productNo"));
-        int period=Integer.parseInt(request.getParameter("period"));
+    //    public void getSalesData(HttpServletRequest request,HttpServletResponse response)throws IOException, SQLException
+//    {
+//        int productNo=Integer.parseInt(request.getParameter("productNo"));
+//        int period=Integer.parseInt(request.getParameter("period"));
+//
+//        Map<String,Integer> salesData=statisticService.getSalesData(productNo,period);
+//
+//        String jsonResponse=gson.toJson(salesData);
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        PrintWriter out=response.getWriter();
+//        out.print(jsonResponse);
+//    }
+    public Map<String, Integer> getSalesData(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int productNo = Integer.parseInt(request.getParameter("productNo"));
+        int period = Integer.parseInt(request.getParameter("period"));
 
-        Map<String,Integer> salesData=statisticService.getSalesData(productNo,period);
-
-        String jsonResponse=gson.toJson(salesData);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out=response.getWriter();
-        out.print(jsonResponse);
+        return statisticService.getSalesData(productNo, period);
     }
+
 
 }
