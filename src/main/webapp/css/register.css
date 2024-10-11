@@ -1,0 +1,82 @@
+* {
+  box-sizing: border-box;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+.register-container .register-main {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  margin: 2rem 0;
+}
+.register-container .register-main h2 {
+  font-size: 2.5rem;
+}
+.register-container .register-main .register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.register-container .register-main .register-form .form-group {
+  margin-bottom: 2rem;
+}
+.register-container .register-main .register-form .form-group label {
+  margin-bottom: 0.5rem;
+}
+.register-container .register-main .register-form .form-group .form-control {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 0.5px solid #ced4da;
+  border-radius: 0;
+  border-bottom: 2px solid #ced4da;
+}
+.register-container .register-main .register-form .form-group .form-control:focus {
+  border: none;
+  border-bottom: 2px solid rgb(49.5, 49.5, 49.5);
+  outline: none;
+}
+.register-container .register-main .register-form .btn {
+  align-self: center;
+  width: 75% !important;
+  margin-bottom: 2rem;
+}
+.register-container .register-main .register-form .btn-primary {
+  width: 100%;
+  background-color: #4b4b4b;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+.register-container .register-main .register-form .btn-primary:hover {
+  background-color: rgb(49.5, 49.5, 49.5);
+}
+.register-container .register-main .register-form .register-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+.register-container .register-main .register-form .register-link a {
+  color: #008ad7;
+  text-decoration: none;
+}
+.register-container .register-main .register-form .register-link a:hover {
+  text-decoration: underline;
+}
+.register-container .register-main .register-form .invalid-feedback {
+  display: none;
+  color: red;
+  margin-top: 0.5rem;
+}
+.register-container .register-main .register-form .invalid-feedback.show {
+  display: block;
+}
+
+/*# sourceMappingURL=register.css.map */

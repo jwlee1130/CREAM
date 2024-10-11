@@ -11,12 +11,12 @@
             <a href="#">고객</a>
             <a href="${pageContext.request.contextPath}/page/mypage.jsp">마이페이지</a>
             <a href="#">알림</a>
-            <a href="#">로그인</a>
+            <a href="${pageContext.request.contextPath}/page/login.jsp">로그인</a>
         </div>
         <div class="header-main">
             <div class="logo">
-                <a href="">
-                    <img height="100px" src="./Cream850_550.png">
+                <a href="${pageContext.request.contextPath}">
+                    <img height="100px" src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/logo.png">
                 </a>
             </div>
             <div class="header-searchbar">
@@ -46,7 +46,7 @@
                 </div>
                 <span><a href="">Home</a></span>
                 <span><a href="">Shop</a></span>
-                <span><a href="">Login</a></span>
+                <span><a href="${pageContext.request.contextPath}/page/login.jsp">Login</a></span>
             </div>
         </div>
         <div class="header-bottom">

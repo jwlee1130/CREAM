@@ -108,11 +108,16 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+.container .main-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .container .main-wrapper .main-slider {
   width: 100vw;
+  align-self: center;
   position: relative;
-  left: -20%;
   margin-bottom: 2rem;
+  overflow: hidden;
 }
 .container .main-wrapper .main-slider .main-swiper-container {
   width: 100%;

@@ -16,13 +16,12 @@ public class ProductDTO {
 
     public ProductDTO() {}
 
-    public ProductDTO(int id, int brandNo, int categoryNo, int shoesNo, int colorNo, String categoty, String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
+    public ProductDTO(int id, int brandNo, int categoryNo, int shoesNo, int colorNo , String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
         this.id = id;
         this.brandNo = brandNo;
         this.categoryNo = categoryNo;
         this.shoesNo = shoesNo;
         this.colorNo = colorNo;
-        this.categoty = categoty;
         this.engName = engName;
         this.korName = korName;
         this.release = release;
@@ -46,9 +45,6 @@ public class ProductDTO {
 
     public int getColorNo() { return colorNo; }
     public void setColorNo(int colorNo) { this.colorNo = colorNo; }
-
-    public String getCategoty() { return categoty; }
-    public void setCategoty(String categoty) { this.categoty = categoty; }
 
     public String getEngName() { return engName; }
     public void setEngName(String engName) { this.engName = engName; }
