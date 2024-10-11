@@ -1,38 +1,53 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class ProductDTO {
-    private int no;
+
+	@Expose private int no;
     private int brandNo;
     private int categoryNo;
     private int shoesNo;
     private int colorNo;
-    private String engName;
+    private String categoty;
+    @Expose private String engName;
     private String korName;
     private String release;
-    private int releasePrice;
+    @Expose private int releasePrice;
     private String modelNumber;
     private String regdate;
     private int salesQuantity;
     private ProductImgDTO productImg;
     
-    
-    public ProductDTO() {}
 
-    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo , String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity, ProductImgDTO productImg) {
-        this.no = no;
-        this.brandNo = brandNo;
-        this.categoryNo = categoryNo;
-        this.shoesNo = shoesNo;
-        this.colorNo = colorNo;
-        this.engName = engName;
-        this.korName = korName;
-        this.release = release;
-        this.releasePrice = releasePrice;
-        this.modelNumber = modelNumber;
-        this.regdate = regdate;
-        this.salesQuantity = salesQuantity;
-        this.productImg = productImg;
-    }
+
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String categoty, String engName,
+			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
+			ProductImgDTO productImg) {
+		super();
+		this.no = no;
+		this.brandNo = brandNo;
+		this.categoryNo = categoryNo;
+		this.shoesNo = shoesNo;
+		this.colorNo = colorNo;
+		this.categoty = categoty;
+		this.engName = engName;
+		this.korName = korName;
+		this.release = release;
+		this.releasePrice = releasePrice;
+		this.modelNumber = modelNumber;
+		this.regdate = regdate;
+		this.salesQuantity = salesQuantity;
+		this.productImg = productImg;
+	}
+
+
+
+
+	public ProductDTO() {}
+
+
+
 
     public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }

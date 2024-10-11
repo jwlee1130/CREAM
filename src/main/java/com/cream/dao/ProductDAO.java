@@ -23,4 +23,5 @@ public interface ProductDAO {
 
 	ProductDTO detail(int productNo) throws SQLException;
 
+
 }
