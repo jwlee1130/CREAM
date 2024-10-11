@@ -11,6 +11,8 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import com.cream.controller.Controller;
+import com.cream.controller.RestController;
 
 @WebListener
 public class HandlerMappingListener implements ServletContextListener {
@@ -28,8 +30,12 @@ public class HandlerMappingListener implements ServletContextListener {
         Map<String, RestController> ajaxControllerMap = new HashMap<>();
         Map<String, Class<?>> ajaxClassMap = new HashMap<>();
 
-        // SQL 쿼리 맵핑
-        Map<String, String> sqlMap = new HashMap<>();
+		Map<String,String> sqlMap = new HashMap<String, String>();
+		
+		ResourceBundle rb = ResourceBundle.getBundle("actionMapping");
+		ResourceBundle rbSql = ResourceBundle.getBundle("dbQuery");
+		ResourceBundle ajaxRb = ResourceBundle.getBundle("ajaxMapping");
+		
 
         try {
             // 일반 Controller와 관련된 설정 파일 로딩
@@ -71,9 +77,6 @@ public class HandlerMappingListener implements ServletContextListener {
         application.setAttribute("sqlMap", sqlMap);
         application.setAttribute("path", application.getContextPath());
     }
-		
-		
 
-	
-	
+		
 }

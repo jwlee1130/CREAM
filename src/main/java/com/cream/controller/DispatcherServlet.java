@@ -36,8 +36,11 @@ public class DispatcherServlet extends HttpServlet {
 	}
 	@Override
 	public void service(HttpServletRequest request,HttpServletResponse response) {
+			System.out.println("servlet service 왔는가..??");
+		
 			String key = request.getParameter("key");
 			String methodName = request.getParameter("methodName");
+			System.out.println("key : " + key + ", methodName : " + methodName);
 			
 			try {
 				Controller con = map.get(key);
@@ -48,7 +51,7 @@ public class DispatcherServlet extends HttpServlet {
 				if(mv.isRedirect()) {
 					response.sendRedirect(mv.getUrl());
 				}else {
-					request.getRequestDispatcher(mv.getUrl()).forward(request, response);;
+					request.getRequestDispatcher(mv.getUrl()).forward(request, response);
 
 				}
 				

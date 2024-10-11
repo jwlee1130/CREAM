@@ -9,7 +9,6 @@ public class ProductDTO {
     private int categoryNo;
     private int shoesNo;
     private int colorNo;
-    private String categoty;
     @Expose private String engName;
     private String korName;
     private String release;
@@ -19,18 +18,30 @@ public class ProductDTO {
     private int salesQuantity;
     private ProductImgDTO productImg;
     
-
-
-    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String categoty, String engName,
-			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
-			ProductImgDTO productImg) {
-		super();
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
+			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity ) {
 		this.no = no;
 		this.brandNo = brandNo;
 		this.categoryNo = categoryNo;
 		this.shoesNo = shoesNo;
 		this.colorNo = colorNo;
-		this.categoty = categoty;
+		this.engName = engName;
+		this.korName = korName;
+		this.release = release;
+		this.releasePrice = releasePrice;
+		this.modelNumber = modelNumber;
+		this.regdate = regdate;
+		this.salesQuantity = salesQuantity;
+	}
+
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
+			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
+			ProductImgDTO productImg) {
+		this.no = no;
+		this.brandNo = brandNo;
+		this.categoryNo = categoryNo;
+		this.shoesNo = shoesNo;
+		this.colorNo = colorNo;
 		this.engName = engName;
 		this.korName = korName;
 		this.release = release;
@@ -40,6 +51,7 @@ public class ProductDTO {
 		this.salesQuantity = salesQuantity;
 		this.productImg = productImg;
 	}
+
 
 
 

@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
+import com.google.gson.Gson;
+
+>>>>>>> CREAM/CREAM-7--상품검색
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -29,10 +35,12 @@ public class AjaxDispatcherServlet extends HttpServlet {
 		map = (Map<String, RestController>)obj;
 		
 		clzMap = (Map<String, Class<?>>)config.getServletContext().getAttribute("ajaxClzMap");
+
 		
 	}
    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		String key = request.getParameter("key"); //customer
 		String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
 		
@@ -42,12 +50,37 @@ public class AjaxDispatcherServlet extends HttpServlet {
 		}
 		
 		System.out.println("key = " + key+", methodName = " + methodName);
+=======
+		System.out.println("여기는 AjaxDispatcherServlet의 service 메소드...");
+		String key = request.getParameter("key"); //customer
+		String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
+		
+		System.out.println("key : " + key + ", methodName : " + methodName);
+		
+		if(key ==null || key.equals("")) {
+			key="product";
+			methodName="selectAllProduct";
+		}
+		
+		//System.out.println("key = " + key+", methodName = " + methodName);
+>>>>>>> CREAM/CREAM-7--상품검색
 		try {
 			Class<?> clz = clzMap.get(key);
 			Method method = clz.getMethod(methodName, HttpServletRequest.class , HttpServletResponse.class);
 			
 			RestController controller = map.get(key);
+<<<<<<< HEAD
 			method.invoke(controller, request , response);
+=======
+			Object obj = method.invoke(controller, request , response);
+			
+			
+			Gson gson = new Gson();
+			String data = gson.toJson(obj);
+			System.out.println("data = " + data);
+			
+			response.getWriter().print(data);
+>>>>>>> CREAM/CREAM-7--상품검색
 			
 		}catch (Exception e) {
 			e.printStackTrace();
