@@ -55,15 +55,18 @@
             dataType: 'json',
             success: function(data) {
 
-                const labels = Object.keys(data).map(dateString => {
-                    const date = new Date(dateString);
+                const labels = Object.keys(data)
+                    .map(dateString => {
+                        const date = new Date(dateString);
+                        // const month = String(date.getMonth() + 1).padStart(2, '0');
+                        // const day = String(date.getDate()).padStart(2, '0');
 
-                    const month = date.getMonth() + 1;
-                    const day = date.getDate();
+                        const month = String(date.getMonth());
+                        const day = String(date.getDate());
 
-
-                    return month + '/' + day;
-                });
+                        return month + '/' + day;
+                    })
+                    .sort((a, b) => new Date(a) - new Date(b)); //  이거 없으면 날짜 순서가 엉망임
 
 
                 console.log(labels);
@@ -81,36 +84,64 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Sales',
+                            label: 'Price',
                             data: sales,
-                            borderColor: 'rgba(34, 34, 34, 1)',
+                            borderColor: 'rgba(255, 0, 0, 1)',
                             borderWidth: 2,
-                            pointRadius: 3,
+                            pointRadius: 0,
                             fill: false
                         }]
                     },
                     options: {
+
                         responsive: true,
                         maintainAspectRatio: true,
-                        scales: {
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Date'
-                                }
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Sales'
+                        plugins: {
+                            legend: {
+                                display: false, // Price 옆에 네모 비활성화
+                                labels: {
+                                    color: '#333'
                                 }
                             }
+                        },
+                        scales: {
+                            // x: {
+                            //     ticks: {
+                            //         color: '#333'
+                            //     },
+                            //     grid: {
+                            //         color: 'rgba(0, 0, 0, 0.1)'
+                            //     }
+                            // },
+                            // y: {
+                            //     ticks: {
+                            //         color: '#333'
+                            //     },
+                            //     grid: {
+                            //         color: 'rgba(0, 0, 0, 0.1)'
+                            //     }
+                            // }
                         }
+
+                        // scales: {
+                        //     x: {
+                        //         title: {
+                        //             display: true,
+                        //             text: '날짜'
+                        //         }
+                        //     },
+                        //     y: {
+                        //         title: {
+                        //             display: true,
+                        //             text: '시세'
+                        //         }
+                        //     }
+                        // }
                     }
                 });
             },
             error: function(xhr, status, error) {
-                console.error('데이터 로드 중 오류 발생:', error);
+                console.error('데이터 로드 중 오류 발생', error);
             }
         });
     }
