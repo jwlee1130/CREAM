@@ -14,7 +14,7 @@ public interface StatisticsDAO {
 	/**
 	 * <관리자 마이페이지>
 	 * 일정 기간 동안의 전체 매출액
-	 * 오늘로부터 몇 일 전까지 볼지 period 로 정한다
+	 * 오늘로부터 며칠 전까지 볼지 period 로 정한다
 	 */
 	Map<String,Integer> getTotalSalesData(int period) throws SQLException;
 
@@ -33,7 +33,7 @@ public interface StatisticsDAO {
 	/**
 	 * 	<구매 페이지>
 	 * 	구매 페이지에서 시세를 알기 위해 날짜 & 가격 얻어
-	 * 	period 변수를 사용해서 오늘로부터 몇 일 전까지 판매가격을 볼지 정하고, 해당 기간의 가격과 그에 대한 날짜를 map 으로 반환
+	 * 	period 변수를 사용해서 오늘로부터 며칠 전까지 판매가격을 볼지 정하고, 해당 기간의 가격과 그에 대한 날짜를 map 으로 반환
 	 * */
 	Map<String,Integer> getSalesData(int productNo, int period) throws SQLException;
 
