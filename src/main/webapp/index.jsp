@@ -102,7 +102,7 @@
                 <div class="popular-list-wrapper">
                     <ul>
                         <li>
-                            <a href="">
+                            <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
                                     <div class="item-brand">브랜드명</div>
@@ -112,7 +112,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
                                     <div class="item-brand">브랜드명</div>
@@ -122,7 +122,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
                                     <div class="item-brand">브랜드명</div>
@@ -132,7 +132,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
                                     <div class="item-brand">브랜드명</div>
