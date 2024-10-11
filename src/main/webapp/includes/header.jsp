@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <span><a href="">Home</a></span>
-                <span><a href="">Shop</a></span>
+                <span><a href="${pageContext.request.contextPath}/page/shop.jsp">Shop</a></span>
                 <span><a href="${pageContext.request.contextPath}/page/login.jsp">Login</a></span>
             </div>
         </div>
