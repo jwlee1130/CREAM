@@ -9,10 +9,8 @@
     <title>Cream</title>
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/style.css" />
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
+    <link   rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -22,7 +20,7 @@
 		   function selectAll(){
 			   $.ajax({
 				url :"ajax" , //서버요청주소
-				type:"post", //요청방식(method방식 : get | post | put | delete )
+				type:"get", //요청방식(method방식 : get | post | put | delete )
 				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(result){
@@ -30,11 +28,11 @@
 					
 					let str="";
 					$.each(result, function(index, product){
-					    str+="<li>";
-					    str+="<a href="${pageContext.request.contextPath}/page/product.jsp">";
+						str+="<li>";
+					    str+=`<a href="${pageContext.request.contextPath}/page/product.jsp">`;
 					    str+=`<div class="popular-item">`;
 					    str+=`<div class="item-image">이미지</div>`;
-					    str+=`<div class="item-brand">${product.brandNo}</div>`;
+					    str+=`<div class="item-brand">${"${product.brandNo}"}</div>`;
 					    str+=`<p class="item-description">브랜드 설명 들어가는곳</p>`;
 					    str+=`<div class="item-price">가격쓰는곳</div>`;
 					    str+=`</div>`;
@@ -42,9 +40,8 @@
 					    str+="</li>";
 					}); //eachEnd
 					
-					$(".popular-list-wrapper").html(str);
+					$("#popular-list-wrapper-ul").html(str);
 					
-				});
 					
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
@@ -148,47 +145,7 @@
                 <h2>Most Popular</h2>
                 <h4>인기 상품</h4>
                 <div class="popular-list-wrapper">
-                    <ul>
-                        <li>
-                            <a href="front?key=product&methodName=detail&no=1">
-                                <div class="popular-item">
-                                    <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="s/page/product.jsp">
-                                <div class="popular-item">
-                                    <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/page/product.jsp">
-                                <div class="popular-item">
-                                    <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/page/product.jsp">
-                                <div class="popular-item">
-                                    <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
-                                </div>
-                            </a>
-                        </li>
+                    <ul id="popular-list-wrapper-ul">
                     </ul>
 
                 </div>

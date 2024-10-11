@@ -4,11 +4,11 @@ import com.google.gson.annotations.Expose;
 
 public class ProductDTO {
 
-	@Expose private int no;
-    private int brandNo;
-    private int categoryNo;
-    private int shoesNo;
-    private int colorNo;
+	@Expose private int no; //상품번호 PK
+    private int brandNo;    //브랜드번호 FK
+    private int categoryNo; //카테고리번호 FK
+    private int shoesNo;    //신발번호 FK
+    private int colorNo;    //색깔번호 FK
     @Expose private String engName;
     private String korName;
     private String release;

@@ -54,14 +54,11 @@ public class AjaxDispatcherServlet extends HttpServlet {
 
 			Object obj = method.invoke(controller, request , response);
 			
-			
 			Gson gson = new Gson();
 			String data = gson.toJson(obj);
 			System.out.println("data = " + data);
 			
 			response.getWriter().print(data);
-
-			method.invoke(controller, request , response);
 
 			
 		}catch (Exception e) {
