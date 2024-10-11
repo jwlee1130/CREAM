@@ -28,17 +28,14 @@ public class HandlerMappingListener implements ServletContextListener {
         Map<String, Class<?>> ajaxClassMap = new HashMap<>();
 
         // SQL 쿼리 맵핑
-        Map<String, String> sqlMap = new HashMap<>();	
+		Map<String,String> sqlMap = new HashMap<String, String>();
+
         ResourceBundle actionMappingBundle = ResourceBundle.getBundle("actionMapping");
 
         try {
             // 일반 Controller와 관련된 설정 파일 로딩
-        		
             for (String key : actionMappingBundle.keySet()) {
-            	System.out.println(key+"key");
             	String className = actionMappingBundle.getString(key);
-            	System.out.println(className+"className");
-
                 Class<?> clazz = Class.forName(className);
                 Controller controllerInstance = (Controller) clazz.getDeclaredConstructor().newInstance();
                 classMap.put(key, clazz);
