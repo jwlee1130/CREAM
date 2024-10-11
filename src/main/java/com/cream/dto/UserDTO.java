@@ -32,6 +32,16 @@ public class UserDTO {
 	this.userPw = userPw;
 	this.nickname = nickname;
 }
+	public UserDTO(String userId,String nickname,String userEmail,String userPw,String gender,int shoesSize,int age) {
+		super();
+		this.userId=userId;
+		this.nickname=nickname;
+		this.userEmail=userEmail;
+		this.userPw=userPw;
+		this.gender=gender;
+		this.age=age;
+		this.shoesSize=shoesSize;
+	}
 	public UserDTO(int no, int rankNo, String userId, String userEmail, String userPw, String hp, String nickname,
 			int shoesSize, Date regdate, int cash, String gender, int age, String address) {
 		super();

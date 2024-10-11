@@ -14,6 +14,12 @@ public class UserServiceImpl implements UserService {
 	UserDAOImpl dao = new UserDAOImpl();
 
 	@Override
+	public UserDTO register(UserDTO user) throws SQLException, AuthenticationException {
+		
+		return user;
+	}
+
+	@Override
 	public UserDTO loginCheck(UserDTO userDTO) throws SQLException, AuthenticationException {
 		UserDTO checkUser = dao.loginCheck(userDTO);
 		if(checkUser==null) {//실패
