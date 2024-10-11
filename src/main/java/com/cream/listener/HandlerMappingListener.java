@@ -11,13 +11,10 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import com.cream.controller.Controller;
-import com.cream.controller.RestController;
 
 @WebListener
 public class HandlerMappingListener implements ServletContextListener {
 
-	
 	@Override
     public void contextInitialized(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
@@ -30,18 +27,15 @@ public class HandlerMappingListener implements ServletContextListener {
         Map<String, RestController> ajaxControllerMap = new HashMap<>();
         Map<String, Class<?>> ajaxClassMap = new HashMap<>();
 
+        // SQL 쿼리 맵핑
 		Map<String,String> sqlMap = new HashMap<String, String>();
-		
+
         ResourceBundle actionMappingBundle = ResourceBundle.getBundle("actionMapping");
 
         try {
             // 일반 Controller와 관련된 설정 파일 로딩
-        		
             for (String key : actionMappingBundle.keySet()) {
-            	System.out.println(key+"key");
             	String className = actionMappingBundle.getString(key);
-            	System.out.println(className+"className");
-
                 Class<?> clazz = Class.forName(className);
                 Controller controllerInstance = (Controller) clazz.getDeclaredConstructor().newInstance();
                 classMap.put(key, clazz);

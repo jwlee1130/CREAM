@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
+import com.google.gson.Gson;
+
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -33,6 +36,7 @@ public class AjaxDispatcherServlet extends HttpServlet {
 	}
    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String key = request.getParameter("key"); //customer
 		String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
 		
@@ -42,12 +46,24 @@ public class AjaxDispatcherServlet extends HttpServlet {
 		}
 		
 		System.out.println("key = " + key+", methodName = " + methodName);
+
 		try {
 			Class<?> clz = clzMap.get(key);
 			Method method = clz.getMethod(methodName, HttpServletRequest.class , HttpServletResponse.class);
 			
 			RestController controller = map.get(key);
+
+			Object obj = method.invoke(controller, request , response);
+			
+			
+			Gson gson = new Gson();
+			String data = gson.toJson(obj);
+			System.out.println("data = " + data);
+			
+			response.getWriter().print(data);
+
 			method.invoke(controller, request , response);
+
 			
 		}catch (Exception e) {
 			e.printStackTrace();
