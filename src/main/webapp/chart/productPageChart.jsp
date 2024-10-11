@@ -50,7 +50,7 @@
     function loadSalesData(productNo, period) {
         $.ajax({
             <%--url: `/ajax?key=statistics&methodName=getSalesData&productNo=${productNo}&period=${period}`,--%>
-            url: `/ajax?key=statistics&methodName=getSalesData&productNo=1&period=1`, // 현재는 1번 상품과 10일로 고정
+            url: `/ajax?key=statistics&methodName=getSalesData&productNo=1&period=30`, // 현재는 1번 상품과 10일로 고정
             type: 'GET',
             dataType: 'json',
             success: function(data) {
@@ -61,7 +61,7 @@
                         // const month = String(date.getMonth() + 1).padStart(2, '0');
                         // const day = String(date.getDate()).padStart(2, '0');
 
-                        const month = String(date.getMonth());
+                        const month = String(date.getMonth()+1);
                         const day = String(date.getDate());
 
                         return month + '/' + day;
