@@ -1,12 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: swift
-  Date: 2024-10-11
-  Time: 오전 11:42
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page isELIgnored="false" %>
+
 
 <html lang="ko">
 <head>
@@ -61,12 +54,24 @@
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                const labels = Object.keys(data); // 날짜를 라벨로 사용
-                const sales = Object.values(data); // 판매 데이터를 값으로 사용
 
+                const labels = Object.keys(data).map(dateString => {
+                    const date = new Date(dateString);
+
+                    const month = date.getMonth() + 1;
+                    const day = date.getDate();
+
+
+                    return month + '/' + day;
+                });
+
+
+                console.log(labels);
+
+
+                const sales = Object.values(data);
                 const ctx = document.getElementById('salesChart').getContext('2d');
 
-                // 기존 차트가 있으면 삭제
                 if (chartInstance) {
                     chartInstance.destroy();
                 }
@@ -74,14 +79,14 @@
                 chartInstance = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: labels, // 날짜 레이블
+                        labels: labels,
                         datasets: [{
                             label: 'Sales',
-                            data: sales, // 판매량 데이터
+                            data: sales,
                             borderColor: 'rgba(34, 34, 34, 1)',
                             borderWidth: 2,
                             pointRadius: 3,
-                            fill: false // 차트 아래에 색상 채우기 비활성
+                            fill: false
                         }]
                     },
                     options: {
@@ -110,9 +115,8 @@
         });
     }
 
-    // 페이지 로드 시 기본 데이터를 로드 (예: productNo = 1, 기간 = 30일)
     $(document).ready(function() {
-        loadSalesData(1, 30);
+        loadSalesData(1, 30); // productNo=1, 기간=30일로 기본 데이터 로드
     });
 </script>
 
