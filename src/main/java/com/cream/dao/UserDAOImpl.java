@@ -56,9 +56,24 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(2, userDTO.getUserPw());
 			
 			rs = ps.executeQuery();
-			if(rs.next()) {
-				dbDTO = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3));
-			}
+			if (rs.next()) {
+	            dbDTO = new UserDTO(
+	                rs.getInt("NO"),
+	                rs.getInt("RANK_NO"),
+	                rs.getString("USER_ID"),
+	                rs.getString("NAME"),
+	                rs.getString("USER_EMAIL"),
+	                rs.getString("USER_PW"),
+	                rs.getString("HP"),
+	                rs.getString("NICKNAME"),
+	                rs.getInt("SHOES_SIZE"),
+	                rs.getDate("REGDATE"),
+	                rs.getInt("SHOECREAM"),
+	                rs.getString("GENDER"),
+	                rs.getInt("AGE"),
+	                rs.getString("ADDRESS")
+	            );
+	        }
 			
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -158,7 +173,7 @@ public class UserDAOImpl implements UserDAO {
 	    List<ProductDTO> list = new ArrayList<>();
 
 	    String sql = proFile.getProperty("query.selectWishlist");
-
+	    
 	    try {
 	        con = DbUtil.getConnection();
 	        ps = con.prepareStatement(sql);
@@ -167,15 +182,9 @@ public class UserDAOImpl implements UserDAO {
 
 	        while (rs.next()) {
 	            ProductDTO product = new ProductDTO();
-	            product.setBrandNo(rs.getInt("brandNo"));
-	            product.setEngName(rs.getString("engName"));
-	            product.setReleasePrice(rs.getInt("releasePrice"));
-
-	            ProductImgDTO img = new ProductImgDTO();
-	            img.setFilePath(rs.getString("filePath"));
-	            img.setFileSize(rs.getString("fileSize"));
-
-	            product.setProductImgDTO(img); 
+	            product.setBrandNo(rs.getInt("BRAND_NO"));
+	            product.setEngName(rs.getString("ENG_NAME"));
+	            product.setReleasePrice(rs.getInt("RELEASE_PRICE"));
 
 	            list.add(product);
 	        }

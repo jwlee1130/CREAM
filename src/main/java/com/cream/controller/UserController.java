@@ -18,11 +18,11 @@ public class UserController implements Controller {
 	UserServiceImpl service = new UserServiceImpl();
 	
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws SQLException, AuthenticationException {
-		String id = request.getParameter("userId");
-	    String pw = request.getParameter("pwd");
+		String userId = request.getParameter("userId");
+	    String pwd = request.getParameter("pwd");
 
 	    try {
-	        UserDTO user = new UserDTO(id, pw);    
+	        UserDTO user = new UserDTO(userId, pwd);    
 	        UserDTO checkUser = service.loginCheck(user);
 
 	        if (checkUser != null) {
@@ -58,7 +58,7 @@ public class UserController implements Controller {
 	        int result = service.addToWishlist(loginUser.getNo(), product_no);
 
 	        if (result > 0) {
-	            return new ModelAndView("index.jsp");
+	            return new ModelAndView("page/mypage.jsp");
 	        } else {
 	            return new ModelAndView("error/error.jsp");
 	        }
@@ -67,23 +67,6 @@ public class UserController implements Controller {
 	        return new ModelAndView("error/error.jsp");
 	    }
 	}
-	
-	public ModelAndView selectWishlist(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-	    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
-	    if (loginUser == null) {
-	        return new ModelAndView("user/login.jsp", true);
-	    }
-
-	    try {
-	        List<ProductDTO> wishlist = service.selectWishlist(loginUser.getNo());
-	        request.setAttribute("wishlist", wishlist);
-	        return new ModelAndView("index.jsp");
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return new ModelAndView("error/error.jsp", true);
-	    }
-	}
 
 }

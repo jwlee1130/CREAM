@@ -6,6 +6,7 @@ public class UserDTO {
 	private int no;
     private int rankNo;
     private String userId;
+    private String Name;
     private String userEmail;
     private String userPw;
     private String hp;
@@ -18,7 +19,13 @@ public class UserDTO {
     private String address;
    
    
-   public UserDTO() {}
+   public String getName() {
+		return Name;
+	}
+	public void setName(String name) {
+		Name = name;
+	}
+public UserDTO() {}
    public UserDTO(String userId, String userPw) {
 		super();
 		this.userId = userId;
@@ -32,12 +39,13 @@ public class UserDTO {
 	this.userPw = userPw;
 	this.nickname = nickname;
 }
-	public UserDTO(int no, int rankNo, String userId, String userEmail, String userPw, String hp, String nickname,
+	public UserDTO(int no, int rankNo, String userId,String Name, String userEmail, String userPw, String hp, String nickname,
 			int shoesSize, Date regdate, int cash, String gender, int age, String address) {
 		super();
 		this.no = no;
 		this.rankNo = rankNo;
 		this.userId = userId;
+		this.Name = Name;
 		this.userEmail = userEmail;
 		this.userPw = userPw;
 		this.hp = hp;
