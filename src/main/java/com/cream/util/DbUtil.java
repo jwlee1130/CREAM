@@ -78,7 +78,14 @@ public class DbUtil {
 			e.printStackTrace();
 		}
 	}
-	
+	public static void dbClose(Statement st , ResultSet rs) {
+		try {
+			dbClose(st);
+			if(rs!=null)rs.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public static void dbClose(Statement st) {
 		try {
 			if(st != null)st.close();

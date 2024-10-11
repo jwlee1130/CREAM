@@ -13,7 +13,7 @@ public interface BidDAO {
     /**
      * 	입찰하기
      * */
-    int bid(BidDTO bid) throws SQLException;
+    int bid(Connection con, BidDTO bid) throws SQLException;
     
     /**
      * 	입찰금액 입금
@@ -23,7 +23,7 @@ public interface BidDAO {
     /**
      * 	입찰금액 돌려주기
      * */
-    int refundBidAmount(int sales_no,int user_no) throws SQLException;
+    int refundBidAmount(Connection con, int sales_no,int user_no) throws SQLException;
     
 
 }

@@ -6,7 +6,6 @@ public class ProductDTO {
     private int categoryNo;
     private int shoesNo;
     private int colorNo;
-    private String categoty;
     private String engName;
     private String korName;
     private String release;
