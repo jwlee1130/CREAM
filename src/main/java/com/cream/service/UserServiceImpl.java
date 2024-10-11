@@ -14,6 +14,16 @@ public class UserServiceImpl implements UserService {
 	UserDAOImpl dao = new UserDAOImpl();
 
 	@Override
+	public int register(UserDTO user) throws SQLException, AuthenticationException {
+	    // DAO에 저장하는 로직
+	    int result = dao.register(user); // DAO 호출하여 영향을 받은 행 수를 반환 받음
+	    if (result == 0) { // 영향을 받은 행이 없으면 예외 발생
+	        throw new SQLException("회원가입 실패: 사용자가 등록되지 않았습니다.");
+	    }
+	    return result; // 성공적으로 저장된 경우 행 수 반환
+	}
+
+	@Override
 	public UserDTO loginCheck(UserDTO userDTO) throws SQLException, AuthenticationException {
 		UserDTO checkUser = dao.loginCheck(userDTO);
 		if(checkUser==null) {//실패

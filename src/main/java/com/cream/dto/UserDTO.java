@@ -6,13 +6,13 @@ public class UserDTO {
 	private int no;
     private int rankNo;
     private String userId;
-    private String Name;
+    private String name;
     private String userEmail;
     private String userPw;
     private String hp;
     private String nickname;
     private int shoesSize;
-    private java.sql.Date regdate;
+    private String regdate;
     private int cash;
     private String gender;
     private int age;
@@ -20,36 +20,35 @@ public class UserDTO {
    
    
    public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
-public UserDTO() {}
-   public UserDTO(String userId, String userPw) {
-		super();
+	public UserDTO() {}
+   
+	public UserDTO(String userId, String userPw) {
 		this.userId = userId;
 		this.userPw = userPw;
 		
 	}
    
 	public UserDTO(String userId, String userPw, String nickname) {
-	super();
 	this.userId = userId;
 	this.userPw = userPw;
 	this.nickname = nickname;
-}
-	public UserDTO(int no, int rankNo, String userId,String Name, String userEmail, String userPw, String hp, String nickname,
-			int shoesSize, Date regdate, int cash, String gender, int age, String address) {
-		super();
+	}
+	
+	
+
+	public UserDTO(int no, int rankNo, String userId, String name, String userEmail, String userPw, String hp,
+			String nickname, int shoesSize, String regdate, int cash, String gender, int age, String address) {
+		this(userId,userPw,nickname);
 		this.no = no;
 		this.rankNo = rankNo;
-		this.userId = userId;
-		this.Name = Name;
+		this.name = name;
 		this.userEmail = userEmail;
-		this.userPw = userPw;
 		this.hp = hp;
-		this.nickname = nickname;
 		this.shoesSize = shoesSize;
 		this.regdate = regdate;
 		this.cash = cash;
@@ -105,10 +104,10 @@ public UserDTO() {}
 	public void setShoesSize(int shoesSize) {
 		this.shoesSize = shoesSize;
 	}
-	public java.sql.Date getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(java.sql.Date regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
 	public int getCash() {

@@ -11,6 +11,11 @@ import java.util.List;
 
 public interface UserService {
 	/**
+	 * 회원가입
+	 */
+	 int register(UserDTO user) throws SQLException, AuthenticationException;
+	
+	/**
 	 * 로그인 체크
 	 * */
    UserDTO loginCheck(UserDTO userDTO)throws SQLException , AuthenticationException;
