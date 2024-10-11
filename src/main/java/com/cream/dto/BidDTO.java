@@ -6,16 +6,14 @@ public class BidDTO {
     private int salesNO;
     private int productPrice;
     private int regdate;
-    private int flag;
     
     
     public BidDTO() {}
     
-    public BidDTO(int no, int userNo, int salesNO, int productPrice, int regdate,int flag) {
+    public BidDTO(int no, int userNo, int salesNO, int productPrice, int regdate) {
         this(userNo,salesNO,productPrice);
     	this.no = no;
         this.regdate = regdate;
-        this.flag = flag;
     }
     
     

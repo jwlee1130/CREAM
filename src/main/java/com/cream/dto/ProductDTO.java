@@ -13,10 +13,12 @@ public class ProductDTO {
     private String modelNumber;
     private String regdate;
     private int salesQuantity;
-
+    private ProductImgDTO productImg;
+    
+    
     public ProductDTO() {}
 
-    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo , String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo , String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity, ProductImgDTO productImg) {
         this.no = no;
         this.brandNo = brandNo;
         this.categoryNo = categoryNo;
@@ -29,10 +31,11 @@ public class ProductDTO {
         this.modelNumber = modelNumber;
         this.regdate = regdate;
         this.salesQuantity = salesQuantity;
+        this.productImg = productImg;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getNo() { return no; }
+    public void setNo(int no) { this.no = no; }
 
     public int getBrandNo() { return brandNo; }
     public void setBrandNo(int brandNo) { this.brandNo = brandNo; }
@@ -64,6 +67,14 @@ public class ProductDTO {
     public String getRegdate() { return regdate; }
     public void setRegdate(String regdate) { this.regdate = regdate; }
 
-    public int getSalesQuantity() { return salesQuantity; }
+    public ProductImgDTO getProductImg() {
+		return productImg;
+	}
+
+	public void setProductImg(ProductImgDTO productImg) {
+		this.productImg = productImg;
+	}
+
+	public int getSalesQuantity() { return salesQuantity; }
     public void setSalesQuantity(int salesQuantity) { this.salesQuantity = salesQuantity; }
 }

@@ -159,7 +159,7 @@ public class AdminDAOImpl implements AdminDAO {
             if (rs.next()) {
                 // ProductDTO 객체에 결과 세팅
                 recommendedProduct = new ProductDTO();
-                recommendedProduct.setId(rs.getInt("no"));
+                recommendedProduct.setNo(rs.getInt("no"));
                 recommendedProduct.setBrandNo(rs.getInt("brand_no"));
                 recommendedProduct.setCategoryNo(rs.getInt("category_no"));
                 recommendedProduct.setShoesNo(rs.getInt("shoes_no"));

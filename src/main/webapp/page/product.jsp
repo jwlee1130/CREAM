@@ -1,18 +1,20 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Product</title>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/product.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
 <div class="container">
     <div class="item-wrapper">
         <div class="item-image">
-            <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/shoes1.png"  style="width: 525px; height: 525px;">
+            <img src="${productDetail.productImg.filePath}"  style="width: 525px; height: 525px;">
         </div>
         <div class="item-description">
             <div class="item-price">
@@ -20,8 +22,8 @@
                 <h1>219,000</h1>
             </div>
             <div class="item-name">
-                <h2>This area for shoes English product name</h2>
-                <h2>여기는 신발 한글 제품명이 나오는곳이에요</h2>
+                <h2>${productDetail.engName}</h2>
+                <h2>${productDetail.korName}</h2>
             </div>
             <div class="item-detail">
                 <ul>
@@ -31,19 +33,15 @@
                     </li>
                     <li class="item-detail-content">
                         <p>발매가</p>
-                        <span>180,000</span>
+                        <span>${productDetail.releasePrice}</span>
                     </li>
                     <li class="item-detail-content">
                         <p>모델 번호</p>
-                        <span>YUNSUNG-BAO-1557</span>
+                        <span>${productDetail.modelNumber}</span>
                     </li>
                     <li class="item-detail-content">
                         <p>출시일</p>
-                        <span>24/10/11</span>
-                    </li>
-                    <li class="item-detail-content">
-                        <p>대표 색상</p>
-                        <span>pale night</span>
+                        <span>${productDetail.release}</span>
                     </li>
                 </ul>
             </div>

@@ -138,6 +138,7 @@ public class UserDAOImpl implements UserDAO {
 		return 0;
 	}
 
+
 	@Override
 	public int insertSales(SalesDTO sales) throws SQLException {
 		// TODO Auto-generated method stub

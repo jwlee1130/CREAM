@@ -19,7 +19,7 @@ public class BidDAOImpl implements BidDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		//현재 입찰중인 유저 정보랑 가격 정보( 환불,알람용,입금액이 더 큰지)
-		String sql = "SELECT USER_NO, SALSE_NO, PRICE from BIDACCOUNT WHERE SALES_NO = ?";
+		String sql = "SELECT USER_NO, SALSE_NO, PRICE from BIDACCOUNT WHERE SALES_NO = ? AND FLAG =0";
 		
 		try {
 			ps=con.prepareStatement(sql);
@@ -35,7 +35,7 @@ public class BidDAOImpl implements BidDAO {
 					//기존 입찰자
 					BidDTO currentBidder = new BidDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3));
 					
-					setBidFlag(con,newBidder.getSalesNO()); //flag =1 설정 다른 유저 접근 못하게
+					setBidFlagOne(con,newBidder.getSalesNO()); //flag =1 설정 다른 유저 접근 못하게
 					checkBalance(con ,newBidder.getUserNo(), newBidder.getProductPrice());  //입찰유저가 돈 있는지 체크하면서 돈빼기
 					refundBidAmount(con,currentBidder.getUserNo(), currentBidder.getProductPrice());//현재 입찰자한테 돈 돌려주기
 					//알람주기
@@ -49,7 +49,7 @@ public class BidDAOImpl implements BidDAO {
 					//관리계좌 현재입찰자로 교체
 					updateAdminAccount(con, newBidder.getUserNo(), newBidder.getSalesNO(), newBidder.getProductPrice());
 					notifyDAO.insertNotify(new NotifyDTO(currentBidder.getUserNo(),currentBidder.getSalesNO(),"새로운 상위 입찰자가 등장했습니다. 다시 입찰해보세요!"));
-					
+					setBidFlagZero(con,newBidder.getSalesNO()); //flag =0 설정 다른 유저 접근 하게
 			}else {
 				throw new SQLException("입찰 할 수 없습니다.");
 			}
@@ -67,9 +67,33 @@ public class BidDAOImpl implements BidDAO {
 	/*
 	 * Flag ==1로 해서 1이면 접근 못하게
 	 */
-	public int setBidFlag(Connection con, int salesNO) throws SQLException {
+	public int setBidFlagOne(Connection con, int salesNO) throws SQLException {
 		PreparedStatement ps = null;
-		String sql = "UPDATE  BID SET  FLAG=1 WEHERE SALES_NO = ? AND FLAG = 0";	
+		String sql = "UPDATE  BIDACCOUNT SET  FLAG=1 WEHERE SALES_NO = ? AND FLAG = 0";	
+		int result = 0;
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, salesNO);
+			
+			result = ps.executeUpdate();
+			
+			if(result==0)
+				 throw new SQLException("입찰중인 유저가 있습니다");
+			
+		}catch(SQLException e){
+			  throw new SQLException("sql 오류");
+		}finally {
+			DbUtil.dbClose(ps);
+		}
+		return result;
+	}
+	
+	/*
+	 * Flag ==1인거 0으로 해서 접근 가능하게 하기
+	 */
+	public int setBidFlagZero(Connection con, int salesNO) throws SQLException {
+		PreparedStatement ps = null;
+		String sql = "UPDATE  BIDACCOUNT SET  FLAG=0 WEHERE SALES_NO = ? AND FLAG = 1";	
 		int result = 0;
 		try {
 			ps=con.prepareStatement(sql);

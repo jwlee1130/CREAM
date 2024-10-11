@@ -91,7 +91,7 @@
 
                     <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
                     <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
-                    <!-- 페이지네이션 불릿 -->
+                    <!-- 페이지네이션 불릿 -->	
                     <!--              <div class="swiper-pagination"></div>-->
                 </div>
             </section>
@@ -102,7 +102,7 @@
                 <div class="popular-list-wrapper">
                     <ul>
                         <li>
-                            <a href="${pageContext.request.contextPath}/page/product.jsp">
+                            <a href="front?key=product&methodName=detail&no=1">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
                                     <div class="item-brand">브랜드명</div>
@@ -112,7 +112,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/page/product.jsp">
+                            <a href="s/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
                                     <div class="item-brand">브랜드명</div>
