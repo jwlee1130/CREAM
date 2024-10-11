@@ -20,7 +20,7 @@ public class BidController implements Controller {
 		int price =  Integer.parseInt(request.getParameter("price"));
 		
 		//최고가 입찰가보다 낮으면 입찰하지 못함
-		BidDTO highestBid = bidService.getHighestBid(sales_no);
+		BidDTO highestBid = bidService.getHighestBid(new BidDTO(user_no,sales_no,price));
 		if(price < highestBid.getProductPrice()) {
 				request.setAttribute("errorMSG", "입찰금액보다 적습니다");
 				return new ModelAndView("error.jsp",true);
