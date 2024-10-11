@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
-import com.cream.dto.UserDTO;
 import com.cream.util.DbUtil;
 
 public class BidDAOImpl implements BidDAO {

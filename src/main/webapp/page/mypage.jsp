@@ -91,7 +91,7 @@
 	        url: '${pageContext.request.contextPath}/ajax',
 	        method: 'GET',
 	        data: {
-	            key: 'user',
+	            key: 'userAjax',
 	            methodName: 'selectWishlist'
 	        },
 	        dataType: "json",
@@ -121,7 +121,7 @@
             url: '${pageContext.request.contextPath}/ajax',
             method: 'POST',
             data: {
-                key: 'user',
+                key: 'userAjax',
                 methodName: 'deleteWishlist',
                 product_no: productNo
             },
@@ -143,7 +143,7 @@
         url: '${pageContext.request.contextPath}/ajax',
         method: 'GET',
         data: {
-            key: 'user',
+            key: 'userAjax',
             methodName: 'salesByUserNo'
         },
         dataType: "json",
@@ -193,7 +193,7 @@
             url: '${pageContext.request.contextPath}/ajax',
             method: 'POST',
             data: {
-                key: 'user',
+                key: 'userAjax',
                 methodName: 'insertSales',
                 productNo: salesData.productNo,
                 startingPrice: salesData.startingPrice,

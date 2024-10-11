@@ -1,11 +1,13 @@
 package com.cream.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
+import com.cream.service.UserService;
 import com.cream.service.UserServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,66 +17,60 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 public class UserAjaxController implements RestController {
-    UserServiceImpl service = new UserServiceImpl();
+    UserService service = new UserServiceImpl();
 
-    public void selectWishlist(HttpServletRequest request, HttpServletResponse response) {
+    public Object selectWishlist(HttpServletRequest request, HttpServletResponse response) {
     	HttpSession session = request.getSession();
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-
+        List<ProductDTO> list = new ArrayList<ProductDTO>();
         try {
-            List<ProductDTO> wishlist = service.selectWishlist(loginUser.getNo());
+            list = service.selectWishlist(loginUser.getNo());
             
-            System.out.println(wishlist.size());
+            System.out.println(list.size());
             
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-            String jsonArr = gson.toJson(wishlist);
             
-            PrintWriter out = response.getWriter();
-            out.println(jsonArr);
             
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return list;
     }
     
-    public void deleteWishlist(HttpServletRequest request, HttpServletResponse response) {
+    public Object deleteWishlist(HttpServletRequest request, HttpServletResponse response) {
     	 HttpSession session = request.getSession();
     	    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-
+    	    
+    	    int result=0;
     	    try {
     	        int product_no = Integer.parseInt(request.getParameter("product_no"));
     	        
-    	        int result = service.deleteWishlist(loginUser.getNo(), product_no);
+    	        result = service.deleteWishlist(loginUser.getNo(), product_no);
     	        
-    	        PrintWriter out = response.getWriter();
-    			out.println(result);
     			
     	    } catch (Exception e) {
     	        e.printStackTrace();
     	    }
+			return result;
     }
-    public void salesByUserNo(HttpServletRequest request, HttpServletResponse response) {
+    public Object salesByUserNo(HttpServletRequest request, HttpServletResponse response) {
     	HttpSession session = request.getSession();
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-
+        List<SalesDTO> list = new ArrayList<SalesDTO>();
+        
         try {
-            List<SalesDTO> salesList = service.salesByUserNo(loginUser.getNo());
-
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-            String jsonArr = gson.toJson(salesList);
-            
-            PrintWriter out = response.getWriter();
-            out.println(jsonArr);
+        	list= service.salesByUserNo(loginUser.getNo());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return list;
     }
     
-    public void insertSales(HttpServletRequest request, HttpServletResponse response) {
+    public Object insertSales(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-
+        
+        int result=0;
         try {
             int productNo = Integer.parseInt(request.getParameter("productNo"));
             int startingPrice = Integer.parseInt(request.getParameter("startingPrice"));
@@ -92,14 +88,13 @@ public class UserAjaxController implements RestController {
             sales.setRegdate(regdate);
             sales.setGrade(grade);
 
-            int result = service.insertSales(sales);
-
-            PrintWriter out = response.getWriter();
-            out.println(result);
+            result = service.insertSales(sales);
             
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
+        
     }
 
 }
