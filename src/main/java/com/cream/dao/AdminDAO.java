@@ -6,7 +6,7 @@ import com.cream.dto.SurveyDTO;
 
 import java.sql.SQLException;
 import java.util.List;
-
+//  주석 테스트
 public interface AdminDAO {
 	/**
 	 * 	회원아이디삭제
