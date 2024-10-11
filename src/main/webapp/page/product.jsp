@@ -46,11 +46,12 @@
                 </ul>
             </div>
             <div class="item-transaction">
-                <div class="item-parchase">
-                    <span>구매</span>
-                    <p>217,000원 <br> 즉시 구매가</p>
-
-                </div>
+                <a href="#" id="show-modal">
+                    <div class="item-parchase">
+                        <span>구매</span>
+                        <p>217,000원 <br> 즉시 구매가</p>
+                    </div>
+                </a>
                 <div class="item-sell">
                     <span>판매</span>
                     <p>237,000원 <br> 즉시 판매가</p>
@@ -84,6 +85,139 @@
         </div>
     </div>
 </div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="240">240</button>
+                <button class="tab-button" data-tab="260">260</button>
+                <button class="tab-button" data-tab="280">280</button>
+            </div>
+            <div class="tab-content active" id="240">
+                <div class="tab-content-list">
+                    <ul>
+                        <li>
+                            <div class="list-inner">
+                                <span class="rank-a">A</span>
+                                <span>남은 시간 : 24:24:24</span>
+                                <span>즉시 구매 : 190,000 원</span>
+                                <span>현재 입찰가 : 150,000 </span>
+                                <button>구매/입찰</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-inner">
+                                <span class="rank-b">B</span>
+                                <span>남은 시간 : 24:24:24</span>
+                                <span>즉시 구매 : 190,000 원</span>
+                                <span>현재 입찰가 : 150,000 </span>
+                                <button>구매/입찰</button>
+                            </div>
+                        </li>
+                        <li><div class="list-inner">
+                            <span class="rank-c">C</span>
+                            <span>남은 시간 : 24:24:24</span>
+                            <span>즉시 구매 : 190,000 원</span>
+                            <span>현재 입찰가 : 150,000 </span>
+                            <button>구매/입찰</button>
+                        </div></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" id="260">
+                <div class="tab-content-list">
+                    <ul>
+                        <li><div class="list-inner">
+                            <span class="item-none">현재 해당 사이즈의 제품이 없습니다</span>
+                        </div></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" id="280">
+                <div class="tab-content-list">
+                    <!--            여기 뿌려야함-->
+                    <ul>
+                        <li>
+                            <div class="list-inner">
+                                <span class="rank-a">A</span>
+                                <span>남은 시간 : 24:24:24</span>
+                                <span>즉시 구매 : 190,000 원 /</span>
+                                <span>현재 입찰가 : 150,000 </span>
+                                <button>구매/입찰</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-inner">
+                                <span class="rank-a">A</span>
+                                <span>남은 시간 : 24:24:24</span>
+                                <span>즉시 구매 : 190,000 원 /</span>
+                                <span>현재 입찰가 : 150,000 </span>
+                                <button>구매/입찰</button>
+                            </div>
+                        </li>
+                        <li><div class="list-inner">
+                            <span class="rank-a">A</span>
+                            <span>남은 시간 : 24:24:24</span>
+                            <span>즉시 구매 : 190,000 원 /</span>
+                            <span>현재 입찰가 : 150,000 </span>
+                            <button>구매/입찰</button>
+                        </div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../includes/footer.jsp" />
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("modal");
+    const showModalButton = document.getElementById("show-modal");
+    const closeButton = document.querySelector(".close-button");
+
+    // 모달을 보여주는 함수
+    showModalButton.addEventListener("click", function (event) {
+      event.preventDefault(); // 링크 기본 동작 방지
+      modal.style.display = "block"; // 모달 표시
+    });
+
+    // 모달 닫기 버튼
+    closeButton.addEventListener("click", function () {
+      modal.style.display = "none"; // 모달 숨김
+    });
+
+
+
+    // 모달 외부 클릭 시 닫기
+    // window.addEventListener("click", function (event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none"; // 모달 숨김
+    //   }
+    // });
+  });
+
+</script>
+<script !src="">
+  document.addEventListener("DOMContentLoaded", function () {
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        const targetTab = this.getAttribute("data-tab");
+
+        // 모든 탭 버튼과 콘텐츠 비활성화
+        tabButtons.forEach(btn => btn.classList.remove("active"));
+        tabContents.forEach(content => content.classList.remove("active"));
+
+        // 클릭한 탭 버튼 활성화
+        this.classList.add("active");
+        document.getElementById(targetTab).classList.add("active");
+      });
+    });
+  });
+</script>
 </body>
 </html>
