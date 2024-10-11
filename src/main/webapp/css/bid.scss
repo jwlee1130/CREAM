@@ -1,0 +1,169 @@
+
+$background-color: #f8f9fa; // 배경색
+$accordion-header-bg: #e9ecef; // 탭 헤더 배경색
+$accordion-header-hover-bg: #ffa75e; // 탭 헤더 호버 색상
+$border-color: #ccc; // 경계선 색상
+$active-border-color: #007bff; // 활성화된 탭 하이라이트 색상
+
+*{
+  box-sizing: border-box;
+}
+.bid-container{
+  width: 100vw;
+  background-color: #c0c0c0;
+  padding: 2rem;
+  .bid-wrapper{
+    max-width: 1000px;
+    margin: auto;
+    padding: 2rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    .item-info{
+      display: flex;
+      align-items: center;
+      .item-logo{
+        margin-right: 2rem;
+        img{
+          width: 10rem;
+          height: 10rem;
+        }
+      }
+      .item-description{
+          h2{
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+          }
+          h3{
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+          }
+      }
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #666;
+      padding-bottom: 2rem;
+    }
+    .item-price{
+      display: flex;
+      justify-content: space-around;
+      .current-price{
+        p{
+          color: gray;
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+        span{
+          font-size: 1.5rem;
+        }
+        border-right: 1px solid #333;
+        padding-right: 14rem;
+      }
+      .instant-price{
+        p{
+          color: gray;
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+
+        }
+        span{
+          font-size: 1.5rem;
+        }
+      }
+      margin-bottom: 2rem;
+    }
+    .time-left{
+      padding: 2rem;
+      border : 2px solid #ff4b4b;
+      border-radius: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      p{
+        color: #ff4b4b;
+        font-size: 2rem;
+      }
+    }
+    .tabs-container {
+      margin: 2rem auto; // 가운데 정렬
+      background: #fff; // 흰색 배경
+      border-radius: 5px; // 모서리 둥글게
+      width: 100%;
+      .tabs {
+        display: flex; // 플렉스박스 사용
+        border-bottom: 1px solid $border-color; // 탭 간 경계선
+        padding-bottom: 2rem;
+        .tab-button {
+          flex: 1;
+          padding: 1rem; // 패딩
+          background: transparent; // 배경 없음
+          border: none; // 테두리 없음
+          cursor: pointer; // 커서 모양 변경
+          font-size: 1rem; // 글자 크기
+          transition: background 0.2s; // 배경 전환 효과
+          border-radius: 1rem;
+          margin: 0 0.5rem;
+          &:hover {
+            background-color: $accordion-header-hover-bg; // 호버 시 배경색 변화
+          }
+
+          &.active {
+            background-color: $accordion-header-hover-bg;
+            font-weight: bold; // 활성화된 탭 글씨 두껍게
+          }
+        }
+      }
+
+      .tab-content {
+        padding: 2rem; // 패딩
+        display: none; // 기본적으로 숨김
+        .tab-content-parchase{
+          font-size: 1.5rem;
+          font-weight: bold;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          border-bottom: 1px solid #333;
+          padding-bottom: 2rem;
+          margin-bottom: 2rem;
+          input{
+            box-sizing: border-box;
+            font-size: 1.2rem;
+            border : none;
+            border-bottom: 2px solid #888; // 기본 테두리 색상
+            border-radius: 0; // 각진 모서리
+            &:focus {
+              border: none; // 기본 테두리 제거
+              border-bottom: 2px solid black; // 포커스 시 아래쪽 테두리 색상 변경
+              outline: none; // 기본 포커스 아웃라인 제거            }
+            }
+            margin-right: 1rem;
+            }
+
+        }
+
+        .tab-content-total{
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2rem;
+        }
+        .instant-parchase-btn{
+          border-radius: 1rem;
+          padding: 1rem 2rem;
+          color: white;
+          background-color: #222222;
+          width: 100%;
+          text-align: center;
+          align-content: center;
+        }
+        &.active {
+          display: block; // 활성화된 콘텐츠 표시
+        }
+      }
+    }
+
+  }
+}
+

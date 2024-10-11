@@ -3,18 +3,24 @@ package com.cream.dto;
 public class BidDTO {
     private int no;
     private int userNo;
-    private int salesId;
+    private int salesNO;
     private int productPrice;
     private int regdate;
-
+    
+    
     public BidDTO() {}
-
-    public BidDTO(int no, int userNo, int salesId, int productPrice, int regdate) {
-        this.no = no;
-        this.userNo = userNo;
-        this.salesId = salesId;
-        this.productPrice = productPrice;
+    
+    public BidDTO(int no, int userNo, int salesNO, int productPrice, int regdate) {
+        this(userNo,salesNO,productPrice);
+    	this.no = no;
         this.regdate = regdate;
+    }
+    
+    
+    public BidDTO(int userNo, int salesNO, int productPrice) {
+        this.userNo = userNo;
+        this.salesNO = salesNO;
+        this.productPrice = productPrice;
     }
 
     public int getNo() { return no; }
@@ -23,8 +29,8 @@ public class BidDTO {
     public int getUserNo() { return userNo; }
     public void setUserNo(int userNo) { this.userNo = userNo; }
 
-    public int getSalesId() { return salesId; }
-    public void setSalesId(int salesId) { this.salesId = salesId; }
+    public int getSalesNO() { return salesNO; }
+    public void setSalesNO(int userNo) { this.salesNO = userNo; }
 
     public int getProductPrice() { return productPrice; }
     public void setProductPrice(int productPrice) { this.productPrice = productPrice; }

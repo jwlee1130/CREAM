@@ -7,17 +7,18 @@ public class BidAccountDTO {
     private int userNo;    // 사용자 번호
     private int salesId;   // 판매 ID
     private int price;     // 입찰 금액
-
+    private int flag;
     // 기본 생성자
     public BidAccountDTO() {}
 
     // 모든 필드를 받는 생성자
-    public BidAccountDTO(int no, int bidNo, int userNo, int salesId, int price) {
+    public BidAccountDTO(int no, int bidNo, int userNo, int salesId, int price,int flag) {
         this.no = no;
         this.bidNo = bidNo;
         this.userNo = userNo;
         this.salesId = salesId;
         this.price = price;
+        this.flag = flag;
     }
 
     // Getter 및 Setter 메소드

@@ -139,7 +139,7 @@
 
                     <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
                     <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
-                    <!-- 페이지네이션 불릿 -->
+                    <!-- 페이지네이션 불릿 -->	
                     <!--              <div class="swiper-pagination"></div>-->
                 </div>
             </section>
@@ -148,6 +148,48 @@
                 <h2>Most Popular</h2>
                 <h4>인기 상품</h4>
                 <div class="popular-list-wrapper">
+                    <ul>
+                        <li>
+                            <a href="front?key=product&methodName=detail&no=1">
+                                <div class="popular-item">
+                                    <div class="item-image">이미지</div>
+                                    <div class="item-brand">브랜드명</div>
+                                    <p class="item-description">브랜드 설명 들어가는곳</p>
+                                    <div class="item-price">가격쓰는곳</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="s/page/product.jsp">
+                                <div class="popular-item">
+                                    <div class="item-image">이미지</div>
+                                    <div class="item-brand">브랜드명</div>
+                                    <p class="item-description">브랜드 설명 들어가는곳</p>
+                                    <div class="item-price">가격쓰는곳</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/page/product.jsp">
+                                <div class="popular-item">
+                                    <div class="item-image">이미지</div>
+                                    <div class="item-brand">브랜드명</div>
+                                    <p class="item-description">브랜드 설명 들어가는곳</p>
+                                    <div class="item-price">가격쓰는곳</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/page/product.jsp">
+                                <div class="popular-item">
+                                    <div class="item-image">이미지</div>
+                                    <div class="item-brand">브랜드명</div>
+                                    <p class="item-description">브랜드 설명 들어가는곳</p>
+                                    <div class="item-price">가격쓰는곳</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
 
                 </div>
                 <div class="more-button">
@@ -160,5 +202,6 @@
 <jsp:include page="./includes/footer.jsp" />
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </body>
 </html>

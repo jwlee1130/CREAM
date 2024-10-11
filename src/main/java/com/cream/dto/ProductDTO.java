@@ -1,38 +1,68 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class ProductDTO {
-    private int id;
+
+	@Expose private int no;
     private int brandNo;
     private int categoryNo;
     private int shoesNo;
     private int colorNo;
-    private String engName;
+    @Expose private String engName;
     private String korName;
     private String release;
-    private int releasePrice;
+    @Expose private int releasePrice;
     private String modelNumber;
     private String regdate;
     private int salesQuantity;
+    private ProductImgDTO productImg;
+    
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
+			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity ) {
+		this.no = no;
+		this.brandNo = brandNo;
+		this.categoryNo = categoryNo;
+		this.shoesNo = shoesNo;
+		this.colorNo = colorNo;
+		this.engName = engName;
+		this.korName = korName;
+		this.release = release;
+		this.releasePrice = releasePrice;
+		this.modelNumber = modelNumber;
+		this.regdate = regdate;
+		this.salesQuantity = salesQuantity;
+	}
 
-    public ProductDTO() {}
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
+			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
+			ProductImgDTO productImg) {
+		this.no = no;
+		this.brandNo = brandNo;
+		this.categoryNo = categoryNo;
+		this.shoesNo = shoesNo;
+		this.colorNo = colorNo;
+		this.engName = engName;
+		this.korName = korName;
+		this.release = release;
+		this.releasePrice = releasePrice;
+		this.modelNumber = modelNumber;
+		this.regdate = regdate;
+		this.salesQuantity = salesQuantity;
+		this.productImg = productImg;
+	}
 
-    public ProductDTO(int id, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
-        this.id = id;
-        this.brandNo = brandNo;
-        this.categoryNo = categoryNo;
-        this.shoesNo = shoesNo;
-        this.colorNo = colorNo;
-        this.engName = engName;
-        this.korName = korName;
-        this.release = release;
-        this.releasePrice = releasePrice;
-        this.modelNumber = modelNumber;
-        this.regdate = regdate;
-        this.salesQuantity = salesQuantity;
-    }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+
+
+
+	public ProductDTO() {}
+
+
+
+
+    public int getNo() { return no; }
+    public void setNo(int no) { this.no = no; }
 
     public int getBrandNo() { return brandNo; }
     public void setBrandNo(int brandNo) { this.brandNo = brandNo; }
@@ -64,6 +94,14 @@ public class ProductDTO {
     public String getRegdate() { return regdate; }
     public void setRegdate(String regdate) { this.regdate = regdate; }
 
-    public int getSalesQuantity() { return salesQuantity; }
+    public ProductImgDTO getProductImg() {
+		return productImg;
+	}
+
+	public void setProductImg(ProductImgDTO productImg) {
+		this.productImg = productImg;
+	}
+
+	public int getSalesQuantity() { return salesQuantity; }
     public void setSalesQuantity(int salesQuantity) { this.salesQuantity = salesQuantity; }
 }

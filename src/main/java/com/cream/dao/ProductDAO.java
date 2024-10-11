@@ -26,5 +26,11 @@ public interface ProductDAO {
 	 * 	상품 영어검색
 	 * */
 	List<ProductDTO> searchProductEng(String productName) throws SQLException;
+
+	
+	ProductDTO detail(int productNo) throws SQLException;
+
+
+
 	
 }

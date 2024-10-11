@@ -1,9 +1,5 @@
 package com.cream.controller;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -12,6 +8,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @WebServlet(urlPatterns = "/front",loadOnStartup = 1)
 @MultipartConfig( //어노테이션을 통해  서블릿이 파일 업로드 기능을 할 수 있도록 웹 컨테이너에 지시
@@ -40,8 +41,8 @@ public class DispatcherServlet extends HttpServlet {
 		
 			String key = request.getParameter("key");
 			String methodName = request.getParameter("methodName");
-			System.out.println("key : " + key + ", methodName : " + methodName);
-			
+			System.out.println("sadsad: " + key + ", asdas : " + methodName);
+			System.out.println(map.get(key)+"맵 키");
 			try {
 				Controller con = map.get(key);
 				Class<?> className = classMap.get(key);
@@ -57,6 +58,7 @@ public class DispatcherServlet extends HttpServlet {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+				System.out.println("오류났어");
 			}
 			
 			

@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <title>Title</title>
@@ -8,10 +9,18 @@
 <div class="header">
     <div class="header-wrapper">
         <div class="header-top">
+       
             <a href="#">고객</a>
             <a href="${pageContext.request.contextPath}/page/mypage.jsp">마이페이지</a>
             <a href="#">알림</a>
-            <a href="${pageContext.request.contextPath}/page/login.jsp">로그인</a>
+                     
+            <c:if test="${sessionScope.loginUser != null}">
+			    <a>${sessionScope.loginUser.userId}님, 환영합니다!</a>
+			    <a href="${pageContext.request.contextPath}/front?key=user&methodName=logout" class="btn btn-danger">Logout</a>
+			</c:if>
+			<c:if test="${sessionScope.loginUser == null}">
+			    <a href="${pageContext.request.contextPath}/page/login.jsp">로그인</a>
+			</c:if>
         </div>
         <div class="header-main">
             <div class="logo">

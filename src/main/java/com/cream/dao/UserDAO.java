@@ -68,7 +68,12 @@ public interface UserDAO {
 	int deleteWishlist(int user_no, int product_no) throws SQLException;
 
 	// 누락된 항목 있음->노션 보고 추가하기
-
+	
+	/**
+	 * 	판매등록 조회
+	 * */
+	List<SalesDTO> salesByUserNo(int user_no) throws SQLException;
+	
 	/**
 	 * 	판매 등록
 	 * */

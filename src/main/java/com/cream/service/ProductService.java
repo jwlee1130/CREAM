@@ -28,4 +28,8 @@ public interface ProductService {
 	 */
 	List<ProductDTO> searchProductEng(String keyword)throws SQLException;
 	
+	/*
+	 * 상품 상세보기
+	 */
+	ProductDTO detail(int productNo) throws SQLException;
 }
