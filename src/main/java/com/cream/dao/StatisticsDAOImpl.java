@@ -117,7 +117,6 @@ public class StatisticsDAOImpl implements StatisticsDAO
     SELECT SUM(price) AS TOTAL_SALES
     FROM PURCHASE
     WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);
-
      */
     @Override
     public Map<String, Integer> getTotalSalesData(int period) throws SQLException
@@ -158,7 +157,6 @@ public class StatisticsDAOImpl implements StatisticsDAO
     GROUP BY s.brand
     ORDER BY pop DESC
     LIMIT 3;
-
      */
 
     @Override
@@ -205,7 +203,6 @@ public class StatisticsDAOImpl implements StatisticsDAO
     GROUP BY s.color
     ORDER BY popularity DESC
     LIMIT 3;
-
      */
     @Override
     public Map<String, Integer> getTop3ColorsFromSurvey() throws SQLException {
