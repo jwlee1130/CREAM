@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>Product</title>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/product.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -20,8 +20,8 @@
                 <h1>219,000</h1>
             </div>
             <div class="item-name">
-                <h2>This area for shoes English product name</h2>
-                <h2>여기는 신발 한글 제품명이 나오는곳이에요</h2>
+                <h2>${product.engName}</h2>
+                <h2>${product.korName}</h2>
             </div>
             <div class="item-detail">
                 <ul>

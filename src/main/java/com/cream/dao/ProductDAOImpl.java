@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -16,7 +17,7 @@ public class ProductDAOImpl implements ProductDAO {
 	private Properties proFile = new Properties();
 	
 	public ProductDAOImpl() {
-		
+		System.out.println("DAOImpl 생성자 호출...");	
 		try {
 			InputStream is = getClass().getClassLoader().getResourceAsStream("dbQuery.properties");
 			proFile.load(is);
@@ -24,6 +25,7 @@ public class ProductDAOImpl implements ProductDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
@@ -33,7 +35,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<ProductDTO> productList = null;
+		List<ProductDTO> productList = new ArrayList<ProductDTO>();
 		String sql = proFile.getProperty("query.selectAllProduct"); //SELECT * FROM PRODUCT
 		
 		try {
@@ -44,18 +46,47 @@ public class ProductDAOImpl implements ProductDAO {
 			
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), 
-													rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), 
-													rs.getInt(10), rs.getString(11), rs.getString(12), rs.getInt(13));
+													rs.getString(6), rs.getString(7), rs.getString(8), 
+													rs.getInt(9), rs.getString(10), rs.getString(11), rs.getInt(12));
 				productList.add(product);
 			}
 	
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
-		System.out.println(productList);
 		return productList;
 	}
 
+	
+	@Override
+	public ProductDTO searchByProductId(int productId) throws SQLException {
+		// 상품 ID로 검색
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ProductDTO product = null;
+		String sql = proFile.getProperty("query.searchByProductId"); //SELECT * FROM PRODUCT WHERE NO=?
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, productId);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), 
+													rs.getString(6), rs.getString(7), rs.getString(8), 
+													rs.getInt(9), rs.getString(10), rs.getString(11), rs.getInt(12));
+			}
+	
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return product;
+	}
+	
+	
+	
 	@Override
 	public List<ProductDTO> searchProductKor(String productName) throws SQLException {
 		// 상품 한글 검색
@@ -67,5 +98,6 @@ public class ProductDAOImpl implements ProductDAO {
 		// 상품 영어 검색
 		return null;
 	}
+
 
 }

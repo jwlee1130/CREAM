@@ -12,6 +12,11 @@ public interface ProductDAO {
 	List<ProductDTO> selectAllProduct() throws SQLException;
 	
 	/**
+	 * 	상품 ID로 검색
+	 * */
+	ProductDTO searchByProductId(int productId) throws SQLException;
+	
+	/**
 	 * 	상품 한글검색
 	 * */
 	List<ProductDTO> searchProductKor(String productName) throws SQLException;

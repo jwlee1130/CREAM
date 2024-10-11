@@ -51,7 +51,7 @@ public class DispatcherServlet extends HttpServlet {
 				if(mv.isRedirect()) {
 					response.sendRedirect(mv.getUrl());
 				}else {
-					request.getRequestDispatcher(mv.getUrl()).forward(request, response);;
+					request.getRequestDispatcher(mv.getUrl()).forward(request, response);
 
 				}
 				

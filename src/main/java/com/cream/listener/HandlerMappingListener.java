@@ -9,6 +9,7 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import com.cream.controller.Controller;
+import com.cream.controller.RestController;
 
 @WebListener
 public class HandlerMappingListener implements ServletContextListener {
@@ -17,11 +18,16 @@ public class HandlerMappingListener implements ServletContextListener {
 	public void  contextInitialized(ServletContextEvent se) {
 		Map<String,Class<?>> classMap = new HashMap<String, Class<?>>();
 		Map<String,Controller> map = new HashMap<>();
+		
+		Map<String, RestController> ajaxMap = new HashMap<>();
+		Map<String,Class<?>> ajaxclzMap = new HashMap<String, Class<?>>();
 
 		Map<String,String> sqlMap = new HashMap<String, String>();
 		
 		ResourceBundle rb = ResourceBundle.getBundle("actionMapping");
 		ResourceBundle rbSql = ResourceBundle.getBundle("dbQuery");
+		
+		ResourceBundle ajaxRb = ResourceBundle.getBundle("ajaxMapping");
 
 		try {
 			for(String key :rb.keySet()) {
@@ -38,6 +44,14 @@ public class HandlerMappingListener implements ServletContextListener {
 				sqlMap.put(key, value);
 			}
 			
+			for(String key :ajaxRb.keySet()) {
+				String value = ajaxRb.getString(key);
+				Class<?> className = Class.forName(value);
+				RestController con = (RestController) className.getDeclaredConstructor().newInstance();
+				ajaxclzMap.put(key, className);
+				ajaxMap.put(key, con);
+			}
+			
 			
 		} catch (Exception e) {
 					e.printStackTrace();
@@ -48,12 +62,10 @@ public class HandlerMappingListener implements ServletContextListener {
 		application.setAttribute("sqlMap", sqlMap);	
 		application.setAttribute("map", map);	
 		application.setAttribute("path", application.getContextPath());
-			
-
+		
+		application.setAttribute("ajaxclzMap", ajaxclzMap);	
+		application.setAttribute("ajaxMap", ajaxMap);	
+		
 	}
 		
-		
-
-	
-	
 }
