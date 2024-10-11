@@ -1,7 +1,7 @@
 package com.cream.dto;
 
 public class ProductDTO {
-    private int id;
+    private int no;
     private int brandNo;
     private int categoryNo;
     private int shoesNo;
@@ -16,8 +16,8 @@ public class ProductDTO {
 
     public ProductDTO() {}
 
-    public ProductDTO(int id, int brandNo, int categoryNo, int shoesNo, int colorNo , String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
-        this.id = id;
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo , String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
+        this.no = no;
         this.brandNo = brandNo;
         this.categoryNo = categoryNo;
         this.shoesNo = shoesNo;
