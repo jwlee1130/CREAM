@@ -81,20 +81,20 @@ public class UserDAOImpl implements UserDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 	            dbDTO = new UserDTO(
-	                rs.getInt("NO"),
-	                rs.getInt("RANK_NO"),
-	                rs.getString("USER_ID"),
-	                rs.getString("NAME"),
-	                rs.getString("USER_EMAIL"),
-	                rs.getString("USER_PW"),
-	                rs.getString("HP"),
-	                rs.getString("NICKNAME"),
-	                rs.getInt("SHOES_SIZE"),
-	                rs.getDate("REGDATE"),
-	                rs.getInt("SHOECREAM"),
-	                rs.getString("GENDER"),
-	                rs.getInt("AGE"),
-	                rs.getString("ADDRESS")
+	                rs.getInt(1),
+	                rs.getInt(2),
+	                rs.getString(3),
+	                rs.getString(4),
+	                rs.getString(5),
+	                rs.getString(6),
+	                rs.getString(7),
+	                rs.getString(8),
+	                rs.getInt(9),
+	                rs.getString(10),
+	                rs.getInt(11),
+	                rs.getString(12),
+	                rs.getInt(13),
+	                rs.getString(14)
 	            );
 	        }
 			

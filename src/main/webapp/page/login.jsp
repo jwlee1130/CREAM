@@ -18,7 +18,7 @@
                 <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/logo.png" alt="로고">
             </div>
             <form class="login-form" action="${pageContext.request.contextPath}/front" method="post">
-            	<input type="hidden" name="key" value="user">
+            	<input type="hidden" name="key" value="user1">
    			 	<input type="hidden" name="methodName" value="login">
                 <div class="form-group">
                     <label for="username">아이디</label>

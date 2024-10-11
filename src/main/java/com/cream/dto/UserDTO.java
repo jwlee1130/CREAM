@@ -1,6 +1,5 @@
 package com.cream.dto;
 
-import java.sql.Date;
 
 public class UserDTO {
 	private int no;

@@ -9,9 +9,11 @@
 <div class="header">
     <div class="header-wrapper">
         <div class="header-top">
+       
             <a href="#">고객</a>
             <a href="${pageContext.request.contextPath}/page/mypage.jsp">마이페이지</a>
             <a href="#">알림</a>
+                     
             <c:if test="${sessionScope.loginUser != null}">
 			    <a>${sessionScope.loginUser.userId}님, 환영합니다!</a>
 			    <a href="${pageContext.request.contextPath}/front?key=user&methodName=logout" class="btn btn-danger">Logout</a>
