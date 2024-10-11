@@ -37,8 +37,9 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public int register(UserDTO user) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		//  db에 사용자 등록 하자
+		
+		return 1;
 	}
 
 	@Override

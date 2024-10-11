@@ -13,7 +13,7 @@ public interface UserService {
 	/**
 	 * 회원가입
 	 */
-	 UserDTO register(UserDTO user) throws SQLException, AuthenticationException;
+	 int register(UserDTO user) throws SQLException, AuthenticationException;
 	
 	/**
 	 * 로그인 체크
