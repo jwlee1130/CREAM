@@ -73,14 +73,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int deleteWishlist(int user_no, int product_no) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = dao.deleteWishlist(user_no, product_no);
+		return result;
+	}
+	
+	
+
+	@Override
+	public List<SalesDTO> salesByUserNo(int user_no) throws SQLException {
+		List<SalesDTO> list= dao.salesByUserNo(user_no);
+		return list;
 	}
 
 	@Override
 	public int insertSales(SalesDTO sales) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = dao.insertSales(sales);
+		return result;
 	}
 	
 	

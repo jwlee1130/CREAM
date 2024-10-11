@@ -154,9 +154,6 @@ public class UserDAOImpl implements UserDAO {
             ps.setInt(2, product_no);
 
             result = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("관심상품 추가 중 오류 발생");
         } finally {
         	DbUtil.dbClose(con, ps);
         }
@@ -182,7 +179,7 @@ public class UserDAOImpl implements UserDAO {
 
 	        while (rs.next()) {
 	            ProductDTO product = new ProductDTO();
-	            product.setBrandNo(rs.getInt("BRAND_NO"));
+	            product.setNo(rs.getInt("NO"));
 	            product.setEngName(rs.getString("ENG_NAME"));
 	            product.setReleasePrice(rs.getInt("RELEASE_PRICE"));
 
@@ -196,14 +193,98 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int deleteWishlist(int user_no, int product_no) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    int result = 0;
+
+	    String sql = proFile.getProperty("query.deleteWishlist");
+	    try {
+	        con = DbUtil.getConnection();
+	        ps = con.prepareStatement(sql);
+	        ps.setInt(1, user_no);
+	        ps.setInt(2, product_no);
+	        
+	        System.out.println("Executing query: " + sql);
+	        System.out.println("User no: " + user_no + ", Product no: " + product_no);
+
+	        result = ps.executeUpdate();
+	        System.out.println("Rows affected: " + result);
+	    }finally {
+	        DbUtil.dbClose(con, ps);
+	    }
+	    return result;
 	}
+	
+	
+	
+
+	@Override
+	public List<SalesDTO> salesByUserNo(int user_no) throws SQLException {
+		Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    List<SalesDTO> list = new ArrayList<>();
+
+	    String sql = proFile.getProperty("query.salesByUserNo");
+
+	    try {
+	        con = DbUtil.getConnection();
+	        ps = con.prepareStatement(sql);
+	        ps.setInt(1, user_no);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            SalesDTO sales = new SalesDTO();
+	            sales.setNo(rs.getInt("NO"));
+	            sales.setUserNo(rs.getInt("USER_NO"));
+	            sales.setProductNo(rs.getInt("PRODUCT_NO"));
+	            sales.setStartingPrice(rs.getInt("STARTING_PRICE"));
+	            sales.setNowPrice(rs.getInt("NOW_PRICE"));
+	            sales.setSalesStatus(rs.getInt("SALES_STATUS"));
+	            sales.setRegdate(rs.getString("REGDATE"));
+	            sales.setGrade(rs.getString("GRADE").charAt(0));
+	            
+	            ProductDTO product = new ProductDTO();
+	            product.setEngName(rs.getString("ENG_NAME"));
+	            sales.setProduct(product);
+
+	            list.add(sales);
+	        }
+	    } finally {
+	        DbUtil.dbClose(con, ps, rs);
+	    }
+
+	    return list;
+	}
+
 
 	@Override
 	public int insertSales(SalesDTO sales) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = null;
+	    PreparedStatement ps = null;
+	    int result = 0;
+
+	    String sql = proFile.getProperty("query.insertSales");
+	    
+	    try {
+	        con = DbUtil.getConnection();
+	        ps = con.prepareStatement(sql);
+
+	        ps.setInt(1, sales.getUserNo());
+	        ps.setInt(2, sales.getProductNo());
+	        ps.setInt(3, sales.getStartingPrice());
+	        ps.setInt(4, sales.getNowPrice());
+	        ps.setInt(5, sales.getSalesStatus());
+	        ps.setString(6, String.valueOf(sales.getGrade()));
+
+	        result = ps.executeUpdate();
+	        System.out.println("Sales record inserted successfully with result: " + result);
+
+	    } finally {
+	        DbUtil.dbClose(con, ps);
+	    }
+
+	    return result;
 	}
 	
 }

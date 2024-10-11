@@ -1,16 +1,18 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class ProductDTO {
-    private int id;
+	@Expose private int no;
     private int brandNo;
     private int categoryNo;
     private int shoesNo;
     private int colorNo;
     private String categoty;
-    private String engName;
+    @Expose private String engName;
     private String korName;
     private String release;
-    private int releasePrice;
+    @Expose private int releasePrice;
     private String modelNumber;
     private String regdate;
     private int salesQuantity;
@@ -19,8 +21,8 @@ public class ProductDTO {
 
     public ProductDTO() {}
 
-    public ProductDTO(int id, int brandNo, int categoryNo, int shoesNo, int colorNo, String categoty, String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
-        this.id = id;
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String categoty, String engName, String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity) {
+        this.no = no;
         this.brandNo = brandNo;
         this.categoryNo = categoryNo;
         this.shoesNo = shoesNo;
@@ -42,8 +44,8 @@ public class ProductDTO {
         this.productImgDTO = productImgDTO;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getNo() { return no; }
+    public void setNo(int no) { this.no = no; }
 
     public int getBrandNo() { return brandNo; }
     public void setBrandNo(int brandNo) { this.brandNo = brandNo; }
