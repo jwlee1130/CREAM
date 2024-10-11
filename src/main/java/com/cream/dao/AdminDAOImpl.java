@@ -156,7 +156,8 @@ public class AdminDAOImpl implements AdminDAO {
 
             rs = ps.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next())
+            {
                 // ProductDTO 객체에 결과 세팅
                 recommendedProduct = new ProductDTO();
                 recommendedProduct.setNo(rs.getInt("no"));
@@ -172,7 +173,9 @@ public class AdminDAOImpl implements AdminDAO {
                 recommendedProduct.setRegdate(rs.getString("regdate"));
                 recommendedProduct.setSalesQuantity(rs.getInt("sales_quantity"));
             }
-        } finally {
+        }
+        finally
+        {
             DbUtil.dbClose(conn, ps, rs);
         }
 

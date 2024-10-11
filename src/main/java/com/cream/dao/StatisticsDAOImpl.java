@@ -12,20 +12,32 @@ import java.util.Map;
 public class StatisticsDAOImpl implements StatisticsDAO
 {
 
+    /*
+    SELECT p.eng_name, COUNT(pur.product_no) AS TOTAL_SALES
+    FROM PURCHASE pur
+    JOIN PRODUCT p ON pur.product_no = p.no
+    JOIN USERS u ON pur.user_no = u.no
+    WHERE u.gender = '여'
+    AND pur.regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    GROUP BY p.eng_name
+    ORDER BY TOTAL_SALES DESC
+    LIMIT 3;
+
+     */
     @Override
     public Map<String, Integer> getTop3ItemsByGender(String gender, int period) throws SQLException
     {
-       String sql="select p.eng_name, count(pur.product_no) as total_sales "+
-       "from purchase pur "+
-               "join product p on pur.product_no=p.no "+
-               "join users u on pur.user_no=u.no"+
-               "where u.gender = ? "+
-               "and pur.regdate >= date_sub(curdate(),interval ? day) "+
-               "group by p.eng_name "+
-               "order by total_sales desc"+
-               "limit 3";
+        String sql = "SELECT p.eng_name, COUNT(pur.product_no) AS TOTAL_SALES " +
+                "FROM PURCHASE pur " +
+                "JOIN PRODUCT p ON pur.product_no = p.no " +
+                "JOIN USERS u ON pur.user_no = u.no " +
+                "WHERE u.gender = ? " +
+                "AND pur.regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
+                "GROUP BY p.eng_name " +
+                "ORDER BY TOTAL_SALES DESC " +
+                "LIMIT 3";
 
-       Map<String,Integer> topItems=new HashMap<>();
+        Map<String,Integer> topItems=new HashMap<>();
 
        Connection conn=null;
        PreparedStatement ps=null;
@@ -54,14 +66,23 @@ public class StatisticsDAOImpl implements StatisticsDAO
        return topItems;
     }
 
+    /*
+    SELECT regdate, SUM(price) AS DAILY_SALES
+    FROM PURCHASE
+    WHERE product_no = 1 AND regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    GROUP BY regdate
+    ORDER BY regdate ASC;
+
+     */
     @Override
     public Map<String, Integer> getSalesData(int productNo, int period) throws SQLException
     {
-        String sql="select regdate,sum(price) as daily_sales "+
-                "from purchases "+
-                "where productNo=? and regdate>=date_sub(curdate(),interval ? day)"+
-                "group by regdate"+
-                "order by regdate asc";
+        String sql = "SELECT regdate, SUM(price) AS DAILY_SALES " +
+                "FROM PURCHASE " +
+                "WHERE product_no = ? AND regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
+                "GROUP BY regdate " +
+                "ORDER BY regdate ASC";
+
 
         Map<String,Integer> salesData=new HashMap<>();
         Connection conn=null;
@@ -92,12 +113,18 @@ public class StatisticsDAOImpl implements StatisticsDAO
 
     }
 
+    /*
+    SELECT SUM(price) AS TOTAL_SALES
+    FROM PURCHASE
+    WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);
+     */
     @Override
     public Map<String, Integer> getTotalSalesData(int period) throws SQLException
     {
-        String sql = "SELECT SUM(price) AS total_sales " +
-                "FROM purchase " +
+        String sql = "SELECT SUM(price) AS TOTAL_SALES " +
+                "FROM PURCHASE " +
                 "WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY)";
+
 
         Map<String, Integer> salesData = new HashMap<>();
         Connection conn = null;
@@ -124,14 +151,23 @@ public class StatisticsDAOImpl implements StatisticsDAO
         return salesData;
     }
 
+    /*
+    SELECT s.brand, COUNT(s.brand) AS pop
+    FROM SURVEY s
+    GROUP BY s.brand
+    ORDER BY pop DESC
+    LIMIT 3;
+     */
+
     @Override
     public Map<String, Integer> getTop3BrandsFromSurvey() throws SQLException
     {
-        String sql="select s.brand,count(s.brand) as pop "+
-                "from survey s "+
-                "group by s.brand "+
-                "order by pop desc "+
-                "limit 3";
+        String sql = "SELECT s.brand, COUNT(s.brand) AS pop " +
+                "FROM SURVEY s " +
+                "GROUP BY s.brand " +
+                "ORDER BY pop DESC " +
+                "LIMIT 3";
+
 
         Map<String,Integer> topBrands=new HashMap<>();
 
@@ -160,14 +196,23 @@ public class StatisticsDAOImpl implements StatisticsDAO
 
     }
 
+
+    /*
+    SELECT s.color, COUNT(s.color) AS popularity
+    FROM SURVEY s
+    GROUP BY s.color
+    ORDER BY popularity DESC
+    LIMIT 3;
+     */
     @Override
     public Map<String, Integer> getTop3ColorsFromSurvey() throws SQLException {
         // SQL 쿼리: 색상별 선택 횟수를 계산하여 상위 3개의 인기 색상을 가져옴
-        String sql = "SELECT s.color, COUNT(s.color) AS popularity " +
-                "FROM survey s " +
+        String sql = "SELECT s.color, COUNT(s.color) AS POPULARITY " +
+                "FROM SURVEY s " +
                 "GROUP BY s.color " +
-                "ORDER BY popularity DESC " +
+                "ORDER BY POPULARITY DESC " +
                 "LIMIT 3";
+
 
         Map<String, Integer> topColors = new HashMap<>();
         Connection conn = null;
