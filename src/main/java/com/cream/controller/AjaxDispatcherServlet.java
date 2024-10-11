@@ -31,28 +31,28 @@ public class AjaxDispatcherServlet extends HttpServlet {
 		Object obj = application.getAttribute("ajaxMap");
 		map = (Map<String, RestController>)obj;
 		
-		clzMap = (Map<String, Class<?>>)config.getServletContext().getAttribute("ajaxclzMap");
+		clzMap = (Map<String, Class<?>>)config.getServletContext().getAttribute("ajaxClzMap");
 		
 	}
    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("여기는 AjaxDispatcherServlet의 service 메소드...");
+
 		String key = request.getParameter("key"); //customer
 		String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
 		
-		System.out.println("key : " + key + ", methodName : " + methodName);
-		
 		if(key ==null || key.equals("")) {
-			key="product";
-			methodName="selectAllProduct";
+			key="customer";
+			methodName="test";
 		}
 		
-		//System.out.println("key = " + key+", methodName = " + methodName);
+		System.out.println("key = " + key+", methodName = " + methodName);
+
 		try {
 			Class<?> clz = clzMap.get(key);
 			Method method = clz.getMethod(methodName, HttpServletRequest.class , HttpServletResponse.class);
 			
 			RestController controller = map.get(key);
+
 			Object obj = method.invoke(controller, request , response);
 			
 			
@@ -61,6 +61,9 @@ public class AjaxDispatcherServlet extends HttpServlet {
 			System.out.println("data = " + data);
 			
 			response.getWriter().print(data);
+
+			method.invoke(controller, request , response);
+
 			
 		}catch (Exception e) {
 			e.printStackTrace();
