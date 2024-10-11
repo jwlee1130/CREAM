@@ -48,11 +48,12 @@
                 </ul>
             </div>
             <div class="item-transaction">
-                <div class="item-parchase">
-                    <span>구매</span>
-                    <p>217,000원 <br> 즉시 구매가</p>
-
-                </div>
+                <a href="./bid.jsp">
+                    <div class="item-parchase">
+                        <span>구매</span>
+                        <p>217,000원 <br> 즉시 구매가</p>
+                    </div>
+                </a>
                 <div class="item-sell">
                     <span>판매</span>
                     <p>237,000원 <br> 즉시 판매가</p>
