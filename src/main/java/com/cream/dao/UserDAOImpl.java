@@ -38,8 +38,30 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int register(UserDTO user) throws SQLException {
 		//  db에 사용자 등록 하자
+		PreparedStatement ps = null;
+		Connection con=null;
 		
-		return 1;
+		int result =0;
+		try {
+			con=DbUtil.getConnection();
+			ps = con.prepareStatement("INSERT INTO USERS(USER_ID, NICKNAME, USER_EMAIL, USER_PW, GENDER, AGE, SHOES_SIZE) VALUES(?, ?, ?, ?, ?, ?, ?)"); 
+			ps.setString(1,user.getUserId());
+			ps.setString(2, user.getNickname());
+			ps.setString(3, user.getUserEmail());
+			ps.setString(4, user.getUserPw());
+			ps.setString(5, user.getGender());
+			ps.setInt(6, user.getAge());
+			ps.setInt(7,user.getShoesSize());
+			result = ps.executeUpdate();
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DbUtil.dbClose(con,ps);   
+		}
+		return result;
+		
 	}
 
 	@Override
