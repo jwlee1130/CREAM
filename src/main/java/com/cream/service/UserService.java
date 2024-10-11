@@ -1,13 +1,13 @@
  package com.cream.service;
 
- import com.cream.dto.BidDTO;
+ import java.sql.SQLException;
+import java.util.List;
+
+import com.cream.dto.BidDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
- import com.cream.exception.AuthenticationException;
-
- import java.sql.SQLException;
-import java.util.List;
+import com.cream.exception.AuthenticationException;
 
 public interface UserService {
 	/**

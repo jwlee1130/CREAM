@@ -1,16 +1,15 @@
 package com.cream.controller;
 
 import java.sql.SQLException;
-import com.cream.dto.ProductDTO;
-import com.cream.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cream.dto.ProductDTO;
+import com.cream.exception.AuthenticationException;
 import com.cream.service.ProductServiceImpl;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 public class ProductController implements Controller {
 		ProductServiceImpl service = new ProductServiceImpl();
