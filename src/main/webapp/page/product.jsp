@@ -199,7 +199,7 @@
   });
 
 </script>
-<script !src="">
+<script src="">
   document.addEventListener("DOMContentLoaded", function () {
     const tabButtons = document.querySelectorAll(".tab-button");
     const tabContents = document.querySelectorAll(".tab-content");

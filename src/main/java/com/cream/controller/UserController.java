@@ -47,27 +47,4 @@ public class UserController implements Controller {
         session.invalidate();
         return new ModelAndView("index.jsp", true);
     }
-   
-    public ModelAndView addToWishlist(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-      
-        if (loginUser == null) {
-            return new ModelAndView("user/login.jsp", true);
-        }
-
-        try {
-            int productNo = Integer.parseInt(request.getParameter("product_no"));
-            int result = service.addToWishlist(loginUser.getNo(), productNo);
-
-            if (result > 0) {
-                return new ModelAndView("page/mypage.jsp");
-            } else {
-                return new ModelAndView("error/error.jsp");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ModelAndView("error/error.jsp");
-        }
-    }
 }

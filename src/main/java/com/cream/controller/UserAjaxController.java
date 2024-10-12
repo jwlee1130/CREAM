@@ -96,5 +96,22 @@ public class UserAjaxController implements RestController {
         return result;
         
     }
+    
+    
+    public Object addToWishlist(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+        
+        int result = 0;
+        try {
+            int productNo = Integer.parseInt(request.getParameter("product_no"));
+            result = service.addToWishlist(loginUser.getNo(), productNo);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }
