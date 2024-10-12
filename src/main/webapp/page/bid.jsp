@@ -46,13 +46,13 @@
       <div class="tab-content active" id="instantPurchase">
         <div class="tab-content-parchase">
           <p>즉시 구매가</p>
-          <p>400,000</p>
+          <p>${sale.nowPrice}</p>
         </div>
         <div class="tab-content-total">
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href=""><div class="instant-parchase-btn">
+        <a href="front?key=purchase&methodName=nowBuy&productNo=${sale.productNo}&salesUserNo=${sale.userNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${sale.nowPrice}&address=${loginUser.address}"><div class="instant-parchase-btn">
           <span>즉시 구매 계속</span>
         </div>
         </a>

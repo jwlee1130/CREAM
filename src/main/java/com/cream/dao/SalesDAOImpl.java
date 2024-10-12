@@ -22,7 +22,7 @@ public class SalesDAOImpl implements SalesDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select NO, USER_NO, PRODUCT_NO, STARTING_PRICE, NOW_PRICE, SALES_STATUS, TIMESTAMPDIFF(SECOND, SYSDATE(), REGDATE), GRADE, SHOES_NO from USERS_SALES WHERE SHOES_NO=? AND PRODUCT_NO = ?";
+		String sql = "select NO, USER_NO, PRODUCT_NO, STARTING_PRICE, NOW_PRICE, SALES_STATUS, TIMESTAMPDIFF(SECOND, SYSDATE(), REGDATE), GRADE, SHOES_NO from USERS_SALES WHERE SHOES_NO=? AND PRODUCT_NO = ?  AND SALES_STATUS=1";	
 		try {
 			con=DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -73,6 +73,27 @@ public class SalesDAOImpl implements SalesDAO {
 		return sale;
 	}
 
+	@Override
+	public int closeSale(Connection con,int salesNo) throws SQLException {
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "UPDATE USERS_SALES SET SALES_STATUS = 2 WHERE NO = ?";	
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, salesNo);
+			
+			result = ps.executeUpdate();
+			
+		}catch(SQLException e) {
+				e.printStackTrace();
+				throw new SQLException("sql오류");
+		}
+		finally {
+			DbUtil.dbClose(ps);
+		}
+		return result;
+	}
+	
 
 
 }

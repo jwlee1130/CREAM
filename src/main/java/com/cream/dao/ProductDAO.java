@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cream.dto.ProductDTO;
+import com.cream.dto.PurchaseDTO;
 
 public interface ProductDAO {
 	/**
@@ -27,10 +28,10 @@ public interface ProductDAO {
 	 * */
 	List<ProductDTO> searchProductEng(String productName) throws SQLException;
 
-	
+	/*
+	 * 상품 상세보기
+	 */
 	ProductDTO detail(int productNo) throws SQLException;
-
-
-
+	
 	
 }
