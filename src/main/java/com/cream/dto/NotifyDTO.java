@@ -20,6 +20,7 @@ public class NotifyDTO {
     public NotifyDTO(int userNo, int salesNo,int productNo, String msg) {
         this.userNo = userNo;
         this.salesNo = salesNo;
+        this.productNo=productNo;
         this.msg = msg;
     }
 

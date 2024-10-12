@@ -12,7 +12,8 @@ public class SalesDTO {
 	@Expose private String regdate;
 	@Expose private char grade;
 	@Expose private int shoesNo;
-    @Expose private ProductDTO product; 
+    @Expose private ProductDTO product;
+    @Expose private BidAccountDTO bidAccount;
     
     public ProductDTO getProduct() {
 		return product;
@@ -35,8 +36,18 @@ public class SalesDTO {
         this.grade = grade;
         this.shoesNo = shoesNo;
     }
+    
+    
 
-    public int getNo() { return no; }
+    public BidAccountDTO getBidAccount() {
+		return bidAccount;
+	}
+
+	public void setBidAccount(BidAccountDTO bidAccount) {
+		this.bidAccount = bidAccount;
+	}
+
+	public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }
 
     public int getUserNo() { return userNo; }

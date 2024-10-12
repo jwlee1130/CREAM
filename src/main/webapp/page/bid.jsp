@@ -8,6 +8,27 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bid.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		
+  		$("#a-bid").click(function(){
+  			
+  		
+  			window.location.href="front?key=bid&methodName=bid&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price="+$("#bid").val();
+  			
+  		
+  		
+  		
+  		});
+  	
+  	
+  	});
+  	
+  	
+  
+  
+  </script>
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -27,7 +48,7 @@
     <div class="item-price">
       <div class="current-price">
         <p>현재 입찰가</p>
-        <span>${sale.startingPrice}원</span>
+        <span>${sale.bidAccount.price}원</span>        
       </div>
       <div class="instant-price">
         <p>즉시 구매가</p>
@@ -62,13 +83,13 @@
       <div class="tab-content" id="bidding">
         <div class="tab-content-parchase">
           <p>구매 희망가</p>
-          <div style="display: flex"><input type="text" name="" id=""><span style="align-self: flex-end">원</span></div>
+          <div style="display: flex"><input type="text" id="bid"><span style="align-self: flex-end">원</span></div>
         </div>
         <div class="tab-content-total">
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href=""><div class="instant-parchase-btn">
+        <a href="#" id="a-bid"><div class="instant-parchase-btn">
           <span>구매 입찰 계속</span>
         </div>
         </a>

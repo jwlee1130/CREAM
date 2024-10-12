@@ -5,7 +5,7 @@ public class BidDTO {
     private int buyUserNo;     // BUY_USER_NO
     private int salesNo;       // SALES_NO
     private int price;         // PRICE
-    private int regDate;       // REGDATE
+    private int regdate;       // REGDATE
 
     public BidDTO() {}
     
@@ -18,10 +18,10 @@ public class BidDTO {
 
 
     // 매개변수를 받는 생성자
-    public BidDTO(int no, int buyUserNo, int salesNo, int price, int regDate) {
+    public BidDTO(int no, int buyUserNo, int salesNo, int price, int regdate) {
         this(buyUserNo,salesNo,price);
     	this.no = no;
-        this.regDate = regDate;
+        this.regdate = regdate;
     }
 
     // Getter와 Setter 메서드
@@ -57,11 +57,11 @@ public class BidDTO {
         this.price = price;
     }
 
-    public int getRegDate() {
-        return regDate;
+    public int getRegdate() {
+        return regdate;
     }
 
-    public void setRegDate(int regDate) {
-        this.regDate = regDate;
+    public void setRegDate(int regdate) {
+        this.regdate = regdate;
     }
 }

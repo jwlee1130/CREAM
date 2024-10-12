@@ -38,7 +38,7 @@
 					    str +=   sales.nowPrice;
 					    str += "</span>   ";
 					    str += "<span>현재 입찰가 : ";
-					    str += sales.startingPrice;
+					    str += sales.bidAccount.price;
 					    str +="</span>   ";
 					    str +=`<span>판매상태 :` +sales.salesStatus+`</span>`;
 					    str += "<button value='구매' data-info="+sales.no+">구매/입찰</button>";

@@ -8,7 +8,7 @@ import com.cream.dto.BidDTO;
 
 public interface BidDAO {
 	
-    void bidTransaction(BidDTO bid) throws SQLException;
+    void bidTransaction(BidDTO bid,int productNO) throws SQLException;
 
     String getTimeBid(int sales_no) throws SQLException; // 남은 시간 표현
     
@@ -41,6 +41,5 @@ public interface BidDAO {
      */
     int setBidFlagZero(Connection con, int salesNO) throws SQLException;
 
-	void bidTransaction(BidDTO newBidder, int productNO) throws SQLException;
 
 }

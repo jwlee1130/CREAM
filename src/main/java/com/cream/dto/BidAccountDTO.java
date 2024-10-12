@@ -8,8 +8,8 @@ public class BidAccountDTO {
 
 	    // 기본 생성자
 	    public BidAccountDTO(int buyUserNo, int price) {
-	        this.buyUserNo = buyUserNo;
-	        this.price = price;
+	    	this(price);
+	    	this.buyUserNo = buyUserNo;
 	    }
 
 	    // 매개변수를 받는 생성자
@@ -18,7 +18,11 @@ public class BidAccountDTO {
 	    	this.salesNo = salesNo;
 	    }
 
-	    // Getter와 Setter 메서드
+	    public BidAccountDTO(int price) {
+	    	this.price = price;
+	    }
+
+		// Getter와 Setter 메서드
 	    public int getSalesNo() {
 	        return salesNo;
 	    }
