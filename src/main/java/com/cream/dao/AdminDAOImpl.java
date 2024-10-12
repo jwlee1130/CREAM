@@ -1,16 +1,16 @@
 package com.cream.dao;
 
+import com.cream.dto.ProductDTO;
+import com.cream.dto.SalesDTO;
+import com.cream.dto.SurveyDTO;
+import com.cream.util.DbUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.cream.dto.ProductDTO;
-import com.cream.dto.SalesDTO;
-import com.cream.dto.SurveyDTO;
-import com.cream.util.DbUtil;
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -54,7 +54,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public List<SalesDTO> getUnapprovedProducts() throws SQLException {
-        String sql="select * from users_sales where sales_status=0";
+        String sql = "SELECT * FROM USERS_SALES WHERE SALES_STATUS = 0";
         Connection conn=null;
         PreparedStatement ps=null;
         ResultSet rs=null;

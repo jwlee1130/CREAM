@@ -43,7 +43,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         const contentDiv = document.getElementById('content');
 
-        // 콘텐츠 로드 함수
         function loadContent() {
             const hash = window.location.hash.substring(1);
             if (hash === 'inspectionList') {
@@ -57,7 +56,6 @@
             }
         }
 
-        // 검수 목록 로드 함수
         function loadInspectionList() {
             contentDiv.innerHTML = `
                 <h2>검수 목록</h2>
@@ -73,18 +71,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 검수 목록이 이곳에 추가됩니다 -->
                     </tbody>
                 </table>
             `;
 
-            // AJAX 요청으로 검수 목록 가져오기
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'GET',
                 data: {
-                    key: 'adminAjax',
-                    methodName: 'getInspectionList'
+                    key: 'admin',
+                    methodName: 'getUnapprovedProducts'
                 },
                 dataType: "json",
                 success: function(result) {
@@ -93,8 +89,8 @@
                         tb += '<tr>';
                         tb += '<td>' + inspection.productNo + '</td>';
                         tb += '<td>' + inspection.productName + '</td>';
-                        tb += '<td>' + inspection.status + '</td>';
-                        tb += '<td>' + inspection.inspectionDate + '</td>';
+                        tb += '<td>' + inspection.salesStatus + '</td>';
+                        tb += '<td>' + inspection.regdate + '</td>';
                         // 승인 및 반려 버튼
                         tb += '<td>';
                         tb += '<button class="approve-btn" data-id="' + inspection.productNo + '">승인</button>';
@@ -125,32 +121,29 @@
             approveProduct(productNo);
         });
 
-        // 반려 버튼 클릭 이벤트 핸들러
         $(document).on('click', '.reject-btn', function() {
             let productNo = $(this).data('id');
             rejectProduct(productNo);
         });
 
-        // 등급 선택 변경 이벤트 핸들러
         $(document).on('change', '.grade-select', function() {
             let productNo = $(this).data('id');
             let selectedGrade = $(this).val();
             updateProductGrade(productNo, selectedGrade);
         });
 
-        // 승인 처리 함수
         function approveProduct(productNo) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'POST',
                 data: {
-                    key: 'adminAjax',
+                    key: 'admin',
                     methodName: 'approveProduct',
                     productNo: productNo
                 },
                 success: function(response) {
                     alert("상품이 승인되었습니다.");
-                    loadInspectionList(); // 검수 목록 새로고침
+                    loadInspectionList();
                 },
                 error: function(error) {
                     console.error("승인 실패:", error);
@@ -159,19 +152,18 @@
             });
         }
 
-        // 반려 처리 함수
         function rejectProduct(productNo) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'POST',
                 data: {
-                    key: 'adminAjax',
+                    key: 'admin',
                     methodName: 'rejectProduct',
                     productNo: productNo
                 },
                 success: function(response) {
                     alert("상품이 반려되었습니다.");
-                    loadInspectionList(); // 검수 목록 새로고침
+                    loadInspectionList();
                 },
                 error: function(error) {
                     console.error("반려 실패:", error);
@@ -180,13 +172,12 @@
             });
         }
 
-        // 등급 업데이트 함수
         function updateProductGrade(productNo, grade) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'POST',
                 data: {
-                    key: 'adminAjax',
+                    key: 'admin',
                     methodName: 'updateProductGrade',
                     productNo: productNo,
                     grade: grade
@@ -201,10 +192,8 @@
             });
         }
 
-        // 해시 변경 시 콘텐츠 로드
         window.addEventListener('hashchange', loadContent);
 
-        // 초기 콘텐츠 로드
         loadContent();
     });
 </script>
