@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: swift
-  Date: 2024-10-12
-  Time: 오전 9:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
@@ -14,6 +7,7 @@
     <title>관리자 마이페이지</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
+<%--    <link rel="stylesheet" href="../css/adminMyPage.css">--%>
     <link rel="stylesheet" href="../css/adminMyPage.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
@@ -31,7 +25,7 @@
             </ul>
             <ul>
                 <h2>회원 관리</h2>
-                <li><a href="#memberManagement">회원 관리</a></li>
+                <li><a href="#userManagement">회원 관리</a></li>
             </ul>
             <ul>
                 <h2>통계</h2>
@@ -39,7 +33,7 @@
             </ul>
         </div>
         <div class="main-content" id="content">
-            <!-- 기본 콘텐츠 영역 -->
+            <h2>관리자 마이페이지</h2>
         </div>
     </div>
 </div>
@@ -50,23 +44,26 @@
     document.addEventListener('DOMContentLoaded', () => {
         const contentDiv = document.getElementById('content');
 
+        // 콘텐츠 로드 함수
         function loadContent() {
             const hash = window.location.hash.substring(1);
             if (hash === 'inspectionList') {
                 loadInspectionList();
-            } else if (hash === 'memberManagement') {
-                loadMemberManagement();
+            } else if (hash === 'userManagement') {
+                loadUserManagement();
             } else if (hash === 'statistics') {
                 loadStatistics();
             } else {
-                contentDiv.innerHTML = '<h2>환영합니다, 관리자님!</h2>';
+                // 기본 콘텐츠
+                contentDiv.innerHTML = '<h2>관리자 마이페이지</h2>';
             }
         }
 
+        // 검수 목록 로드 함수
         function loadInspectionList() {
             contentDiv.innerHTML = `
                 <h2>검수 목록</h2>
-                <table border="1" id="inspectionTable">
+                <table id="inspectionTable">
                     <thead>
                         <tr>
                             <th>상품 번호</th>
@@ -109,7 +106,7 @@
         }
 
         // 회원 관리 로드 함수
-        function loadMemberManagement() {
+        function loadUserManagement() {
             contentDiv.innerHTML = '<h2>회원 관리 페이지</h2>';
             // 회원 관리 관련 내용 추가
         }
@@ -130,4 +127,3 @@
 
 </body>
 </html>
-
