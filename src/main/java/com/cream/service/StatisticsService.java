@@ -3,7 +3,7 @@ package com.cream.service;
 import java.sql.SQLException;
 import java.util.Map;
 
-public interface StatisticService {
+public interface StatisticsService {
 
     Map<String, Integer> getTop3ItemsByGender(String gender, int period) throws SQLException;
 

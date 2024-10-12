@@ -1,6 +1,6 @@
 package com.cream.controller;
 
-import com.cream.service.StatisticService;
+import com.cream.service.StatisticsService;
 import com.cream.service.StatisticsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class StatisticsController implements RestController {
 
-    StatisticService statisticService = new StatisticsServiceImpl();
+    StatisticsService statisticService = new StatisticsServiceImpl();
 
     public Map<String, Integer> getTop3ItemsByGender(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
         String gender = req.getParameter("gender");

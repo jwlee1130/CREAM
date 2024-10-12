@@ -1,12 +1,12 @@
 package com.cream.service;
 
-import java.sql.SQLException;
-import java.util.Map;
-
 import com.cream.dao.StatisticsDAO;
 import com.cream.dao.StatisticsDAOImpl;
 
-public class StatisticsServiceImpl implements StatisticService {
+import java.sql.SQLException;
+import java.util.Map;
+
+public class StatisticsServiceImpl implements StatisticsService {
 
     StatisticsDAO statisticsDAO = new StatisticsDAOImpl();
 

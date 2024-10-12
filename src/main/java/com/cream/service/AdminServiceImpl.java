@@ -30,12 +30,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int updateSalesStatus(int salesNo, int salesStatus) throws SQLException {
-        return adminDAO.updateSalesStatus(salesNo, salesStatus); // grade 파라미터 제거
+        return adminDAO.updateSalesStatus(salesNo, salesStatus);
     }
 
     @Override
     public int updateSalesGrade(int salesNo, char grade) throws SQLException {
-        return adminDAO.updateSalesGrade(salesNo, grade); // grade 업데이트를 위한 메서드
+        return adminDAO.updateSalesGrade(salesNo, grade); 
     }
 
     @Override
@@ -45,6 +45,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Map<String, String> getProductName(int productNo) throws SQLException {
-        return adminDAO.getProductName(productNo); // DAO에서 productName을 가져오는 로직 호출
+        return adminDAO.getProductName(productNo);
     }
 }
