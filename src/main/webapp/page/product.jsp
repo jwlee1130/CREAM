@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
@@ -8,6 +9,66 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+    <script type="text/javascript">
+    $(function(){
+    	$("[name=btn]").click(function(){
+    		  console.log($(this)); // 클릭된 요소를 콘솔에 출력
+    		    console.log($(this).attr("data-tab")); // data-tab 속성을 콘솔에 출력    	
+    	    $.ajax({
+    			url:"ajax",
+				type: "post",
+				dataType: "json" ,
+				data: {key:"sales" , methodName : "selectAll", 	productNo : "${productDetail.no}" ,shoesNo : $(this).attr("data-tab")}, //서버에게 보낼 데이터정보(parameter정보)
+			
+				success : function(data){
+
+					let str=""
+					$.each(data, function(index, sales){
+						console.log(${sales.grade}+"z");
+						console.log(sales.nowPrice);
+
+					    str += "<div class='list-inner'>";
+					    str += "<span class='rank-a'> 등급: ";
+					    str += sales.grade;
+					    str += "</span>   ";
+					    str += "<span>남은 시간 : ";
+					    str += sales.regdate;
+					    str += "</span>   ";
+					    str += "<span>즉시 구매 : ";
+					    str +=   sales.nowPrice;
+					    str += "</span>   ";
+					    str += "<span>현재 입찰가 : ";
+					    str += sales.startingPrice;
+					    str +="</span>   ";
+					    str += "<button value='구매' data-info="+sales.no+">구매/입찰</button>";
+					    str += "</div>"
+			  		});
+					$(".tab-content-list").html(str);
+				},
+			
+				error : function(err){
+						alert("등록되지 않았습니다.");
+				}			
+    		
+    		
+    		
+    		});
+    		
+    		
+    	});//끝
+    	
+    	$(document).on("click","[value=구매]", function(){
+    			
+    		window.location.href = "front?key=sales&methodName=salesDetail&salesNo="+encodeURIComponent($(this).attr("data-info"));
+    		
+    	});
+    	
+   
+    });
+    	
+    
+    
+    </script>
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -91,11 +152,11 @@
         <span class="close-button">&times;</span>
         <div class="tabs-container">
             <div class="tabs">
-                <button class="tab-button active" data-tab="240">240</button>
-                <button class="tab-button" data-tab="260">260</button>
-                <button class="tab-button" data-tab="280">280</button>
+                <button class="tab-button active" name="btn" data-tab="10">240</button>
+                <button class="tab-button" name="btn"data-tab="20">260</button>
+                <button class="tab-button" name="btn" data-tab="30">280</button>
             </div>
-            <div class="tab-content active" id="240">
+            <div class="tab-content active" id="10">
                 <div class="tab-content-list">
                     <ul>
                         <li>
@@ -126,7 +187,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="tab-content" id="260">
+            <div class="tab-content" id="20">
                 <div class="tab-content-list">
                     <ul>
                         <li><div class="list-inner">
@@ -135,7 +196,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="tab-content" id="280">
+            <div class="tab-content" id="30">
                 <div class="tab-content-list">
                     <!--            여기 뿌려야함-->
                     <ul>

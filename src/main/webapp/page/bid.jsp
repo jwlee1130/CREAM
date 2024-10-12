@@ -5,9 +5,9 @@
 <head>
   <meta charset="UTF-8">
   <title>입찰</title>
-  <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/bid.css">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bid.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -15,29 +15,28 @@
   <div class="bid-wrapper">
     <div class="item-info">
       <div class="item-logo">
-        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/shoes1.png" alt="">
+        <img src="${sale.product.productImg.filePath}" alt="">
       </div>
       <div class="item-description">
-        <h2>신발 모델번호</h2>
-        <h3>This is Shoes English name</h3>
-        <h3>여기는 신발 한글 제품명 오는곳</h3>
-        <h4>Size : ???</h4>
+        <h2>${sale.product.modelNumber}</h2>
+        <h3>${sale.product.engName}</h3>
+        <h3>${sale.product.korName}</h3>
+        <h4>${sale.shoesNo}</h4>
       </div>
     </div>
     <div class="item-price">
       <div class="current-price">
         <p>현재 입찰가</p>
-        <span>269,000원</span>
+        <span>${sale.startingPrice}원</span>
       </div>
       <div class="instant-price">
         <p>즉시 구매가</p>
-        <span>319,000원</span></div>
+        <span>${sale.nowPrice}원</span></div>
     </div>
     <div class="time-left">
       <p>남은 시간 : </p>
       <p>
-        24:24:24
-      </p>
+		${sale.regdate}</p>
     </div>
     <div class="tabs-container">
       <div class="tabs">
