@@ -5,10 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 마이페이지</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/adminMyPage.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 </head>
 <body>
 
@@ -17,7 +19,8 @@
 <div class="container">
     <div class="main">
         <div class="main-side">
-            <h1>관리자 마이페이지</h1>
+            <h1 style="margin-bottom:10px;">관리자</h1>
+            <h1>마이페이지</h1>
             <ul>
                 <h2>검수</h2>
                 <li><a href="#inspectionList">검수 목록</a></li>
@@ -58,7 +61,7 @@
 
         function loadInspectionList() {
             contentDiv.innerHTML = `
-                <h2>검수 목록</h2>
+                <h1 style="font-size:2.5rem;">검수 목록</h1>
                 <table id="inspectionTable">
                     <thead>
                         <tr>
@@ -97,8 +100,8 @@
 
                         tb += '<td>' + inspection.regdate + '</td>';
                         tb += '<td>';
-                        tb += '<button class="approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '">승인</button>';
-                        tb += '<button class="reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '">반려</button>';
+                        tb += '<button class="btn btn-success mr-0.5 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '">승인</button>';
+                        tb += '<button class="btn btn-danger reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '">반려</button>';
                         tb += '</td>';
                         tb += '<td>';
                         tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
@@ -106,7 +109,6 @@
                         tb += '<option value="A">A</option>';
                         tb += '<option value="B">B</option>';
                         tb += '<option value="C">C</option>';
-                        tb += '<option value="D">D</option>';
                         tb += '</select>';
                         tb += '</td>';
                         tb += '</tr>';
