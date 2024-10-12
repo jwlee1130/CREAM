@@ -47,7 +47,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <!-- 목록이 이곳에 동적으로 추가됩니다 -->
+			            <!-- 여기에 찜목록 리스트 나옴 -->
 			        </tbody>
 			    </table>
 			</div>
@@ -87,31 +87,32 @@
     
     // 찜목록 리스트
 	function Wishlist() {
-	    $.ajax({
-	        url: '${pageContext.request.contextPath}/ajax',
-	        method: 'GET',
-	        data: {
-	            key: 'userAjax',
-	            methodName: 'selectWishlist'
-	        },
-	        dataType: "json",
-	        success: function(result) {
-	            let tb = "";
-	            $.each(result, function(index, product) {
-	                tb += '<tr>';
-	                tb += '<td><input type="hidden" value="' + product.no + '"></td>';
-	                tb += '<td>' + product.engName + '</td>';
-	                tb += '<td>' + product.releasePrice + '</td>';
-	                tb += '<td><button class="delete-btn" data-id="' + product.no + '">삭제</button></td>';
-	                tb += '</tr>';
-	            });
-	            $("#wishlistTable tbody").empty().append(tb);
-	        },
-	        error: function(error) {
-	            console.error("Error: ", error);
-	        }
-	    });
-	}
+    $.ajax({
+        url: '${pageContext.request.contextPath}/ajax',
+        method: 'GET',
+        data: {
+            key: 'userAjax',
+            methodName: 'selectWishlist'
+        },
+        dataType: "json",
+        success: function(result) {
+            let wishlistTable = '';
+            $.each(result, function(index, product) {
+                wishlistTable += `
+                    <tr>
+                        <td>${product.engName}</td>
+                        <td>${product.releasePrice}원</td>
+                        <td><button class="delete-btn" data-id="${product.no}">삭제</button></td>
+                    </tr>`;
+            });
+            $("#wishlistTable tbody").html(wishlistTable);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+}
+
 
     
     //찜목록 삭제
@@ -157,6 +158,7 @@
                 salesContent += '<td>' + sale.nowPrice + '</td>';         // 현재 입찰가
                 salesContent += '<td>' + sale.regdate + '</td>';          // 등록일
                 salesContent += '<td>' + sale.grade + '</td>';            // 등급
+                salesContent += '<td>' + sale.shoesSize.shoesSize + '</td>';            // 신발 사이즈
                 salesContent += '</tr>';
             });
             $("#salesTable tbody").empty().append(salesContent);
@@ -169,50 +171,6 @@
  	
  	
  	
-    function getCurrentDate() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-      }
-
-      // 판매 데이터 삽입 버튼 클릭 이벤트
-      document.getElementById("addSaleBtn").addEventListener("click", function() {
-        const salesData = {
-          productNo: 1,              
-          startingPrice: 200000,     
-          nowPrice: 210000,          
-          salesStatus: 1,            
-          regdate: getCurrentDate(), 
-          grade: 'A'                 
-        };
-
-        // 판매 데이터 삽입 AJAX 요청
-        $.ajax({
-            url: '${pageContext.request.contextPath}/ajax',
-            method: 'POST',
-            data: {
-                key: 'userAjax',
-                methodName: 'insertSales',
-                productNo: salesData.productNo,
-                startingPrice: salesData.startingPrice,
-                nowPrice: salesData.nowPrice,
-                salesStatus: salesData.salesStatus,
-                regdate: salesData.regdate,
-                grade: salesData.grade
-            },
-            success: function(response) {
-                console.log("판매 등록 성공:", response);
-                alert("판매가 등록되었습니다.");
-                Sales(); // 판매 목록 갱신
-            },
-            error: function(error) {
-                console.error("판매 등록 실패:", error);
-                alert("등록에 실패했습니다. 다시 시도해 주세요.");
-            }
-        });
-      });
 
 
     // 해시 변경 시 콘텐츠 로드

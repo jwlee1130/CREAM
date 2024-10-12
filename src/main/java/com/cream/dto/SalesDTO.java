@@ -13,6 +13,7 @@ public class SalesDTO {
 	@Expose private char grade;
 
     @Expose private ProductDTO product; 
+    @Expose private ShoesSizeDTO shoesSize;
     
     public ProductDTO getProduct() {
 		return product;
@@ -20,6 +21,14 @@ public class SalesDTO {
 
 	public void setProduct(ProductDTO product) {
 		this.product = product;
+	}
+
+	public ShoesSizeDTO getShoesSize() {
+		return shoesSize;
+	}
+
+	public void setShoesSize(ShoesSizeDTO shoesSize) {
+		this.shoesSize = shoesSize;
 	}
 
 	public SalesDTO() {}
@@ -35,7 +44,7 @@ public class SalesDTO {
         this.grade = grade;
     }
 
-    public int getNo() { return no; }
+	public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }
 
     public int getUserNo() { return userNo; }
@@ -58,5 +67,6 @@ public class SalesDTO {
 
     public char getGrade() { return grade; }
     public void setGrade(char grade) { this.grade = grade; }
+
 
 }

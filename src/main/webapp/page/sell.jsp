@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/sell.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -36,8 +37,12 @@
     <div class="item-receipt">
       <h1>최종 주문정보</h1>
       <div>
+      	<h2>시작 입찰가</h2>
+      	<h2 style="font-weight: bold"> <input type="text" id="startingPrice" placeholder="160,000원"></h2>
+      </div>
+      <div>
         <h2>판매 희망가</h2>
-        <h2 style="font-weight: bold">160,000원</h2>
+        <h2 style="font-weight: bold"> <input type="text" id="desiredPrice" placeholder="160,000원"></h2>
       </div>
       <div>
         <h2>검수비</h2>
@@ -57,10 +62,46 @@
       </div>
     </div>
     <div class="item-sell-btn">
-      <p>147,000원-판매하기</p>
+      <button type="submit" id="sellBtn">판매하기</button>
     </div>
   </div>
 </div>
 <jsp:include page="../includes/footer.jsp" />
 </body>
+<script>
+$(document).ready(function() {
+    $('#sellBtn').on('click', function() {
+        const startingPrice = $('#startingPrice').val();
+        const desiredPrice = $('#desiredPrice').val();
+        
+        if (!startingPrice || !desiredPrice) {
+            alert("시작 입찰가와 판매 희망가를 모두 입력해 주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/ajax',
+            method: 'POST',
+            data: {
+                key: 'userAjax',
+                methodName: 'insertSales',
+                productNo: "${productDetail.productNo}",
+                startingPrice: startingPrice,
+                nowPrice: desiredPrice,
+                salesStatus: 0,
+                regdate: new Date().toISOString().slice(0, 10),
+                grade: 'U'
+            },
+            success: function(response) {
+                alert("판매가 등록되었습니다.");
+            },
+            error: function(error) {
+                console.error("판매 등록 오류:", error);
+                alert("등록에 실패했습니다. 다시 시도해 주세요.");
+            }
+        });
+    });
+});
+
+</script>
 </html>

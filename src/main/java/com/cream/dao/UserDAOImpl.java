@@ -12,7 +12,8 @@
 	import com.cream.dto.BidDTO;
 	import com.cream.dto.ProductDTO;
 	import com.cream.dto.SalesDTO;
-	import com.cream.dto.UserDTO;
+import com.cream.dto.ShoesSizeDTO;
+import com.cream.dto.UserDTO;
 	import com.cream.util.DbUtil;
 	
 	public class UserDAOImpl implements UserDAO {
@@ -265,6 +266,10 @@
 		            sales.setSalesStatus(rs.getInt("SALES_STATUS"));
 		            sales.setRegdate(rs.getString("REGDATE"));
 		            sales.setGrade(rs.getString("GRADE").charAt(0));
+		            
+		            ShoesSizeDTO shoesSize = new ShoesSizeDTO();
+		            shoesSize.setShoesSize(rs.getInt("SHOES_SIZE")); 
+		            sales.setShoesSize(shoesSize);
 		            
 		            ProductDTO product = new ProductDTO();
 		            product.setEngName(rs.getString("ENG_NAME"));
