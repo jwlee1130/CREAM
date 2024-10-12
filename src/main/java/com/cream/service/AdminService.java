@@ -16,4 +16,6 @@ public interface AdminService {
     int updateSalesStatus(int salesNo, int salesStatus, char grade) throws SQLException;// ajax 로 처리
 
     int submitSurvey(SurveyDTO surveyData) throws SQLException;// ajax 로 처리
+
+    String getProductName(int productNo) throws SQLException;
 }

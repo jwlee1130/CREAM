@@ -65,7 +65,7 @@
                             <th>상품 번호</th>
                             <th>상품명</th>
                             <th>검수 상태</th>
-                            <th>검수 날짜</th>
+                            <th>등록 날짜</th>
                             <th>승인/반려</th>
                             <th>등급</th>
                         </tr>
@@ -75,6 +75,7 @@
                 </table>
             `;
 
+            // 검수할 상품 목록을 가져오는 AJAX 요청
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'GET',
@@ -88,17 +89,17 @@
                     $.each(result, function(index, inspection) {
                         tb += '<tr>';
                         tb += '<td>' + inspection.productNo + '</td>';
-                        tb += '<td>' + inspection.productName + '</td>';
+                        // ID 대신 클래스와 data-attribute 사용
+                        tb += '<td class="productNameCell" data-product-no="' + inspection.productNo + '">로딩 중...</td>';
                         tb += '<td>' + inspection.salesStatus + '</td>';
                         tb += '<td>' + inspection.regdate + '</td>';
-                        // 승인 및 반려 버튼
                         tb += '<td>';
-                        tb += '<button class="approve-btn" data-id="' + inspection.productNo + '">승인</button>';
-                        tb += '<button class="reject-btn" data-id="' + inspection.productNo + '">반려</button>';
+                        // 버튼과 셀렉트 박스에 data-id 대신 data-index 사용
+                        tb += '<button class="approve-btn" data-index="' + index + '">승인</button>';
+                        tb += '<button class="reject-btn" data-index="' + index + '">반려</button>';
                         tb += '</td>';
-                        // 등급 선택박스 추가
                         tb += '<td>';
-                        tb += '<select class="grade-select" data-id="' + inspection.productNo + '">';
+                        tb += '<select class="grade-select" data-index="' + index + '">';
                         tb += '<option value="A">A</option>';
                         tb += '<option value="B">B</option>';
                         tb += '<option value="C">C</option>';
@@ -108,6 +109,28 @@
                         tb += '</tr>';
                     });
                     $("#inspectionTable tbody").empty().append(tb);
+
+                    // 테이블이 렌더링된 후에 각 productNo에 대해 AJAX 요청하여 상품명 로딩
+                    $.each(result, function(index, inspection) {
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/ajax',
+                            method: 'GET',
+                            data: {
+                                key: 'admin',
+                                methodName: 'getProductName',
+                                productNo: inspection.productNo
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                console.log("Product Name for productNo " + inspection.productNo + ": " + response.productName);
+                                // 동일한 productNo를 가진 모든 요소 업데이트
+                                $('.productNameCell[data-product-no="' + inspection.productNo + '"]').text(response.productName);
+                            },
+                            error: function(error) {
+                                console.error("ProductName 로드 오류: ", error);
+                            }
+                        });
+                    });
                 },
                 error: function(error) {
                     console.error("검수 목록 로드 오류: ", error);
@@ -117,17 +140,20 @@
 
         // 승인 버튼 클릭 이벤트 핸들러
         $(document).on('click', '.approve-btn', function() {
-            let productNo = $(this).data('id');
+            let index = $(this).data('index');
+            let productNo = $('#inspectionTable tbody tr').eq(index).find('td').eq(0).text();
             approveProduct(productNo);
         });
 
         $(document).on('click', '.reject-btn', function() {
-            let productNo = $(this).data('id');
+            let index = $(this).data('index');
+            let productNo = $('#inspectionTable tbody tr').eq(index).find('td').eq(0).text();
             rejectProduct(productNo);
         });
 
         $(document).on('change', '.grade-select', function() {
-            let productNo = $(this).data('id');
+            let index = $(this).data('index');
+            let productNo = $('#inspectionTable tbody tr').eq(index).find('td').eq(0).text();
             let selectedGrade = $(this).val();
             updateProductGrade(productNo, selectedGrade);
         });

@@ -1,12 +1,12 @@
 package com.cream.service;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import com.cream.dao.AdminDAO;
 import com.cream.dao.AdminDAOImpl;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class AdminServiceImpl implements AdminService {
 
@@ -40,5 +40,10 @@ public class AdminServiceImpl implements AdminService {
     public int submitSurvey(SurveyDTO surveyData) throws SQLException
     {
         return adminDAO.submitSurvey(surveyData);
+    }
+
+    @Override
+    public String getProductName(int productNo) throws SQLException {
+        return adminDAO.getProductName(productNo); // DAO에서 productName을 가져오는 로직 호출
     }
 }

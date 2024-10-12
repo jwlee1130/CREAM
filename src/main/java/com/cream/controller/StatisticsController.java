@@ -34,4 +34,6 @@ public class StatisticsController {
 
         return statisticService.getSalesData(productNo, period);
     }
+
+
 }

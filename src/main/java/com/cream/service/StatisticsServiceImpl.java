@@ -6,9 +6,9 @@ import java.util.Map;
 import com.cream.dao.StatisticsDAO;
 import com.cream.dao.StatisticsDAOImpl;
 
-public class StatisticsServiceImpl implements StatisticService
-{
-    StatisticsDAO statisticsDAO=new StatisticsDAOImpl();
+public class StatisticsServiceImpl implements StatisticService {
+
+    StatisticsDAO statisticsDAO = new StatisticsDAOImpl();
 
     @Override
     public Map<String, Integer> getTop3ItemsByGender(String gender, int period) throws SQLException {
@@ -34,4 +34,6 @@ public class StatisticsServiceImpl implements StatisticService
     public Map<String, Integer> getSalesData(int productNo, int period) throws SQLException {
         return statisticsDAO.getSalesData(productNo, period);
     }
+
+
 }

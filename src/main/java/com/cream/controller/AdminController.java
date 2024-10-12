@@ -8,7 +8,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AdminController implements RestController {
 
@@ -63,4 +65,15 @@ public class AdminController implements RestController {
 //        return result;
 //
 //    }
+
+    public Map<String, String> getProductName(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        System.out.println("AdminController.getProductName");
+        int productNo = Integer.parseInt(request.getParameter("productNo"));
+        String name= adminService.getProductName(productNo);
+        System.out.println("name = " + name);
+
+        Map<String, String> result = new HashMap<>();
+        result.put("productName", name);
+        return result;
+    }
 }
