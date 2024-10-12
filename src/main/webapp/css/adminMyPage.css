@@ -1,16 +1,16 @@
 .main {
     display: flex;
     justify-content: center;
-    align-items: flex-start; // 상단 정렬
-margin-top: 2rem;
+    align-items: flex-start;
+    margin-top: 2rem;
 
     .main-side {
         display: flex;
         flex-direction: column;
-        flex: 0 0 25%; /* 2컬럼 */
+        flex: 0 0 25%;
         max-width: 25%;
         padding: 1rem;
-        background-color: #f0f0f0; /* 사이드바 배경색 */
+        background-color: #f0f0f0;
 
         h1 {
             font-weight: bold;
@@ -35,35 +35,34 @@ margin-top: 2rem;
         }
     }
 
-    /* 메인 콘텐츠 설정 */
     .main-content {
-        flex: 0 0 75%; /* 10컬럼 */
+        flex: 0 0 75%;
         max-width: 75%;
         padding: 1rem;
-        background-color: #ffffff; /* 메인 콘텐츠 배경색을 흰색으로 변경 */
+        background-color: #ffffff;
 
-    #inspectionTable {
-        width: 80%; /* 테이블 너비를 100%로 설정 */
-        margin-top: 20px;
-        border-collapse: collapse; /* 테두리 겹침 제거 */
+        #inspectionTable {
+            width: 80%;
+            margin-top: 20px;
+            border-collapse: collapse;
 
-        th, td {
-            border: 1px solid #000; /* 검은색 실선 테두리 */
-            padding: 15px; /* 상하 15px, 좌우 15px의 패딩 추가 */
-            text-align: center; /* 중앙 정렬 */
-            vertical-align: middle; /* 셀 가운데 정렬 */
-            width: 25%; /* 각 칸의 너비를 동일하게 설정 */
-            min-width: 150px; /* 최소 너비 설정 */
+            th, td {
+                border: 1px solid #000;
+                padding: 15px;
+                text-align: center;
+                vertical-align: middle;
+                width: 25%;
+                min-width: 150px;
+            }
+
+            th {
+                background-color: #f9f9f9;
+                font-weight: bold;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
         }
-
-        th {
-            background-color: #f9f9f9; /* 헤더 배경색 */
-            font-weight: bold; /* 헤더 글자 굵게 */
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2; /* 짝수 행 배경색 */
-        }
-    }
     }
 }

@@ -75,7 +75,7 @@
                 </table>
             `;
 
-            // 검수할 상품 목록을 가져오는 AJAX 요청
+            // 검수할 상품 목록을 가져오는 ajax 요청-> sales_status 가 0 인 판매글들
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'GET',
@@ -88,9 +88,13 @@
                     let tb = "";
                     $.each(result, function(index, inspection) {
                         tb += '<tr>';
-                        tb += '<td>' + inspection.no + '</td>'; // 판매 번호 (salesNo)
+                        tb += '<td>' + inspection.no + '</td>'; // 판매글 번호 (salesNo)
                         tb += '<td class="productNameCell" data-product-no="' + inspection.productNo + '">로딩 중...</td>';
-                        tb += '<td>' + inspection.salesStatus + '</td>';
+
+                        // 검수 상태가 0이면 N, 그 외는 그대로 표시
+                        const inspectionStatus = inspection.salesStatus === 0 ? 'N' : inspection.salesStatus;
+                        tb += '<td>' + inspectionStatus + '</td>';
+
                         tb += '<td>' + inspection.regdate + '</td>';
                         tb += '<td>';
                         tb += '<button class="approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '">승인</button>';
@@ -98,7 +102,7 @@
                         tb += '</td>';
                         tb += '<td>';
                         tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
-                        tb += '<option value="U" selected>U</option>'; // 기본값을 'U'로 설정
+                        tb += '<option value="U" selected>U</option>'; // 기본값을 U(Unknown)로 설정
                         tb += '<option value="A">A</option>';
                         tb += '<option value="B">B</option>';
                         tb += '<option value="C">C</option>';
@@ -109,7 +113,7 @@
                     });
                     $("#inspectionTable tbody").empty().append(tb);
 
-                    // 테이블이 렌더링된 후에 각 productNo에 대해 AJAX 요청하여 상품명 로딩
+                    // 테이블이 렌더링된 후에 각 productNo에 대해 ajax 요청하여 상품명 로딩, 현재 테이블에서 가지고 오는 데이터에는 상품 이름이 없음
                     $.each(result, function(index, inspection) {
                         $.ajax({
                             url: '${pageContext.request.contextPath}/ajax',
@@ -137,7 +141,6 @@
             });
         }
 
-        // 승인 버튼 클릭 이벤트 핸들러
         $(document).on('click', '.approve-btn', function() {
             let salesNo = $(this).data('sales-no');
             let salesStatus = $(this).data('sales-status');
