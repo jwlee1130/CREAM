@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class StatisticsController {
+public class StatisticsController implements RestController {
 
     StatisticService statisticService = new StatisticsServiceImpl();
 
@@ -29,6 +29,7 @@ public class StatisticsController {
     }
 
     public Map<String, Integer> getSalesData(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        System.out.println("StatisticsController.getSalesData");
         int productNo = Integer.parseInt(request.getParameter("productNo"));
         int period = Integer.parseInt(request.getParameter("period"));
 
