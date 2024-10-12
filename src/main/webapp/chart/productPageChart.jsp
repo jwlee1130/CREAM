@@ -4,7 +4,6 @@
 <head>
     <title>Sales Data</title>
     <meta charset="UTF-8">
-    <!-- Chart.js 및 jQuery 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -15,13 +14,11 @@
             padding: 20px;
         }
 
-        /* 컨테이너 스타일 */
         .container {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        /* 프레임 스타일 */
         .frame {
             border: 2px solid #d1d1d1;
             border-radius: 10px;
@@ -33,23 +30,21 @@
             margin-top: 20px;
         }
 
-        /* 차트 캔버스 스타일 */
         #salesChart {
             width: 100%;
             height: 400px;
         }
 
-        /* 버튼 그룹 스타일 */
         .button-group {
             display: flex;
-            justify-content: center; /* 버튼 중앙 정렬 */
+            justify-content: center;
             margin-bottom: 20px;
         }
 
         .button-group button {
-            padding: 10px 30px; /* 버튼 패딩 조정 */
+            padding: 10px 30px;
             border: none;
-            background-color: #e0e0e0; /* 기본 버튼 색상: 옅은 회색 */
+            background-color: #e0e0e0;
             color: #333;
             cursor: pointer;
             font-weight: bold;
@@ -57,12 +52,12 @@
         }
 
         .button-group button.active {
-            background-color: #555555; /* 클릭된 버튼: 진한 회색 */
+            background-color: #555555;
             color: #fff;
         }
 
         .button-group button:not(:last-child) {
-            margin-right: 10px; /* 버튼 간격 조정 */
+            margin-right: 10px;
         }
     </style>
 </head>
