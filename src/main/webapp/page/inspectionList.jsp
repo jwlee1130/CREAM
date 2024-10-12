@@ -23,7 +23,7 @@
   });
 
   function loadInspectionList() {
-    // 검수할 상품 목록을 가져오는 ajax 요청
+    // 검수할 상품 목록을 가져오는 ajax
     $.ajax({
       url: '${pageContext.request.contextPath}/ajax',
       method: 'GET',
@@ -86,7 +86,6 @@
     });
   }
 
-  // 이벤트 핸들러 등록
   $(document).on('click', '.approve-btn', function() {
     let salesNo = $(this).data('sales-no');
     let grade = $('.grade-select[data-sales-no="' + salesNo + '"]').val();
