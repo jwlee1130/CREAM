@@ -34,6 +34,26 @@ public class ProductDTO {
 		this.salesQuantity = salesQuantity;
 	}
 
+    public ProductDTO(String modelNumber,String engName,
+			String korName, ProductImgDTO productImg) {
+
+		this.engName = engName;
+		this.korName = korName;
+		this.modelNumber = modelNumber;
+		this.productImg = productImg;
+		
+	}
+
+    public ProductDTO(String modelNumber,String engName,
+			String korName) {
+
+		this.engName = engName;
+		this.korName = korName;
+		this.modelNumber = modelNumber;
+		
+	}
+
+    
     public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
 			ProductImgDTO productImg) {

@@ -36,7 +36,8 @@ public class HandlerMappingListener implements ServletContextListener {
             // 일반 Controller와 관련된 설정 파일 로딩
             for (String key : actionMappingBundle.keySet()) {
             	String className = actionMappingBundle.getString(key);
-                Class<?> clazz = Class.forName(className);
+            	actionMappingBundle.getString(key);
+            	Class<?> clazz = Class.forName(className);
                 Controller controllerInstance = (Controller) clazz.getDeclaredConstructor().newInstance();
                 classMap.put(key, clazz);
                 controllerMap.put(key, controllerInstance);
@@ -46,6 +47,7 @@ public class HandlerMappingListener implements ServletContextListener {
             ResourceBundle ajaxMappingBundle = ResourceBundle.getBundle("ajaxMapping");
             for (String key : ajaxMappingBundle.keySet()) {
                 String className = ajaxMappingBundle.getString(key);
+            	System.out.println(key);
                 Class<?> clazz = Class.forName(className);
                 RestController ajaxControllerInstance = (RestController) clazz.getDeclaredConstructor().newInstance();
                 ajaxClassMap.put(key, clazz);
