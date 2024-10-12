@@ -53,13 +53,13 @@ public class AjaxDispatcherServlet extends HttpServlet {
          
          RestController controller = map.get(key);
 
-			Object obj = method.invoke(controller, request , response);
+		Object obj = method.invoke(controller, request , response);
 			
-			Gson gson = new Gson();
-			String data = gson.toJson(obj);
-			System.out.println("data = " + data);
+		Gson gson = new Gson();
+		String data = gson.toJson(obj);
+		System.out.println("data = " + data);
 			
-			response.getWriter().print(data);
+		response.getWriter().print(data);
 
 			
 		}catch (Exception e) {
@@ -68,7 +68,6 @@ public class AjaxDispatcherServlet extends HttpServlet {
 		}
    }//service 메소드 끝 
 }
-
 
 
 
