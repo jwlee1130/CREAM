@@ -93,11 +93,12 @@
                         tb += '<td>' + inspection.salesStatus + '</td>';
                         tb += '<td>' + inspection.regdate + '</td>';
                         tb += '<td>';
-                        tb += '<button class="approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '">승인</button>';
+                        tb += '<button class="approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '">승인</button>';
                         tb += '<button class="reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '">반려</button>';
                         tb += '</td>';
                         tb += '<td>';
                         tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
+                        tb += '<option value="U" selected>U</option>'; // 기본값을 'U'로 설정
                         tb += '<option value="A">A</option>';
                         tb += '<option value="B">B</option>';
                         tb += '<option value="C">C</option>';
@@ -139,7 +140,16 @@
         // 승인 버튼 클릭 이벤트 핸들러
         $(document).on('click', '.approve-btn', function() {
             let salesNo = $(this).data('sales-no');
-            approveProduct(salesNo);
+            let salesStatus = $(this).data('sales-status');
+            let grade = $('.grade-select[data-sales-no="' + salesNo + '"]').val();
+
+            // 등급이 설정되지 않은 경우 경고창 띄우기
+            if (grade === 'U') {
+                alert("등급을 선택해주세요.");
+                return;
+            }
+
+            approveProduct(salesNo, grade);
         });
 
         $(document).on('click', '.reject-btn', function() {
@@ -153,7 +163,7 @@
             updateProductGrade(salesNo, selectedGrade);
         });
 
-        function approveProduct(salesNo) {
+        function approveProduct(salesNo, grade) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'POST',
@@ -161,7 +171,8 @@
                     key: 'admin',
                     methodName: 'updateSalesStatus',
                     salesNo: salesNo,
-                    salesStatus: 1 // 승인: sales_status를 1로 설정
+                    salesStatus: 1, // 승인: sales_status를 1로 설정
+                    grade: grade
                 },
                 success: function(response) {
                     alert("상품이 승인되었습니다.");
