@@ -62,7 +62,7 @@
                 <table id="inspectionTable">
                     <thead>
                         <tr>
-                            <th>상품 번호</th>
+                            <th>판매 번호</th>
                             <th>상품명</th>
                             <th>검수 상태</th>
                             <th>등록 날짜</th>
@@ -88,18 +88,16 @@
                     let tb = "";
                     $.each(result, function(index, inspection) {
                         tb += '<tr>';
-                        tb += '<td>' + inspection.productNo + '</td>';
-                        // ID 대신 클래스와 data-attribute 사용
+                        tb += '<td>' + inspection.no + '</td>'; // 판매 번호 (salesNo)
                         tb += '<td class="productNameCell" data-product-no="' + inspection.productNo + '">로딩 중...</td>';
                         tb += '<td>' + inspection.salesStatus + '</td>';
                         tb += '<td>' + inspection.regdate + '</td>';
                         tb += '<td>';
-                        // 버튼과 셀렉트 박스에 data-id 대신 data-index 사용
-                        tb += '<button class="approve-btn" data-index="' + index + '">승인</button>';
-                        tb += '<button class="reject-btn" data-index="' + index + '">반려</button>';
+                        tb += '<button class="approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '">승인</button>';
+                        tb += '<button class="reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '">반려</button>';
                         tb += '</td>';
                         tb += '<td>';
-                        tb += '<select class="grade-select" data-index="' + index + '">';
+                        tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
                         tb += '<option value="A">A</option>';
                         tb += '<option value="B">B</option>';
                         tb += '<option value="C">C</option>';
@@ -140,32 +138,30 @@
 
         // 승인 버튼 클릭 이벤트 핸들러
         $(document).on('click', '.approve-btn', function() {
-            let index = $(this).data('index');
-            let productNo = $('#inspectionTable tbody tr').eq(index).find('td').eq(0).text();
-            approveProduct(productNo);
+            let salesNo = $(this).data('sales-no');
+            approveProduct(salesNo);
         });
 
         $(document).on('click', '.reject-btn', function() {
-            let index = $(this).data('index');
-            let productNo = $('#inspectionTable tbody tr').eq(index).find('td').eq(0).text();
-            rejectProduct(productNo);
+            let salesNo = $(this).data('sales-no');
+            rejectProduct(salesNo);
         });
 
         $(document).on('change', '.grade-select', function() {
-            let index = $(this).data('index');
-            let productNo = $('#inspectionTable tbody tr').eq(index).find('td').eq(0).text();
+            let salesNo = $(this).data('sales-no');
             let selectedGrade = $(this).val();
-            updateProductGrade(productNo, selectedGrade);
+            updateProductGrade(salesNo, selectedGrade);
         });
 
-        function approveProduct(productNo) {
+        function approveProduct(salesNo) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'POST',
                 data: {
                     key: 'admin',
-                    methodName: 'approveProduct',
-                    productNo: productNo
+                    methodName: 'updateSalesStatus',
+                    salesNo: salesNo,
+                    salesStatus: 1 // 승인: sales_status를 1로 설정
                 },
                 success: function(response) {
                     alert("상품이 승인되었습니다.");
@@ -178,14 +174,15 @@
             });
         }
 
-        function rejectProduct(productNo) {
+        function rejectProduct(salesNo) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'POST',
                 data: {
                     key: 'admin',
-                    methodName: 'rejectProduct',
-                    productNo: productNo
+                    methodName: 'updateSalesStatus',
+                    salesNo: salesNo,
+                    salesStatus: 2 // 반려: sales_status를 2로 설정
                 },
                 success: function(response) {
                     alert("상품이 반려되었습니다.");
@@ -198,14 +195,14 @@
             });
         }
 
-        function updateProductGrade(productNo, grade) {
+        function updateProductGrade(salesNo, grade) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'POST',
                 data: {
                     key: 'admin',
-                    methodName: 'updateProductGrade',
-                    productNo: productNo,
+                    methodName: 'updateSalesGrade',
+                    salesNo: salesNo,
                     grade: grade
                 },
                 success: function(response) {

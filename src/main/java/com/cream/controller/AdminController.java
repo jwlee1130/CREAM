@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +38,14 @@ public class AdminController implements RestController {
     public int updateSalesStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         int salesNo = Integer.parseInt(request.getParameter("salesNo"));
         int salesStatus = Integer.parseInt(request.getParameter("salesStatus"));
-        char grade = request.getParameter("grade").charAt(0);
 
-        return adminService.updateSalesStatus(salesNo, salesStatus, grade);
+        return adminService.updateSalesStatus(salesNo, salesStatus);
+    }
+
+    public int updateSalesGrade(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int salesNo = Integer.parseInt(request.getParameter("salesNo"));
+        char grade = request.getParameter("grade").charAt(0);
+        return adminService.updateSalesGrade(salesNo, grade);
     }
 
     public int submitSurvey(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -69,11 +73,8 @@ public class AdminController implements RestController {
     public Map<String, String> getProductName(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         System.out.println("AdminController.getProductName");
         int productNo = Integer.parseInt(request.getParameter("productNo"));
-        String name= adminService.getProductName(productNo);
-        System.out.println("name = " + name);
-
-        Map<String, String> result = new HashMap<>();
-        result.put("productName", name);
+        Map<String, String> result = adminService.getProductName(productNo);
+        System.out.println("Product Name for productNo " + productNo + ": " + result.get("productName"));
         return result;
     }
 }
