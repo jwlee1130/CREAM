@@ -52,7 +52,7 @@
                         <p>217,000원 <br> 즉시 구매가</p>
                     </div>
                 </a>
-                <a href="${pageContext.request.contextPath}/page/sell.jsp">
+                <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}">
                     <div class="item-sell">
                         <span>판매</span>
                         <p>237,000원 <br> 즉시 판매가</p>

@@ -18,6 +18,9 @@
       <div class="item-img">
         <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/shoes1.png" alt="" width="120px" height="120px">
       </div>
+      	<%
+    		String productNo = request.getParameter("productNo");
+		%>
       <div class="item-description">
         <h2>YUN-SUNG-BAO-1557</h2>
         <h3>This is product English name</h3>
@@ -74,8 +77,9 @@
 <jsp:include page="../includes/footer.jsp" />
 </body>
 <script>
+const productNo = '<%= productNo %>';
 $(document).ready(function() {
-    $('#sellBtn').on('click', function() {
+    $('#sellBtn').on('click', function() {	
         const startingPrice = $('#startingPrice').val();
         const desiredPrice = $('#desiredPrice').val();
         const shoesNo  = $('#shoesNo').val(); // 선택한 신발 사이즈 가져오기
@@ -91,7 +95,7 @@ $(document).ready(function() {
             data: {
                 key: 'userAjax',
                 methodName: 'insertSales',
-                productNo: 3,
+                productNo: 	productNo,
                 startingPrice: startingPrice,
                 nowPrice: desiredPrice,
                 shoesNo: shoesNo,

@@ -29,7 +29,7 @@
 					let str="";
 					$.each(result, function(index, product){
 						str+="<li>";
-					    str+=`<a href="${pageContext.request.contextPath}/page/product.jsp">`;
+					    str+=`<a href="front?key=product&methodName=detail&no=1">`;
 					    str+=`<div class="popular-item">`;
 					    str+=`<div class="item-image">이미지</div>`;
 					    str+=`<div class="item-brand">${"${product.brandNo}"}</div>`;
