@@ -52,7 +52,6 @@
 			    </table>
 			</div>
         </div>
-        <button id="addSaleBtn">판매 등록</button>
     </div>
 </div>
 <jsp:include page="../includes/footer.jsp" />
@@ -85,39 +84,40 @@
       });
     }
     
-    // 찜목록 리스트
+ // 찜목록 리스트
 	function Wishlist() {
-    $.ajax({
-        url: '${pageContext.request.contextPath}/ajax',
-        method: 'GET',
-        data: {
-            key: 'userAjax',
-            methodName: 'selectWishlist'
-        },
-        dataType: "json",
-        success: function(result) {
-            let wishlistTable = '';
-            $.each(result, function(index, product) {
-                wishlistTable += `
-                    <tr>
-                        <td>${product.engName}</td>
-                        <td>${product.releasePrice}원</td>
-                        <td><button class="delete-btn" data-id="${product.no}">삭제</button></td>
-                    </tr>`;
-            });
-            $("#wishlistTable tbody").html(wishlistTable);
-        },
-        error: function(error) {
-            console.error(error);
-        }
-    });
-}
+	    $.ajax({
+	        url: '${pageContext.request.contextPath}/ajax',
+	        method: 'GET',
+	        data: {
+	            key: 'userAjax',
+	            methodName: 'selectWishlist'
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            let tb = "";
+	            $.each(result, function(index, product) {
+	                tb += '<tr>';
+	                tb += '<td><input type="hidden" value="' + product.no + '"></td>';
+	                tb += '<td>' + product.engName + '</td>';
+	                tb += '<td>' + product.releasePrice + '</td>';
+	                tb += '<td><button class="delete-btn" data-id="' + product.no + '">삭제</button></td>';
+	                tb += '</tr>';
+	            });
+	            $("#wishlistTable tbody").empty().append(tb);
+	        },
+	        error: function(error) {
+	            console.error("Error: ", error);
+	        }
+	    });
+	}
 
 
     
     //찜목록 삭제
     $(document).on("click", ".delete-btn", function() {
         let productNo = $(this).data("id");
+        console.log("Deleting product no:", productNo);
         $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
             method: 'POST',

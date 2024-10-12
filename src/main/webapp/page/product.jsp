@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -61,7 +63,7 @@
 
             </div>
             <div class="item-wish">
-                <p>관심상품</p>
+                <button type="submit" id="add-to-wishlist" data-id="${productDetail.no}">관심상품 추가</button>
             </div>
         </div>
 
@@ -221,6 +223,36 @@
       });
     });
   });
+
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const wishlistButton = document.getElementById('add-to-wishlist');
+
+    wishlistButton.addEventListener('click', function() {
+        const productNo = this.getAttribute('data-id');
+        $.ajax({
+            url: '${pageContext.request.contextPath}/ajax',
+            method: 'POST',
+            data: {
+                key: 'userAjax',
+                methodName: 'addToWishlist',
+                product_no: productNo
+            },
+            success: function(response) {
+                if (response > 0) {
+                    alert("관심상품이 추가되었습니다.");
+                } else {
+                    alert("관심상품 추가에 실패했습니다. 다시 시도해 주세요.");
+                }
+            },
+            error: function(error) {
+                console.error("Error: ", error);
+                alert("추가에 실패했습니다. 다시 시도해 주세요.");
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>

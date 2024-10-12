@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
@@ -54,7 +55,12 @@ public class AjaxDispatcherServlet extends HttpServlet {
 
 			Object obj = method.invoke(controller, request , response);
 			
-			Gson gson = new Gson();
+			Gson gson = new GsonBuilder()
+	                .setPrettyPrinting()
+	                .serializeNulls()
+	                .excludeFieldsWithoutExposeAnnotation()
+	                .create();
+			
 			String data = gson.toJson(obj);
 			System.out.println("data = " + data);
 			
