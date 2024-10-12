@@ -291,27 +291,27 @@ import com.cream.dto.UserDTO;
 			Connection con = null;
 		    PreparedStatement ps = null;
 		    int result = 0;
-	
+
 		    String sql = proFile.getProperty("query.insertSales");
-		    
+
 		    try {
 		        con = DbUtil.getConnection();
 		        ps = con.prepareStatement(sql);
-	
+
 		        ps.setInt(1, sales.getUserNo());
 		        ps.setInt(2, sales.getProductNo());
 		        ps.setInt(3, sales.getStartingPrice());
 		        ps.setInt(4, sales.getNowPrice());
 		        ps.setInt(5, sales.getSalesStatus());
 		        ps.setString(6, String.valueOf(sales.getGrade()));
-	
+		        ps.setInt(7, sales.getShoesSize().getNo());
+
 		        result = ps.executeUpdate();
-		        System.out.println("Sales record inserted successfully with result: " + result);
-	
+
 		    } finally {
 		        DbUtil.dbClose(con, ps);
 		    }
-	
+
 		    return result;
 		}
 		

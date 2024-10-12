@@ -22,7 +22,12 @@
         <h2>YUN-SUNG-BAO-1557</h2>
         <h3>This is product English name</h3>
         <h3>여기는 제품 한글명이 들어갈 곳</h3>
-        <h2>280</h2>
+        <h2>신발 사이즈 선택</h2>
+		  <select id="shoesNo">
+		    <option value="10">240</option>
+		    <option value="20">260</option>
+		    <option value="30">280</option>
+		  </select>
       </div>
     </div>
     <div class="item-shipping">
@@ -73,9 +78,10 @@ $(document).ready(function() {
     $('#sellBtn').on('click', function() {
         const startingPrice = $('#startingPrice').val();
         const desiredPrice = $('#desiredPrice').val();
-        
-        if (!startingPrice || !desiredPrice) {
-            alert("시작 입찰가와 판매 희망가를 모두 입력해 주세요.");
+        const shoesNo  = $('#shoesNo').val(); // 선택한 신발 사이즈 가져오기
+
+        if (!startingPrice || !desiredPrice || !shoesNo) {
+            alert("시작 입찰가와 판매 희망가, 신발 사이즈를 모두 선택해 주세요.");
             return;
         }
 
@@ -85,9 +91,10 @@ $(document).ready(function() {
             data: {
                 key: 'userAjax',
                 methodName: 'insertSales',
-                productNo: "${productDetail.productNo}",
+                productNo: 3,
                 startingPrice: startingPrice,
                 nowPrice: desiredPrice,
+                shoesNo: shoesNo,
                 salesStatus: 0,
                 regdate: new Date().toISOString().slice(0, 10),
                 grade: 'U'
@@ -102,6 +109,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 </script>
 </html>
