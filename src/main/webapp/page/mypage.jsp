@@ -19,21 +19,21 @@
 <div class="container">
     <div class="main">
         <div class="main-side">
-            <h1>마이 페이지</h1>
+            <a href="#mypage_main"><h1>마이 페이지</h1></a>
             <ul>
                 <h2>쇼핑 정보</h2>
-                <li><a href="#test1">구매내역</a></li>
-                <li><a href="#test2">판매내역</a></li>
+                <li><a href="#mypage_parchase">구매내역</a></li>
+                <li><a href="#mypage_sell">판매내역</a></li>
             </ul>
             <ul>
                 <h2>회원 정보</h2>
-                <li><a href="">회원 관리</a></li>
-                <li><a href="">판매자 등급</a></li>
-                <li><a href="">포인트</a></li>
+                <li><a href="#mypage_user">회원 관리</a></li>
+                <li><a href="#mypage_rank">판매자 등급</a></li>
+                <li><a href="#mypage_point">포인트</a></li>
             </ul>
         </div>
         <div class="main-content" id="content">
-            <jsp:include page="../includes/test1.html" /> <!-- 기본 콘텐츠 -->
+
         </div>
         <div>
         	 <div>
