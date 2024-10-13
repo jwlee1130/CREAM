@@ -83,9 +83,15 @@
         $(button).addClass('active');
 
         $.ajax({
-            url: '/ajax?key=statistics&methodName=getSalesData&productNo=' + ${productDetail.no} + '&period=' + period,
+            url: '/ajax',
             type: 'GET',
             dataType: 'json',
+            data:{
+                key:'statistics',
+                methodName:'getSalesData',
+                productNo:${productDetail.no},
+                period:period
+            },
             success: function(data) {
                 const labels = Object.keys(data)
                     .sort((a, b) => new Date(a) - new Date(b))
