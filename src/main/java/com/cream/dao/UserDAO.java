@@ -84,4 +84,14 @@ public interface UserDAO {
 	 */
 	List<NotifyDTO> getNotifyList(int user_no) throws SQLException;
 
+	/*
+	 * 알림 상태 업데이트
+	 */
+	int updateNotify(int userNo, int notifyNo) throws SQLException;
+	
+	/*
+	 * 알림 삭제
+	 */
+	int deleteNotify(int no, int notifyNo) throws SQLException;
+	
 }

@@ -1,6 +1,7 @@
 package com.cream.controller;
 
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,5 +115,19 @@ public class UserAjaxController implements RestController {
         }
         return list;
     }
+    public Object deleteNotify(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");        
+          int notifyNo = Integer.parseInt(request.getParameter("no"));
+          int result=0;
+          try {
+        	  	result = service.deleteNotify(loginUser.getNo(),notifyNo);
+          } catch (SQLException e) {
+        	  // TODO Auto-generated catch block
+        	  e.printStackTrace();
+          }
+    	return result;
 
+    }
+    
 }

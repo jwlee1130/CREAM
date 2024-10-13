@@ -342,7 +342,54 @@ import com.cream.dto.ProductDTO;
 			return list;
 		}
 
-		
+		@Override
+		public int updateNotify(int userNo, int notifyNo) throws SQLException {
+			Connection con = null;
+			PreparedStatement ps=null;
+			int result=0;
+			String sql = proFile.getProperty("query.updateNotify");
+			try {
+				con=DbUtil.getConnection();
+				ps=con.prepareStatement(sql);
+				ps.setInt(1, userNo);
+				ps.setInt(2, notifyNo);
+				
+				result = ps.executeUpdate();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}finally {
+				DbUtil.dbClose(con, ps);
+			}
+				
+			return result;
+		}
+
+
+		public int deleteNotify(int userNo, int notifyNo) {
+			Connection con = null;
+			PreparedStatement ps=null;
+			int result=0;
+			String sql = proFile.getProperty("query.deleteNotify");
+			System.out.println("notify번호:"+notifyNo);
+			try {
+				con=DbUtil.getConnection();
+				ps=con.prepareStatement(sql);
+				ps.setInt(1, notifyNo);
+				ps.setInt(2, userNo);
+				
+				result = ps.executeUpdate();
+				if(result==0)
+					throw new SQLException("삭제 안됨");
+			}catch(SQLException e){
+				e.printStackTrace();
+			}finally {
+				DbUtil.dbClose(con, ps);
+			}
+				
+			return result;
+
+		}
+
 		
 		
 		

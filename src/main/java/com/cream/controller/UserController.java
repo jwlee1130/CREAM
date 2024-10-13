@@ -69,4 +69,27 @@ public class UserController implements Controller {
             return new ModelAndView("error/error.jsp");
         }
     }
+    
+    public ModelAndView updateNotify(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");        
+
+        try {
+            int notifyNo = Integer.parseInt(request.getParameter("no"));
+            int salesNo = Integer.parseInt(request.getParameter("salesNo"));
+            String msg = request.getParameter("msg");
+            service.updateNotify(loginUser.getNo(),notifyNo);
+            System.out.println(msg+":"+msg.length());
+            if(msg.length()==16){//물품판매 상태->마이 페이지로
+                return new ModelAndView("page/mypage.jsp",true);
+            }else {//32 or 나머지는 판매 페이지로
+                return new ModelAndView("front?key=sales&methodName=salesDetail&salesNo"+salesNo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    	return new ModelAndView("error/error.jsp");
+
+    }
+ 
 }
