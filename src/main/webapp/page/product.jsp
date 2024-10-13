@@ -48,7 +48,9 @@
 				},
 			
 				error : function(err){
-						alert("등록되지 않았습니다.");
+					let str="판매중인 사이즈가 없습니다.";
+					$(".tab-content-list").html(str);
+
 				}			
     		
     		

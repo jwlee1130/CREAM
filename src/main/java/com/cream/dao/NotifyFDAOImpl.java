@@ -1,22 +1,39 @@
 package com.cream.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import com.cream.dto.NotifyDTO;
 import com.cream.util.DbUtil;
 
 public class NotifyFDAOImpl implements NotifyDAO {
+		private Properties proFile = new Properties();
+	
+		public NotifyFDAOImpl() {
+			try {
+				//dbQuery를 준비한 ~.properties파일을 로딩해서 Properties 자료구조에 저장한다.
 
+				//현재 프로젝트가 런타임(실행)될때, 즉 서버가 실행될때 classes폴더의 위치를
+				//동적으로 가져와서 경로를 설정해야한다.
+				InputStream is = getClass().getClassLoader().getResourceAsStream("dbQuery.properties");
+				proFile.load(is);
+
+				System.out.println("query.selectAllProduct = " +proFile.getProperty("query.selectAllProduct"));
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	@Override
 	public int insertNotify(Connection con,NotifyDTO notify) throws SQLException {
 		PreparedStatement ps=null;
 		int result=0;
-		String sql = "INSERT INTO NOTIFY(`USER_NO`,`SALES_NO`,`PRODUCT_NO`,`MSG`) VALUES(?,?,?,?)";
+		String sql = proFile.getProperty("query.insertNotify") ;
 		try {
 			ps=con.prepareStatement(sql);
 			ps.setInt(1, notify.getUserNo());
@@ -24,7 +41,7 @@ public class NotifyFDAOImpl implements NotifyDAO {
 			ps.setInt(3, notify.getProductNo());
 			ps.setString(4, notify.getMsg());
 			
-			result  = ps.executeUpdate();
+			result  = ps.executeUpdate();  
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally {
@@ -40,7 +57,7 @@ public class NotifyFDAOImpl implements NotifyDAO {
 		Connection con = null;
 		PreparedStatement ps=null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM NOTIFY WHERE USER_NO = ?";
+		String sql = proFile.getProperty("query.getNotifyList");
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -65,27 +82,10 @@ public class NotifyFDAOImpl implements NotifyDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
 	public int updateNotify(int user_no, int notify_no) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps=null;
-		int result=0;
-		String sql = "UPDATE NOTIFY SET IS_READ = 1 WHERE USER_NO=? AND NO = ?";
-		try {
-			con=DbUtil.getConnection();
-			ps=con.prepareStatement(sql);
-			ps.setInt(1, user_no);
-			ps.setInt(2, notify_no);
-			
-			result = ps.executeUpdate();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}finally {
-			DbUtil.dbClose(con, ps);
-		}
-			
-		return result;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

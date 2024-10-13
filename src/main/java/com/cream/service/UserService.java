@@ -4,6 +4,7 @@
 import java.util.List;
 
 import com.cream.dto.BidDTO;
+import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
@@ -73,4 +74,20 @@ public interface UserService {
 	 * 	판매 등록
 	 * */
 	int insertSales(SalesDTO sales) throws SQLException;
+
+	/*
+	 * 알림 리스트 갖고오기
+	 */
+	List<NotifyDTO> getNotifyList(int user_no) throws SQLException;
+	
+	/*
+	 * 알림 읽으면 update
+	 */
+	int updateNotify(int userNo, int notifyNo) throws SQLException;
+	/*
+	 * 알림 삭제버튼
+	 */
+	int deleteNotify(int userNo, int notifyNo) throws SQLException;
 }
+
+

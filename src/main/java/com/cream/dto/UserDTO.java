@@ -1,5 +1,6 @@
 package com.cream.dto;
 
+import java.util.List;
 
 public class UserDTO {
 	private int no;
@@ -16,7 +17,7 @@ public class UserDTO {
     private String gender;
     private int age;
     private String address;
-   
+    private List<NotifyDTO> notify;
    
    public String getName() {
 		return name;
@@ -132,6 +133,12 @@ public class UserDTO {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public List<NotifyDTO> getNotify() {
+		return notify;
+	}
+	public void setNotify(List<NotifyDTO> notify) {
+		this.notify = notify;
 	}
 	
 	
