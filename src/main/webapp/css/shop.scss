@@ -87,28 +87,55 @@
           gap: 10px;
           margin-top: 20px;
           overflow: auto;
+          li{
+            &:nth-child(odd){
+              .item-image{
+                background-color: #a5fdd0;
+              }
+            }
+            &:nth-child(even){
+              .item-image{
+                background-color: #ffa7a7;
+              }
+            }
+          }
           .popular-item {
-            flex: 1 1 calc(25% - 10px); /* 4개 열 기준, 간격 고려 */
+            flex: 1 1 calc(25% - 10px);
             display: flex;
             flex-direction: column;
-            background-color: #ff8a8a;
             box-sizing: border-box;
             text-align: left;
-            border: 1px solid #ddd;
             padding: 10px;
+            .item-box{
+              padding: 0 0.7rem;
+            }
             .item-image {
-              background-color: aquamarine;
               text-align: center;
               align-content: center;
               width: 200px;
               height: 200px;
-              border-radius: 15px;
+              border-radius: 25px;
+              margin-bottom: 1.5rem;
             }
             .item-brand {
-              margin-top: 0.5rem;
+              font-size: 1.2rem;
+              font-weight: bolder;
             }
             .item-description {
-              margin-bottom: 0.5rem;
+              color: #a4a4a4;
+              margin-bottom: 1rem;
+            }
+            .item-price{
+              display: flex;
+              flex-direction: column;
+              h2{
+                font-size: 1.3rem;
+                font-weight: bolder;
+                margin-bottom: 0;
+              }
+              p{
+
+              }
             }
           }
         }
