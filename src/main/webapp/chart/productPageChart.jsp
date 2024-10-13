@@ -90,6 +90,7 @@
                 key:'statistics',
                 methodName:'getSalesData',
                 productNo:${productDetail.no},
+                // productNo:'1',
                 period:period
             },
             success: function(data) {

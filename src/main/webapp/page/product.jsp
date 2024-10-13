@@ -81,7 +81,8 @@
         <div class="item-concluded">
             <h2>체결거래</h2>
             <div class="concluded-transaction">
-                this is concluded-transaction area
+<%--                this is concluded-transaction area--%>
+                <jsp:include page="../chart/transactionChart.jsp"/>
             </div>
         </div>
     </div>

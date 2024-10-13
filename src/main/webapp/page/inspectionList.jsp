@@ -36,7 +36,7 @@
         let tb = "";
         $.each(result, function(index, inspection) {
           tb += '<tr>';
-          tb += '<td>' + inspection.no + '</td>'; // 판매글 번호 (salesNo)
+          tb += '<td>' + inspection.no + '</td>';
           tb += '<td class="productNameCell" data-product-no="' + inspection.productNo + '">로딩 중...</td>';
 
           // 검수 상태가 0이면 N, 그 외는 그대로 표시
@@ -45,8 +45,9 @@
 
           tb += '<td>' + inspection.regdate + '</td>';
           tb += '<td>';
-          tb += '<button class="btn btn-success mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '">승인</button>';
-          tb += '<button class="btn btn-danger reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '">반려</button>';
+          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
+          tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" style="background-color: #EF6253; border-color: #EF6253; color: white;">반려</button>';
+
           tb += '</td>';
           tb += '<td>';
           tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
@@ -60,7 +61,6 @@
         });
         $("#inspectionTable tbody").empty().append(tb);
 
-        // 상품명 로딩
         $.each(result, function(index, inspection) {
           $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
@@ -90,7 +90,6 @@
     let salesNo = $(this).data('sales-no');
     let grade = $('.grade-select[data-sales-no="' + salesNo + '"]').val();
 
-    // 등급이 설정되지 않은 경우 경고창 띄우기
     if (grade === 'U') {
       alert("등급을 선택해주세요.");
       return;
