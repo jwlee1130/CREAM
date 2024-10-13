@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cream.dto.BidDTO;
+import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
@@ -78,4 +79,9 @@ public interface UserDAO {
 	 * 	판매 등록
 	 * */
 	int insertSales(SalesDTO sales) throws SQLException;
+	/*
+	 * 알림 저장된거 갖고오기
+	 */
+	List<NotifyDTO> getNotifyList(int user_no) throws SQLException;
+
 }

@@ -69,7 +69,7 @@
   white-space: nowrap;
   font-size: 14px;
   display: none !important;
-  max-width: 200px;
+  max-width: 400px;
 }
 .header-wrapper .header-main .header-right .bell-container .tooltip :after {
   content: "";

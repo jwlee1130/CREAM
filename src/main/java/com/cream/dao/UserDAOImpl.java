@@ -10,7 +10,8 @@
 	import java.util.Properties;
 	
 	import com.cream.dto.BidDTO;
-	import com.cream.dto.ProductDTO;
+import com.cream.dto.NotifyDTO;
+import com.cream.dto.ProductDTO;
 	import com.cream.dto.SalesDTO;
 	import com.cream.dto.UserDTO;
 	import com.cream.util.DbUtil;
@@ -309,6 +310,44 @@
 	
 		    return result;
 		}
+		
+		
+		public List<NotifyDTO> getNotifyList(int user_no) throws SQLException{
+			List<NotifyDTO> list = new ArrayList<NotifyDTO>();
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+		    String sql = proFile.getProperty("query.getNotifyList");
+			
+		    try {
+		    	con = DbUtil.getConnection();
+		    	ps = con.prepareStatement(sql);
+		    	ps.setInt(1, user_no);
+		    	
+		    	rs=ps.executeQuery();
+		    	
+		    	while(rs.next()) {
+		    		NotifyDTO notify = new NotifyDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3) , rs.getInt(4),rs.getString(5), rs.getInt(6), rs.getString(user_no));
+		    		list.add(notify);
+		    	}
+		    	
+		    }catch(SQLException e){
+		    	e.printStackTrace();
+		    	throw new SQLException("오류 발생");
+		    }finally {
+		    	DbUtil.dbClose(con, ps, rs);
+		    }
+			
+			return list;
+		}
+
+		
+		
+		
+		
+		
+		
 		
 	}
 	

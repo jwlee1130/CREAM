@@ -44,14 +44,13 @@
                         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
                     </svg>
                     <div class="tooltip">
-
+            		<c:if test="${sessionScope.loginUser != null}">
                         <ul>
-                            <li><a href="#">이건 판매 등록 알림</a></li>
-                            <li><a href="#">이건 상위 입찰자 등장 알림</a></li>
-                            <li><a href="#">this is for Bid Success</a></li>
-                            <li><a href="#">this is for Nothing</a></li>
+                            
                         </ul>
+                    </c:if>    
                     </div>
+                    
                 </div>
                 <span><a href="">Home</a></span>
                 <span><a href="${pageContext.request.contextPath}/page/shop.jsp">Shop</a></span>
@@ -76,6 +75,31 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+	// 판매 조회 함수
 
+	function notify() {
+		$.ajax({
+			url : '${pageContext.request.contextPath}/ajax',
+			method : 'GET',
+			data : {
+				key : 'userAjax',
+				methodName : 'notfiyList'
+			},
+			dataType : "json",
+			success : function(result) {
+				let str = "";
+				$.each(result, function(index, notify) {
+					str += '<li><a href="${pageContext.request.contextPath}/page/mypage.jsp">'+ notify.msg + '</a></li>'; // 영어 이름
+				});
+				$(".tooltip ul").empty().append(str);
+			},
+			error : function(error) {
+				console.error("알람이 없습니다.", error);
+			}
+		});
+	}
+	notify();
+</script>
 </body>
 </html>

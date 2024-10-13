@@ -26,7 +26,6 @@ public class UserController implements Controller {
             if (checkUser != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", checkUser);
-                
                 // 세션에 제대로 저장되었는지 확인하는 로그 추가
                 UserDTO sessionUser = (UserDTO) session.getAttribute("loginUser");
                 System.out.println("User stored in session: " + (sessionUser != null ? sessionUser.getUserId() : "null"));
