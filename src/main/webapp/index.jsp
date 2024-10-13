@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
     <title>Cream</title>
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -16,7 +16,6 @@
 </head>
 <body>
 <div class="container">
-
     <jsp:include page="./includes/header.jsp" />
     <main>
         <div class="main-wrapper">
@@ -105,9 +104,14 @@
                             <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
+                                    <div class="item-box">
+                                        <div class="item-brand">브랜드명</div>
+                                        <p class="item-description">This is English product name</p>
+                                        <div class="item-price">
+                                            <h2>120,000원</h2>
+                                            <p>즉시구매가</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </a>
                         </li>
@@ -115,9 +119,14 @@
                             <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
+                                    <div class="item-box">
+                                        <div class="item-brand">브랜드명</div>
+                                        <p class="item-description">This is English product name</p>
+                                        <div class="item-price">
+                                            <h2>120,000원</h2>
+                                            <p>즉시구매가</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </a>
                         </li>
@@ -125,9 +134,14 @@
                             <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
+                                    <div class="item-box">
+                                        <div class="item-brand">브랜드명</div>
+                                        <p class="item-description">This is English product name</p>
+                                        <div class="item-price">
+                                            <h2>120,000원</h2>
+                                            <p>즉시구매가</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </a>
                         </li>
@@ -135,9 +149,14 @@
                             <a href="${pageContext.request.contextPath}/page/product.jsp">
                                 <div class="popular-item">
                                     <div class="item-image">이미지</div>
-                                    <div class="item-brand">브랜드명</div>
-                                    <p class="item-description">브랜드 설명 들어가는곳</p>
-                                    <div class="item-price">가격쓰는곳</div>
+                                    <div class="item-box">
+                                        <div class="item-brand">브랜드명</div>
+                                        <p class="item-description">This is English product name</p>
+                                        <div class="item-price">
+                                            <h2>120,000원</h2>
+                                            <p>즉시구매가</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </a>
                         </li>

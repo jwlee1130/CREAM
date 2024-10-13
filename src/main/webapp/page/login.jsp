@@ -36,6 +36,7 @@
     </div>
 </div>
 <jsp:include page="../includes/footer.jsp" />
+<script src="../js/script.js"></script>
 </body>
 
 </html>
