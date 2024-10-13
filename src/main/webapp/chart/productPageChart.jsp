@@ -49,6 +49,7 @@
             cursor: pointer;
             font-weight: bold;
             transition: background-color 0.3s, color 0.3s;
+            border-radius: 20px; /* 둥글기 변경 */
         }
 
         .chart-button-group button.active {
@@ -58,6 +59,12 @@
 
         .chart-button-group button:not(:last-child) {
             margin-right: 10px;
+        }
+
+        /* 버튼 호버 효과 추가 */
+        .chart-button-group button:hover {
+            background-color: #555555;
+            color: #fff;
         }
     </style>
 </head>
@@ -76,7 +83,6 @@
 
 <script>
     let chartInstance = null;
-    // const productNo = 1; // productNo를 1로 고정, 테스트용
 
     function loadChartSalesData(period, button) {
         $('.chart-button-group button').removeClass('active');
@@ -86,24 +92,31 @@
             url: '/ajax',
             type: 'GET',
             dataType: 'json',
-            data:{
-                key:'statistics',
-                methodName:'getSalesData',
-                productNo:${productDetail.no},
-                // productNo:'1',
-                period:period
+            data: {
+                key: 'statistics',
+                methodName: 'getSalesData',
+                productNo: ${productDetail.no},
+                period: period
             },
             success: function(data) {
-                const labels = Object.keys(data)
-                    .sort((a, b) => new Date(a) - new Date(b))
-                    .map(dateString => {
-                        const date = new Date(dateString);
-                        const month = String(date.getMonth() + 1);
-                        const day = String(date.getDate());
-                        return month + '/' + day;
-                    });
+                let uniqueData = {};
+                for (let dateTime in data) {
+                    let date = dateTime.split(' ')[0];
+                    if (!uniqueData.hasOwnProperty(date)) {
+                        uniqueData[date] = data[dateTime];
+                    }
+                }
 
-                const sales = Object.values(data);
+                let sortedDates = Object.keys(uniqueData).sort((a, b) => new Date(a) - new Date(b));
+
+                let labels = sortedDates.map(dateString => {
+                    const date = new Date(dateString);
+                    const month = String(date.getMonth() + 1);
+                    const day = String(date.getDate());
+                    return month + '/' + day;
+                });
+
+                let sales = sortedDates.map(dateString => uniqueData[dateString]);
 
                 const ctx = document.getElementById('chartSalesChart').getContext('2d');
 
