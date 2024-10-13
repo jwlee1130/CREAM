@@ -114,10 +114,13 @@
                         <p>217,000원 <br> 즉시 구매가</p>
                     </div>
                 </a>
-                <div class="item-sell">
-                    <span>판매</span>
-                    <p>237,000원 <br> 즉시 판매가</p>
-                </div>
+                <a href="${pageContext.request.contextPath}/page/sell.jsp">
+                    <div class="item-sell">
+                        <span>판매</span>
+                        <p>237,000원 <br> 즉시 판매가</p>
+                    </div>
+                </a>
+
             </div>
             <div class="item-wish">
                 <p>관심상품</p>
@@ -281,5 +284,6 @@
     });
   });
 </script>
+<script src="../js/script.js"></script>
 </body>
 </html>
