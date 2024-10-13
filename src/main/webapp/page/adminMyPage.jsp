@@ -37,7 +37,7 @@
             </ul>
         </div>
         <div class="main-content" id="content">
-            <h2>관리자 마이페이지</h2>
+            <h1 style="margin-bottom:10px;">관리자 마이페이지</h1>
         </div>
     </div>
 </div>
@@ -50,14 +50,11 @@
 
         function loadContent() {
             const hash = window.location.hash.substring(1);
-            if (hash === 'inspectionList') {
-                // 검수 목록을 로드
+            if (hash === 'inspectionList' || hash === '') {
                 $('#content').load('inspectionList.jsp');
             } else if (hash === 'userManagement') {
-                // userManagement.jsp 로드 (필요 시 생성)
                 $('#content').load('userManagement.jsp');
             } else if (hash === 'statistics') {
-                // statistics.jsp 로드 (필요 시 생성)
                 $('#content').load('statistics.jsp');
             } else {
                 contentDiv.innerHTML = '<h2>관리자 마이페이지</h2>';
