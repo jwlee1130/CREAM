@@ -93,10 +93,10 @@
 				let str = "";
 				$.each(result, function(index, notify) {
 					if(notify.isRead==0){
-						str += "<li><a href='front?key=user1&methodName=updateNotify&salesNo="+notify.salesNo+"&no="+notify.no+"&msg="+notify.msg+"'>"+notify.msg+"</a>"; // 영어 이름
+						str += "<li><a href='${pageContext.request.contextPath}/front?key=user1&methodName=updateNotify&salesNo="+notify.salesNo+"&no="+notify.no+"&msg="+notify.msg+"'>"+notify.msg+"</a>"; // 영어 이름
 					}else{
 						$(".bell-icon").css({"color" : "red !important" });
-						str += "<li><a href='front?key=user1&methodName=updateNotify&salesNo="+notify.salesNo+"&no="+notify.no+"&msg="+notify.msg+"' style='color: gray;'>"+notify.msg+"</a>"; // 영어 이름
+						str += "<li><a href='${pageContext.request.contextPath}/front?key=user1&methodName=updateNotify&salesNo="+notify.salesNo+"&no="+notify.no+"&msg="+notify.msg+"' style='color: gray;'>"+notify.msg+"</a>"; // 영어 이름
 					}
 					str+="<input type='button' class='delete' data-info = '"+notify.no+"' value='X' ></li>";
 				});
