@@ -76,14 +76,14 @@
 
 <script>
     let chartInstance = null;
-    const productNo = 1; // productNo를 1로 고정, 테스트용
+    // const productNo = 1; // productNo를 1로 고정, 테스트용
 
     function loadChartSalesData(period, button) {
         $('.chart-button-group button').removeClass('active');
         $(button).addClass('active');
 
         $.ajax({
-            url: '/ajax?key=statistics&methodName=getSalesData&productNo=' + productNo + '&period=' + period,
+            url: '/ajax?key=statistics&methodName=getSalesData&productNo=' + ${productDetail.no} + '&period=' + period,
             type: 'GET',
             dataType: 'json',
             success: function(data) {
@@ -146,7 +146,7 @@
                 });
             },
             error: function(xhr, status, error) {
-                console.error('데이터 로드 중 오류 발생:', error);
+                console.error('데이터 로딩 오류 발생:', error);
                 console.log('응답 내용:', xhr.responseText);
             }
         });
