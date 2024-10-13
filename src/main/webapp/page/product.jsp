@@ -74,7 +74,8 @@
                 <button class="one-month">1개월</button>
             </div>
             <div class="item-quote-chart">
-                this is chart area
+<%--                this is chart area--%>
+                <jsp:include page="../chart/productPageChart.jsp"/>
             </div>
         </div>
         <div class="item-concluded">

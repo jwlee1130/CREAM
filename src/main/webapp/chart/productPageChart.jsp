@@ -14,12 +14,12 @@
             padding: 20px;
         }
 
-        .container {
+        .chart-container {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .frame {
+        .chart-frame {
             border: 2px solid #d1d1d1;
             border-radius: 10px;
             padding: 20px;
@@ -30,18 +30,18 @@
             margin-top: 20px;
         }
 
-        #salesChart {
+        #chartSalesChart {
             width: 100%;
             height: 400px;
         }
 
-        .button-group {
+        .chart-button-group {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
 
-        .button-group button {
+        .chart-button-group button {
             padding: 10px 30px;
             border: none;
             background-color: #e0e0e0;
@@ -51,26 +51,26 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .button-group button.active {
+        .chart-button-group button.active {
             background-color: #555555;
             color: #fff;
         }
 
-        .button-group button:not(:last-child) {
+        .chart-button-group button:not(:last-child) {
             margin-right: 10px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="button-group">
-        <button id="btn-7days" class="active" onclick="loadSalesData(7, this)">일주일</button>
-        <button id="btn-30days" onclick="loadSalesData(30, this)">1개월</button>
+<div class="chart-container">
+    <div class="chart-button-group">
+        <button id="chartBtn7Days" class="active" onclick="loadChartSalesData(7, this)">일주일</button>
+        <button id="chartBtn30Days" onclick="loadChartSalesData(30, this)">1개월</button>
     </div>
 
-    <div class="frame">
-        <canvas id="salesChart"></canvas>
+    <div class="chart-frame">
+        <canvas id="chartSalesChart"></canvas>
     </div>
 </div>
 
@@ -78,8 +78,8 @@
     let chartInstance = null;
     const productNo = 1; // productNo를 1로 고정, 테스트용
 
-    function loadSalesData(period, button) {
-        $('.button-group button').removeClass('active');
+    function loadChartSalesData(period, button) {
+        $('.chart-button-group button').removeClass('active');
         $(button).addClass('active');
 
         $.ajax({
@@ -98,7 +98,7 @@
 
                 const sales = Object.values(data);
 
-                const ctx = document.getElementById('salesChart').getContext('2d');
+                const ctx = document.getElementById('chartSalesChart').getContext('2d');
 
                 if (chartInstance) {
                     chartInstance.destroy();
@@ -114,7 +114,6 @@
                             borderColor: 'rgba(255, 0, 0, 1)',
                             borderWidth: 2,
                             pointRadius: 0,
-                            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
                             fill: false
                         }]
                     },
@@ -127,10 +126,6 @@
                         },
                         scales: {
                             x: {
-                                title: {
-                                    display: true,
-                                    text: ''
-                                },
                                 ticks: {
                                     color: '#333'
                                 },
@@ -139,10 +134,6 @@
                                 }
                             },
                             y: {
-                                title: {
-                                    display: true,
-                                    text: ''
-                                },
                                 ticks: {
                                     color: '#333'
                                 },
@@ -162,7 +153,7 @@
     }
 
     $(document).ready(function() {
-        loadSalesData(7, $('#btn-7days')[0]);
+        loadChartSalesData(7, $('#chartBtn7Days')[0]);
     });
 </script>
 
