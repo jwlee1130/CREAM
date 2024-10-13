@@ -34,7 +34,7 @@
 						str+="<li>";
 					    str+=`<a href="front?key=product&methodName=detail&no=1">`;
 					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image">이미지</div>`;
+					    str+=`<div class="item-image"><img width=250px height=250px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/${'1-1.webp'}"></div>`;
 					    str+=`<div class="item-brand">${"${product.brandNo}"}</div>`;
 					    str+=`<p class="item-description">브랜드 설명 들어가는곳</p>`;
 					    str+=`<div class="item-price">가격쓰는곳</div>`;
