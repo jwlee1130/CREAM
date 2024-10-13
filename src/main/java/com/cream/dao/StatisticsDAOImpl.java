@@ -1,13 +1,16 @@
 package com.cream.dao;
 
+import com.cream.dto.PurchaseDTO;
+import com.cream.util.DbUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import com.cream.util.DbUtil;
 
 public class StatisticsDAOImpl implements StatisticsDAO
 {
@@ -240,4 +243,45 @@ public class StatisticsDAOImpl implements StatisticsDAO
 
         return topColors;
     }
+
+    @Override
+    public List<PurchaseDTO> getPurchaseData(int productNo, int period) throws SQLException {
+        String sql = "SELECT PRODUCT_NO, PRICE, REGDATE, ADDRESS, SALES_USER_NO, BUY_USER_NO " +
+                "FROM PURCHASE " +
+                "WHERE PRODUCT_NO = ? " +
+                "AND REGDATE >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
+                "ORDER BY REGDATE ASC ";
+
+        List<PurchaseDTO> purchaseList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productNo);
+            ps.setInt(2, period);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                PurchaseDTO purchase = new PurchaseDTO();
+                purchase.setProductNo(rs.getInt("PRODUCT_NO"));
+                purchase.setPrice(rs.getInt("PRICE"));
+                purchase.setRegdate(rs.getString("REGDATE"));
+                purchase.setAddress(rs.getString("ADDRESS"));
+//                purchase.setSalesUserNo(rs.getInt("SALES_USER_NO"));
+//                purchase.setBuyUserNo(rs.getInt("BUY_USER_NO"));
+
+                purchaseList.add(purchase);
+            }
+        } finally {
+            DbUtil.dbClose(conn, ps, rs);
+        }
+
+        return purchaseList;
+    }
+
+
 }

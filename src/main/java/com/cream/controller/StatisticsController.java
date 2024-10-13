@@ -1,10 +1,13 @@
 package com.cream.controller;
 
+import com.cream.dto.PurchaseDTO;
 import com.cream.service.StatisticsService;
 import com.cream.service.StatisticsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 public class StatisticsController implements RestController {
@@ -34,6 +37,24 @@ public class StatisticsController implements RestController {
         int period = Integer.parseInt(request.getParameter("period"));
 
         return statisticService.getSalesData(productNo, period);
+    }
+
+    public List<PurchaseDTO> getPurchaseData(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        System.out.println("StatisticsController.getPurchaseData");
+
+        int productNo = Integer.parseInt(request.getParameter("productNo"));
+        int period = Integer.parseInt(request.getParameter("period"));
+
+        List<PurchaseDTO> purchaseData = statisticService.getPurchaseData(productNo, period);
+
+        for (PurchaseDTO purchase : purchaseData) {
+            System.out.println("Product No: " + purchase.getProductNo());
+            System.out.println("Price: " + purchase.getPrice());
+            System.out.println("Regdate: " + purchase.getRegdate());
+            System.out.println("Address: " + purchase.getAddress());
+        }
+
+        return purchaseData;
     }
 
 

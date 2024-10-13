@@ -2,8 +2,10 @@ package com.cream.service;
 
 import com.cream.dao.StatisticsDAO;
 import com.cream.dao.StatisticsDAOImpl;
+import com.cream.dto.PurchaseDTO;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 public class StatisticsServiceImpl implements StatisticsService {
@@ -35,5 +37,8 @@ public class StatisticsServiceImpl implements StatisticsService {
         return statisticsDAO.getSalesData(productNo, period);
     }
 
-
+    @Override
+    public List<PurchaseDTO> getPurchaseData(int productNo, int period) throws SQLException {
+        return statisticsDAO.getPurchaseData(productNo,period);
+    }
 }
