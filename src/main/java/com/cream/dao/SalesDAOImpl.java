@@ -81,7 +81,7 @@ public class SalesDAOImpl implements SalesDAO {
 	public int closeSale(Connection con,int salesNo) throws SQLException {
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "UPDATE USERS_SALES SET SALES_STATUS = 2 WHERE NO = ?";	
+		String sql = "UPDATE USERS_SALES SET SALES_STATUS = 2 WHERE NO = ? AND SALES_STATUS = 1";	
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, salesNo);

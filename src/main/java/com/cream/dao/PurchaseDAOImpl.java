@@ -1,9 +1,11 @@
 package com.cream.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.cream.dto.BidAccountDTO;
 import com.cream.dto.NotifyDTO;
@@ -15,7 +17,22 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	BidDAO bidDAO = new BidDAOImpl();
 	NotifyDAO notifyDAO = new NotifyFDAOImpl();	
 	
+	private Properties proFile = new Properties();
 	
+	public PurchaseDAOImpl() {
+		try {
+			//dbQuery를 준비한 ~.properties파일을 로딩해서 Properties 자료구조에 저장한다.
+			
+			//현재 프로젝트가 런타임(실행)될때, 즉 서버가 실행될때 classes폴더의 위치를
+			//동적으로 가져와서 경로를 설정해야한다.
+			InputStream is = getClass().getClassLoader().getResourceAsStream("dbQuery.properties");
+			proFile.load(is);
+			
+			System.out.println("query.selectAllProduct = " +proFile.getProperty("query.selectAllProduct"));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	/*
@@ -26,6 +43,9 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	 * 입찰관리계좌에서 구매자번호랑 가격 들고오기 (없으면 0반환)
 	 * 입찰자 있으면 돈 보내주기
 	 * 상위 입찰자가 있으면 알림 보내기
+	 * 수수료 계산
+	 * 판매자한테 수수료 지급
+	 * 관리자한테 판매가격 - 수수료 입금
 	 * 입찰 못하게 flag = 1로 설정
 	 * 판매자한테 판매 알림보내기
  	 *
@@ -35,7 +55,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result =0;
-		String sql = "INSERT INTO PURCHASE (`SALES_NO`, `SALES_USER_NO`,`BUY_USER_NO`, `PRODUCT_NO`, `PRICE`, `REGDATE`, `ADDRESS`) VALUES (?,?,?, ?, ?, sysdate(), ?)";
+		String sql = proFile.getProperty("query.nowBuy");
 		try {
 			con=DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -54,7 +74,6 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	        if (result == 0) {
 	            throw new SQLException("구매 처리 실패");
 	        }
-			int close = salesDAO.closeSale(con,purchase.getSalesNo()); //판매 상태 끝났으므로 판매종료
 			//입찰자 있으면 돈 돌려주기..
 			BidAccountDTO bidAccount = bidDAO.getHighestBid(con, purchase.getSalesNo());
 			if(bidAccount==null)
@@ -66,14 +85,22 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 					throw new SQLException("알림 전송 실패");
 				
 			}
+			int commision = calculateCommission(con,purchase.getSalesUserNo(), purchase.getPrice());
+			if(commision ==0) throw new SQLException("계산실패");
+			depositCreamToSellerAccount(con,purchase.getSalesUserNo(),commision);
+			depositCreamToAdminAccount(con, purchase.getPrice()-commision);
 			
 			if(notifyDAO.insertNotify(con,new NotifyDTO(purchase.getSalesUserNo(),purchase.getSalesNo(),purchase.getProductNo(),"등록하신 상품이 판매되었습니다"))==0)
 				throw new SQLException("알림 전송 실패");
 			
-			bidDAO.setBidFlagOne(con, purchase.getSalesNo());
+			
+			bidDAO.setBidFlagOne(con, purchase.getSalesNo()); //판매됐으니 플래그1 입찰 시도 방지
+			int close = salesDAO.closeSale(con,purchase.getSalesNo()); //판매 상태 끝났으므로 판매종료
 			if(close ==0) {	
 	            throw new SQLException("판매 상태 변경 실패");
 			}
+			
+			
 			con.commit();
 			
 		}catch(SQLException e) {
@@ -92,7 +119,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		PurchaseDTO purchase = null;
-		String sql = "SELECT * FROM PURCHASE WHERE BUY_USER_NO = ? AND SALES_NO = ?";
+		String sql = proFile.getProperty("query.purchaseDetail");
 		try {
 			con=DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -112,5 +139,69 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 		}
 			DbUtil.dbClose(con, ps,rs);
 		return purchase;
+	}
+	public int calculateCommission(Connection con,int userNo, int price) throws SQLException {
+		int commission =0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = proFile.getProperty("query.calculateCommission");
+		try {
+			con=DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, price);
+			ps.setInt(2, userNo);
+			
+			rs = ps.executeQuery();
+			
+	        if (rs.next()) {
+	        	commission = rs.getInt(1);
+	        }
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("구매 실패");
+		}finally {
+			DbUtil.dbClose(ps,rs);
+		}
+		return commission;
+	}
+	
+	public int depositCreamToSellerAccount(Connection con,int userNo,int price) throws SQLException {
+		int result =0;
+		PreparedStatement ps = null;
+		String sql = proFile.getProperty("query.depositCreamToSellerAccount");
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, price);
+			ps.setInt(2, userNo);
+			
+			result = ps.executeUpdate();
+			if(result==0) throw new SQLException("판매자한테 수수료 넣기 실패");
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("판매자한테 수수료 넣기 실패");
+		}finally {
+			DbUtil.dbClose(ps);
+		}
+		return result;
+	}
+	
+	public int depositCreamToAdminAccount(Connection con,int price) throws SQLException {
+		int result =0;
+		PreparedStatement ps = null;
+		String sql = proFile.getProperty("query.depositCreamToAdminAccount");
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, price);			
+			result = ps.executeUpdate();
+			if(result==0) throw new SQLException("관리자 수수료 넣기 실패");
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("관리자 수수료 넣기 실패");
+		}finally {
+			DbUtil.dbClose(ps);
+		}
+		return result;
 	}
 }
