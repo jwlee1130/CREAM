@@ -1,39 +1,42 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
+    body, html {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+    }
     .transaction-chart-container {
         font-family: 'Noto Sans', sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
+        background-color: #fff;
         padding: 20px;
     }
     .transaction-chart-table-container {
-        max-width: 800px;
-        margin: 0 auto;
-        margin-top: 20px;
+        max-width: 600px;
+        margin: 20px auto;
     }
     .transaction-chart-table {
+        border: 1px solid #ddd;
+        border-collapse: separate;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
         width: 100%;
+        overflow: hidden;
+        background-color: #fff;
     }
     .transaction-chart-table th, .transaction-chart-table td {
-        vertical-align: middle;
+        border: 1px solid #ddd;
+        padding: 8px;
         text-align: center;
-        padding: 12px;
+        background-color: #fff;
     }
     .transaction-chart-table th {
-        background-color: #f7f7f7;
+        background-color: #fff;
         font-weight: bold;
-    }
-    .transaction-chart-table tbody tr:nth-child(odd) {
-        background-color: #f2f2f2;
     }
 </style>
 
 <div class="transaction-chart-container">
     <div class="transaction-chart-table-container">
-        <table class="table transaction-chart-table table-hover">
+        <table class="transaction-chart-table">
             <thead>
             <tr>
                 <th>날짜</th>
@@ -65,17 +68,15 @@
                     var transactionTableBody = '';
 
                     data.sort(function(a, b) {
-                        var dateA = new Date(a.regdate);
-                        var dateB = new Date(b.regdate);
-                        return dateB - dateA;
+                        return new Date(b.regdate) - new Date(a.regdate);
                     });
 
                     for (var i = 0; i < data.length; i++) {
                         var transaction = data[i];
                         var regdateRaw = transaction.regdate ? transaction.regdate.split(' ')[0].trim() : '';
-                        var price = (transaction.price || transaction.price === 0) ? transaction.price.toLocaleString() + '원' : '';
+                        var price = transaction.price.toLocaleString() + '원';
 
-                        if (regdateRaw && price) {
+                        if (regdateRaw) {
                             transactionTableBody += '<tr>' +
                                 '<td>' + regdateRaw + '</td>' +
                                 '<td>' + price + '</td>' +

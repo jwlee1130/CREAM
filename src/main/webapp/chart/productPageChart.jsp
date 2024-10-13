@@ -15,7 +15,8 @@
         }
 
         .chart-container {
-            max-width: 800px;
+            /*max-width: 800px;*/
+            max-width: 100%;
             margin: 0 auto;
         }
 
@@ -27,7 +28,7 @@
             position: relative;
             width: 100%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         #chartSalesChart {
@@ -38,18 +39,19 @@
         .chart-button-group {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .chart-button-group button {
-            padding: 10px 30px;
+            padding: 5px 15px;
             border: none;
             background-color: #e0e0e0;
             color: #333;
             cursor: pointer;
             font-weight: bold;
             transition: background-color 0.3s, color 0.3s;
-            border-radius: 20px; /* 둥글기 변경 */
+            border-radius: 20px;
+            font-size: 15px;
         }
 
         .chart-button-group button.active {
@@ -61,7 +63,6 @@
             margin-right: 10px;
         }
 
-        /* 버튼 호버 효과 추가 */
         .chart-button-group button:hover {
             background-color: #555555;
             color: #fff;
@@ -167,7 +168,6 @@
             },
             error: function(xhr, status, error) {
                 console.error('데이터 로딩 오류 발생:', error);
-                console.log('응답 내용:', xhr.responseText);
             }
         });
     }
