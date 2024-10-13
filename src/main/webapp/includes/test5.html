@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>현재 ShoeCream: <span id="currentCash">-</span> 원</h2>
+	<form action="../front?key=user1&methodName=updateCash" method="post">
+	  <label>ShoeCream 충전하기: </label>
+	  <input type="number" name="cash" required>
+	  <button type="submit">충전하기</button>
+	</form>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 세션에 저장된 사용자 정보를 가져옴
+      const currentCash = '${sessionScope.loginUser.cash}';
+      
+      // 화면에 현재 캐시 정보 표시
+      document.getElementById('currentCash').textContent = currentCash + ' 원';
+    });
+  </script>
+</html>

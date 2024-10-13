@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Information</title>
+</head>
+<body>
+  <h2>User Information</h2>
+  <div id="userInfoView">
+    <p>등급: <span id="rankNo"></span></p>
+    <p>아이디: <span id="userId"></span></p>
+    <p>이름: <span id="name"></span></p>
+    <p>이메일: <span id="userEmail"></span></p>
+    <p>캐시: <span id="cash"></span></p>
+    <p>성별: <span id="gender"></span></p>
+    <p>나이: <span id="age"></span></p>
+    <p>전화번호: <span id="hp"></span></p>
+    <p>닉네임: <span id="nickname"></span></p>
+    <p>신발 사이즈: <span id="shoesSize"></span></p>
+    <p>주소: <span id="address"></span></p>
+    <p>가입일: <span id="regdate"></span></p>
+    <button type="button" id="enableEdit">수정하기</button>
+  </div>
+
+  <div id="userEditForm" style="display:none;">
+    <form action="../front?key=user1&methodName=updateUser" method="post" id="updateForm">
+      <label>비밀번호: </label><input type="password" name="password" id="userPw"><br>
+      <label>닉네임: </label><input type="text" name="nickname" id="editNickname"><br>
+      <label>신발 사이즈: </label><input type="number" name="shoesSize" id="editShoesSize"><br>
+      <label>주소: </label><input type="text" name="address" id="editAddress"><br>
+      <button type="submit" id="saveChanges">저장하기</button>
+    </form>
+  </div>
+</body>
+</html>

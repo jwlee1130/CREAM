@@ -108,7 +108,7 @@
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder">이미지 3</div>
+                                <div class="image-placeholder">이미지 3</di	v>
                                 <div class="brand-name">브랜드명 3</div>
                                 <div class="brand-description">브랜드 설명 3</div>
                                 <div class="brand-price">가격 3</div>

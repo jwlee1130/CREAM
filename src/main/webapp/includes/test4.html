@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>회원 탈퇴</h2>
+    <p>현재 아이디: <span id="userId">-</span></p>
+    <form action="../front?key=user1&methodName=deleteUser" method="post">
+        <label>비밀번호: </label>
+        <input type="password" name="password" required>
+        <button type="submit">탈퇴하기</button>
+    </form>
+</body>
+	<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // loginUser의 아이디를 세션에서 가져와 설정
+            const userId = '${sessionScope.loginUser.userId}'; 
+            document.getElementById('userId').textContent = userId;
+        });
+    </script>
+</html>

@@ -82,10 +82,14 @@ $(document).ready(function() {
     $('#sellBtn').on('click', function() {	
         const startingPrice = $('#startingPrice').val();
         const desiredPrice = $('#desiredPrice').val();
-        const shoesNo  = $('#shoesNo').val(); // 선택한 신발 사이즈 가져오기
+        const shoesNo  = $('#shoesNo').val();
 
         if (!startingPrice || !desiredPrice || !shoesNo) {
             alert("시작 입찰가와 판매 희망가, 신발 사이즈를 모두 선택해 주세요.");
+            return;
+        }
+        if (startingPrice > desiredPrice) {
+            alert("시작 입찰가는 판매 희망가보다 높을 수 없습니다. 다시 입력해 주세요.");
             return;
         }
 
@@ -105,9 +109,10 @@ $(document).ready(function() {
             },
             success: function(response) {
                 alert("판매가 등록되었습니다.");
+                window.location.href = "../index.jsp";
             },
             error: function(error) {
-                console.error("판매 등록 오류:", error);
+                console.error(error);
                 alert("등록에 실패했습니다. 다시 시도해 주세요.");
             }
         });

@@ -63,7 +63,7 @@
 
             </div>
             <div class="item-wish">
-                <button type="submit" id="add-to-wishlist" data-id="${productDetail.no}">관심상품 추가</button>
+                <button type="submit" id="add-to-wishlist" data-id="${productDetail.no}">관심상품</button>
             </div>
         </div>
 
@@ -228,7 +228,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const wishlistButton = document.getElementById('add-to-wishlist');
-
+    
     wishlistButton.addEventListener('click', function() {
         const productNo = this.getAttribute('data-id');
         $.ajax({
@@ -236,23 +236,27 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             data: {
                 key: 'userAjax',
-                methodName: 'addToWishlist',
+                methodName: 'toggleWishlist',
                 product_no: productNo
             },
+            dataType: 'json',
             success: function(response) {
-                if (response > 0) {
+                if (response.status === 'added') {
                     alert("관심상품이 추가되었습니다.");
+                } else if (response.status === 'removed') {
+                    alert("관심상품이 해제되었습니다.");
                 } else {
-                    alert("관심상품 추가에 실패했습니다. 다시 시도해 주세요.");
+                    alert("처리에 실패했습니다. 다시 시도해 주세요.");
                 }
             },
             error: function(error) {
                 console.error("Error: ", error);
-                alert("추가에 실패했습니다. 다시 시도해 주세요.");
+                alert("오류가 발생했습니다. 다시 시도해 주세요.");
             }
         });
     });
 });
 </script>
+
 </body>
 </html>

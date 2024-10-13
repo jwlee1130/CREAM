@@ -27,30 +27,14 @@
             </ul>
             <ul>
                 <h2>회원 정보</h2>
-                <li><a href="">회원 관리</a></li>
-                <li><a href="">판매자 등급</a></li>
-                <li><a href="">포인트</a></li>
+                <li><a href="#test3">회원 관리</a></li>
+                <li><a href="#test4">판매자 등급</a></li>
+                <li><a href="#test5">포인트</a></li>
             </ul>
         </div>
         <div class="main-content" id="content">
             <jsp:include page="../includes/test1.html" /> <!-- 기본 콘텐츠 -->
-        </div>
-        <div>
-        	 <div>
-			    <h2>관심상품 목록</h2>
-			    <table border="1" id="wishlistTable">
-			        <thead>
-			            <tr>
-			                <th>영어 이름</th>
-			                <th>발매가</th>
-			                <th>삭제</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <!-- 여기에 찜목록 리스트 나옴 -->
-			        </tbody>
-			    </table>
-			</div>
+            <jsp:include page="../includes/test2.html" />
         </div>
     </div>
 </div>
@@ -83,6 +67,12 @@
         console.error(error);
       });
     }
+    
+    
+    loadUserInfo();
+    Wishlist();
+    Sales();
+    
     
  // 찜목록 리스트
 	function Wishlist() {
@@ -170,6 +160,53 @@
 	}
  	
  	
+    
+    
+    
+    $(document).on('click', '#enableEdit', function() {
+        // 사용자 정보 뷰 숨기고, 수정 폼 보여주기
+        $('#userInfoView').hide();
+        $('#userEditForm').show();
+
+        // 수정 폼에 기본 정보 넣기
+        $('#userPw').val(''); // 비밀번호는 공란으로 유지
+        $('#editNickname').val($('#nickname').text());
+        $('#editShoesSize').val($('#shoesSize').text());
+        $('#editAddress').val($('#address').text());
+      });
+    
+    function loadUserInfo() {
+        $.ajax({
+          url: '${pageContext.request.contextPath}/ajax',
+          method: 'GET',
+          dataType: 'json',
+          data: {
+            key: 'userAjax',
+            methodName: 'selectUserById'
+          },
+          success: function(response) {
+            $('#rankNo').text(response.rankNo);
+            $('#userId').text(response.userId);
+            $('#name').text(response.name);
+            $('#userEmail').text(response.userEmail);
+            $('#cash').text(response.cash);
+            $('#gender').text(response.gender);
+            $('#age').text(response.age);
+            $('#hp').text(response.hp);
+            $('#nickname').text(response.nickname);
+            $('#shoesSize').text(response.shoesSize);
+            $('#address').text(response.address);
+            $('#regdate').text(response.regdate);
+          },
+          error: function() {
+            alert("사용자 정보를 불러오는 데 실패했습니다.");
+          }
+        });
+      }
+    
+      
+
+
  	
 
 
@@ -178,8 +215,8 @@
 
     // 초기 콘텐츠 로드
     loadContent();
-    Wishlist();
-    Sales();
+    
+    
   });
 </script>
 </body>

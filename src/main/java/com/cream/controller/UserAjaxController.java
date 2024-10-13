@@ -1,7 +1,9 @@
 package com.cream.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
@@ -111,6 +113,45 @@ public class UserAjaxController implements RestController {
         }
         return result;
     }
-    
+    public Object toggleWishlist(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
+        Map<String, Object> resultMap = new HashMap<>();
+        String status = "error";
+        try {
+            int productNo = Integer.parseInt(request.getParameter("product_no"));
+            boolean isWishlistItem = service.isProductInWishlist(loginUser.getNo(), productNo);
+
+            if (isWishlistItem) {
+                int result = service.deleteWishlist(loginUser.getNo(), productNo);
+                status = (result > 0) ? "removed" : "error";
+            } else {
+                int result = service.addToWishlist(loginUser.getNo(), productNo);
+                status = (result > 0) ? "added" : "error";
+            }
+            resultMap.put("status", status);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultMap;
+    }
+    
+    
+    
+    public Object selectUserById(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+        UserDTO user = null;
+        
+        try {
+        	user = service.selectUserById(loginUser.getNo());
+        	System.out.println("User Data: " + user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return user;
+    }
 }
