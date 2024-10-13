@@ -209,7 +209,6 @@ public class StatisticsDAOImpl implements StatisticsDAO
      */
     @Override
     public Map<String, Integer> getTop3ColorsFromSurvey() throws SQLException {
-        // SQL 쿼리: 색상별 선택 횟수를 계산하여 상위 3개의 인기 색상을 가져옴
         String sql = "SELECT s.color, COUNT(s.color) AS POPULARITY " +
                 "FROM SURVEY s " +
                 "GROUP BY s.color " +
