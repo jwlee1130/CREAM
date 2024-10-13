@@ -62,14 +62,14 @@
 
     // 초기 콘텐츠 로드 함수
     function loadContent() {
-      const hash = window.location.hash.substring(1) || 'test1';
+      const hash = window.location.hash.substring(1) || 'mypage_main';
       console.log(hash)
       fetchContent(hash);
     }
 
     // Fetch API를 사용하여 콘텐츠를 가져오는 함수
     function fetchContent(page) {
-      fetch("${pageContext.request.contextPath}/includes/"+page+".html")
+      fetch("${pageContext.request.contextPath}/includes/"+page+".jsp")
       .then(response => {
         if (!response.ok) {
           throw new Error(`Could not fetch ${page}.html: ${response.statusText}`);
