@@ -82,7 +82,7 @@
         data: {
           key: 'admin',
           methodName: 'deleteUserById',
-          userNo: userNo
+          userNo: userNo//d
         },
         success: function(response) {
           console.log(response);
