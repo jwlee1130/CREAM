@@ -39,6 +39,8 @@ public class AdminController implements RestController {
         int salesNo = Integer.parseInt(request.getParameter("salesNo"));
         int salesStatus = Integer.parseInt(request.getParameter("salesStatus"));
         int price = Integer.parseInt(request.getParameter("startingPrice"));
+        System.out.println("AdminController.updateSalesStatus");
+        System.out.println(price);
         return adminService.updateSalesStatus(salesNo, salesStatus,price);
     }
 
@@ -74,7 +76,7 @@ public class AdminController implements RestController {
         System.out.println("AdminController.getProductName");
         int productNo = Integer.parseInt(request.getParameter("productNo"));
         Map<String, String> result = adminService.getProductName(productNo);
-        System.out.println("Product Name for productNo " + productNo + ": " + result.get("productName"));
+//        System.out.println("Product Name for productNo " + productNo + ": " + result.get("productName"));
         return result;
     }
 }

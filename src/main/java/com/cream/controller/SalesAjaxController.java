@@ -15,8 +15,6 @@ import com.google.gson.JsonObject;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import netscape.javascript.JSObject;
 
 public class SalesAjaxController implements RestController {
 	SalesService service = new SalesServiceImpl();

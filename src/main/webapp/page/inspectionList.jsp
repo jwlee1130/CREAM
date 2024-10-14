@@ -89,7 +89,8 @@
   $(document).on('click', '.approve-btn', function() {
     let salesNo = $(this).data('sales-no');
     let grade = $('.grade-select[data-sales-no="' + salesNo + '"]').val();
-	let startingPrice = $(this).attr("data-sales-startingPrice");
+	let startingPrice = $(this).data('sales-startingPrice');
+    console.log(startingPrice);)
     if (grade === 'U') {
       alert("등급을 선택해주세요.");
       return;
