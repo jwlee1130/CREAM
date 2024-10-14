@@ -5,10 +5,8 @@
   <meta charset="UTF-8">
   <title>통계 대시보드</title>
 
-  <!-- jQuery CDN -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -45,6 +43,8 @@
     .stat-chart-frame h2 {
       text-align: center;
       margin-bottom: 20px;
+      font-family:'Poppins',sans-serif;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -121,8 +121,7 @@
             },
             scales: {
               y: {
-                beginAtZero: true,
-                title: {
+                beginAtZero: true,                title: {
                   display: true,
                   text: '판매량'
                 }
