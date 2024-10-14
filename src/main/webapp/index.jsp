@@ -42,7 +42,7 @@
 					    str+=`</a>`;
 					    str+="</li>";
 					}); //eachEnd
-					
+
 					$("#popular-list-wrapper-ul").html(str);
 					
 					
