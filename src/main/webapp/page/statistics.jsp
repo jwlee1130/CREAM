@@ -28,13 +28,13 @@
       border-radius: 10px;
       padding: 20px;
       background-color: white;
-      width: 48%; /* 한 줄에 두 개씩 배치되도록 설정 */
+      width: 48%;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       margin-top: 10px;
       margin-bottom: 20px;
     }
     .full-width {
-      width: 100%; /* 한 줄 전체를 차지하도록 설정 */
+      width: 100%;
     }
     .stat-canvas {
       width: 100% !important;
@@ -50,7 +50,6 @@
 </head>
 <body>
 
-<!-- 한 줄에 2개의 차트 -->
 <div class="stat-chart-container">
   <div class="stat-chart-frame">
     <h2>남자 인기 품목 Top 3</h2>
@@ -63,15 +62,13 @@
   </div>
 </div>
 
-<!-- 일일 판매액 차트는 한 줄에 하나 -->
 <div class="stat-chart-container">
-  <div class="stat-chart-frame full-width"> <!-- 가로를 모두 차지하게 -->
+  <div class="stat-chart-frame full-width">
     <h2>일일 판매액(일주일)</h2>
     <canvas id="totalSalesChart" class="stat-canvas"></canvas>
   </div>
 </div>
 
-<!-- 한 줄에 2개의 차트 -->
 <div class="stat-chart-container">
   <div class="stat-chart-frame">
     <h2>설문조사 인기 브랜드 Top 3</h2>
@@ -93,7 +90,7 @@
     loadTop3Items('여', period, contextPath + '/ajax', '#top3FemaleItemsChart');
     loadTotalSalesData(contextPath + '/ajax', '#totalSalesChart', period);
     loadTop3SurveyData('getTop3BrandsFromSurvey', contextPath + '/ajax', '#top3BrandsChart');
-    loadTop3SurveyData('getTop3ColorsFromSurvey', contextPath + '/ajax', '#top3ColorsChart'); // 추가된 라인
+    loadTop3SurveyData('getTop3ColorsFromSurvey', contextPath + '/ajax', '#top3ColorsChart');
   });
 
   function loadTop3Items(gender, period, url, canvasId) {
@@ -110,6 +107,7 @@
       success: function(data) {
         const labels = Object.keys(data);
         const values = Object.values(data);
+        const backgroundColors = generateColors(labels.length);
 
         new Chart(document.querySelector(canvasId), {
           type: 'doughnut',
@@ -118,8 +116,8 @@
             datasets: [{
               label: '판매량',
               data: values,
-              backgroundColor: 'rgba(54, 162, 235, 0.6)',
-              borderColor: 'rgba(54, 162, 235, 1)',
+              backgroundColor: backgroundColors,
+              borderColor: 'rgba(255, 255, 255, 1)',
               borderWidth: 1
             }]
           },
@@ -128,11 +126,16 @@
             plugins: {
               legend: {
                 display: true,
-                position:'bottom'
+                position: 'bottom',
+                labels: {
+                  usePointStyle: true,
+                  padding: 20,
+                  boxWidth: 10,
+                  align: 'start',
+                }
               }
             },
-            scales: {
-            }
+            scales: {}
           }
         });
       },
@@ -240,7 +243,13 @@
             responsive: true,
             plugins: {
               legend: {
-                position: 'bottom'
+                position: 'bottom',
+                labels: {
+                  usePointStyle: true,
+                  padding: 20,
+                  boxWidth: 10,
+                  align: 'start',
+                }
               }
             }
           }
@@ -261,7 +270,11 @@
       'rgba(153, 102, 255, 0.6)',
       'rgba(255, 159, 64, 0.6)'
     ];
-    return colors.slice(0, num);
+    const extendedColors = [];
+    for(let i=0; i<num; i++) {
+      extendedColors.push(colors[i % colors.length]);
+    }
+    return extendedColors;
   }
 </script>
 
