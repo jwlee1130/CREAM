@@ -18,62 +18,152 @@
       margin: 0;
       padding: 20px;
     }
-    .chart-container {
+    /* 통계 대시보드와 충돌 방지를 위한 클래스 접두사 추가 */
+    .stat-chart-container {
       max-width: 100%;
       margin: 0 auto 50px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
     }
-    .chart-frame {
+    .stat-chart-frame {
       border: 2px solid #d1d1d1;
       border-radius: 10px;
       padding: 20px;
       background-color: white;
-      width: 100%;
+      width: 48%;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       margin-top: 10px;
+      margin-bottom: 20px;
     }
-    canvas {
+    .stat-chart-frame:nth-child(2n) {
+      margin-right: 0;
+    }
+    .stat-canvas {
       width: 100% !important;
-      height: 400px !important;
+      height: 300px !important;
     }
-    h2 {
+    .stat-list-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .stat-rank-a, .stat-rank-b, .stat-rank-c {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .stat-buy-button {
+      padding: 5px 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .stat-buy-button:hover {
+      background-color: #218838;
+    }
+    .stat-tab-content-list {
+      padding: 10px;
+    }
+    .stat-item-none {
+      color: red;
+      font-weight: bold;
+    }
+    .stat-chart-frame h2 {
       text-align: center;
       margin-bottom: 20px;
+    }
+    /* 모달 스타일 */
+    .stat-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .stat-modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      border-radius: 10px;
+    }
+    .stat-close-button {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .stat-close-button:hover,
+    .stat-close-button:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .stat-tabs-container {
+      margin-top: 20px;
+    }
+    .stat-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .stat-tab-button {
+      background-color: #f1f1f1;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin: 0 5px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .stat-tab-button.active {
+      background-color: #007bff;
+      color: white;
+    }
+    .stat-tab-content {
+      display: none;
+    }
+    .stat-tab-content.active {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-<h1 style="text-align: center;">통계 대시보드</h1>
-
-<!-- 남자 인기 품목 Top 3 (막대 차트) -->
-<div class="chart-container">
-  <div class="chart-frame">
-    <h2>남자 인기 품목 Top 3</h2>
-    <canvas id="top3MaleItemsChart"></canvas>
+<div class="stat-chart-container">
+  <!-- 남자 인기 품목 Top 3 (막대 차트) -->
+  <div class="stat-chart-frame">
+    <canvas id="top3MaleItemsChart" class="stat-canvas"></canvas>
   </div>
-</div>
 
-<!-- 여자 인기 품목 Top 3 (막대 차트) -->
-<div class="chart-container">
-  <div class="chart-frame">
+  <!-- 여자 인기 품목 Top 3 (막대 차트) -->
+  <div class="stat-chart-frame">
     <h2>여자 인기 품목 Top 3</h2>
-    <canvas id="top3FemaleItemsChart"></canvas>
+    <canvas id="top3FemaleItemsChart" class="stat-canvas"></canvas>
   </div>
 </div>
 
-<!-- 누적 판매액 (꺾은선 차트) -->
-<div class="chart-container">
-  <div class="chart-frame">
+<div class="stat-chart-container">
+  <!-- 일일 판매액 (꺾은선 차트) -->
+  <div class="stat-chart-frame">
     <h2>일일 판매액</h2>
-    <canvas id="totalSalesChart"></canvas>
+    <canvas id="totalSalesChart" class="stat-canvas"></canvas>
   </div>
-</div>
 
-<!-- 설문조사 인기 브랜드 Top 3 (원형 차트) -->
-<div class="chart-container">
-  <div class="chart-frame">
+  <!-- 설문조사 인기 브랜드 Top 3 (원형 차트) -->
+  <div class="stat-chart-frame">
     <h2>설문조사 인기 브랜드 Top 3</h2>
-    <canvas id="top3BrandsChart"></canvas>
+    <canvas id="top3BrandsChart" class="stat-canvas"></canvas>
   </div>
 </div>
 
@@ -177,7 +267,7 @@
           const date = new Date(dateString);
           const month = String(date.getMonth() + 1);
           const day = String(date.getDate());
-          return month + '/' + day; // "MM/DD" 형식으로 변환
+          return month + '/' + day;
         });
 
         const values = sortedDates.map(dateString => data[dateString]);
