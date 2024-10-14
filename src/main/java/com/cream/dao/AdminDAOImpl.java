@@ -36,36 +36,17 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public int deleteUsersSalesByNo(int salesNo) throws SQLException {
+        String sql = "DELETE FROM USERS_SALES WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
 
         try {
             conn = DbUtil.getConnection();
-            conn.setAutoCommit(false);
-
-
-            String deletePurchasesSql = "DELETE FROM PURCHASE WHERE SALES_NO=?";
-            ps = conn.prepareStatement(deletePurchasesSql);
+            ps = conn.prepareStatement(sql);
             ps.setInt(1, salesNo);
-            int deletedPurchases = ps.executeUpdate();
-            ps.close();
-
-
-            String deleteSalesSql = "DELETE FROM USERS_SALES WHERE NO=?";
-            ps = conn.prepareStatement(deleteSalesSql);
-            ps.setInt(1, salesNo);
-            int deletedSales = ps.executeUpdate();
-            ps.close();
-
-            conn.commit();
-            return deletedSales;
-        } catch (SQLException e) {
-            if (conn != null) {
-                conn.rollback();
-            }
-            throw e;
+            return ps.executeUpdate();
         } finally {
-            DbUtil.dbClose(conn, ps, null);
+            DbUtil.dbClose(conn, ps);
         }
     }
 
@@ -84,8 +65,6 @@ public class AdminDAOImpl implements AdminDAO {
             }
         }
     }
-
-
 
 
     /*
