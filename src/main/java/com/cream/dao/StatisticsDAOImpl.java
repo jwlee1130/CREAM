@@ -1,13 +1,16 @@
 package com.cream.dao;
 
+import com.cream.dto.PurchaseDTO;
+import com.cream.util.DbUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import com.cream.util.DbUtil;
 
 public class StatisticsDAOImpl implements StatisticsDAO
 {
@@ -16,12 +19,13 @@ public class StatisticsDAOImpl implements StatisticsDAO
     SELECT p.eng_name, COUNT(pur.product_no) AS TOTAL_SALES
     FROM PURCHASE pur
     JOIN PRODUCT p ON pur.product_no = p.no
-    JOIN USERS u ON pur.user_no = u.no
+    JOIN USERS u ON pur.buy_user_no = u.no
     WHERE u.gender = '여'
     AND pur.regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
     GROUP BY p.eng_name
     ORDER BY TOTAL_SALES DESC
     LIMIT 3;
+
 
      */
     @Override
@@ -30,12 +34,13 @@ public class StatisticsDAOImpl implements StatisticsDAO
         String sql = "SELECT p.eng_name, COUNT(pur.product_no) AS TOTAL_SALES " +
                 "FROM PURCHASE pur " +
                 "JOIN PRODUCT p ON pur.product_no = p.no " +
-                "JOIN USERS u ON pur.user_no = u.no " +
+                "JOIN USERS u ON pur.buy_user_no = u.no " +  // pur.user_no -> pur.buy_user_no 로 수정(디비 변경)
                 "WHERE u.gender = ? " +
                 "AND pur.regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
                 "GROUP BY p.eng_name " +
                 "ORDER BY TOTAL_SALES DESC " +
                 "LIMIT 3";
+
 
         Map<String,Integer> topItems=new HashMap<>();
 
@@ -206,7 +211,6 @@ public class StatisticsDAOImpl implements StatisticsDAO
      */
     @Override
     public Map<String, Integer> getTop3ColorsFromSurvey() throws SQLException {
-        // SQL 쿼리: 색상별 선택 횟수를 계산하여 상위 3개의 인기 색상을 가져옴
         String sql = "SELECT s.color, COUNT(s.color) AS POPULARITY " +
                 "FROM SURVEY s " +
                 "GROUP BY s.color " +
@@ -240,4 +244,52 @@ public class StatisticsDAOImpl implements StatisticsDAO
 
         return topColors;
     }
+
+    /*
+    SELECT PRODUCT_NO, PRICE, REGDATE, ADDRESS, SALES_USER_NO, BUY_USER_NO
+    FROM PURCHASE
+    WHERE PRODUCT_NO = 1
+    AND REGDATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    ORDER BY REGDATE ASC;
+     */
+    @Override
+    public List<PurchaseDTO> getPurchaseData(int productNo, int period) throws SQLException {
+        String sql = "SELECT PRODUCT_NO, PRICE, REGDATE, ADDRESS, SALES_USER_NO, BUY_USER_NO " +
+                "FROM PURCHASE " +
+                "WHERE PRODUCT_NO = ? " +
+                "AND REGDATE >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
+                "ORDER BY REGDATE ASC ";
+
+        List<PurchaseDTO> purchaseList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productNo);
+            ps.setInt(2, period);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                PurchaseDTO purchase = new PurchaseDTO();
+                purchase.setProductNo(rs.getInt("PRODUCT_NO"));
+                purchase.setPrice(rs.getInt("PRICE"));
+                purchase.setRegdate(rs.getString("REGDATE"));
+                purchase.setAddress(rs.getString("ADDRESS"));
+//                purchase.setSalesUserNo(rs.getInt("SALES_USER_NO"));
+//                purchase.setBuyUserNo(rs.getInt("BUY_USER_NO"));
+
+                purchaseList.add(purchase);
+            }
+        } finally {
+            DbUtil.dbClose(conn, ps, rs);
+        }
+
+        return purchaseList;
+    }
+
+
 }

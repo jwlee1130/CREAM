@@ -1,6 +1,9 @@
 package com.cream.dao;
 
+import com.cream.dto.PurchaseDTO;
+
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 public interface StatisticsDAO {
@@ -37,5 +40,10 @@ public interface StatisticsDAO {
 	 * */
 	Map<String,Integer> getSalesData(int productNo, int period) throws SQLException;
 
+	/**
+	 * 	<구매 페이지>
+	 * 	특정 제품 번호와 기간에 대한 구매 데이터를 리스트로 반환
+	 */
+	List<PurchaseDTO> getPurchaseData(int productNo, int period) throws SQLException;
 
 }

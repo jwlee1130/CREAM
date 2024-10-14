@@ -141,13 +141,15 @@
                 <button class="one-month">1개월</button>
             </div>
             <div class="item-quote-chart">
-                this is chart area
+<%--                this is chart area--%>
+                <jsp:include page="../chart/productPageChart.jsp"/>
             </div>
         </div>
         <div class="item-concluded">
             <h2>체결거래</h2>
             <div class="concluded-transaction">
-                this is concluded-transaction area
+<%--                this is concluded-transaction area--%>
+                <jsp:include page="../chart/transactionChart.jsp"/>
             </div>
         </div>
     </div>
