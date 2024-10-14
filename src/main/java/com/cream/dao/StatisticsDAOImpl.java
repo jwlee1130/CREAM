@@ -118,11 +118,20 @@ public class StatisticsDAOImpl implements StatisticsDAO
 
     }
 
+    /*
+    SELECT DATE(regdate) AS sale_date, SUM(price) AS total_sales
+    FROM PURCHASE
+    WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    AND regdate <= CURDATE() -- 현재 날짜까지의 범위를 추가
+    GROUP BY DATE(regdate);
+
+     */
     @Override
     public Map<String, Integer> getTotalSalesData(int period) throws SQLException {
         String sql = "SELECT DATE(regdate) AS sale_date, SUM(price) AS total_sales " +
                 "FROM PURCHASE " +
                 "WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
+                "AND regdate <= CURDATE() " +
                 "GROUP BY DATE(regdate)";
 
         Map<String, Integer> salesData = new HashMap<>();
