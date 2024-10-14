@@ -14,7 +14,12 @@
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-
+<style type="text/css">
+ 	p{
+ 		width :200px;
+ 		white-space: pre-wrap;
+ 	}
+ </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -34,10 +39,10 @@
 						str+="<li>";
 					    str+=`<a href="front?key=product&methodName=detail&no=1">`;
 					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image"><img width=250px height=250px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/${'1-1.webp'}"></div>`;
-					    str+=`<div class="item-brand">${"${product.brandNo}"}</div>`;
-					    str+=`<p class="item-description">${"${product.korName}"}</p>`;
-					    str+=`<div class="item-price">${"${product.releasePrice}"}</div>`;
+					    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg.filePath}'}"></div>`;
+					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
+					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
 					    str+=`</div>`;
 					    str+=`</a>`;
 					    str+="</li>";
@@ -48,7 +53,7 @@
 					
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
-					alert(err+"에러 발생했어요.");
+					alert(err+"상품 조회에서 에러 발생했어요.");
 				}  //실팽했을때 실행할 함수 
 			});//ajax끝
 			
@@ -95,7 +100,7 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder">이미지 1</div>
+                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png"></div>
                                 <div class="brand-name">브랜드명 1</div>
                                 <div class="brand-description">브랜드 설명 1</div>
                                 <div class="brand-price">가격 1</div>

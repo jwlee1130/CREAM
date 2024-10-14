@@ -46,9 +46,8 @@ public class ProductController implements Controller {
 			e.printStackTrace();
 		}
 		
-		System.out.println("controller로 다시 돌아왔니?");
 		System.out.println(productList);
-		return new ModelAndView("index.jsp", false);
+		return new ModelAndView("page/shop.jsp", false);
 		
 	}//selectAll 끝
 	
@@ -64,7 +63,7 @@ public class ProductController implements Controller {
 			e.printStackTrace();
 		}
 
-		return new ModelAndView("/page/product.jsp", false);
+		return new ModelAndView("page/shop.jsp", false);
 		
 	}
 }
