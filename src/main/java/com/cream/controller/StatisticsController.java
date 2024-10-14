@@ -45,7 +45,7 @@ public class StatisticsController implements RestController {
 
     public Map<String, Integer> getTop3ColorsFromSurvey(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         System.out.println("StatisticsController.getTop3BrandsFromSurvey");
-        return statisticService.getTop3BrandsFromSurvey();
+        return statisticService.getTop3ColorsFromSurvey();
     }
 
 

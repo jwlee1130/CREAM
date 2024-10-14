@@ -77,6 +77,11 @@
     <h2>설문조사 인기 브랜드 Top 3</h2>
     <canvas id="top3BrandsChart" class="stat-canvas"></canvas>
   </div>
+
+  <div class="stat-chart-frame">
+    <h2>설문조사 인기 색상 Top 3</h2>
+    <canvas id="top3ColorsChart" class="stat-canvas"></canvas>
+  </div>
 </div>
 
 <script>
@@ -88,6 +93,7 @@
     loadTop3Items('여', period, contextPath + '/ajax', '#top3FemaleItemsChart');
     loadTotalSalesData(contextPath + '/ajax', '#totalSalesChart', period);
     loadTop3SurveyData('getTop3BrandsFromSurvey', contextPath + '/ajax', '#top3BrandsChart');
+    loadTop3SurveyData('getTop3ColorsFromSurvey', contextPath + '/ajax', '#top3ColorsChart'); // 추가된 라인
   });
 
   function loadTop3Items(gender, period, url, canvasId) {
