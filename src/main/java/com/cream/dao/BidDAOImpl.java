@@ -320,6 +320,32 @@ public class BidDAOImpl implements BidDAO {
 		return result;
 		
 	}
+	
+	public int insertAdminAccount(Connection con, int salesNo, int price) throws SQLException{
+		PreparedStatement ps = null;
+		String sql = "INSERT INTO BIDACCOUNT VALUES(?,?)";
+		int result = 0;
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, salesNo);
+			ps.setInt(3, price);
+		
+			
+			result = ps.executeUpdate();
+			
+			if(result==0)
+				 throw new SQLException("입찰 실패");
+			
+		}catch(SQLException e){
+			  throw new SQLException("sql 오류");
+		}finally {
+			DbUtil.dbClose(ps);
+		}
+		return result;
+		
+	}
+	
 
 
 }
