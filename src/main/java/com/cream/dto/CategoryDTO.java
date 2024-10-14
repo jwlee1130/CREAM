@@ -1,8 +1,10 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class CategoryDTO {
-    private int no;
-    private String category;
+	@Expose private int no;
+	@Expose  private String category;
 
     public CategoryDTO() {}
 

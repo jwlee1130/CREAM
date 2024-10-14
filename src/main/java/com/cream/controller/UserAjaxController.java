@@ -147,7 +147,7 @@ public class UserAjaxController implements RestController {
 
     }
     
-}
+
     public Object toggleWishlist(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");

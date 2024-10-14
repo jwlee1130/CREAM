@@ -1,11 +1,13 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class BidDTO {
-    private int no;            // NO
-    private int buyUserNo;     // BUY_USER_NO
-    private int salesNo;       // SALES_NO
-    private int price;         // PRICE
-    private int regdate;       // REGDATE
+	@Expose private int no;            // NO
+	@Expose private int buyUserNo;     // BUY_USER_NO
+	@Expose  private int salesNo;       // SALES_NO
+	@Expose private int price;         // PRICE
+	@Expose private int regdate;       // REGDATE
 
     public BidDTO() {}
     

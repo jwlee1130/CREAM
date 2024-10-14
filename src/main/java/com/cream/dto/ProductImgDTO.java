@@ -1,11 +1,13 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class ProductImgDTO {
-    private int no;
-    private int productNo;
-    private String filePath;
-    private String fileSize;
-    private String regdate;
+	@Expose private int no;
+	@Expose private int productNo;
+	@Expose private String filePath;
+	@Expose private String fileSize;
+	@Expose private String regdate;
 
     public ProductImgDTO() {}
 

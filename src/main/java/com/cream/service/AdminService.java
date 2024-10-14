@@ -14,7 +14,7 @@ public interface AdminService {
 
     List<SalesDTO> getUnapprovedProducts() throws SQLException; // 승인되지 않은 상품 목록 가져오기
 
-    int updateSalesStatus(int salesNo, int salesStatus) throws SQLException; // 판매 상태 업데이트
+    int updateSalesStatus(int salesNo, int salesStatus, int price) throws SQLException; // 판매 상태 업데이트
 
     int updateSalesGrade(int salesNo, char grade) throws SQLException; // 판매 등급 업데이트
 

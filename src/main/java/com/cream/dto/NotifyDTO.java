@@ -1,13 +1,15 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class NotifyDTO {
-    private int no;
-    private int userNo;
-    private int salesNo;
-    private int productNo;
-    private String msg;
-    private int isRead;
-    private String regdate;
+	@Expose private int no;
+	@Expose private int userNo;
+	@Expose private int salesNo;
+	@Expose  private int productNo;
+	@Expose private String msg;
+	@Expose private int isRead;
+	@Expose private String regdate;
 
     public NotifyDTO() {}
 

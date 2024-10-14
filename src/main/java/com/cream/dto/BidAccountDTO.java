@@ -1,10 +1,12 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class BidAccountDTO {
 
-		private int salesNo;       // SALES_NO
-	    private int buyUserNo;     // BUY_USER_NO
-	    private int price;         // PRICE
+	@Expose private int salesNo;       // SALES_NO
+	@Expose  private int buyUserNo;     // BUY_USER_NO
+	@Expose   private int price;         // PRICE
 
 	    // 기본 생성자
 	    public BidAccountDTO(int buyUserNo, int price) {

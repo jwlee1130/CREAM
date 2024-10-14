@@ -1,8 +1,10 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class ColorDTO {
-    private int no;
-    private String color;
+	@Expose private int no;
+	@Expose private String color;
 
     public ColorDTO() {}
 

@@ -45,9 +45,9 @@
 
           tb += '<td>' + inspection.regdate + '</td>';
           tb += '<td>';
-          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
+          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '" data-sales-startingPrice="'+inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
           tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" style="background-color: #EF6253; border-color: #EF6253; color: white;">반려</button>';
-
+		
           tb += '</td>';
           tb += '<td>';
           tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
@@ -89,13 +89,13 @@
   $(document).on('click', '.approve-btn', function() {
     let salesNo = $(this).data('sales-no');
     let grade = $('.grade-select[data-sales-no="' + salesNo + '"]').val();
-
+	let startingPrice = $(this).attr("data-sales-startingPrice");
     if (grade === 'U') {
       alert("등급을 선택해주세요.");
       return;
     }
 
-    approveProduct(salesNo, grade);
+    approveProduct(salesNo, grade, startingPrice);
   });
 
   $(document).on('click', '.reject-btn', function() {
@@ -109,7 +109,7 @@
     updateProductGrade(salesNo, selectedGrade);
   });
 
-  function approveProduct(salesNo, grade) {
+  function approveProduct(salesNo, grade,startingPrice) {
     $.ajax({
       url: '${pageContext.request.contextPath}/ajax',
       method: 'POST',
@@ -118,7 +118,8 @@
         methodName: 'updateSalesStatus',
         salesNo: salesNo,
         salesStatus: 1, // 승인: sales_status를 1로 설정
-        grade: grade
+        grade: grade,
+        startingPrice: startingPrice
       },
       success: function(response) {
         alert("상품이 승인되었습니다.");

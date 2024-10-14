@@ -1,10 +1,12 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class AdminDTO {
-    private int id;
-    private String adminId;
-    private String adminPw;
-    private int shucream;
+	@Expose  private int id;
+	@Expose private String adminId;
+	@Expose private String adminPw;
+	@Expose  private int shucream;
 
     public AdminDTO() {}
 

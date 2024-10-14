@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminDAOImpl implements AdminDAO {
-
+	BidDAO bidDAO = new BidDAOImpl();
     /*
     DELETE FROM USERS WHERE NO = 1;
      */
@@ -91,7 +91,7 @@ public class AdminDAOImpl implements AdminDAO {
     UPDATE USERS_SALES SET SALES_STATUS = 1 WHERE NO = 1;
      */
     @Override
-    public int updateSalesStatus(int salesNo, int salesStatus) throws SQLException {
+    public int updateSalesStatus(int salesNo, int salesStatus, int price) throws SQLException {
         String sql = "UPDATE USERS_SALES SET SALES_STATUS=? WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
@@ -101,6 +101,7 @@ public class AdminDAOImpl implements AdminDAO {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, salesStatus);
             ps.setInt(2, salesNo);
+            bidDAO.insertAdminAccount(conn, salesNo, price);
             return ps.executeUpdate();
         } finally {
             DbUtil.dbClose(conn, ps);

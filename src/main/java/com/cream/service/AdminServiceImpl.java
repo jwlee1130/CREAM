@@ -29,8 +29,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int updateSalesStatus(int salesNo, int salesStatus) throws SQLException {
-        return adminDAO.updateSalesStatus(salesNo, salesStatus);
+    public int updateSalesStatus(int salesNo, int salesStatus, int price) throws SQLException {
+        return adminDAO.updateSalesStatus(salesNo, salesStatus, price);
     }
 
     @Override

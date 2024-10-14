@@ -40,6 +40,13 @@ public interface BidDAO {
      * 플래그 1로 설정해서 입찰완료될떄까지 접근 x
      */
     int setBidFlagZero(Connection con, int salesNO) throws SQLException;
+    
+    /*
+     * 입금관리계좌 추가
+     */
+    
+	public int insertAdminAccount(Connection con, int salesNo, int price) throws SQLException;
+
 
 
 }

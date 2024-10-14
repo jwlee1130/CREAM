@@ -1,14 +1,16 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class PurchaseDTO {
-    private int no;
-    private int salesNo;
-    private int salesUserNo;
-    private int buyUserNo;
-    private int productNo;
-    private int price;
-    private String regdate;
-    private String address;
+	@Expose  private int no;
+	@Expose private int salesNo;
+	@Expose private int salesUserNo;
+	@Expose  private int buyUserNo;
+	@Expose private int productNo;
+	@Expose  private int price;
+	@Expose private String regdate;
+	@Expose private String address;
 
     public PurchaseDTO() {}
 

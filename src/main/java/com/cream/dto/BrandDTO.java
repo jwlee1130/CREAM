@@ -1,8 +1,10 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class BrandDTO {
-    private int no;
-    private String brand;
+	@Expose private int no;
+	@Expose private String brand;
 
     public BrandDTO() {}
 

@@ -27,7 +27,7 @@ public interface AdminDAO {
 	/**
 	 * 판매 승인
 	 */
-	int updateSalesStatus(int sales_no, int sales_status) throws SQLException; // char grade 파라미터 제거
+	int updateSalesStatus(int sales_no, int sales_status, int price) throws SQLException; // char grade 파라미터 제거
 
 	/**
 	 * 판매 등급 업데이트
