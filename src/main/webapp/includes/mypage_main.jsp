@@ -1,5 +1,10 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.cream.dto.UserDTO" %>
+<%
+    // 세션에서 사용자 정보 가져오기
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,16 +22,16 @@
                 <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EC%9C%A4%EC%84%B1%EB%B0%94%EC%98%A41.jpg" alt="" width="100px" height="100px">
             </div>
             <div class="user-identify">
-                <h2>UserName</h2>
-                <h3>user@email.com</h3>
+                <h2><%= loginUser.getNickname() %></h2>
+                <h3><%= loginUser.getUserEmail() %></h3>
             </div>
             <div class="user-point">
                 <i>🅿️</i>
-                <h2>5000P</h2>
+                <h2><%= loginUser.getCash() %></h2>
             </div>
             <div class="user-rank">
                 <i>🅰️</i>
-                <h2>user-rank</h2>
+                <h2><%= loginUser.getRankNo() %></h2>
             </div>
             <div class="user-setting">
                 <button>회원 관리</button>

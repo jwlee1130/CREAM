@@ -41,9 +41,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int updateCash(String user_Id, int cash) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCash(int user_no, int cash) throws SQLException {
+		int result = dao.updateCash(user_no,cash);
+		return result;
 	}
 
 	@Override
@@ -53,21 +53,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int deleUser(String user_Id, String pwd) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteUser(String user_Id, String pwd) throws SQLException {
+		int result = dao.deleteUser(user_Id,pwd);
+		return result;
 	}
 
 	@Override
 	public int updateUser(UserDTO user) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = dao.updateUser(user);
+		return result;
 	}
 
 	@Override
 	public UserDTO selectUserById(int user_no) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		UserDTO user = dao.selectUserById(user_no);
+		return user;
 	}
 
 	@Override
@@ -121,6 +121,13 @@ public class UserServiceImpl implements UserService {
 		int result = dao.deleteNotify(userNo,notifyNo);
 		return result;
 	}
+	
+	@Override
+	public boolean isProductInWishlist(int userNo, int productNo) throws SQLException {
+		boolean result = dao.isProductInWishlist(userNo, productNo);
+		return result;
+	}
+	
 	
 	
 	

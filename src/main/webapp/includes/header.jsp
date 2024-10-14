@@ -17,7 +17,7 @@
             <a href="#">알림</a>
                      
             <c:if test="${sessionScope.loginUser != null}">
-			    <a>${sessionScope.loginUser.userId}님, 환영합니다!</a>
+			    <a>${sessionScope.loginUser.nickname}님, 환영합니다!</a>
 			    <a href="${pageContext.request.contextPath}/front?key=user1&methodName=logout" class="btn btn-danger">Logout</a>
 			</c:if>
 			<c:if test="${sessionScope.loginUser == null}">

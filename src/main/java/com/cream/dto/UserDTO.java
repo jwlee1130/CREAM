@@ -2,22 +2,25 @@ package com.cream.dto;
 
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+
 public class UserDTO {
-	private int no;
-    private int rankNo;
-    private String userId;
-    private String name;
-    private String userEmail;
-    private String userPw;
-    private String hp;
-    private String nickname;
-    private int shoesSize;
-    private String regdate;
-    private int cash;
-    private String gender;
-    private int age;
-    private String address;
-    private List<NotifyDTO> notify;
+	@Expose private int no;
+	@Expose private int rankNo;
+	@Expose private String userId;
+	@Expose private String name;
+	@Expose private String userEmail;
+	@Expose private String userPw;
+	@Expose private String hp;
+	@Expose private String nickname;
+	@Expose private int shoesSize;
+	@Expose private String regdate;
+	@Expose private int cash;
+	@Expose private String gender;
+	@Expose private int age;
+	@Expose private String address;
+	@Expose private List<NotifyDTO> notify;
+
    
    public String getName() {
 		return name;

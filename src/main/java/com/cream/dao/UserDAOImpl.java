@@ -1,20 +1,22 @@
 	package com.cream.dao;
 	
 	import java.io.InputStream;
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.util.ArrayList;
-	import java.util.List;
-	import java.util.Properties;
-	
-	import com.cream.dto.BidDTO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductDTO;
-	import com.cream.dto.SalesDTO;
-	import com.cream.dto.UserDTO;
-	import com.cream.util.DbUtil;
+import com.cream.dto.ProductImgDTO;
+import com.cream.dto.SalesDTO;
+import com.cream.dto.ShoesSizeDTO;
+import com.cream.dto.UserDTO;
+import com.cream.util.DbUtil;
 	
 	public class UserDAOImpl implements UserDAO {
 		private Properties proFile = new Properties();
@@ -131,9 +133,24 @@ import com.cream.dto.ProductDTO;
 		}
 	
 		@Override
-		public int updateCash(String user_Id, int cash) throws SQLException {
-			// TODO Auto-generated method stub
-			return 0;
+		public int updateCash(int user_no, int cash) throws SQLException {
+			Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+
+		    try {
+		        con = DbUtil.getConnection();
+		        String sql = proFile.getProperty("query.updateCash");
+		        ps = con.prepareStatement(sql);
+		        ps.setInt(1, cash);
+		        ps.setInt(2, user_no);
+		        
+		        result = ps.executeUpdate();
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    
+		    return result;
 		}
 	
 		@Override
@@ -143,21 +160,93 @@ import com.cream.dto.ProductDTO;
 		}
 	
 		@Override
-		public int deleUser(String user_Id, String pwd) throws SQLException {
-			// TODO Auto-generated method stub
-			return 0;
+		public int deleteUser(String user_Id, String pwd) throws SQLException {
+			Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+
+		    String sql = proFile.getProperty("query.deleteUser");
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        
+		        ps.setString(1, user_Id);
+		        ps.setString(2, pwd);
+		        
+		        result = ps.executeUpdate();
+		        
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    
+		    return result;
 		}
 	
 		@Override
 		public int updateUser(UserDTO user) throws SQLException {
-			// TODO Auto-generated method stub
-			return 0;
+			Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+
+		    String sql = proFile.getProperty("query.updateUser");
+
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        
+		        ps.setString(1, user.getUserPw());
+		        ps.setString(2, user.getNickname());
+		        ps.setString(3, user.getAddress());
+		        ps.setInt(4, user.getShoesSize());
+		        ps.setInt(5, user.getNo());
+		        
+		        result = ps.executeUpdate();
+		        
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    
+		    return result;
 		}
 	
 		@Override
 		public UserDTO selectUserById(int user_no) throws SQLException {
-			// TODO Auto-generated method stub
-			return null;
+			Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    UserDTO user = null;
+
+		    String sql = proFile.getProperty("query.selectUserById");
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setInt(1, user_no);
+		        rs = ps.executeQuery();
+		        
+		        if (rs.next()) {
+		            user = new UserDTO();
+		            user.setNo(rs.getInt("NO"));
+		            user.setRankNo(rs.getInt("RANK_NO"));
+		            user.setUserId(rs.getString("USER_ID"));
+		            user.setName(rs.getString("NAME"));
+		            user.setUserEmail(rs.getString("USER_EMAIL"));
+		            user.setUserPw(rs.getString("USER_PW"));
+		            user.setHp(rs.getString("HP"));
+		            user.setNickname(rs.getString("NICKNAME"));
+		            user.setShoesSize(rs.getInt("SHOES_SIZE"));
+		            user.setRegdate(rs.getString("REGDATE"));
+		            user.setCash(rs.getInt("SHOECREAM"));
+		            user.setGender(rs.getString("GENDER"));
+		            user.setAge(rs.getInt("AGE"));
+		            user.setAddress(rs.getString("ADDRESS"));
+		        }
+		    } finally {
+		        DbUtil.dbClose(con, ps, rs);
+		    }
+		    
+		    return user;
 		}
 	
 		@Override
@@ -247,15 +336,15 @@ import com.cream.dto.ProductDTO;
 		    PreparedStatement ps = null;
 		    ResultSet rs = null;
 		    List<SalesDTO> list = new ArrayList<>();
-	
+
 		    String sql = proFile.getProperty("query.salesByUserNo");
-	
+
 		    try {
 		        con = DbUtil.getConnection();
 		        ps = con.prepareStatement(sql);
 		        ps.setInt(1, user_no);
 		        rs = ps.executeQuery();
-	
+
 		        while (rs.next()) {
 		            SalesDTO sales = new SalesDTO();
 		            sales.setNo(rs.getInt("NO"));
@@ -266,17 +355,25 @@ import com.cream.dto.ProductDTO;
 		            sales.setSalesStatus(rs.getInt("SALES_STATUS"));
 		            sales.setRegdate(rs.getString("REGDATE"));
 		            sales.setGrade(rs.getString("GRADE").charAt(0));
-		            
+ 
+		            ShoesSizeDTO shoesSize = new ShoesSizeDTO();
+		            shoesSize.setShoesSize(rs.getInt("SHOES_SIZE"));
+		            sales.setShoesSize(shoesSize);
+
 		            ProductDTO product = new ProductDTO();
 		            product.setEngName(rs.getString("ENG_NAME"));
+		            
+		            ProductImgDTO productImg = new ProductImgDTO();
+		            productImg.setFilePath(rs.getString("FILE_PATH"));
+		            product.setProductImg(productImg);
+
 		            sales.setProduct(product);
-	
 		            list.add(sales);
 		        }
 		    } finally {
 		        DbUtil.dbClose(con, ps, rs);
 		    }
-	
+
 		    return list;
 		}
 	
@@ -287,27 +384,27 @@ import com.cream.dto.ProductDTO;
 			Connection con = null;
 		    PreparedStatement ps = null;
 		    int result = 0;
-	
+
 		    String sql = proFile.getProperty("query.insertSales");
-		    
+
 		    try {
 		        con = DbUtil.getConnection();
 		        ps = con.prepareStatement(sql);
-	
+
 		        ps.setInt(1, sales.getUserNo());
 		        ps.setInt(2, sales.getProductNo());
 		        ps.setInt(3, sales.getStartingPrice());
 		        ps.setInt(4, sales.getNowPrice());
 		        ps.setInt(5, sales.getSalesStatus());
 		        ps.setString(6, String.valueOf(sales.getGrade()));
-	
+		        ps.setInt(7, sales.getShoesSize().getNo());
+
 		        result = ps.executeUpdate();
-		        System.out.println("Sales record inserted successfully with result: " + result);
-	
+
 		    } finally {
 		        DbUtil.dbClose(con, ps);
 		    }
-	
+
 		    return result;
 		}
 		
@@ -389,14 +486,34 @@ import com.cream.dto.ProductDTO;
 			return result;
 
 		}
+		
+		@Override
+		public boolean isProductInWishlist(int userNo, int productNo) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    boolean exist = false;
+
+		    String sql = proFile.getProperty("query.isProductInWishlist");
+
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setInt(1, userNo);
+		        ps.setInt(2, productNo);
+		        rs = ps.executeQuery();
+
+		        if (rs.next() && rs.getInt(1) > 0) {
+		            exist = true;
+		        }
+		    } finally {
+		        DbUtil.dbClose(con, ps, rs);
+		    }
+		    return exist;
+		}
 
 		
-		
-		
-		
-		
-		
-	}
+}
 	
 	
 	

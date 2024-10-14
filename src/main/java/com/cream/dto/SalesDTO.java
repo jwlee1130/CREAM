@@ -14,8 +14,17 @@ public class SalesDTO {
 	@Expose private int shoesNo;
     @Expose private ProductDTO product;
     @Expose private BidAccountDTO bidAccount;
-    
-    public ProductDTO getProduct() {
+    @Expose private ShoesSizeDTO shoesSize;
+     
+    public ShoesSizeDTO getShoesSize() {
+		return shoesSize;
+	}
+
+	public void setShoesSize(ShoesSizeDTO shoesSize) {
+		this.shoesSize = shoesSize;
+	}
+
+	public ProductDTO getProduct() {
 		return product;
 	}
 
