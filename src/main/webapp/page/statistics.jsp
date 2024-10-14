@@ -64,7 +64,7 @@
 
 <div class="stat-chart-container">
   <div class="stat-chart-frame">
-    <h2>일일 판매액</h2>
+    <h2>일일 판매액(일주일)</h2>
     <canvas id="totalSalesChart" class="stat-canvas"></canvas>
   </div>
 
@@ -169,7 +169,7 @@
           data: {
             labels: labels,
             datasets: [{
-              label: '일일 판매액',
+              label: '최근 일주일간 일일 판매액',
               data: values,
               borderColor: 'rgba(255, 0, 0, 1)',
               borderWidth: 2,

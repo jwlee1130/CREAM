@@ -71,7 +71,9 @@
                         return new Date(b.regdate) - new Date(a.regdate);
                     });
 
-                    for (var i = 0; i < data.length; i++) {
+                    var displayCount = Math.min(data.length, 5);
+
+                    for (var i = 0; i < displayCount; i++) {
                         var transaction = data[i];
                         var regdateRaw = transaction.regdate ? transaction.regdate.split(' ')[0].trim() : '';
                         var price = transaction.price.toLocaleString() + '원';
