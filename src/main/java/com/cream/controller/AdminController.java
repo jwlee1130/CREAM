@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminController implements RestController {
-
+//
     private final AdminService adminService = new AdminServiceImpl();
 
     public int deleteUserById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
