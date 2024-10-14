@@ -11,10 +11,11 @@ import java.util.Properties;
 
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
-import com.cream.dto.ProductDTO;
 import com.cream.dto.ProductImgDTO;
+import com.cream.dto.ProductViewDTO;
+import com.cream.dto.RankDTO;
 import com.cream.dto.SalesDTO;
-import com.cream.dto.ShoesSizeDTO;
+import com.cream.dto.SalesViewDTO;
 import com.cream.dto.UserDTO;
 import com.cream.util.DbUtil;
 	
@@ -154,9 +155,33 @@ import com.cream.util.DbUtil;
 		}
 	
 		@Override
-		public String getUserRank(String user_Id) throws SQLException {
-			// TODO Auto-generated method stub
-			return null;
+		public RankDTO getUserRank(String user_no) throws SQLException {
+			Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    RankDTO rankDTO = null;
+
+		    String sql = proFile.getProperty("query.getUserRankDiscount");
+
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setString(1, user_no);
+
+		        rs = ps.executeQuery();
+
+		        if (rs.next()) {
+		            int no = rs.getInt("NO");
+		            String rank = rs.getString("RANK");
+		            int discount = rs.getInt("DISCOUNT");
+
+		            rankDTO = new RankDTO(no, rank, discount);
+		        }
+		    } finally {
+		        DbUtil.dbClose(con, ps, rs);
+		    }
+
+		    return rankDTO;
 		}
 	
 		@Override
@@ -275,12 +300,12 @@ import com.cream.util.DbUtil;
 	
 	
 		@Override
-		public List<ProductDTO> selectWishlist(int user_no) throws SQLException {
+		public List<ProductViewDTO> selectWishlist(int user_no) throws SQLException {
 			Connection con = null;
 		    PreparedStatement ps = null;
 		    ResultSet rs = null;
-		    List<ProductDTO> list = new ArrayList<>();
-	
+		    List<ProductViewDTO> list = new ArrayList<>();
+
 		    String sql = proFile.getProperty("query.selectWishlist");
 		    
 		    try {
@@ -288,13 +313,19 @@ import com.cream.util.DbUtil;
 		        ps = con.prepareStatement(sql);
 		        ps.setInt(1, user_no);
 		        rs = ps.executeQuery();
-	
+
 		        while (rs.next()) {
-		            ProductDTO product = new ProductDTO();
+		        	ProductViewDTO product = new ProductViewDTO();
+
 		            product.setNo(rs.getInt("NO"));
 		            product.setEngName(rs.getString("ENG_NAME"));
+		            product.setKorName(rs.getString("KOR_NAME"));
 		            product.setReleasePrice(rs.getInt("RELEASE_PRICE"));
-	
+
+		            ProductImgDTO productImg = new ProductImgDTO();
+		            productImg.setFilePath(rs.getString("FILE_PATH"));
+		            product.setProductImg(productImg); 
+
 		            list.add(product);
 		        }
 		    } finally {
@@ -331,11 +362,11 @@ import com.cream.util.DbUtil;
 		
 	
 		@Override
-		public List<SalesDTO> salesByUserNo(int user_no) throws SQLException {
+		public List<SalesViewDTO> salesByUserNo(int user_no) throws SQLException {
 			Connection con = null;
 		    PreparedStatement ps = null;
 		    ResultSet rs = null;
-		    List<SalesDTO> list = new ArrayList<>();
+		    List<SalesViewDTO> list = new ArrayList<>();
 
 		    String sql = proFile.getProperty("query.salesByUserNo");
 
@@ -346,28 +377,16 @@ import com.cream.util.DbUtil;
 		        rs = ps.executeQuery();
 
 		        while (rs.next()) {
-		            SalesDTO sales = new SalesDTO();
+		            SalesViewDTO sales = new SalesViewDTO();
 		            sales.setNo(rs.getInt("NO"));
 		            sales.setUserNo(rs.getInt("USER_NO"));
 		            sales.setProductNo(rs.getInt("PRODUCT_NO"));
-		            sales.setStartingPrice(rs.getInt("STARTING_PRICE"));
-		            sales.setNowPrice(rs.getInt("NOW_PRICE"));
-		            sales.setSalesStatus(rs.getInt("SALES_STATUS"));
 		            sales.setRegdate(rs.getString("REGDATE"));
-		            sales.setGrade(rs.getString("GRADE").charAt(0));
- 
-		            ShoesSizeDTO shoesSize = new ShoesSizeDTO();
-		            shoesSize.setShoesSize(rs.getInt("SHOES_SIZE"));
-		            sales.setShoesSize(shoesSize);
-
-		            ProductDTO product = new ProductDTO();
-		            product.setEngName(rs.getString("ENG_NAME"));
+		            sales.setSalesStatus(rs.getInt("SALES_STATUS"));            
+		            sales.setShoesSize(rs.getInt("SHOES_SIZE"));
+		            sales.setEngName(rs.getString("ENG_NAME"));
+		            sales.setFilePath(rs.getString("FILE_PATH"));
 		            
-		            ProductImgDTO productImg = new ProductImgDTO();
-		            productImg.setFilePath(rs.getString("FILE_PATH"));
-		            product.setProductImg(productImg);
-
-		            sales.setProduct(product);
 		            list.add(sales);
 		        }
 		    } finally {

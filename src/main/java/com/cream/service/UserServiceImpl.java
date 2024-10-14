@@ -6,8 +6,10 @@ import java.util.List;
 import com.cream.dao.UserDAOImpl;
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
-import com.cream.dto.ProductDTO;
+import com.cream.dto.ProductViewDTO;
+import com.cream.dto.RankDTO;
 import com.cream.dto.SalesDTO;
+import com.cream.dto.SalesViewDTO;
 import com.cream.dto.UserDTO;
 import com.cream.exception.AuthenticationException;
 
@@ -47,9 +49,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String getUserRank(String user_Id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public RankDTO getUserRank(String user_no) throws SQLException {
+		RankDTO result = dao.getUserRank(user_no);
+		return result;
 	}
 
 	@Override
@@ -77,8 +79,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<ProductDTO> selectWishlist(int user_no) throws SQLException {
-		List<ProductDTO> list = dao.selectWishlist(user_no);
+	public List<ProductViewDTO> selectWishlist(int user_no) throws SQLException {
+		List<ProductViewDTO> list = dao.selectWishlist(user_no);
 		return list;
 	}
 
@@ -91,8 +93,8 @@ public class UserServiceImpl implements UserService {
 	
 
 	@Override
-	public List<SalesDTO> salesByUserNo(int user_no) throws SQLException {
-		List<SalesDTO> list= dao.salesByUserNo(user_no);
+	public List<SalesViewDTO> salesByUserNo(int user_no) throws SQLException {
+		List<SalesViewDTO> list= dao.salesByUserNo(user_no);
 		return list;
 	}
 

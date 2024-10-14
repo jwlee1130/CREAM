@@ -1,5 +1,5 @@
 package com.cream.controller;
 
-public class CustomerController {
+public class CustomerController implements RestController{
 
 }

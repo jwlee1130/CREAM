@@ -1,8 +1,10 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class ShoesSizeDTO {
-    private int no;
-    private int shoesSize;
+	private int no;
+	@Expose private int shoesSize;
 
     public ShoesSizeDTO() {}
 

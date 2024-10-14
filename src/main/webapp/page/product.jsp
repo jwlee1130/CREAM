@@ -1,6 +1,5 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
@@ -9,69 +8,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
-    <script type="text/javascript">
-    $(function(){
-    	$("[name=btn]").click(function(){
-    		  console.log($(this)); // 클릭된 요소를 콘솔에 출력
-    		    console.log($(this).attr("data-tab")); // data-tab 속성을 콘솔에 출력    	
-    	    $.ajax({
-    			url:"ajax",
-				type: "post",
-				dataType: "json" ,
-				data: {key:"sales" , methodName : "selectAll", 	productNo : "${productDetail.no}" ,shoesNo : $(this).attr("data-tab")}, //서버에게 보낼 데이터정보(parameter정보)
-			
-				success : function(data){
-
-					let str=""
-					$.each(data, function(index, sales){
-						console.log(${sales.grade}+"z");
-						console.log(sales.nowPrice);
-
-					    str += "<div class='list-inner'>";
-					    str += "<span class='rank-a'> 등급: ";
-					    str += sales.grade;
-					    str += "</span>   ";
-					    str += "<span>남은 시간 : ";
-					    str += sales.regdate;
-					    str += "</span>   ";
-					    str += "<span>즉시 구매 : ";
-					    str +=   sales.nowPrice;
-					    str += "</span>   ";
-					    str += "<span>현재 입찰가 : ";
-					    str += sales.bidAccount.price;
-					    str +="</span>   ";
-					    str +=`<span>판매상태 :` +sales.salesStatus+`</span>`;
-					    str += "<button value='구매' data-info="+sales.no+">구매/입찰</button>";
-					    str += "</div>"
-			  		});
-					$(".tab-content-list").html(str);
-				},
-			
-				error : function(err){
-					let str="판매중인 사이즈가 없습니다.";
-					$(".tab-content-list").html(str);
-
-				}			
-    		
-    		
-    		
-    		});
-    		
-    		
-    	});//끝
-    	
-    	$(document).on("click","[value=구매]", function(){
-    			
-    		window.location.href = "front?key=sales&methodName=salesDetail&salesNo="+encodeURIComponent($(this).attr("data-info"));
-    		
-    	});
-    	
-   
-    });
-    	
     
-    
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -116,7 +54,7 @@
                         <p>217,000원 <br> 즉시 구매가</p>
                     </div>
                 </a>
-                <a href="${pageContext.request.contextPath}/page/sell.jsp">
+                <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}">
                     <div class="item-sell">
                         <span>판매</span>
                         <p>237,000원 <br> 즉시 판매가</p>
@@ -125,7 +63,7 @@
 
             </div>
             <div class="item-wish">
-                <p>관심상품</p>
+                <button type="submit" id="add-to-wishlist" data-id="${productDetail.no}">관심상품</button>
             </div>
         </div>
 
@@ -141,15 +79,13 @@
                 <button class="one-month">1개월</button>
             </div>
             <div class="item-quote-chart">
-<%--                this is chart area--%>
-                <jsp:include page="../chart/productPageChart.jsp"/>
+                this is chart area
             </div>
         </div>
         <div class="item-concluded">
             <h2>체결거래</h2>
             <div class="concluded-transaction">
-<%--                this is concluded-transaction area--%>
-                <jsp:include page="../chart/transactionChart.jsp"/>
+                this is concluded-transaction area
             </div>
         </div>
     </div>
@@ -160,11 +96,11 @@
         <span class="close-button">&times;</span>
         <div class="tabs-container">
             <div class="tabs">
-                <button class="tab-button active" name="btn" data-tab="10">240</button>
-                <button class="tab-button" name="btn"data-tab="20">260</button>
-                <button class="tab-button" name="btn" data-tab="30">280</button>
+                <button class="tab-button active" data-tab="240">240</button>
+                <button class="tab-button" data-tab="260">260</button>
+                <button class="tab-button" data-tab="280">280</button>
             </div>
-            <div class="tab-content active" id="10">
+            <div class="tab-content active" id="240">
                 <div class="tab-content-list">
                     <ul>
                         <li>
@@ -195,7 +131,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="tab-content" id="20">
+            <div class="tab-content" id="260">
                 <div class="tab-content-list">
                     <ul>
                         <li><div class="list-inner">
@@ -204,7 +140,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="tab-content" id="30">
+            <div class="tab-content" id="280">
                 <div class="tab-content-list">
                     <!--            여기 뿌려야함-->
                     <ul>
@@ -268,7 +204,7 @@
   });
 
 </script>
-<script !src="">
+<script src="">
   document.addEventListener("DOMContentLoaded", function () {
     const tabButtons = document.querySelectorAll(".tab-button");
     const tabContents = document.querySelectorAll(".tab-content");
@@ -287,7 +223,40 @@
       });
     });
   });
+
 </script>
-<script src="../js/script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const wishlistButton = document.getElementById('add-to-wishlist');
+    
+    wishlistButton.addEventListener('click', function() {
+        const productNo = this.getAttribute('data-id');
+        $.ajax({
+            url: '${pageContext.request.contextPath}/ajax',
+            method: 'POST',
+            data: {
+                key: 'userAjax',
+                methodName: 'toggleWishlist',
+                product_no: productNo
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'added') {
+                    alert("관심상품이 추가되었습니다.");
+                } else if (response.status === 'removed') {
+                    alert("관심상품이 해제되었습니다.");
+                } else {
+                    alert("처리에 실패했습니다. 다시 시도해 주세요.");
+                }
+            },
+            error: function(error) {
+                console.error("Error: ", error);
+                alert("오류가 발생했습니다. 다시 시도해 주세요.");
+            }
+        });
+    });
+});
+</script>
+
 </body>
 </html>

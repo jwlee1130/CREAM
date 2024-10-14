@@ -6,6 +6,8 @@ public class BidAccountDTO {
 	    private int buyUserNo;     // BUY_USER_NO
 	    private int price;         // PRICE
 
+	    
+	    public BidAccountDTO() {}
 	    // 기본 생성자
 	    public BidAccountDTO(int buyUserNo, int price) {
 	    	this(price);

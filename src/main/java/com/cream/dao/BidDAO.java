@@ -2,6 +2,7 @@ package com.cream.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.cream.dto.BidAccountDTO;
 import com.cream.dto.BidDTO;
@@ -41,5 +42,5 @@ public interface BidDAO {
      */
     int setBidFlagZero(Connection con, int salesNO) throws SQLException;
 
-
+    List<BidAccountDTO> selectActiveBids(int salesNo) throws SQLException;
 }

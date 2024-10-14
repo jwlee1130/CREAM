@@ -1,9 +1,11 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class WishListDTO {
-    private int no;
-    private int productNo;
-    private int userNo;
+    @Expose int no;
+    @Expose private int productNo;
+    @Expose private int userNo;
 
     public WishListDTO() {}
 
