@@ -1,0 +1,145 @@
+.mypage-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.mypage-container .wrap {
+  display: flex;
+  flex-direction: column;
+}
+.mypage-container .wrap .user-profile {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #9a9a9a;
+}
+.mypage-container .wrap .user-profile .profile-img {
+  background-color: #ff4b4b;
+}
+.mypage-container .wrap .user-profile .profile-img img {
+  border-radius: 50%;
+}
+.mypage-container .wrap .user-profile .user-identify h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.mypage-container .wrap .user-profile .user-identify h3 {
+  color: #888888;
+}
+.mypage-container .wrap .user-profile .user-point {
+  display: flex;
+  font-size: 1.5rem;
+}
+.mypage-container .wrap .user-profile .user-point i {
+  margin-right: 8px;
+}
+.mypage-container .wrap .user-profile .user-rank {
+  display: flex;
+  font-size: 1.5rem;
+}
+.mypage-container .wrap .user-profile .user-rank i {
+  margin-right: 8px;
+}
+.mypage-container .wrap .user-profile .user-setting button {
+  border: 1px solid #9a9a9a;
+  background: none;
+  color: #9a9a9a;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  transition: 0.1s ease-in-out;
+}
+.mypage-container .wrap .user-profile .user-setting button:hover {
+  background-color: #9a9a9a;
+  color: #333;
+  border: 1px solid #333;
+}
+.mypage-container .wrap .parchase, .mypage-container .wrap .sell {
+  display: flex;
+  flex-direction: column;
+}
+.mypage-container .wrap .parchase h1, .mypage-container .wrap .sell h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 1rem;
+}
+.mypage-container .wrap .parchase .parchase-area, .mypage-container .wrap .sell .parchase-area {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #666;
+  background-color: #f5f5f5;
+}
+.mypage-container .wrap .parchase .parchase-area .parchase-all, .mypage-container .wrap .sell .parchase-area .parchase-all {
+  display: flex;
+  flex-direction: column;
+}
+.mypage-container .wrap .parchase .parchase-area .parchase-all h2, .mypage-container .wrap .sell .parchase-area .parchase-all h2 {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.mypage-container .wrap .parchase .parchase-area .parchase-all h2:first-child, .mypage-container .wrap .sell .parchase-area .parchase-all h2:first-child {
+  margin-bottom: 1rem;
+}
+.mypage-container .wrap .parchase .parchase-area .parchase-all:first-child, .mypage-container .wrap .sell .parchase-area .parchase-all:first-child {
+  border-right: 1px solid #333333;
+  padding-right: 6rem;
+}
+.mypage-container .wrap .parchase .parchase-item, .mypage-container .wrap .sell .parchase-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+  padding: 0 1rem;
+}
+.mypage-container .wrap .parchase .parchase-item .item-img, .mypage-container .wrap .sell .parchase-item .item-img {
+  border-radius: 0.7rem;
+  background-color: #6ecdff;
+}
+.mypage-container .wrap .parchase .parchase-item .item-img img, .mypage-container .wrap .sell .parchase-item .item-img img {
+  width: 150px;
+  width: 150px;
+}
+.mypage-container .wrap .parchase .parchase-item .item-name, .mypage-container .wrap .sell .parchase-item .item-name {
+  display: flex;
+  flex-direction: column;
+}
+.mypage-container .wrap .parchase .parchase-item .item-name h2, .mypage-container .wrap .sell .parchase-item .item-name h2 {
+  font-weight: bolder;
+}
+.mypage-container .wrap .parchase .parchase-item .item-date, .mypage-container .wrap .sell .parchase-item .item-date {
+  font-size: 1.25rem;
+  color: #888888;
+}
+.mypage-container .wrap .parchase .parchase-item .item-status, .mypage-container .wrap .sell .parchase-item .item-status {
+  font-size: 1.25rem;
+  font-weight: bolder;
+}
+.mypage-container .wrap .wish-list {
+  margin-bottom: 2rem;
+}
+.mypage-container .wrap .wish-list h2 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 1rem;
+  margin-block-end: 0;
+}
+.mypage-container .wrap .wish-list .wish-item-list ul {
+  display: flex;
+  justify-content: space-between;
+}
+.mypage-container .wrap .wish-list .wish-item-list ul li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mypage-container .wrap .wish-list .wish-item-list ul li .wish-item-img img {
+  width: 200px;
+  height: 200px;
+}
+
+/*# sourceMappingURL=mypage_main.css.map */

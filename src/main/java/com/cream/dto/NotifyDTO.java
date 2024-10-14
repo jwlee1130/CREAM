@@ -4,24 +4,27 @@ public class NotifyDTO {
     private int no;
     private int userNo;
     private int salesNo;
+    private int productNo;
     private String msg;
     private int isRead;
     private String regdate;
 
     public NotifyDTO() {}
 
-    public NotifyDTO(int no, int userNo, int salesNo, String msg, int isRead, String regdate) {
-    	this(userNo,salesNo,msg);
+    public NotifyDTO(int no, int userNo, int salesNo,int productNo, String msg, int isRead, String regdate) {
+    	this(userNo,salesNo,productNo,msg);
         this.no = no;
         this.isRead = isRead;
         this.regdate = regdate;
     }
-    
-    public NotifyDTO(int userNo, int salesNo, String msg) {
+    public NotifyDTO(int userNo, int salesNo,int productNo, String msg) {
         this.userNo = userNo;
         this.salesNo = salesNo;
+        this.productNo=productNo;
         this.msg = msg;
     }
+
+
 
 
     public int getNo() { return no; }
@@ -30,7 +33,17 @@ public class NotifyDTO {
     public int getUserNo() { return userNo; }
     public void setUserNo(int userNo) { this.userNo = userNo; }
 
-    public int getSalesNo() { return salesNo; }
+    
+    
+    public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
+	public int getSalesNo() { return salesNo; }
     public void setSalesNo(int salesNo) { this.salesNo = salesNo; }
 
     public String getMsg() { return msg; }

@@ -2,17 +2,16 @@
 .main {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 2rem;
   /* 메인 콘텐츠 설정 */
 }
 .main .main-side {
   display: flex;
   flex-direction: column;
-  flex: 0 0 25%; /* 2컬럼 */
-  max-width: 25%;
+  flex: 0 0 20%; /* 2컬럼 */
+  max-width: 20%;
   padding: 1rem;
-  background-color: #f0f0f0; /* 사이드바 배경색 (원하는 색으로 변경 가능) */
 }
 .main .main-side h1 {
   font-weight: bold;
@@ -22,7 +21,7 @@
 .main .main-side ul {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 .main .main-side ul h2 {
   font-size: 1.5rem;
@@ -30,13 +29,12 @@
   margin-bottom: 1rem;
 }
 .main .main-side ul li {
+  color: #666;
   margin-bottom: 0.5rem;
 }
 .main .main-content {
-  flex: 0 0 75%; /* 10컬럼 */
-  max-width: 75%;
-  padding: 1rem;
-  background-color: #9a4646; /* 메인 콘텐츠 배경색 (원하는 색으로 변경 가능) */
+  flex: 0 0 80%; /* 10컬럼 */
+  max-width: 80%;
 }
 
 /*# sourceMappingURL=mypage.css.map */

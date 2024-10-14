@@ -3,7 +3,8 @@ package com.cream.dto;
 public class PurchaseDTO {
     private int no;
     private int salesNo;
-    private int userNo;
+    private int salesUserNo;
+    private int buyUserNo;
     private int productNo;
     private int price;
     private String regdate;
@@ -11,26 +12,45 @@ public class PurchaseDTO {
 
     public PurchaseDTO() {}
 
-    public PurchaseDTO(int no, int salesNo, int userNo, int productNo, int price, String regdate, String address) {
-        this.no = no;
-        this.salesNo = salesNo;
-        this.userNo = userNo;
-        this.productNo = productNo;
-        this.price = price;
+    public PurchaseDTO(int no, int salesNo, int salesUserNo, int buyUserNo, int productNo, int price, String regdate, String address) {
+        this(salesNo, salesUserNo, buyUserNo, productNo, price, address);
+    	this.no = no;
         this.regdate = regdate;
-        this.address = address;
+    
     }
 
-    public int getNo() { return no; }
+    public PurchaseDTO(int salesNo, int salesUserNo, int buyUserNo, int productNo, int price, String address) {
+        this.salesNo = salesNo;
+        this.salesUserNo = salesUserNo;
+        this.buyUserNo = buyUserNo;
+        this.productNo = productNo;
+        this.price = price;
+        this.address = address;
+	}
+
+	public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }
 
     public int getSalesNo() { return salesNo; }
     public void setSalesNo(int salesNo) { this.salesNo = salesNo; }
 
-    public int getUserNo() { return userNo; }
-    public void setUserNo(int userNo) { this.userNo = userNo; }
+    public int getSalesUserNo() {
+		return salesUserNo;
+	}
 
-    public int getProductNo() { return productNo; }
+	public void setSalesUserNo(int salesUserNo) {
+		this.salesUserNo = salesUserNo;
+	}
+
+	public int getBuyUserNo() {
+		return buyUserNo;
+	}
+
+	public void setBuyUserNo(int buyUserNo) {
+		this.buyUserNo = buyUserNo;
+	}
+
+	public int getProductNo() { return productNo; }
     public void setProductNo(int productNo) { this.productNo = productNo; }
 
     public int getPrice() { return price; }

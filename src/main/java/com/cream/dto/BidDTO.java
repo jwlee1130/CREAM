@@ -1,40 +1,67 @@
 package com.cream.dto;
 
 public class BidDTO {
-    private int no;
-    private int userNo;
-    private int salesNO;
-    private int productPrice;
-    private int regdate;
-    
-    
+    private int no;            // NO
+    private int buyUserNo;     // BUY_USER_NO
+    private int salesNo;       // SALES_NO
+    private int price;         // PRICE
+    private int regdate;       // REGDATE
+
     public BidDTO() {}
     
-    public BidDTO(int no, int userNo, int salesNO, int productPrice, int regdate) {
-        this(userNo,salesNO,productPrice);
+    public BidDTO(int buyUserNo, int salesNO, int price) {
+        this.buyUserNo = buyUserNo;
+        this.salesNo = salesNO;
+        this.price = price;
+    }
+
+
+
+    // 매개변수를 받는 생성자
+    public BidDTO(int no, int buyUserNo, int salesNo, int price, int regdate) {
+        this(buyUserNo,salesNo,price);
     	this.no = no;
         this.regdate = regdate;
     }
-    
-    
-    public BidDTO(int userNo, int salesNO, int productPrice) {
-        this.userNo = userNo;
-        this.salesNO = salesNO;
-        this.productPrice = productPrice;
+
+    // Getter와 Setter 메서드
+    public int getNo() {
+        return no;
     }
 
-    public int getNo() { return no; }
-    public void setNo(int no) { this.no = no; }
+    public void setNo(int no) {
+        this.no = no;
+    }
 
-    public int getUserNo() { return userNo; }
-    public void setUserNo(int userNo) { this.userNo = userNo; }
+    public int getBuyUserNo() {
+        return buyUserNo;
+    }
 
-    public int getSalesNO() { return salesNO; }
-    public void setSalesNO(int userNo) { this.salesNO = userNo; }
+    public void setBuyUserNo(int buyUserNo) {
+        this.buyUserNo = buyUserNo;
+    }
 
-    public int getProductPrice() { return productPrice; }
-    public void setProductPrice(int productPrice) { this.productPrice = productPrice; }
+    public int getSalesNo() {
+        return salesNo;
+    }
 
-    public int getRegdate() { return regdate; }
-    public void setRegdate(int regdate) { this.regdate = regdate; }
+    public void setSalesNo(int salesNo) {
+        this.salesNo = salesNo;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getRegdate() {
+        return regdate;
+    }
+
+    public void setRegDate(int regdate) {
+        this.regdate = regdate;
+    }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cream.dao.UserDAOImpl;
 import com.cream.dto.BidDTO;
+import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
@@ -100,7 +101,26 @@ public class UserServiceImpl implements UserService {
 		int result = dao.insertSales(sales);
 		return result;
 	}
-	
+
+	@Override
+	public List<NotifyDTO> getNotifyList(int user_no) throws SQLException {
+		List<NotifyDTO> list = dao.getNotifyList(user_no);
+		return list;
+	}
+
+	public int updateNotify(int userNo, int notifyNo) throws SQLException {
+		int result = dao.updateNotify(userNo, notifyNo);
+		if(result ==0) {
+			throw new SQLException("오류");
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteNotify(int userNo, int notifyNo)  {
+		int result = dao.deleteNotify(userNo,notifyNo);
+		return result;
+	}
 	
 	
 	

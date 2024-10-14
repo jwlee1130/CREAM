@@ -41,7 +41,7 @@ public class DispatcherServlet extends HttpServlet {
 		
 			String key = request.getParameter("key");
 			String methodName = request.getParameter("methodName");
-			System.out.println("sadsad: " + key + ", asdas : " + methodName);
+			System.out.println("key: " + key + ", methodName : " + methodName);
 			System.out.println(map.get(key)+"맵 키");
 			try {
 				Controller con = map.get(key);

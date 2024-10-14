@@ -15,15 +15,17 @@ public class BidController implements Controller {
 	UserService  userService = new UserServiceImpl();
 
 	public ModelAndView bid(HttpServletRequest request, HttpServletResponse response) {
-		int user_no = Integer.parseInt(request.getParameter("user_no"));
-		int sales_no = Integer.parseInt(request.getParameter("sales_no"));
+		int buyUserNo = Integer.parseInt(request.getParameter("buyUserNo"));
+		int salesNo = Integer.parseInt(request.getParameter("salesNo"));
+		int productNo = Integer.parseInt(request.getParameter("productNo"));
+
 		int price =  Integer.parseInt(request.getParameter("price"));
 		
 		//최고가 입찰가보다 낮으면 입찰하지 못함
 		try {
-			BidDTO highestBid = bidService.getHighestBid(new BidDTO(user_no,sales_no,price));
+			bidService.bidTransaction(new BidDTO(buyUserNo,salesNo,price),productNo);
+			return new ModelAndView("front?key=sales&methodName=salesDetail&salesNo="+salesNo,true);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new ModelAndView("error.jsp",true);

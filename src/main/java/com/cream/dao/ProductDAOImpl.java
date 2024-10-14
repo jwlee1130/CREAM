@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.cream.dto.ProductDTO;
 import com.cream.dto.ProductImgDTO;
+import com.cream.dto.PurchaseDTO;
 import com.cream.util.DbUtil;
 
 public class ProductDAOImpl implements ProductDAO {
@@ -120,6 +121,7 @@ public class ProductDAOImpl implements ProductDAO {
 						 rs.getString(10),rs.getString(11), rs.getInt(12),new ProductImgDTO(rs.getString(13),rs.getString(14)));
 			}
 		}catch(SQLException e){
+			e.printStackTrace();
 			  throw new SQLException("sql 오류");
 		}finally {
 			DbUtil.dbClose(con, ps,rs);
@@ -127,4 +129,5 @@ public class ProductDAOImpl implements ProductDAO {
 
 		return product;
 	}
+
 }

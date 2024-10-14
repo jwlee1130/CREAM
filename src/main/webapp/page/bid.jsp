@@ -5,9 +5,30 @@
 <head>
   <meta charset="UTF-8">
   <title>입찰</title>
-  <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/bid.css">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bid.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		
+  		$("#a-bid").click(function(){
+  			
+  		
+  			window.location.href="front?key=bid&methodName=bid&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price="+$("#bid").val();
+  			
+  		
+  		
+  		
+  		});
+  	
+  	
+  	});
+  	
+  	
+  
+  
+  </script>
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -15,29 +36,28 @@
   <div class="bid-wrapper">
     <div class="item-info">
       <div class="item-logo">
-        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/shoes1.png" alt="">
+        <img src="${sale.product.productImg.filePath}" alt="">
       </div>
       <div class="item-description">
-        <h2>신발 모델번호</h2>
-        <h3>This is Shoes English name</h3>
-        <h3>여기는 신발 한글 제품명 오는곳</h3>
-        <h4>Size : ???</h4>
+        <h2>${sale.product.modelNumber}</h2>
+        <h3>${sale.product.engName}</h3>
+        <h3>${sale.product.korName}</h3>
+        <h4>${sale.shoesNo}</h4>
       </div>
     </div>
     <div class="item-price">
       <div class="current-price">
         <p>현재 입찰가</p>
-        <span>269,000원</span>
+        <span>${sale.bidAccount.price}원</span>        
       </div>
       <div class="instant-price">
         <p>즉시 구매가</p>
-        <span>319,000원</span></div>
+        <span>${sale.nowPrice}원</span></div>
     </div>
     <div class="time-left">
       <p>남은 시간 : </p>
       <p>
-        24:24:24
-      </p>
+		${sale.regdate}</p>
     </div>
     <div class="tabs-container">
       <div class="tabs">
@@ -47,13 +67,13 @@
       <div class="tab-content active" id="instantPurchase">
         <div class="tab-content-parchase">
           <p>즉시 구매가</p>
-          <p>400,000</p>
+          <p>${sale.nowPrice}</p>
         </div>
         <div class="tab-content-total">
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href=""><div class="instant-parchase-btn">
+        <a href="front?key=purchase&methodName=nowBuy&productNo=${sale.productNo}&salesUserNo=${sale.userNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${sale.nowPrice}&address=${loginUser.address}"><div class="instant-parchase-btn">
           <span>즉시 구매 계속</span>
         </div>
         </a>
@@ -63,13 +83,13 @@
       <div class="tab-content" id="bidding">
         <div class="tab-content-parchase">
           <p>구매 희망가</p>
-          <div style="display: flex"><input type="text" name="" id=""><span style="align-self: flex-end">원</span></div>
+          <div style="display: flex"><input type="text" id="bid"><span style="align-self: flex-end">원</span></div>
         </div>
         <div class="tab-content-total">
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href=""><div class="instant-parchase-btn">
+        <a href="#" id="a-bid"><div class="instant-parchase-btn">
           <span>구매 입찰 계속</span>
         </div>
         </a>
@@ -101,5 +121,6 @@
   });
 
 </script>
+<script src="../js/script.js"></script>
 </body>
 </html>
