@@ -28,13 +28,13 @@
       border-radius: 10px;
       padding: 20px;
       background-color: white;
-      width: 48%;
+      width: 48%; /* 한 줄에 두 개씩 배치되도록 설정 */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       margin-top: 10px;
       margin-bottom: 20px;
     }
-    .stat-chart-frame:nth-child(2n) {
-      margin-right: 0;
+    .full-width {
+      width: 100%; /* 한 줄 전체를 차지하도록 설정 */
     }
     .stat-canvas {
       width: 100% !important;
@@ -50,6 +50,7 @@
 </head>
 <body>
 
+<!-- 한 줄에 2개의 차트 -->
 <div class="stat-chart-container">
   <div class="stat-chart-frame">
     <h2>남자 인기 품목 Top 3</h2>
@@ -62,12 +63,16 @@
   </div>
 </div>
 
+<!-- 일일 판매액 차트는 한 줄에 하나 -->
 <div class="stat-chart-container">
-  <div class="stat-chart-frame">
+  <div class="stat-chart-frame full-width"> <!-- 가로를 모두 차지하게 -->
     <h2>일일 판매액(일주일)</h2>
     <canvas id="totalSalesChart" class="stat-canvas"></canvas>
   </div>
+</div>
 
+<!-- 한 줄에 2개의 차트 -->
+<div class="stat-chart-container">
   <div class="stat-chart-frame">
     <h2>설문조사 인기 브랜드 Top 3</h2>
     <canvas id="top3BrandsChart" class="stat-canvas"></canvas>
@@ -116,22 +121,11 @@
             responsive: true,
             plugins: {
               legend: {
-                display: false
+                display: true,
+                position:'bottom'
               }
             },
             scales: {
-              y: {
-                beginAtZero: true,                title: {
-                  display: true,
-                  text: '판매량'
-                }
-              },
-              x: {
-                title: {
-                  display: true,
-                  text: '품목'
-                }
-              }
             }
           }
         });
