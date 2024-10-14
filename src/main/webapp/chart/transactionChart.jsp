@@ -55,7 +55,7 @@
     (function($) {
         function loadRecentTransactions() {
             $.ajax({
-                url: '/ajax',
+                url: 'ajax',
                 type: 'GET',
                 dataType: 'json',
                 data: {

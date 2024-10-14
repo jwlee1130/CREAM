@@ -90,7 +90,7 @@
         $(button).addClass('active');
 
         $.ajax({
-            url: '/ajax',
+            url: 'ajax',
             type: 'GET',
             dataType: 'json',
             data: {
