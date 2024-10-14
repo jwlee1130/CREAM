@@ -2,74 +2,48 @@ package com.cream.dto;
 
 public class BidAccountDTO {
 
-    private int no;        // 입찰금 관리 계좌 번호
-    private int bidNo;     // 입찰 번호
-    private int userNo;    // 사용자 번호
-    private int salesId;   // 판매 ID
-    private int price;     // 입찰 금액
+		private int salesNo;       // SALES_NO
+	    private int buyUserNo;     // BUY_USER_NO
+	    private int price;         // PRICE
 
-    // 기본 생성자
-    public BidAccountDTO() {}
+	    // 기본 생성자
+	    public BidAccountDTO(int buyUserNo, int price) {
+	    	this(price);
+	    	this.buyUserNo = buyUserNo;
+	    }
 
-    // 모든 필드를 받는 생성자
-    public BidAccountDTO(int no, int bidNo, int userNo, int salesId, int price) {
-        this.no = no;
-        this.bidNo = bidNo;
-        this.userNo = userNo;
-        this.salesId = salesId;
-        this.price = price;
-    }
+	    // 매개변수를 받는 생성자
+	    public BidAccountDTO(int salesNo, int buyUserNo, int price) {
+	    	this(buyUserNo,price);
+	    	this.salesNo = salesNo;
+	    }
 
-    // Getter 및 Setter 메소드
-    public int getNo() {
-        return no;
-    }
+	    public BidAccountDTO(int price) {
+	    	this.price = price;
+	    }
 
-    public void setNo(int no) {
-        this.no = no;
-    }
+		// Getter와 Setter 메서드
+	    public int getSalesNo() {
+	        return salesNo;
+	    }
 
-    public int getBidNo() {
-        return bidNo;
-    }
+	    public void setSalesNo(int salesNo) {
+	        this.salesNo = salesNo;
+	    }
 
-    public void setBidNo(int bidNo) {
-        this.bidNo = bidNo;
-    }
+	    public int getBuyUserNo() {
+	        return buyUserNo;
+	    }
 
-    public int getUserNo() {
-        return userNo;
-    }
+	    public void setBuyUserNo(int buyUserNo) {
+	        this.buyUserNo = buyUserNo;
+	    }
 
-    public void setUserNo(int userNo) {
-        this.userNo = userNo;
-    }
+	    public int getPrice() {
+	        return price;
+	    }
 
-    public int getSalesId() {
-        return salesId;
-    }
-
-    public void setSalesId(int salesId) {
-        this.salesId = salesId;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    // toString 메소드 (객체 정보를 문자열로 표현)
-    @Override
-    public String toString() {
-        return "BidAccountDTO{" +
-                "no=" + no +
-                ", bidNo=" + bidNo +
-                ", userNo=" + userNo +
-                ", salesId=" + salesId +
-                ", price=" + price +
-                '}';
-    }
+	    public void setPrice(int price) {
+	        this.price = price;
+	    }
 }

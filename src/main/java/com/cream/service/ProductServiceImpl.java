@@ -7,9 +7,21 @@ import java.util.List;
 import com.cream.dao.ProductDAOImpl;
 import com.cream.dto.ProductDTO;
 
+
+
 public class ProductServiceImpl implements ProductService {
 	ProductDAOImpl productDao = new ProductDAOImpl();
 	List<ProductDTO> productList = new ArrayList<ProductDTO>();
+	
+	
+	public ProductDTO detail(int productNo) throws SQLException {
+		ProductDTO product = productDao.detail(productNo);
+		
+		if(product==null)
+			throw new SQLException("해당 상품이 존재하지 않습니다.");
+		return product;
+	}
+
 	
 	@Override
 	public List<ProductDTO> selectAllProduct() throws SQLException {

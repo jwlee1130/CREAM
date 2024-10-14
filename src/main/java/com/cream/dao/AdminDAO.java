@@ -1,17 +1,13 @@
 package com.cream.dao;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import com.cream.dto.ProductDTO;
+import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
 
+import java.sql.SQLException;
+import java.util.List;
+//  주석 테스트
 public interface AdminDAO {
-	/**
-	 * 	판매 승인
-	 * */
-	int updateSalesStatus(int sales_no,int sales_status, String grade) throws SQLException;
-	
 	/**
 	 * 	회원아이디삭제
 	 * */
@@ -25,16 +21,20 @@ public interface AdminDAO {
 	/**
 	 * 	판매 승인받지 않은 글 조회
 	 * */
-	List<ProductDTO> getUnapprovedProducts() throws SQLException;
-	
+	List<SalesDTO> getUnapprovedProducts() throws SQLException;
+
 	/**
-	 * 	검수 후 상태 변경 및 등급 부여
+	 * 	판매 승인
 	 * */
-	int inspectAndChangeStatus(int product_no,  char grade) throws SQLException;
+	int updateSalesStatus(int sales_no,int sales_status, char grade) throws SQLException;
 	
 	/**
 	 * 	설문조사 제출
 	 * */
 	int submitSurvey(SurveyDTO surveyData) throws SQLException;
-	
+
+	/**
+	 *  설문조사 마지막에 제품 추천 해주는 코드
+	 */
+	public ProductDTO getRecommendedProduct(String brand,String  color,int maxPrice) throws SQLException;
 }

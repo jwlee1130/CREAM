@@ -1,0 +1,146 @@
+
+
+.shop-container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  .shop-wrapper{
+    display: flex;
+    justify-content: space-between;
+    .shop-aside{
+      width: 160px;
+      flex-shrink: 0;
+      h2{
+        font-size: 2rem;
+        border-bottom: 1px solid #666;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+      }
+      .shop-aside-content{
+        h3{
+          font-size: 1.3rem;
+          margin-bottom: 0.5rem;
+        }
+        div{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          .filter-check {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 8px;
+          }
+        }
+        label{
+          margin : 5px;
+        }
+        input[type=checkbox]{
+          width: 20px;
+          height: 20px;
+          accent-color: #888;
+          &:checked{
+            accent-color: #555;
+          }
+        }
+        &:not(:last-child){
+          border-bottom: 1px solid #666;
+          padding-bottom: 0.5rem;
+        }
+        margin-top: 0.5rem;
+
+      }
+    }
+    .shop-main{
+      flex : 1;
+      margin-left : 40px;
+      .shop-main-info{
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        p{
+          color: gray;
+          font-size: 1.5rem;
+        }
+        span{
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+      }
+      .popular-list-wrapper {
+        height: 150vh;
+        overflow: auto;
+        &::-webkit-scrollbar {
+          width: 0px; /* 스크롤바 너비 */
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent; /* 스크롤바 트랙 배경색 */
+        }
+
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          gap: 10px;
+          margin-top: 20px;
+          overflow: auto;
+          li{
+            &:nth-child(odd){
+              .item-image{
+                background-color: #a5fdd0;
+              }
+            }
+            &:nth-child(even){
+              .item-image{
+                background-color: #ffa7a7;
+              }
+            }
+          }
+          .popular-item {
+            flex: 1 1 calc(25% - 10px);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            text-align: left;
+            padding: 10px;
+            .item-box{
+              padding: 0 0.7rem;
+            }
+            .item-image {
+              text-align: center;
+              align-content: center;
+              width: 200px;
+              height: 200px;
+              border-radius: 25px;
+              margin-bottom: 1.5rem;
+            }
+            .item-brand {
+              font-size: 1.2rem;
+              font-weight: bolder;
+            }
+            .item-description {
+              color: #a4a4a4;
+              margin-bottom: 1rem;
+            }
+            .item-price{
+              display: flex;
+              flex-direction: column;
+              h2{
+                font-size: 1.3rem;
+                font-weight: bolder;
+                margin-bottom: 0;
+              }
+              p{
+
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

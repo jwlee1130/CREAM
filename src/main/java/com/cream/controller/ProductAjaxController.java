@@ -21,11 +21,7 @@ public class ProductAjaxController implements RestController {
 		System.out.println("Ajax 상품 전체 검색 메소드...!!!");
 
 		productList = productService.selectAllProduct();	
-		
-		System.out.println("Ajax 상품 전체 검색 메소드 controller로 다시 돌아왔니?");
-		System.out.println(productList);
-		PrintWriter out = response.getWriter();
-		out.print(productList);
+		//System.out.println(productList);
 
 		return productList;
 
