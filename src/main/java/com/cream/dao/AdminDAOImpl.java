@@ -33,7 +33,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public int deleteProductById(int productNo) throws SQLException {
-        String sql = "DELETE FROM PRODUCT WHERE ID=?";
+        String sql = "DELETE FROM PRODUCT WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
 
