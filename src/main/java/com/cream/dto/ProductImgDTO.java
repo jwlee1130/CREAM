@@ -9,6 +9,7 @@ public class ProductImgDTO {
 	@Expose private String fileSize;
 	@Expose private String regdate;
 
+
     public ProductImgDTO() {}
 
     public ProductImgDTO(String filePath, String fileSize) {

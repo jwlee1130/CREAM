@@ -1,6 +1,7 @@
 package com.cream.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.cream.dao.PurchaseDAO;
 import com.cream.dao.PurchaseDAOImpl;
@@ -22,4 +23,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchase;
 	}
 
+	@Override
+	public List<PurchaseDTO> selectPurchase(int buyUserNo) throws SQLException {
+		List<PurchaseDTO> list=dao.selectPurchase(buyUserNo);
+		return list;
+	}
+	
 }

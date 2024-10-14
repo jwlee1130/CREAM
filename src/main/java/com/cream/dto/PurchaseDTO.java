@@ -3,16 +3,45 @@ package com.cream.dto;
 import com.google.gson.annotations.Expose;
 
 public class PurchaseDTO {
-	@Expose  private int no;
-	@Expose private int salesNo;
-	@Expose private int salesUserNo;
-	@Expose  private int buyUserNo;
-	@Expose private int productNo;
-	@Expose  private int price;
-	@Expose private String regdate;
-	@Expose private String address;
 
-    public PurchaseDTO() {}
+    @Expose private int no;
+    @Expose private int salesNo;
+    @Expose  int salesUserNo;
+    @Expose private int buyUserNo;
+    @Expose private int productNo;
+    @Expose private int price;
+    @Expose private String regdate;
+    @Expose private String address;
+    @Expose private String engName; 
+    @Expose private int shoeSize; 
+    @Expose private String filePath;
+
+    
+    public String getEngName() {
+		return engName;
+	}
+
+	public void setEngName(String engName) {
+		this.engName = engName;
+	}
+
+	public int getShoeSize() {
+		return shoeSize;
+	}
+
+	public void setShoeSize(int shoeSize) {
+		this.shoeSize = shoeSize;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public PurchaseDTO() {}
 
     public PurchaseDTO(int no, int salesNo, int salesUserNo, int buyUserNo, int productNo, int price, String regdate, String address) {
         this(salesNo, salesUserNo, buyUserNo, productNo, price, address);
@@ -28,6 +57,22 @@ public class PurchaseDTO {
         this.productNo = productNo;
         this.price = price;
         this.address = address;
+	}
+
+	public PurchaseDTO(int no, int salesNo, int salesUserNo, int buyUserNo, int productNo, int price, String regdate,
+			String address, String engName, int shoeSize, String filePath) {
+		super();
+		this.no = no;
+		this.salesNo = salesNo;
+		this.salesUserNo = salesUserNo;
+		this.buyUserNo = buyUserNo;
+		this.productNo = productNo;
+		this.price = price;
+		this.regdate = regdate;
+		this.address = address;
+		this.engName = engName;
+		this.shoeSize = shoeSize;
+		this.filePath = filePath;
 	}
 
 	public int getNo() { return no; }

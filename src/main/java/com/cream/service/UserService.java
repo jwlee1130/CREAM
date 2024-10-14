@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
-import com.cream.dto.ProductDTO;
+import com.cream.dto.ProductViewDTO;
+import com.cream.dto.RankDTO;
 import com.cream.dto.SalesDTO;
+import com.cream.dto.SalesViewDTO;
 import com.cream.dto.UserDTO;
 import com.cream.exception.AuthenticationException;
 
@@ -31,7 +33,7 @@ public interface UserService {
 	/**
 	 * 	회원등급 확인
 	 * */
-	String getUserRank(String user_Id) throws SQLException;
+	RankDTO getUserRank(String user_no) throws SQLException;
 	
 	/** 
 	 * 	회원 탈퇴
@@ -56,7 +58,7 @@ public interface UserService {
 	/**
 	 * 	찜 조회
 	 * */
-	List<ProductDTO> selectWishlist(int user_no) throws SQLException;
+	List<ProductViewDTO> selectWishlist(int user_no) throws SQLException;
 	
 	/**
 	 * 	찜 삭제
@@ -68,7 +70,7 @@ public interface UserService {
 	/**
 	 * 	판매등록 조회
 	 * */
-	List<SalesDTO> salesByUserNo(int user_no) throws SQLException;
+	List<SalesViewDTO> salesByUserNo(int user_no) throws SQLException;
 	
 	/**
 	 * 	판매 등록

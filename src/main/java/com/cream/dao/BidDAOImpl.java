@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cream.dto.BidAccountDTO;
 import com.cream.dto.BidDTO;
@@ -345,6 +347,35 @@ public class BidDAOImpl implements BidDAO {
 		}
 		return result;
 		
+	}
+
+	@Override
+	public List<BidAccountDTO> selectActiveBids(int salesNo) throws SQLException {
+		Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    List<BidAccountDTO> activeBids = new ArrayList<>();
+
+	    String sql = "SELECT * FROM BID_ACCOUNT WHERE SALES_NO = ? AND BUY_USER_NO IS NOT NULL";
+
+	    try {
+	        con = DbUtil.getConnection();
+	        ps = con.prepareStatement(sql);
+	        ps.setInt(1, salesNo);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            BidAccountDTO bid = new BidAccountDTO();
+	            bid.setSalesNo(rs.getInt("SALES_NO"));
+	            bid.setBuyUserNo(rs.getInt("USER_NO"));
+	            bid.setPrice(rs.getInt("PRICE"));
+	            activeBids.add(bid);
+	        }
+	    } finally {
+	        DbUtil.dbClose(con, ps, rs);
+	    }
+
+	    return activeBids;
 	}
 	
 
