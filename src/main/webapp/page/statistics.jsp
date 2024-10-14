@@ -129,9 +129,10 @@
                 position: 'bottom',
                 labels: {
                   usePointStyle: true,
-                  padding: 20,
-                  boxWidth: 10,
+                  // padding: 10,
+                  // boxWidth: 10,
                   align: 'start',
+
                 }
               }
             },
@@ -140,7 +141,7 @@
         });
       },
       error: function(error) {
-        console.error("차트 데이터 로드 오류:", error);
+        console.error("차트 데이터 로드 오류 : ", error);
       }
     });
   }
