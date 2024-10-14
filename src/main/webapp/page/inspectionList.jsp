@@ -48,7 +48,13 @@
           tb += '<td>';
           tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '" data-start-price="'+ inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
           tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" style="background-color: #EF6253; border-color: #EF6253; color: white;">반려</button>';
-
+		  tb += '<td>';
+		  tb += '<form class="upload-form" data-sales-img-no="' + inspection.no + '">';
+		  tb += '파일 첨부: <input type="file" name="file" class="file-input"/>';
+		  tb += '<button type="submit" class="upload-btn">업로드하기</button>'; // AJAX로 처리하므로 type="button"으로 설정
+		  tb += '</form>';
+	      tb += '</form>';
+	      tb += '</td>'
           tb += '</td>';
           tb += '<td>';
           tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
@@ -173,4 +179,38 @@
       }
     });
   }
+  
+  $(document).on("click",".upload-btn",function(e){
+	  		e.preventDefault();
+	  		
+	  		let form = $(this).closest('form')[0];
+	  	    let formData = new FormData(form);
+	  	    let button = $(this); // 클릭된 버튼을 변수에 저장
+			
+	  	    // sales_no 값을 추가 (필요하다면)
+	  	    let salesNo = $(this).closest('form').data('sales-img-no');
+	  	    formData.append('salesNo', salesNo);
+	  	    formData.append('methodName','insertSalesImg');
+	  	    formData.append('key','sales');
+	  		$.ajax({
+	  		  url: '${pageContext.request.contextPath}/ajax',  // 파일을 업로드할 서버의 URL
+	          type: 'POST',
+	          data: formData,
+	          contentType: false,
+	          processData: false,
+	          success: function(response) {
+	        	  button.remove();
+	          },
+	          error: function(xhr, status, error) {
+	              alert('파일 업로드 실패: ' + error);
+	          }
+	  			
+	  		});
+  
+  
+  
+  
+  });
+  
+  
 </script>

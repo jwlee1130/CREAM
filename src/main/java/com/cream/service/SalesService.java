@@ -9,4 +9,6 @@ public interface SalesService {
 	List<SalesDTO> selectAll(int shoesNo, int salesNo) throws SQLException;
 
 	SalesDTO salesDetail(int salesNo)  throws SQLException;
+
+	int insertSalesImg(int salesNo, String fileName, long fileSize);
 }
