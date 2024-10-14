@@ -81,6 +81,14 @@ $space-between-slides: 30px;
             fill: #666;
           }
         }
+        .bell-icon-active{
+          cursor: pointer;
+          fill: red;
+          transition: fill 0.2s ease;
+          &:hover{
+            fill: #ffc4c4;
+          }
+        }
 
         .tooltip {
           position: absolute;

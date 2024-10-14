@@ -56,6 +56,12 @@
 .header-wrapper .header-main .header-right .bell-container .bell-icon:hover {
   fill: #666;
 }
+.header-wrapper .header-main .header-right .bell-container .bell-icon-active {
+  fill: red;
+}
+.header-wrapper .header-main .header-right .bell-container .bell-icon-active:hover {
+  fill: #ffa7a7;
+}
 .header-wrapper .header-main .header-right .bell-container .tooltip {
   position: absolute;
   top: 40px;
