@@ -101,7 +101,7 @@
         const values = Object.values(data);
 
         new Chart(document.querySelector(canvasId), {
-          type: 'bar',
+          type: 'doughnut',
           data: {
             labels: labels,
             datasets: [{
