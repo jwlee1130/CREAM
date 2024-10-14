@@ -158,7 +158,7 @@
     });
   }
 
-  // 누적 판매액 (꺾은선 차트)
+  // 누적 판매액 (꺾은선 차트), 일일판매량
   function loadTotalSalesData(url, canvasId, period) {
     $.ajax({
       url: url,
@@ -170,7 +170,15 @@
       },
       dataType: "json",
       success: function(data) {
-        const labels = Object.keys(data);
+        // 날짜 형식 변환
+        const labels = Object.keys(data).map(dateString => {
+          const date = new Date(dateString);
+          // const month = String(date.getMonth() + 1).padStart(2, '0');
+          const month = String(date.getMonth() + 1);
+          // const day = String(date.getDate()).padStart(2, '0');
+          const day = String(date.getDate());
+          return month + '/' + day;
+        });
         const values = Object.values(data);
 
         new Chart(document.querySelector(canvasId), {
