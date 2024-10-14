@@ -40,9 +40,10 @@
                     </a>
                 </div>
             </div>
+<%--            ${not empty sessionScope.loginUser.notification ? 'bell-icon-active' : ''}--%>
             <div class="header-right">
                 <div class="bell-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="bell-icon ${not empty sessionScope.loginUser.notification ? 'bell-icon-active' : ''}"
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="bell-icon"
                          viewBox="0 0 16 16">
                         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
                     </svg>
@@ -94,9 +95,9 @@
 				let str = "";
 				$.each(result, function(index, notify) {
 					if(notify.isRead==0){
+                        $(".bell-icon").addClass("bell-icon-active");
 						str += "<li><a href='${pageContext.request.contextPath}/front?key=user1&methodName=updateNotify&salesNo="+notify.salesNo+"&no="+notify.no+"&msg="+notify.msg+"'>"+notify.msg+"</a>"; // 영어 이름
 					}else{
-						$(".bell-icon").css({"color" : "red !important" });
 						str += "<li><a href='${pageContext.request.contextPath}/front?key=user1&methodName=updateNotify&salesNo="+notify.salesNo+"&no="+notify.no+"&msg="+notify.msg+"' style='color: gray;'>"+notify.msg+"</a>"; // 영어 이름
 					}
 					str+="<input type='button' class='delete' data-info = '"+notify.no+"' value='X' ></li>";
