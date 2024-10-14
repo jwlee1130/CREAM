@@ -64,7 +64,7 @@
 <!-- 누적 판매액 (꺾은선 차트) -->
 <div class="chart-container">
   <div class="chart-frame">
-    <h2>누적 판매액</h2>
+    <h2>일일 판매액</h2>
     <canvas id="totalSalesChart"></canvas>
   </div>
 </div>
@@ -80,7 +80,7 @@
 <script>
   $(document).ready(function() {
     const contextPath = '${pageContext.request.contextPath}';
-    const period = 90;
+    const period = 7; // 7일 기준으로 데이터 로드
 
     // 남자 인기 품목 Top 3 (막대 차트)
     loadTop3Items('남', period, contextPath + '/ajax', '#top3MaleItemsChart', '남자 인기 품목 Top 3');
@@ -88,7 +88,7 @@
     // 여자 인기 품목 Top 3 (막대 차트)
     loadTop3Items('여', period, contextPath + '/ajax', '#top3FemaleItemsChart', '여자 인기 품목 Top 3');
 
-    // 누적 판매액 (꺾은선 차트)
+    // 일일 판매액 (꺾은선 차트)
     loadTotalSalesData(contextPath + '/ajax', '#totalSalesChart', period);
 
     // 설문조사 인기 브랜드 Top 3 (원형 차트)
@@ -158,7 +158,7 @@
     });
   }
 
-  // 누적 판매액 (꺾은선 차트), 일일판매량
+  // 일일 판매액 (꺾은선 차트)
   function loadTotalSalesData(url, canvasId, period) {
     $.ajax({
       url: url,
@@ -170,23 +170,24 @@
       },
       dataType: "json",
       success: function(data) {
+        const sortedDates = Object.keys(data).sort((a, b) => new Date(a) - new Date(b));
+
         // 날짜 형식 변환
-        const labels = Object.keys(data).map(dateString => {
+        const labels = sortedDates.map(dateString => {
           const date = new Date(dateString);
-          // const month = String(date.getMonth() + 1).padStart(2, '0');
           const month = String(date.getMonth() + 1);
-          // const day = String(date.getDate()).padStart(2, '0');
           const day = String(date.getDate());
-          return month + '/' + day;
+          return month + '/' + day; // "MM/DD" 형식으로 변환
         });
-        const values = Object.values(data);
+
+        const values = sortedDates.map(dateString => data[dateString]);
 
         new Chart(document.querySelector(canvasId), {
           type: 'line',
           data: {
             labels: labels,
             datasets: [{
-              label: '누적 판매액',
+              label: '일일 판매액',
               data: values,
               borderColor: 'rgba(255, 99, 132, 1)',
               borderWidth: 2,
@@ -199,7 +200,7 @@
             plugins: {
               title: {
                 display: true,
-                text: '누적 판매액'
+                text: '일일 판매액'
               }
             },
             scales: {
@@ -224,7 +225,7 @@
         });
       },
       error: function(error) {
-        console.error("누적 판매액 로드 오류:", error);
+        console.error("일일 판매액 로드 오류:", error);
       }
     });
   }
