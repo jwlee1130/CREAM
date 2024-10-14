@@ -106,6 +106,7 @@
             box-sizing: border-box;
             text-align: left;
             padding: 10px;
+            max-width: 200px;
             .item-box{
               padding: 0 0.7rem;
             }
@@ -124,6 +125,8 @@
             .item-description {
               color: #a4a4a4;
               margin-bottom: 1rem;
+              word-wrap: break-word; /* 단어가 길면 줄바꿈 */
+              white-space: normal; /* 일반 줄바꿈 설정 */
             }
             .item-price{
               display: flex;
