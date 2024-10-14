@@ -295,6 +295,7 @@
 .container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-brand {
   font-size: 1.2rem;
   font-weight: bolder;
+  margin-bottom: 1rem;
 }
 .container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-description {
   color: #a4a4a4;
