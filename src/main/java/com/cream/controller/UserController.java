@@ -1,7 +1,10 @@
 package com.cream.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.cream.dto.SalesDTO;
 import com.cream.dto.UserDTO;
 import com.cream.exception.AuthenticationException;
 import com.cream.service.UserService;
@@ -47,27 +50,87 @@ public class UserController implements Controller {
         session.invalidate();
         return new ModelAndView("index.jsp", true);
     }
-   
-    public ModelAndView addToWishlist(HttpServletRequest request, HttpServletResponse response) {
+    
+    public ModelAndView updateUser(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-      
-        if (loginUser == null) {
-            return new ModelAndView("user/login.jsp", true);
-        }
 
         try {
-            int productNo = Integer.parseInt(request.getParameter("product_no"));
-            int result = service.addToWishlist(loginUser.getNo(), productNo);
+            String password = request.getParameter("password");
+            String nickname = request.getParameter("nickname");
+            String address = request.getParameter("address");
+            int shoesSize = Integer.parseInt(request.getParameter("shoesSize"));
+
+            loginUser.setUserPw(password);
+            loginUser.setNickname(nickname);
+            loginUser.setAddress(address);
+            loginUser.setShoesSize(shoesSize);
+
+            int result = service.updateUser(loginUser);
 
             if (result > 0) {
-                return new ModelAndView("page/mypage.jsp");
+                UserDTO updatedUser = service.selectUserById(loginUser.getNo());
+                session.setAttribute("loginUser", updatedUser);
+
+                return new ModelAndView("page/mypage.jsp#test3", true);
             } else {
-                return new ModelAndView("error/error.jsp");
+                return new ModelAndView("error/error.jsp", true);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ModelAndView("error/error.jsp");
+            return new ModelAndView("error/error.jsp", true);
         }
     }
+    
+    public ModelAndView updateCash(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+        try {
+            String cash = request.getParameter("cash");
+            System.out.println("Received cash parameter: " + cash);
+
+            int newCash = Integer.parseInt(cash); 
+            int userId = loginUser.getNo();
+
+            int result = service.updateCash(userId, newCash);
+
+            if (result > 0) {
+                UserDTO updatedUser = service.selectUserById(loginUser.getNo());
+                session.setAttribute("loginUser", updatedUser);
+
+                return new ModelAndView("page/mypage.jsp", true);
+            } else {
+                return new ModelAndView("error/error.jsp", true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("error/error.jsp", true);
+        }
+    }
+
+    public ModelAndView deleteUser(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+        try {
+            String userId = loginUser.getUserId();
+            String password = request.getParameter("password");
+
+            int result = service.deleteUser(userId, password);
+
+            if (result > 0) {
+                session.invalidate();
+                return new ModelAndView("index.jsp", true);
+            } else {
+                return new ModelAndView("error/error.jsp", true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("error/error.jsp", true);
+        }
+    }
+
+
+
 }

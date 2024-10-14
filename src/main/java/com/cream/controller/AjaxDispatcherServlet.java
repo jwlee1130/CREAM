@@ -1,11 +1,11 @@
 package com.cream.controller;
 
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
@@ -20,53 +20,59 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = "/ajax" , loadOnStartup = 1)
 public class AjaxDispatcherServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
-   
+	private static final long serialVersionUID = 1L;
+	
      Map<String, RestController> map;
      Map<String, Class<?>> clzMap;
-    @Override
-   public void init(ServletConfig config) throws ServletException {
-      
-      ServletContext application = config.getServletContext();
-      Object obj = application.getAttribute("ajaxMap");
-      map = (Map<String, RestController>)obj;
-      
-      clzMap = (Map<String, Class<?>>)config.getServletContext().getAttribute("ajaxClzMap");
-      
-   }
+ 	@Override
+	public void init(ServletConfig config) throws ServletException {
+		
+		ServletContext application = config.getServletContext();
+		Object obj = application.getAttribute("ajaxMap");
+		map = (Map<String, RestController>)obj;
+		
+		clzMap = (Map<String, Class<?>>)config.getServletContext().getAttribute("ajaxClzMap");
+		
+	}
    
-   protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      String key = request.getParameter("key"); //customer
-      String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
-      
-      if(key ==null || key.equals("")) {
-         key="customer";
-         methodName="test";
-      }
-      
-      System.out.println("key = " + key+", methodName = " + methodName+ clzMap.get(key));
+		String key = request.getParameter("key"); //customer
+		String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
+		
+		if(key ==null || key.equals("")) {
+			key="customer";
+			methodName="test";
+		}
+		
+		System.out.println("key = " + key+", methodName = " + methodName);
 
-      try {
-         Class<?> clz = clzMap.get(key);
-         Method method = clz.getMethod(methodName, HttpServletRequest.class , HttpServletResponse.class);
-         
-         RestController controller = map.get(key);
-
-		Object obj = method.invoke(controller, request , response);
+		try {
+			Class<?> clz = clzMap.get(key);
+			Method method = clz.getMethod(methodName, HttpServletRequest.class , HttpServletResponse.class);
 			
-		Gson gson = new Gson();
-		String data = gson.toJson(obj);
-		System.out.println("data = " + data);
+			RestController controller = map.get(key);
+
+			Object obj = method.invoke(controller, request , response);
 			
-		response.getWriter().print(data);
+			Gson gson = new GsonBuilder()
+	                .setPrettyPrinting()
+	                .serializeNulls()
+	                .excludeFieldsWithoutExposeAnnotation()
+	                .create();
+			
+			String data = gson.toJson(obj);
+			System.out.println("data = " + data);
+			
+			response.getWriter().print(data);
 
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 			
 		}
-   }//service 메소드 끝 
+	}//service 메소드 끝 
+
 }
 
 

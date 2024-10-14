@@ -25,17 +25,17 @@ public interface UserService {
 	/**
 	 * 	현금 충전
 	 * */
-	int updateCash(String user_Id,int cash) throws SQLException;
+	int updateCash(int user_no,int cash) throws SQLException;
 	
 	/**
 	 * 	회원등급 확인
 	 * */
 	String getUserRank(String user_Id) throws SQLException;
 	
-	/**
+	/** 
 	 * 	회원 탈퇴
 	 * */
-	int deleUser(String user_Id,String pwd) throws SQLException;
+	int deleteUser(String user_Id,String pwd) throws SQLException;
 	
 	/**
 	 * 	회원정보 수정
@@ -73,4 +73,10 @@ public interface UserService {
 	 * 	판매 등록
 	 * */
 	int insertSales(SalesDTO sales) throws SQLException;
+	
+	/**
+	 * 	관심상품 추가 및 해제
+	 * */
+	boolean isProductInWishlist(int userNo, int productNo) throws SQLException;
+
 }
