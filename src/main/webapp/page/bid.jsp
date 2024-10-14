@@ -73,7 +73,7 @@
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href="front?key=purchase&methodName=nowBuy&productNo=${sale.productNo}&salesUserNo=${sale.userNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${sale.nowPrice}&address=${loginUser.address}"><div class="instant-parchase-btn">
+        <a href="${pageContext.request.contextPath}/page/buy-now.jsp"><div class="instant-parchase-btn">
           <span>즉시 구매 계속</span>
         </div>
         </a>
@@ -89,7 +89,7 @@
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href="#" id="a-bid"><div class="instant-parchase-btn">
+        <a href="${pageContext.request.contextPath}/page/bid-parchase.jsp" id="a-bid"><div class="instant-parchase-btn">
           <span>구매 입찰 계속</span>
         </div>
         </a>
