@@ -38,56 +38,36 @@ public class AdminDAOImpl implements AdminDAO {
     public int deleteUsersSalesByNo(int salesNo) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
 
         try {
             conn = DbUtil.getConnection();
             conn.setAutoCommit(false);
 
-            // USERS_SALES에서 USER_NO 가져오기 (해당 쿼리 후 사용되지 않음)
-            String getUserNoSql = "SELECT USER_NO FROM USERS_SALES WHERE NO=?";
-            ps = conn.prepareStatement(getUserNoSql);
-            ps.setInt(1, salesNo);
-            rs = ps.executeQuery();
 
-            if (!rs.next()) {
-                throw new SQLException("No USERS_SALES record found with NO = " + salesNo);
-            }
-            rs.close();
-            ps.close();
-
-            // 해당 SALES_NO에 해당하는 PURCHASE 레코드 삭제
             String deletePurchasesSql = "DELETE FROM PURCHASE WHERE SALES_NO=?";
             ps = conn.prepareStatement(deletePurchasesSql);
             ps.setInt(1, salesNo);
-            ps.executeUpdate();
+            int deletedPurchases = ps.executeUpdate();
             ps.close();
 
-            // USERS_SALES에서 해당 판매글 삭제
+
             String deleteSalesSql = "DELETE FROM USERS_SALES WHERE NO=?";
             ps = conn.prepareStatement(deleteSalesSql);
             ps.setInt(1, salesNo);
-            int result = ps.executeUpdate();
+            int deletedSales = ps.executeUpdate();
             ps.close();
 
             conn.commit();
-            return result;
+            return deletedSales;
         } catch (SQLException e) {
             if (conn != null) {
-                try {
-                    conn.rollback();
-                } catch (SQLException ee) {
-                    ee.printStackTrace();
-                }
+                conn.rollback();
             }
             throw e;
         } finally {
-            DbUtil.dbClose(conn, ps, rs);
+            DbUtil.dbClose(conn, ps, null);
         }
     }
-
-
-
 
 
     public void deletePurchasesBySalesNo(int salesNo, Connection conn) throws SQLException {
