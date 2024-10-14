@@ -3,6 +3,7 @@ package com.cream.dao;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +13,15 @@ public interface AdminDAO {
 	/**
 	 * 회원아이디 삭제
 	 */
-	int deleteUserById(int user_no) throws SQLException;
+	int deleteUserByNo(int userNo) throws SQLException;
 
 	/**
 	 * 판매글 삭제
 	 */
-	int deleteUsersSalesById(int salesNo) throws SQLException;
+	int deleteUsersSalesByNo(int salesNo) throws SQLException;
+	void deletePurchasesBySalesNo(int salesNo, Connection conn) throws SQLException;
+
+
 
 	/**
 	 * 판매 승인받지 않은 글 조회

@@ -56,7 +56,7 @@
     <h3>판매글 삭제</h3>
     <form id="deleteSalesForm" class="form-inline">
       <label for="salesNo" class="sr-only">판매 번호</label>
-      <input type="text" id="salesNo" name="salesNo" class="form-control mb-2 mr-sm-2" placeholder="판매 번호 입력">
+      <input type="text" id="salesNo" name="salesNo" class="form-control mb-2 mr-sm-2" placeholder="판매글 번호 입력">
       <button type="button" id="deleteSalesBtn" class="btn btn-custom mb-2">판매글 삭제</button>
     </form>
     <div id="salesDeleteAlert" class="alert alert-info"></div>
@@ -77,10 +77,15 @@
       }
 
       $.ajax({
-        url: 'deleteUser.do',
+        url: '${pageContext.request.contextPath}/ajax',
         method: 'POST',
-        data: { key: 'admin', method: 'deleteUserById', userNo: userNo },
+        data: {
+          key: 'admin',
+          methodName: 'deleteUserById',
+          userNo: userNo
+        },
         success: function(response) {
+          console.log(response);
           $('#userDeleteAlert').text('사용자가 성공적으로 삭제되었습니다.').removeClass('alert-danger').addClass('alert-success').show();
         },
         error: function() {
@@ -97,9 +102,13 @@
       }
 
       $.ajax({
-        url: 'deleteSales.do',
+        url: '${pageContext.request.contextPath}/ajax',
         method: 'POST',
-        data: { key: 'admin', method: 'deleteSalesById', salesNo: salesNo },
+        data: {
+          key: 'admin',
+          methodName: 'deleteSalesById',
+          salesNo: salesNo
+        },
         success: function(response) {
           $('#salesDeleteAlert').text('판매글이 성공적으로 삭제되었습니다.').removeClass('alert-danger').addClass('alert-success').show();
         },

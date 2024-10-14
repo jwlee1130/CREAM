@@ -19,7 +19,7 @@ public class AdminDAOImpl implements AdminDAO {
     DELETE FROM USERS WHERE NO = 1;
      */
     @Override
-    public int deleteUserById(int userNo) throws SQLException {
+    public int deleteUserByNo(int userNo) throws SQLException {
         String sql = "DELETE FROM USERS WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
@@ -34,24 +34,78 @@ public class AdminDAOImpl implements AdminDAO {
         }
     }
 
-    /*
-    DELETE FROM USERS_SALES WHERE NO = 1;
-     */
     @Override
-    public int deleteUsersSalesById(int salesNo) throws SQLException {
-        String sql = "DELETE FROM USERS_SALES WHERE NO=?";
+    public int deleteUsersSalesByNo(int salesNo) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
             conn = DbUtil.getConnection();
-            ps = conn.prepareStatement(sql);
+            conn.setAutoCommit(false);
+
+            // USERS_SALES에서 USER_NO 가져오기 (해당 쿼리 후 사용되지 않음)
+            String getUserNoSql = "SELECT USER_NO FROM USERS_SALES WHERE NO=?";
+            ps = conn.prepareStatement(getUserNoSql);
             ps.setInt(1, salesNo);
-            return ps.executeUpdate();
+            rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                throw new SQLException("No USERS_SALES record found with NO = " + salesNo);
+            }
+            rs.close();
+            ps.close();
+
+            // 해당 SALES_NO에 해당하는 PURCHASE 레코드 삭제
+            String deletePurchasesSql = "DELETE FROM PURCHASE WHERE SALES_NO=?";
+            ps = conn.prepareStatement(deletePurchasesSql);
+            ps.setInt(1, salesNo);
+            ps.executeUpdate();
+            ps.close();
+
+            // USERS_SALES에서 해당 판매글 삭제
+            String deleteSalesSql = "DELETE FROM USERS_SALES WHERE NO=?";
+            ps = conn.prepareStatement(deleteSalesSql);
+            ps.setInt(1, salesNo);
+            int result = ps.executeUpdate();
+            ps.close();
+
+            conn.commit();
+            return result;
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ee) {
+                    ee.printStackTrace();
+                }
+            }
+            throw e;
         } finally {
-            DbUtil.dbClose(conn, ps);
+            DbUtil.dbClose(conn, ps, rs);
         }
     }
+
+
+
+
+
+    public void deletePurchasesBySalesNo(int salesNo, Connection conn) throws SQLException {
+        String sql = "DELETE FROM PURCHASE WHERE SALES_NO=?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, salesNo);
+            ps.executeUpdate();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+    }
+
+
 
 
     /*
