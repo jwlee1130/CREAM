@@ -1,19 +1,25 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class ProductImgDTO {
-    private int no;
-    private int productNo;
-    private int no2;
-    private String filePath;
-    private String fileSize;
-    private String regdate;
+	@Expose private int no;
+	@Expose private int productNo;
+	@Expose private String filePath;
+	@Expose private String fileSize;
+	@Expose private String regdate;
+
 
     public ProductImgDTO() {}
 
-    public ProductImgDTO(int no, int productNo, int no2, String filePath, String fileSize, String regdate) {
+    public ProductImgDTO(String filePath, String fileSize) {
+        this.filePath = filePath;
+        this.fileSize = fileSize;
+    }
+    
+    public ProductImgDTO(int no, int productNo, String filePath, String fileSize, String regdate) {
         this.no = no;
         this.productNo = productNo;
-        this.no2 = no2;
         this.filePath = filePath;
         this.fileSize = fileSize;
         this.regdate = regdate;
@@ -24,9 +30,6 @@ public class ProductImgDTO {
 
     public int getProductId() { return productNo; }
     public void setProductId(int productNo) { this.productNo = productNo; }
-
-    public int getNo2() { return no2; }
-    public void setNo2(int no2) { this.no2 = no2; }
 
     public String getFilePath() { return filePath; }
     public void setFilePath(String filePath) { this.filePath = filePath; }

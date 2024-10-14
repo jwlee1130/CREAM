@@ -1,28 +1,53 @@
 package com.cream.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.cream.dto.BidAccountDTO;
 import com.cream.dto.BidDTO;
 
 public interface BidDAO {
-    BidDTO getHighestBid(int sales_no) throws SQLException; // 최고 입찰 확인
+	
+    void bidTransaction(BidDTO bid,int productNO) throws SQLException;
 
     String getTimeBid(int sales_no) throws SQLException; // 남은 시간 표현
     
     /**
      * 	입찰하기
      * */
-    int bid(BidDTO bid) throws SQLException;
+    int bid(Connection con, BidDTO bid) throws SQLException;
     
     /**
      * 	입찰금액 입금
      * */
-    int checkBalance(int user_no) throws SQLException;
+    int checkBalance(Connection con, int user_no, int price) throws SQLException;
     
     /**
      * 	입찰금액 돌려주기
      * */
-    int refundBidAmount(int sales_no,int user_no) throws SQLException;
+    int refundBidAmount(Connection con, int sales_no,int user_no) throws SQLException;
+    /*
+     * 관리계좌의 입찰정보 가져오기
+     */
+    BidAccountDTO getHighestBid(Connection con, int salesNo) throws SQLException;
     
+    /*
+     * 플래그 1로 설정해서 입찰완료될떄까지 접근 x
+     */
+    int setBidFlagOne(Connection con, int salesNO) throws SQLException;
 
+    /*
+     * 플래그 1로 설정해서 입찰완료될떄까지 접근 x
+     */
+    int setBidFlagZero(Connection con, int salesNO) throws SQLException;
+    
+    /*
+     * 입금관리계좌 추가
+     */
+    
+	public int insertAdminAccount(Connection con, int salesNo, int price) throws SQLException;
+
+
+    List<BidAccountDTO> selectActiveBids(int salesNo) throws SQLException;
 }

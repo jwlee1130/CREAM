@@ -1,9 +1,11 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class RankDTO {
-    private int no;
-    private String rank;
-    private int discount;
+	@Expose private int no;
+	@Expose private String rank;
+	@Expose private int discount;
 
     public RankDTO() {}
 

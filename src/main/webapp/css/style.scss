@@ -146,12 +146,11 @@ $space-between-slides: 30px;
     display: flex;
     flex-direction: column;
     .main-slider { //Main-Slider
-      align-self: center;
       width: $slide-width;
+      align-self: center;
       position: relative;
-      left: -20%;
       margin-bottom: 2rem;
-
+      overflow: hidden;
       .main-swiper-container {
         width: 100%;
         height: $slide-height;
@@ -340,6 +339,10 @@ $space-between-slides: 30px;
 
 
     .most-popular {
+      h2{
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
       .popular-list-wrapper {
         ul {
           display: flex;
@@ -347,35 +350,75 @@ $space-between-slides: 30px;
           gap: 10px;
           justify-content: space-between;
           margin-top: 20px;
+          li{
+            &:nth-child(odd){
+              .item-image{
+                background-color: #a5fdd0;
+              }
+            }
+            &:nth-child(even){
+              .item-image{
+                background-color: #ffa7a7;
+              }
+            }
+          }
           .popular-item {
             display: flex;
             flex-direction: column;
-            background-color: #ff8a8a;
             box-sizing: border-box;
             text-align: left;
-            border: 1px solid #ddd;
             padding: 10px;
+            max-width: 250px;
+            .item-box{
+              padding: 0 0.7rem;
+            }
             .item-image {
-              background-color: aquamarine;
               text-align: center;
               align-content: center;
               width: 250px;
               height: 250px;
               border-radius: 25px;
+              margin-bottom: 1.5rem;
             }
             .item-brand {
-              margin-top: 0.5rem;
+              font-size: 1.2rem;
+              font-weight: bolder;
             }
             .item-description {
-              margin-bottom: 0.5rem;
+              color: #a4a4a4;
+              margin-bottom: 1rem;
+              word-wrap: break-word; /* 단어가 길면 줄바꿈 */
+              white-space: normal; /* 일반 줄바꿈 설정 */
+            }
+            .item-price{
+              display: flex;
+              flex-direction: column;
+              h2{
+                font-size: 1.3rem;
+                font-weight: bolder;
+                margin-bottom: 0;
+              }
+              p{
+
+              }
             }
           }
         }
       }
       .more-button {
-        margin: 30px auto;
+        margin : 2.5rem auto;
         text-align: center;
         align-content: center;
+        button{
+          cursor: pointer;
+          border: 1px solid #666;
+          border-radius: 10px;
+          padding: 0.7rem 1rem;
+          transition: 0.1s ease-in-out;
+          &:hover{
+            background-color: #666;
+          }
+        }
       }
     }
   }

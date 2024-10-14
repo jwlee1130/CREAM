@@ -1,0 +1,137 @@
+@charset "UTF-8";
+.shop-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.shop-container .shop-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.shop-container .shop-wrapper .shop-aside {
+  width: 160px;
+  flex-shrink: 0;
+}
+.shop-container .shop-wrapper .shop-aside h2 {
+  font-size: 2rem;
+  border-bottom: 1px solid #666;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content {
+  margin-top: 0.5rem;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content div .filter-check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content label {
+  margin: 5px;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  accent-color: #888;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content input[type=checkbox]:checked {
+  accent-color: #555;
+}
+.shop-container .shop-wrapper .shop-aside .shop-aside-content:not(:last-child) {
+  border-bottom: 1px solid #666;
+  padding-bottom: 0.5rem;
+}
+.shop-container .shop-wrapper .shop-main {
+  flex: 1;
+  margin-left: 40px;
+}
+.shop-container .shop-wrapper .shop-main .shop-main-info {
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.shop-container .shop-wrapper .shop-main .shop-main-info p {
+  color: gray;
+  font-size: 1.5rem;
+}
+.shop-container .shop-wrapper .shop-main .shop-main-info span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper {
+  height: 150vh;
+  overflow: auto;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper::-webkit-scrollbar {
+  width: 0px; /* 스크롤바 너비 */
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper::-webkit-scrollbar-track {
+  background: transparent; /* 스크롤바 트랙 배경색 */
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  overflow: auto;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(odd) .item-image {
+  background-color: #a5fdd0;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(even) .item-image {
+  background-color: #ffa7a7;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item {
+  flex: 1 1 calc(25% - 10px);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 10px;
+  max-width: 200px;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-box {
+  padding: 0 0.7rem;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-image {
+  text-align: center;
+  align-content: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 25px;
+  margin-bottom: 1.5rem;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-brand {
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-description {
+  color: #a4a4a4;
+  margin-bottom: 1rem;
+  word-wrap: break-word; /* 단어가 길면 줄바꿈 */
+  white-space: normal; /* 일반 줄바꿈 설정 */
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-price {
+  display: flex;
+  flex-direction: column;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-price h2 {
+  font-size: 1.3rem;
+  font-weight: bolder;
+  margin-bottom: 0;
+}
+
+/*# sourceMappingURL=shop.css.map */

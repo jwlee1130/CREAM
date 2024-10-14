@@ -1,11 +1,13 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class SurveyDTO {
-    private int userNo;
-    private String category;
-    private String brand;
-    private String color;
-    private int price;
+	@Expose private int userNo;
+	@Expose private String category;
+	@Expose private String brand;
+	@Expose private String color;
+	@Expose private int price;
 
     public SurveyDTO() {}
 

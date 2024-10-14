@@ -1,15 +1,16 @@
 package com.cream.dao;
 
-import com.cream.dto.NotifyDTO;
-
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import com.cream.dto.NotifyDTO;
 
 public interface NotifyDAO {
 	/**
 	 * 	알람 보내기
 	 * */
-	int insertNotify(NotifyDTO notify) throws SQLException;
+	int insertNotify(Connection con, NotifyDTO notify) throws SQLException;
 	
 	/**
 	 * 	알람 보여주기

@@ -1,33 +1,62 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class SalesDTO {
-    private int no;
-    private int userNo;
-    private int productNo;
-    private int shoesNo;
-    private int no2;
-    private int startingPrice;
-    private int nowPrice;
-    private int salesStatus;
-    private String regdate;
-    private char grade;
+	@Expose private int no;
+	@Expose private int userNo;
+	@Expose private int productNo;
+	@Expose private int startingPrice;
+	@Expose private int nowPrice;
+	@Expose private int salesStatus;
+	@Expose private String regdate;
+	@Expose private char grade;
+	@Expose private int shoesNo;
+    @Expose private ProductDTO product;
+    @Expose private BidAccountDTO bidAccount;
+    @Expose private ShoesSizeDTO shoesSize;
+    
+    public ShoesSizeDTO getShoesSize() {
+		return shoesSize;
+	}
 
-    public SalesDTO() {}
+	public void setShoesSize(ShoesSizeDTO shoesSize) {
+		this.shoesSize = shoesSize;
+	}
 
-    public SalesDTO(int no, int userNo, int productNo, int shoesNo, int no2, int startingPrice, int nowPrice, int salesStatus, String regdate, char grade) {
+	public ProductDTO getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductDTO product) {
+		this.product = product;
+	}
+
+	public SalesDTO() {}
+
+    public SalesDTO(int no, int userNo, int productNo, int startingPrice, int nowPrice, int salesStatus, String regdate, char grade,int shoesNo) {
         this.no = no;
         this.userNo = userNo;
         this.productNo = productNo;
-        this.shoesNo = shoesNo;
-        this.no2 = no2;
         this.startingPrice = startingPrice;
         this.nowPrice = nowPrice;
         this.salesStatus = salesStatus;
         this.regdate = regdate;
         this.grade = grade;
+        this.shoesNo = shoesNo;
     }
+    
+    
 
-    public int getNo() { return no; }
+    public BidAccountDTO getBidAccount() {
+		return bidAccount;
+	}
+
+	public void setBidAccount(BidAccountDTO bidAccount) {
+		this.bidAccount = bidAccount;
+	}
+
+	public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }
 
     public int getUserNo() { return userNo; }
@@ -35,12 +64,6 @@ public class SalesDTO {
 
     public int getProductNo() { return productNo; }
     public void setProductNo(int productNo) { this.productNo = productNo; }
-
-    public int getShoesNo() { return shoesNo; }
-    public void setShoesNo(int shoesNo) { this.shoesNo = shoesNo; }
-
-    public int getNo2() { return no2; }
-    public void setNo2(int no2) { this.no2 = no2; }
 
     public int getStartingPrice() { return startingPrice; }
     public void setStartingPrice(int startingPrice) { this.startingPrice = startingPrice; }
@@ -56,4 +79,14 @@ public class SalesDTO {
 
     public char getGrade() { return grade; }
     public void setGrade(char grade) { this.grade = grade; }
+
+	public int getShoesNo() {
+		return shoesNo;
+	}
+
+	public void setShoesNo(int shoesNo) {
+		this.shoesNo = shoesNo;
+	}
+
+    
 }

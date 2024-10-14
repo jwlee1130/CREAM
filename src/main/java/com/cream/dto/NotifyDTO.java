@@ -1,23 +1,33 @@
 package com.cream.dto;
 
+import com.google.gson.annotations.Expose;
+
 public class NotifyDTO {
-    private int no;
-    private int userNo;
-    private int userSalesNo;
-    private String msg;
-    private int isRead;
-    private String regdate;
+	@Expose private int no;
+	@Expose private int userNo;
+	@Expose private int salesNo;
+	@Expose  private int productNo;
+	@Expose private String msg;
+	@Expose private int isRead;
+	@Expose private String regdate;
 
     public NotifyDTO() {}
 
-    public NotifyDTO(int no, int userNo, int userSalesNo, String msg, int isRead, String regdate) {
+    public NotifyDTO(int no, int userNo, int salesNo,int productNo, String msg, int isRead, String regdate) {
+    	this(userNo,salesNo,productNo,msg);
         this.no = no;
-        this.userNo = userNo;
-        this.userSalesNo = userSalesNo;
-        this.msg = msg;
         this.isRead = isRead;
         this.regdate = regdate;
     }
+    public NotifyDTO(int userNo, int salesNo,int productNo, String msg) {
+        this.userNo = userNo;
+        this.salesNo = salesNo;
+        this.productNo=productNo;
+        this.msg = msg;
+    }
+
+
+
 
     public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }
@@ -25,8 +35,18 @@ public class NotifyDTO {
     public int getUserNo() { return userNo; }
     public void setUserNo(int userNo) { this.userNo = userNo; }
 
-    public int getUserSalesNo() { return userSalesNo; }
-    public void setUserSalesNo(int userSalesNo) { this.userSalesNo = userSalesNo; }
+    
+    
+    public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
+	public int getSalesNo() { return salesNo; }
+    public void setSalesNo(int salesNo) { this.salesNo = salesNo; }
 
     public String getMsg() { return msg; }
     public void setMsg(String msg) { this.msg = msg; }

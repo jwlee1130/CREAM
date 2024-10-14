@@ -1,20 +1,17 @@
 package com.cream.dao;
 
-import com.cream.dto.BidDTO;
+import java.sql.SQLException;
+import java.util.List;
+
 import com.cream.dto.PurchaseDTO;
 
-import java.sql.SQLException;
-
 public interface PurchaseDAO {
-    int nowBuy(PurchaseDTO purchase) throws SQLException; // 즉시 구매하기
-    
-    /**
-     * 	슈크림 사용하기
-     * */
-    int useCream(int user_no, int price) throws SQLException;
-    
-    
+	/*
+	 * 즉시 구매
+	 */
+	int nowBuy(PurchaseDTO purchase) throws SQLException;
 
-
-
+	PurchaseDTO purchaseDetail(int userNo, int salesNo) throws SQLException;
+	
+	List<PurchaseDTO> selectPurchase(int buyUserNo) throws SQLException;
 }

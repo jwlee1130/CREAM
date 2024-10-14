@@ -69,7 +69,7 @@
   white-space: nowrap;
   font-size: 14px;
   display: none !important;
-  max-width: 200px;
+  max-width: 400px;
 }
 .header-wrapper .header-main .header-right .bell-container .tooltip :after {
   content: "";
@@ -249,6 +249,10 @@
 .container .main-wrapper .brand-slider .swiper-container .swiper-button-prev:hover {
   color: rgb(25.5, 25.5, 25.5);
 }
+.container .main-wrapper .most-popular h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
 .container .main-wrapper .most-popular .popular-list-wrapper ul {
   display: flex;
   flex-wrap: wrap;
@@ -256,33 +260,65 @@
   justify-content: space-between;
   margin-top: 20px;
 }
+.container .main-wrapper .most-popular .popular-list-wrapper ul li:nth-child(odd) .item-image {
+  background-color: #a5fdd0;
+}
+.container .main-wrapper .most-popular .popular-list-wrapper ul li:nth-child(even) .item-image {
+  background-color: #ffa7a7;
+}
 .container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item {
   display: flex;
   flex-direction: column;
-  background-color: #ff8a8a;
   box-sizing: border-box;
   text-align: left;
-  border: 1px solid #ddd;
   padding: 10px;
+  max-width: 250px;
+
+}
+.container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-box {
+  padding: 0 0.7rem;
 }
 .container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-image {
-  background-color: aquamarine;
   text-align: center;
   align-content: center;
   width: 250px;
   height: 250px;
   border-radius: 25px;
+  margin-bottom: 1.5rem;
 }
 .container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-brand {
-  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bolder;
 }
 .container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-description {
-  margin-bottom: 0.5rem;
+  color: #a4a4a4;
+  margin-bottom: 1rem;
+  word-wrap: break-word; /* 단어가 길면 줄바꿈 */
+  white-space: normal; /* 일반 줄바꿈 설정 */
+}
+.container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-price {
+  display: flex;
+  flex-direction: column;
+}
+.container .main-wrapper .most-popular .popular-list-wrapper ul .popular-item .item-price h2 {
+  font-size: 1.3rem;
+  font-weight: bolder;
+  margin-bottom: 0;
 }
 .container .main-wrapper .most-popular .more-button {
-  margin: 30px auto;
+  margin: 2.5rem auto;
   text-align: center;
   align-content: center;
+}
+.container .main-wrapper .most-popular .more-button button {
+  cursor: pointer;
+  border: 1px solid #666;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  transition: 0.1s ease-in-out;
+}
+.container .main-wrapper .most-popular .more-button button:hover {
+  background-color: #666;
 }
 
 footer {

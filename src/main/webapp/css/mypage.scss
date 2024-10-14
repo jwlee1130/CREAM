@@ -1,15 +1,14 @@
 .main {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 2rem  ;
   .main-side {
     display: flex;
     flex-direction: column;
-    flex: 0 0 25%; /* 2컬럼 */
-    max-width: 25%;
+    flex: 0 0 20%; /* 2컬럼 */
+    max-width: 20%;
     padding: 1rem;
-    background-color: #f0f0f0; /* 사이드바 배경색 (원하는 색으로 변경 가능) */
     h1{
       font-weight: bold;
       font-size: 2rem;
@@ -18,13 +17,14 @@
     ul{
       display: flex;
       flex-direction: column;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       h2{
         font-size: 1.5rem;
         font-weight: bold;
         margin-bottom: 1rem;
       }
       li{
+        color: #666;
         margin-bottom: 0.5rem;
       }
     }
@@ -32,9 +32,57 @@
 
   /* 메인 콘텐츠 설정 */
   .main-content {
-    flex: 0 0 75%; /* 10컬럼 */
-    max-width: 75%;
-    padding: 1rem;
-    background-color: #9a4646; /* 메인 콘텐츠 배경색 (원하는 색으로 변경 가능) */
+    flex: 0 0 80%; /* 10컬럼 */
+    max-width: 80%;
+    .point-container{
+      max-width: 800px;
+      margin: 0 auto;
+      .point-wrapper{
+        display: flex;
+        flex-direction: column;
+        h1{
+          font-size: 2rem;
+          font-weight: bold;
+          margin-bottom: 2rem;
+        }
+        .point-box{
+          padding: 2rem;
+          border-radius: 1rem;
+          border: 1px solid #9a9a9a;
+          display: flex;
+          div{
+            h3{
+              margin-bottom: 1rem;
+            }
+            h2 {
+              font-size: 1.5rem;
+              font-weight: bold;
+            }
+            padding-right: 3rem;
+            border-right: 1px solid #333;
+          }
+          #point{
+            font-size: 1.5rem;
+            border: none;
+            border: 1px solid #666;
+            border-radius: 0.75rem;
+            margin-left: 3rem;
+            text-align: right;
+            &:focus{
+              outline: none;
+              border: 1px solid #666;
+            }
+          }
+          .point-btn{
+            margin-left: 3rem;
+            cursor: pointer;
+            border: none;
+            border: 1px solid #666;
+            border-radius: 0.75rem;
+            padding : 0 1rem;
+          }
+        }
+      }
+    }
   }
 }

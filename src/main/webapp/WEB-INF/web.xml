@@ -9,4 +9,14 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>AjaxDispatcherServlet</display-name>
+    <servlet-name>AjaxDispatcherServlet</servlet-name>
+    <servlet-class>com.cream.controller.AjaxDispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxDispatcherServlet</servlet-name>
+    <url-pattern>/AjaxDispatcherServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
