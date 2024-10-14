@@ -12,7 +12,8 @@ public interface SalesDAO {
 	SalesDTO salesDetail(int salesNo) throws SQLException ;
 	
 	int closeSale(Connection con, int salesNo) throws SQLException;
-	
+
+	int insertSalesImg(int salesNo,String fileName,long fileSize);	
 	
  
 }

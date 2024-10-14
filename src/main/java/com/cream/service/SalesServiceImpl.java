@@ -27,6 +27,12 @@ public class SalesServiceImpl implements SalesService {
 		}
 		return sale;
 	}
+
+	@Override
+	public int insertSalesImg(int salesNo, String fileName, long fileSize) {
+		int result = dao.insertSalesImg(salesNo,fileName,fileSize);
+		return result;
+	}
 	
 	
 }

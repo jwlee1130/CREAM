@@ -97,6 +97,30 @@ public class SalesDAOImpl implements SalesDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public int insertSalesImg(int salesNo, String fileName, long fileSize) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "INSERT INTO  SALES_IMG(`SALES_NO`, `FILE_PATH`, `FILE_SIZE`) VALUES(?, ?, ?)";	
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, salesNo);
+			ps.setString(2, fileName);
+			ps.setString(3, String.valueOf(fileSize));
+
+			result = ps.executeUpdate();
+			
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}
+		finally {
+			DbUtil.dbClose(ps);
+		}
+		return result;
+	}
 	
 
 
