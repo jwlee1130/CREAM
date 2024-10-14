@@ -15,6 +15,9 @@ import java.util.Map;
 
 public class AdminDAOImpl implements AdminDAO {
 
+    /*
+    DELETE FROM USERS WHERE NO = 1;
+     */
     @Override
     public int deleteUserById(int userNo) throws SQLException {
         String sql = "DELETE FROM USERS WHERE NO=?";
@@ -31,6 +34,9 @@ public class AdminDAOImpl implements AdminDAO {
         }
     }
 
+    /*
+    DELETE FROM PRODUCT WHERE NO = 1;
+     */
     @Override
     public int deleteProductById(int productNo) throws SQLException {
         String sql = "DELETE FROM PRODUCT WHERE NO=?";
@@ -47,6 +53,9 @@ public class AdminDAOImpl implements AdminDAO {
         }
     }
 
+    /*
+    SELECT * FROM USERS_SALES WHERE SALES_STATUS = 0;
+     */
     @Override
     public List<SalesDTO> getUnapprovedProducts() throws SQLException {
         String sql = "SELECT * FROM USERS_SALES WHERE SALES_STATUS = 0";
@@ -78,6 +87,9 @@ public class AdminDAOImpl implements AdminDAO {
         return list;
     }
 
+    /*
+    UPDATE USERS_SALES SET SALES_STATUS = 1 WHERE NO = 1;
+     */
     @Override
     public int updateSalesStatus(int salesNo, int salesStatus) throws SQLException {
         String sql = "UPDATE USERS_SALES SET SALES_STATUS=? WHERE NO=?";
@@ -95,6 +107,9 @@ public class AdminDAOImpl implements AdminDAO {
         }
     }
 
+    /*
+    UPDATE USERS_SALES SET GRADE = 'A' WHERE NO = 1;
+     */
     @Override
     public int updateSalesGrade(int salesNo, char grade) throws SQLException {
         String sql = "UPDATE USERS_SALES SET GRADE=? WHERE NO=?";
@@ -112,6 +127,9 @@ public class AdminDAOImpl implements AdminDAO {
         }
     }
 
+    /*
+    INSERT INTO SURVEY (USER_NO, CATEGORY, BRAND, COLOR, PRICE) VALUES (1, 'Shoes', 'Nike', 'Red', 100);
+     */
     @Override
     public int submitSurvey(SurveyDTO surveyData) throws SQLException {
         String sql = "INSERT INTO SURVEY (USER_NO, CATEGORY, BRAND, COLOR, PRICE) VALUES (?, ?, ?, ?, ?)";
@@ -132,6 +150,9 @@ public class AdminDAOImpl implements AdminDAO {
         }
     }
 
+    /*
+    SELECT KOR_NAME FROM PRODUCT WHERE NO = 1;
+     */
     @Override
     public Map<String, String> getProductName(int productNo) throws SQLException {
         String sql = "SELECT KOR_NAME FROM PRODUCT WHERE NO = ?";

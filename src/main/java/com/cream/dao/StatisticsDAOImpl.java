@@ -19,12 +19,13 @@ public class StatisticsDAOImpl implements StatisticsDAO
     SELECT p.eng_name, COUNT(pur.product_no) AS TOTAL_SALES
     FROM PURCHASE pur
     JOIN PRODUCT p ON pur.product_no = p.no
-    JOIN USERS u ON pur.user_no = u.no
+    JOIN USERS u ON pur.buy_user_no = u.no
     WHERE u.gender = '여'
     AND pur.regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
     GROUP BY p.eng_name
     ORDER BY TOTAL_SALES DESC
     LIMIT 3;
+
 
      */
     @Override
@@ -33,12 +34,13 @@ public class StatisticsDAOImpl implements StatisticsDAO
         String sql = "SELECT p.eng_name, COUNT(pur.product_no) AS TOTAL_SALES " +
                 "FROM PURCHASE pur " +
                 "JOIN PRODUCT p ON pur.product_no = p.no " +
-                "JOIN USERS u ON pur.user_no = u.no " +
+                "JOIN USERS u ON pur.buy_user_no = u.no " +  // pur.user_no -> pur.buy_user_no 로 수정(디비 변경)
                 "WHERE u.gender = ? " +
                 "AND pur.regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
                 "GROUP BY p.eng_name " +
                 "ORDER BY TOTAL_SALES DESC " +
                 "LIMIT 3";
+
 
         Map<String,Integer> topItems=new HashMap<>();
 
@@ -243,6 +245,13 @@ public class StatisticsDAOImpl implements StatisticsDAO
         return topColors;
     }
 
+    /*
+    SELECT PRODUCT_NO, PRICE, REGDATE, ADDRESS, SALES_USER_NO, BUY_USER_NO
+    FROM PURCHASE
+    WHERE PRODUCT_NO = 1
+    AND REGDATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    ORDER BY REGDATE ASC;
+     */
     @Override
     public List<PurchaseDTO> getPurchaseData(int productNo, int period) throws SQLException {
         String sql = "SELECT PRODUCT_NO, PRICE, REGDATE, ADDRESS, SALES_USER_NO, BUY_USER_NO " +
