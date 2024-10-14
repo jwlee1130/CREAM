@@ -35,23 +35,24 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     /*
-    DELETE FROM PRODUCT WHERE NO = 1;
+    DELETE FROM USERS_SALES WHERE NO = 1;
      */
     @Override
-    public int deleteProductById(int productNo) throws SQLException {
-        String sql = "DELETE FROM PRODUCT WHERE NO=?";
+    public int deleteUsersSalesById(int salesNo) throws SQLException {
+        String sql = "DELETE FROM USERS_SALES WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
 
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, productNo);
+            ps.setInt(1, salesNo);
             return ps.executeUpdate();
         } finally {
             DbUtil.dbClose(conn, ps);
         }
     }
+
 
     /*
     SELECT * FROM USERS_SALES WHERE SALES_STATUS = 0;

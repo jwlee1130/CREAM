@@ -19,8 +19,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int deleteProductById(int productNo) throws SQLException {
-        return adminDAO.deleteProductById(productNo);
+    public int deleteUsersSalesById(int salesNo) throws SQLException {
+        return adminDAO.deleteUsersSalesById(salesNo);
     }
 
     @Override

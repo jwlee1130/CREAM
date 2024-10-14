@@ -17,7 +17,7 @@ public interface AdminDAO {
 	/**
 	 * 판매글 삭제
 	 */
-	int deleteProductById(int product_no) throws SQLException;
+	int deleteUsersSalesById(int salesNo) throws SQLException;
 
 	/**
 	 * 판매 승인받지 않은 글 조회

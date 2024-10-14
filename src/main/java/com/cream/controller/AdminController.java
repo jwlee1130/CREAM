@@ -20,9 +20,9 @@ public class AdminController implements RestController {
         return adminService.deleteUserById(userNo);
     }
 
-    public int deleteProductById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        int productNo = Integer.parseInt(request.getParameter("productNo"));
-        return adminService.deleteProductById(productNo);
+    public int deleteSalesById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int salesNo = Integer.parseInt(request.getParameter("salesNo"));
+        return adminService.deleteUsersSalesById(salesNo);
     }
 
     public List<SalesDTO> getUnapprovedProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException {
