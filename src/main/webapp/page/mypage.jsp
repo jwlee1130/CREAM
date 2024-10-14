@@ -234,12 +234,64 @@
             }
         });
     }
+    
+    function fetchPurchases() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/ajax',
+            method: 'GET',
+            data: {
+                key: 'purchase',  // 구매 내역용
+                methodName: 'selectPurchase'
+            },
+            dataType: 'json',
+            success: function(result) {
+                let purchaseHtml = '';
+                let totalPurchases = result.length;
+                let inProgressCount = 0; // 고정값, 상황에 맞게 변경 가능
+                let completedCount = 0;
+
+                $.each(result, function(index, purchase) {
+                    purchaseHtml += '<div class="parchase-item">';
+                    
+                    purchaseHtml += '<div class="item-img">';
+                    purchaseHtml += '<img style="width:100px; height:100px;" src="' + purchase.filePath + '" alt="">';
+                    purchaseHtml += '</div>';
+                    
+                    purchaseHtml += '<div class="item-name">';
+                    purchaseHtml += '<h2>' + purchase.engName + '</h2>';
+                    purchaseHtml += '<h3>' + purchase.shoesSize + '</h3>';
+                    purchaseHtml += '</div>';
+                    
+                    purchaseHtml += '<div class="item-date">';
+                    purchaseHtml += '<h2>' + purchase.regdate + '</h2>';
+                    purchaseHtml += '</div>';
+                    
+                    purchaseHtml += '<div class="item-status">';
+                    purchaseHtml += '결제 완료';
+                    purchaseHtml += '</div>';
+                    
+                    purchaseHtml += '</div>';
+                    
+                    completedCount++;
+                });
+
+                $('#total-purchases-count').text(totalPurchases);
+                $('#in-progress-purchases-count').text(inProgressCount);  // 기본값 유지
+                $('#completed-purchases-count').text(completedCount);
+
+                $('#purchase-container').html(purchaseHtml);
+            },
+            error: function(error) {
+                console.error("구매 내역을 불러오는 중 오류 발생: ", error);
+            }
+        });
+    }
 
 
-    // 페이지 로드 시 판매 내역 데이터 가져오기
+
     fetchSales();
     fetchAllSales();
-
+    fetchPurchases();
 
     // 해시 변경 시 콘텐츠 로드
     window.addEventListener('hashchange', loadContent);

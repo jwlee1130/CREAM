@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.cream.dto.BidAccountDTO;
@@ -204,4 +206,44 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<PurchaseDTO> selectPurchase(int buyUserNo) throws SQLException {
+	    List<PurchaseDTO> purchases = new ArrayList<>();
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    String sql = proFile.getProperty("query.selectPurchase");
+
+	    try {
+	        con = DbUtil.getConnection();
+	        ps = con.prepareStatement(sql);
+	        ps.setInt(1, buyUserNo);
+
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            PurchaseDTO purchase = new PurchaseDTO(
+	                rs.getInt("NO"),
+	                rs.getInt("SALES_NO"),
+	                rs.getInt("SALES_USER_NO"),
+	                rs.getInt("BUY_USER_NO"),
+	                rs.getInt("PRODUCT_NO"),
+	                rs.getInt("PRICE"),
+	                rs.getString("REGDATE"),
+	                rs.getString("ADDRESS")
+	            );
+	            purchase.setEngName(rs.getString("ENG_NAME"));
+	            purchase.setShoeSize(rs.getInt("SHOES_SIZE"));
+	            purchase.setFilePath(rs.getString("FILE_PATH"));
+
+	            purchases.add(purchase);
+	        }
+	    }finally {
+	        DbUtil.dbClose(con, ps, rs);
+	    }
+	    return purchases;
+	}
+	
+	
 }
