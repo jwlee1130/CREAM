@@ -323,13 +323,13 @@ public class BidDAOImpl implements BidDAO {
 	
 	public int insertAdminAccount(Connection con, int salesNo, int price) throws SQLException{
 		PreparedStatement ps = null;
-		String sql = "INSERT INTO BIDACCOUNT VALUES(?,?)";
+		String sql = "INSERT INTO BIDACCOUNT(`SALES_NO`,`PRICE`) VALUES(?,?)";
 		int result = 0;
 		
 		try {
 			ps=con.prepareStatement(sql);
 			ps.setInt(1, salesNo);
-			ps.setInt(3, price);
+			ps.setInt(2, price);
 		
 			
 			result = ps.executeUpdate();
@@ -338,6 +338,7 @@ public class BidDAOImpl implements BidDAO {
 				 throw new SQLException("입찰 실패");
 			
 		}catch(SQLException e){
+			  e.printStackTrace();
 			  throw new SQLException("sql 오류");
 		}finally {
 			DbUtil.dbClose(ps);

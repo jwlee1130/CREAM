@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <h1 style="font-size:2.5rem;">검수 목록</h1>
 <table id="inspectionTable">
@@ -45,9 +46,9 @@
 
           tb += '<td>' + inspection.regdate + '</td>';
           tb += '<td>';
-          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '" data-sales-startingPrice="'+inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
+          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-sales-status="' + inspection.salesStatus + '" data-start-price="'+ inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
           tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" style="background-color: #EF6253; border-color: #EF6253; color: white;">반려</button>';
-		
+
           tb += '</td>';
           tb += '<td>';
           tb += '<select class="grade-select" data-index="' + index + '" data-sales-no="' + inspection.no + '">';
@@ -89,13 +90,13 @@
   $(document).on('click', '.approve-btn', function() {
     let salesNo = $(this).data('sales-no');
     let grade = $('.grade-select[data-sales-no="' + salesNo + '"]').val();
-	let startingPrice = $(this).attr("data-sales-startingPrice");
+	let price = $(this).data('start-price');
     if (grade === 'U') {
       alert("등급을 선택해주세요.");
       return;
     }
 
-    approveProduct(salesNo, grade, startingPrice);
+    approveProduct(salesNo, grade, price);
   });
 
   $(document).on('click', '.reject-btn', function() {
@@ -109,7 +110,7 @@
     updateProductGrade(salesNo, selectedGrade);
   });
 
-  function approveProduct(salesNo, grade,startingPrice) {
+  function approveProduct(salesNo, grade, price) {
     $.ajax({
       url: '${pageContext.request.contextPath}/ajax',
       method: 'POST',
@@ -119,7 +120,7 @@
         salesNo: salesNo,
         salesStatus: 1, // 승인: sales_status를 1로 설정
         grade: grade,
-        startingPrice: startingPrice
+        startingPrice : price
       },
       success: function(response) {
         alert("상품이 승인되었습니다.");
