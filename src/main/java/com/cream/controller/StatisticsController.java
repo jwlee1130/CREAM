@@ -43,6 +43,12 @@ public class StatisticsController implements RestController {
         return statisticService.getTop3BrandsFromSurvey();
     }
 
+    public Map<String, Integer> getTop3ColorsFromSurvey(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        System.out.println("StatisticsController.getTop3BrandsFromSurvey");
+        return statisticService.getTop3BrandsFromSurvey();
+    }
+
+
     public Map<String, Integer> getSalesData(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         System.out.println("StatisticsController.getSalesData");
         int productNo = Integer.parseInt(request.getParameter("productNo"));

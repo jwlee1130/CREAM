@@ -148,7 +148,7 @@ public class StatisticsDAOImpl implements StatisticsDAO
             while (rs.next()) {
                 String date = rs.getString("sale_date");
                 int totalSales = rs.getInt("total_sales");
-                salesData.put(date, totalSales); // 날짜와 총액을 저장
+                salesData.put(date, totalSales);
             }
         } finally {
             DbUtil.dbClose(conn, ps, rs);
