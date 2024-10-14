@@ -33,8 +33,8 @@
 					    str+=`<div class="popular-item">`;
 					    str+=`<div class="item-image">이미지</div>`;
 					    str+=`<div class="item-brand">${"${product.brandNo}"}</div>`;
-					    str+=`<p class="item-description">브랜드 설명 들어가는곳</p>`;
-					    str+=`<div class="item-price">가격쓰는곳</div>`;
+					    str+=`<p class="item-description">${"${product.korName}"}</p>`;
+					    str+=`<div class="item-price">${"${product.releasePrice}"}</div>`;
 					    str+=`</div>`;
 					    str+=`</a>`;
 					    str+="</li>";
