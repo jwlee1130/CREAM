@@ -82,7 +82,7 @@
         data: {
           key: 'admin',
           methodName: 'deleteUserById',
-          userNo: userNo//d
+          userNo: userNo
         },
         success: function(response) {
           console.log(response);
@@ -110,6 +110,7 @@
           salesNo: salesNo
         },
         success: function(response) {
+          console.log(response);
           $('#salesDeleteAlert').text('판매글이 성공적으로 삭제되었습니다.').removeClass('alert-danger').addClass('alert-success').show();
         },
         error: function() {
