@@ -1,14 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>parchase</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_main.css">
-</head>
-<body>
+
 <div class="mypage-container">
   <div class="wrap">
     <div class="sell">
@@ -33,5 +25,3 @@
         </div>
   </div>
 </div>
-</body>
-</html>

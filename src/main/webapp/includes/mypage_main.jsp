@@ -4,16 +4,6 @@
     // 세션에서 사용자 정보 가져오기
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 %>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_main.css">
-    <title>마이 페이지</title>
-</head>
-<body>
 <div class="mypage-container">
     <div class="wrap">
         <!-- 사용자 프로필 영역 -->
@@ -93,5 +83,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>

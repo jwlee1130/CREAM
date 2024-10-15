@@ -3,14 +3,6 @@
 <%
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Point</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-</head>
-<body>
 <div class="point-container">
     <div class="point-wrapper">
         <h1>포인트</h1>
@@ -27,5 +19,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>
