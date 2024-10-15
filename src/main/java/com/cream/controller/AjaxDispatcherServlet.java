@@ -43,7 +43,7 @@ public class AjaxDispatcherServlet extends HttpServlet {
 		String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
 		
 		
-		System.out.println("key = " + key+", methodName = " + methodName);
+		System.out.println("Ajax_key = " + key+", methodName = " + methodName);
 
 		try {
 			Class<?> clz = clzMap.get(key);

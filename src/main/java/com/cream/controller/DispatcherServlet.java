@@ -37,11 +37,11 @@ public class DispatcherServlet extends HttpServlet {
 	}
 	@Override
 	public void service(HttpServletRequest request,HttpServletResponse response) {
-			System.out.println("servlet service 왔는가..??");
+			System.out.println("Front servlet service call...");
 		
 			String key = request.getParameter("key");
 			String methodName = request.getParameter("methodName");
-			System.out.println("key: " + key + ", methodName : " + methodName);
+			System.out.println("Front_key: " + key + ", methodName : " + methodName);
 			System.out.println(map.get(key)+"맵 키");
 			try {
 				Controller con = map.get(key);
@@ -58,7 +58,7 @@ public class DispatcherServlet extends HttpServlet {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("오류났어");
+				System.out.println("Front servlet에서 오류났어");
 			}
 			
 			

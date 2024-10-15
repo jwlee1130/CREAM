@@ -13,7 +13,6 @@ import com.cream.dto.ProductDTO;
 public class ProductServiceImpl implements ProductService {
 	ProductDAOImpl productDao = new ProductDAOImpl();
 	List<ProductDTO> productList = new ArrayList<ProductDTO>();
-	List<BrandDTO> brandList = new ArrayList<BrandDTO>();
 	
 	
 	public ProductDTO detail(int productNo) throws SQLException {
@@ -33,14 +32,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<BrandDTO> selectAllBrand() throws SQLException {
-		// 전체 브랜드 검색
-		brandList= productDao.selectAllBrand();
-		return brandList;
-	}
-	
-	@Override
-	public ProductDTO searchByProductId(int productId) throws SQLException {
+	public ProductDTO searchByProductId(String productId) throws SQLException {
 		// 상품 ID로 검색
 		ProductDTO product = productDao.searchByProductId(productId);
 		return product;
@@ -54,8 +46,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> searchProductEng(String keyword) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		// 검색어가 영어인 경우
+		productList = productDao.searchProductEng(keyword);
+		return productList;
 	}
 
 

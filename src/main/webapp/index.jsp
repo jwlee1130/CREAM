@@ -21,47 +21,11 @@
  	}
  </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		
 		//전체검색
-		   function selectAll(){
-			   $.ajax({
-				url :"ajax" , //서버요청주소
-				type:"get", //요청방식(method방식 : get | post | put | delete )
-				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
-				success :function(result){
-					console.log(result);
-					
-					let str="";
-					$.each(result, function(index, product){
-						str+="<li>";
-					    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
-					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg.filePath}'}"></div>`;
-					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-					    str+=`</div>`;
-					    str+=`</a>`;
-					    str+="</li>";
-					}); //eachEnd
-
-					$("#popular-list-wrapper-ul").html(str);
-					
-					
-				} , //성공했을때 실행할 함수 
-				error : function(err){  
-					alert(err+"상품 조회에서 에러 발생했어요.");
-				}  //실팽했을때 실행할 함수 
-			});//ajax끝
-			
-		   }//selectAll 함수끝
-		   /////////////////////////////////////////////////////////////
-		   
-		   
-		 //전체검색
 		   function productSelectAll(){
 			   $.ajax({
 				url :"ajax" , //서버요청주소
@@ -96,44 +60,9 @@
 			
 		   }//selectAll 함수끝
 		   /////////////////////////////////////////////////////////////
-		   
-		 //브랜드 검색
-		   function brandSelectAll(){
-			   $.ajax({
-				url :"ajax" , //서버요청주소
-				type:"get", //요청방식(method방식 : get | post | put | delete )
-				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"product" , methodName : "selectAllBrand"}, //서버에게 보낼 데이터정보(parameter정보)
-				success :function(result){
-					console.log(result);
-					
-					let str="";
-					$.each(result, function(index, product){
-						str+=`<div class="swiper-slide">`;
-						str+=`<div class="brand-card">`;
-					    str+=`<div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png"></div>`;
-					    str+=`<div class="brand-name">브랜드명 2</div>`;
-					    str+=`<div class="brand-description">브랜드 설명 2</div></div>`;
-					    str+=`<div class="brand-price">가격 2</div></div>`;
-					    str+=` </div>`;
-					    str+=`</div>`;
-                    
-					}); //eachEnd
-
-					$("swiper-wrapper").html(str);
-					
-					
-				} , //성공했을때 실행할 함수 
-				error : function(err){  
-					alert(err+"브랜드조회에서 에러 발생했어요.");
-				}  //실팽했을때 실행할 함수 
-			});//ajax끝
-			
-		   }//selectAll 함수끝
-		   
-		   /////////////////////////////////////////////////////////////
+		  
 			productSelectAll();
-			brandSelectAll();
+
 		
 	}); //ready End
 

@@ -65,38 +65,10 @@ public class ProductDAOImpl implements ProductDAO {
 		return productList;
 	}
 
-	@Override
-	public List<BrandDTO> selectAllBrand() throws SQLException {
-		// TODO Auto-generated method stub
-		// 브랜드 전체 출력
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		List<BrandDTO> brandList = new ArrayList<BrandDTO>();
-		String sql = proFile.getProperty("query.selectAllBrand"); 
-		//sql = SELECT * FROM BRAND;
-				
-				try {
-					con = DbUtil.getConnection();
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
-					
-					
-					while(rs.next()) {
-						BrandDTO brand = new BrandDTO(rs.getInt(1), rs.getString(2));
-						brandList.add(brand);
-					}
-			
-				} finally {
-					DbUtil.dbClose(con, ps, rs);
-				}
-				
-				return brandList;
-	}
 	
 	
 	@Override
-	public ProductDTO searchByProductId(int productId) throws SQLException {
+	public ProductDTO searchByProductId(String productId) throws SQLException {
 		// 상품 ID로 검색
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -107,7 +79,7 @@ public class ProductDAOImpl implements ProductDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, productId);
+			ps.setString(1, productId);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -133,7 +105,35 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<ProductDTO> searchProductEng(String productName) throws SQLException {
 		// 상품 영어 검색
-		return null;
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			List<ProductDTO> productList = new ArrayList<ProductDTO>();
+			String sql = proFile.getProperty("query.searchProductByEng"); 
+			//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P 
+			         //JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO 
+			         //JOIN BRAND B ON P.BRAND_NO=B.NO WHERE ENG_NAME LIKE ?
+			System.out.println("여기는 DAO = "+ productName);	
+			try {
+				con = DbUtil.getConnection();
+				ps = con.prepareStatement(sql);
+				ps.setString(1, "%"+productName+"%");
+				rs = ps.executeQuery();		
+					
+				while(rs.next()) {
+					ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
+														rs.getString(5), rs.getString(6), rs.getString(7), 
+														rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11), 
+														new ProductImgDTO(rs.getString(12), rs.getString(13)), new BrandDTO(rs.getString(14)));
+					
+					productList.add(product);
+				}
+			
+			} finally {
+				DbUtil.dbClose(con, ps, rs);
+			}
+				
+			return productList;
 	}
 
 	public ProductDTO detail(int productNo) throws SQLException{
