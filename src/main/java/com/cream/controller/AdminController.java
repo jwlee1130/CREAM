@@ -68,9 +68,14 @@ public class AdminController implements RestController {
         return adminService.submitSurvey(survey);
     }
 
+    /*
+    index.jsp 에서 설문조사를 하지 않은 회윈이라면 팝업창을 띄어야 한다
+     */
     public boolean hasUserCompletedSurvey(HttpServletRequest request, HttpServletResponse response) throws SQLException
     {
         UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+
+        if(user.getUserId().equals("admin"))return true; //만약에 관리자 아이디라면
 
         if(user == null)return false; // 설문조사를 하지 않은 유저
 
