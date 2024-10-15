@@ -23,12 +23,23 @@
       margin-bottom: 30px;
     }
     .btn-custom {
-      background-color: #ff5a5a;
+      background-color: #EF6253;
       color: white;
+      border: none;
+      transition: none;
     }
-    .btn-custom:hover {
-      background-color: #ff3a3a;
+
+
+    .btn-custom:hover,
+    .btn-custom:focus,
+    .btn-custom:active {
+      color: white;
+      background-color: #ff5a5a;
+      outline: none;
+      box-shadow: none;
+      cursor: default;
     }
+
     .alert {
       display: none;
       margin-top: 20px;
@@ -37,6 +48,7 @@
       width: 100%;
     }
   </style>
+
 </head>
 <body>
 <div class="container">
@@ -72,7 +84,6 @@
     $('#deleteUserBtn').click(function() {
       const userNo = $('#userNo').val().trim();
       if (userNo === '') {
-        $('#userDeleteAlert').text('사용자 번호를 입력하세요.').addClass('alert-danger').show();
         return;
       }
 
@@ -86,10 +97,10 @@
         },
         success: function(response) {
           console.log(response);
-          $('#userDeleteAlert').text('사용자가 성공적으로 삭제되었습니다.').removeClass('alert-danger').addClass('alert-success').show();
+          alert('사용자가 성공적으로 삭제되었습니다.')
         },
         error: function() {
-          $('#userDeleteAlert').text('사용자 삭제에 실패했습니다.').removeClass('alert-success').addClass('alert-danger').show();
+          alert('사용자 삭제에 실패했습니다.')
         }
       });
     });
@@ -97,7 +108,6 @@
     $('#deleteSalesBtn').click(function() {
       const salesNo = $('#salesNo').val().trim();
       if (salesNo === '') {
-        $('#salesDeleteAlert').text('판매 번호를 입력하세요.').addClass('alert-danger').show();
         return;
       }
 
@@ -111,10 +121,10 @@
         },
         success: function(response) {
           console.log(response);
-          $('#salesDeleteAlert').text('판매글이 성공적으로 삭제되었습니다.').removeClass('alert-danger').addClass('alert-success').show();
+          alert('판매글이 성공적으로 삭제되었습니다.')
         },
         error: function() {
-          $('#salesDeleteAlert').text('판매글 삭제에 실패했습니다.').removeClass('alert-success').addClass('alert-danger').show();
+          alert('판매글 삭제에 실패했습니다.')
         }
       });
     });
@@ -122,3 +132,4 @@
 </script>
 </body>
 </html>
+

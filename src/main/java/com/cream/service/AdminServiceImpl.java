@@ -47,4 +47,15 @@ public class AdminServiceImpl implements AdminService {
     public Map<String, String> getProductName(int productNo) throws SQLException {
         return adminDAO.getProductName(productNo);
     }
+
+    @Override
+    public boolean hasUserCompletedSurvey(String userId) throws SQLException
+    {
+        return adminDAO.hasUserCompletedSurvey(userId);
+    }
+
+    @Override
+    public boolean isAdmin(String adminId) throws SQLException {
+        return adminDAO.isAdmin(adminId);
+    }
 }

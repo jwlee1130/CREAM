@@ -106,7 +106,7 @@ public class AdminDAOImpl implements AdminDAO {
      */
     @Override
     public int updateSalesStatus(int salesNo, int salesStatus, int price) throws SQLException {
-        String sql = "UPDATE USERS_SALES SET SALES_STATUS=? WHERE NO=?";
+        String sql = "UPDATE USERS_SALES SET SALES_STATUS=?,REGDATE=DATE_ADD(NOW(),INTERVAL 7 DAY) WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
 
@@ -190,5 +190,57 @@ public class AdminDAOImpl implements AdminDAO {
         }
 
         return result;
+    }
+
+    @Override
+    public boolean hasUserCompletedSurvey(String userId) throws SQLException {
+        String sql="SELECT COUNT(*) FROM SURVEY WHERE USER_ID = ?";
+        Connection conn =null;
+        PreparedStatement ps =null;
+        ResultSet rs = null;
+
+        try
+        {
+            conn=DbUtil.getConnection();
+            ps=conn.prepareStatement(sql);
+            ps.setString(1, userId);
+            rs = ps.executeQuery();
+
+            if(rs.next())
+            {
+                return rs.getInt(1)>0;
+            }
+        }
+        finally
+        {
+            DbUtil.dbClose(conn, ps,rs);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isAdmin(String adminId) throws SQLException {
+        String sql="SELECT COUNT(*) FROM ADMIN WHERE ADMIN_ID = ?";
+        Connection conn =null;
+        PreparedStatement ps =null;
+        ResultSet rs = null;
+
+        try
+        {
+            conn=DbUtil.getConnection();
+            ps=conn.prepareStatement(sql);
+            ps.setString(1, adminId);
+            rs = ps.executeQuery();
+
+            if(rs.next())
+            {
+                return rs.getInt(1)>0; // 관리자 아이디라면 참을 반환
+            }
+        }
+        finally
+        {
+            DbUtil.dbClose(conn, ps, rs);
+        }
+        return false; // 관리자 아이디가 아니므로 거짓을 반환
     }
 }

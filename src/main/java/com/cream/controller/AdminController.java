@@ -2,6 +2,7 @@ package com.cream.controller;
 
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
+import com.cream.dto.UserDTO;
 import com.cream.service.AdminService;
 import com.cream.service.AdminServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +22,6 @@ public class AdminController implements RestController {
         return adminService.deleteUserByNo(userNo);
     }
 
-
     public int deleteSalesById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         System.out.println("AdminController.deleteSalesById");
         int salesNo = Integer.parseInt(request.getParameter("salesNo"));
@@ -39,11 +39,15 @@ public class AdminController implements RestController {
     }
 
     public int updateSalesStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        int salesNo = Integer.parseInt(request.getParameter("salesNo"));
-        int salesStatus = Integer.parseInt(request.getParameter("salesStatus"));
-        int price = Integer.parseInt(request.getParameter("startingPrice"));
         System.out.println("AdminController.updateSalesStatus");
-        System.out.println(price);
+//        System.out.println(price);
+        int salesNo = Integer.parseInt(request.getParameter("salesNo"));
+        System.out.println("salesNo = " + salesNo);
+        int salesStatus = Integer.parseInt(request.getParameter("salesStatus"));
+        System.out.println("salesStatus = " + salesStatus);
+        int price = Integer.parseInt(request.getParameter("startingPrice"));
+        System.out.println("price = " + price);
+
         return adminService.updateSalesStatus(salesNo, salesStatus,price);
     }
 
@@ -64,6 +68,20 @@ public class AdminController implements RestController {
         return adminService.submitSurvey(survey);
     }
 
+    /*
+    index.jsp 에서 설문조사를 하지 않은 회윈이라면 팝업창을 띄어야 한다
+    나중에 이 함수의 반환값이 true 이면 관리자이거나 설문조사를 한 회원이다
+     */
+    public boolean hasUserCompletedSurvey(HttpServletRequest request, HttpServletResponse response) throws SQLException
+    {
+        UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+
+        if(adminService.isAdmin(user.getUserId()))return true; // 만약 admin 아이디라면 참을 반환
+
+        return adminService.hasUserCompletedSurvey(user.getUserId());
+        // 설문조사를 한 유저라면 true 를 반환, 하지 않았다면 거짓을 반환
+    }
+
 //    public Map<String, Object> getRecommendedProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 //        String brand = request.getParameter("brand");
 //        String color = request.getParameter("color");
@@ -74,6 +92,7 @@ public class AdminController implements RestController {
 //        return result;
 //
 //    }
+
 
     public Map<String, String> getProductName(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         System.out.println("AdminController.getProductName");
