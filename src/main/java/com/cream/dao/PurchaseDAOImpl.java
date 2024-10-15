@@ -89,7 +89,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 			}
 			int commision = calculateCommission(con,purchase.getSalesUserNo(), purchase.getPrice());
 			if(commision ==0) throw new SQLException("계산실패");
-			depositCreamToSellerAccount(con,purchase.getSalesUserNo(),commision+3000S);
+			depositCreamToSellerAccount(con,purchase.getSalesUserNo(),commision+3000);
 			depositCreamToAdminAccount(con, purchase.getPrice()-commision);
 			
 			if(notifyDAO.insertNotify(con,new NotifyDTO(purchase.getSalesUserNo(),purchase.getSalesNo(),purchase.getProductNo(),"등록하신 상품이 판매되었습니다"))==0)
