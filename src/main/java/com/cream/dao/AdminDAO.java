@@ -24,19 +24,19 @@ public interface AdminDAO {
 
 
 	/**
-	 * 판매 승인받지 않은 글 조회
+	 * 판매 승인받지 않은 글 조회(관리자 검수 목록)
 	 */
 	List<SalesDTO> getUnapprovedProducts() throws SQLException;
 
 	/**
-	 * 판매 승인
+	 * 승인을 하면 SALES_STATUS 가 1이고 반려를 하면 SALES_STATUS 가 2이다
 	 */
-	int updateSalesStatus(int sales_no, int sales_status, int price) throws SQLException; // char grade 파라미터 제거
+	int updateSalesStatus(int salesNo, int salesStatus, int price) throws SQLException; // char grade 파라미터 제거
 
 	/**
 	 * 판매 등급 업데이트
 	 */
-	int updateSalesGrade(int sales_no, char grade) throws SQLException; // grade 업데이트를 위한 메서드 추가
+	int updateSalesGrade(int salesNo, char grade) throws SQLException; // grade 업데이트를 위한 메서드 추가
 
 	/**
 	 * 설문조사 제출

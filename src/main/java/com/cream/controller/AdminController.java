@@ -75,7 +75,7 @@ public class AdminController implements RestController {
 
         if(user == null)return false; // 설문조사를 하지 않은 유저
 
-        return adminService.hasUserCompletedSurvey(user.getUserId());
+        return adminService.hasUserCompletedSurvey(user.getUserId());// 설문조사를 한 유저라면 true 를 반환
     }
 
 //    public Map<String, Object> getRecommendedProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
