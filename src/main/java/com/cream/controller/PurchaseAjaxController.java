@@ -2,6 +2,7 @@ package com.cream.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cream.dto.PurchaseDTO;
@@ -29,5 +30,20 @@ public class PurchaseAjaxController implements RestController{
             e.printStackTrace();
         }
         return list;
+    }
+	
+	public Object calculateCommission(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int userNo = Integer.parseInt(request.getParameter("userNo"));
+        int price = Integer.parseInt(request.getParameter("price"));
+
+        int result=0;
+
+        try {
+            result = service.calculateCommission(userNo, price);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

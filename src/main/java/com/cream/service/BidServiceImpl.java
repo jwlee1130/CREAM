@@ -21,5 +21,11 @@ public class BidServiceImpl implements BidService{
 	     return list;
 	}
 
+	@Override
+	public List<BidAccountDTO> findBidsByUserNo(int userNo) throws SQLException {
+		List<BidAccountDTO> list = dao.findBidsByUserNo(userNo);
+		return list;
+	}
+	
 
 }

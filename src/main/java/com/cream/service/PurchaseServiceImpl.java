@@ -34,5 +34,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 		int commission = dao.calculateCommission(userNo, price);
 		return commission;
 	}
+
 	
 }

@@ -1,6 +1,11 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.cream.dto.UserDTO" %>
+<%
+    // 세션에서 사용자 정보 가져오기
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -252,7 +257,6 @@
             dataType: 'json',
             success: function(result) {
                 let salesHtml = '';
-                let totalSales = result.length;
                 let inProgressCount = 0;
                 let completedCount = 0;
 
@@ -284,6 +288,7 @@
                     salesHtml += '<div class="item-status">';
                     if (sale.salesStatus === 0) {
                         salesHtml += '승인대기';
+                        inProgressCount++; // 승인 대기 상태를 진행 중으로 포함하여 카운트
                     } else if (sale.salesStatus === 1) {
                         salesHtml += '진행중';
                         inProgressCount++;
@@ -294,6 +299,9 @@
                     salesHtml += '</div>';
                     salesHtml += '</div>';
                 });
+
+                // 전체는 승인 대기와 진행중을 합친 것과 완료된 것을 모두 합한 것
+                let totalSales = inProgressCount + completedCount;
 
                 // 상태별 카운트 업데이트
                 $('#total-sales-count').text(totalSales);
@@ -308,6 +316,102 @@
             }
         });
     }
+
+
+
+    
+    function fetchAllPurchasesAndBids() {
+        let purchases = [];
+        let bids = [];
+
+        // 첫 번째로, 결제 완료된 구매 내역을 가져옵니다.
+        $.ajax({
+            url: '${pageContext.request.contextPath}/ajax',
+            method: 'GET',
+            data: {
+                key: 'purchase',
+                methodName: 'selectPurchase'
+            },
+            dataType: 'json',
+            success: function(result) {
+                purchases = result;
+                // 구매 내역을 가져온 후 입찰 내역을 가져옵니다.
+                fetchBids();
+            },
+            error: function(error) {
+                console.error("구매 내역을 불러오는 중 오류 발생: ", error);
+            }
+        });
+
+        // 진행 중인 입찰 내역을 가져옵니다.
+        function fetchBids() {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/ajax',
+                method: 'GET',
+                data: {
+                    key: 'bidAjax',
+                    methodName: 'findBidsByUserNo',
+                    userNo: '<%= loginUser.getNo() %>' // 세션에서 사용자의 ID를 사용합니다.
+                },
+                dataType: 'json',
+                success: function(result) {
+                    bids = result;
+                    // 구매 내역과 입찰 내역을 함께 렌더링합니다.
+                    renderPurchasesAndBids(purchases, bids);
+                },
+                error: function(error) {
+                    console.error("입찰 내역을 불러오는 중 오류 발생: ", error);
+                }
+            });
+        }
+
+        // 구매 내역과 입찰 내역을 합쳐서 화면에 표시합니다.
+        function renderPurchasesAndBids(purchases, bids) {
+            let purchaseHtml = '';
+            let totalPurchases = purchases.length + bids.length;
+            let inProgressCount = bids.length; // 입찰 진행 중인 내역 수
+            let completedCount = purchases.length; // 결제 완료된 구매 내역 수
+
+            // 결제 완료된 구매 내역을 먼저 추가합니다.
+            purchases.forEach(function(purchase) {
+                purchaseHtml += '<div class="parchase-item">';
+                purchaseHtml += '<div class="item-img">';
+                purchaseHtml += '<img style="width:100px; height:100px;" src="' + purchase.filePath + '" alt="">';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-name">';
+                purchaseHtml += '<h2>' + purchase.engName + '</h2>';
+                purchaseHtml += '<h3>' + purchase.shoeSize  + '</h3>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-date">';
+                purchaseHtml += '<h2>' + purchase.regdate + '</h2>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-status">결제 완료</div>';
+                purchaseHtml += '</div>';
+            });
+
+            // 진행 중인 입찰 내역을 추가합니다.
+            bids.forEach(function(bid) {
+                purchaseHtml += '<div class="parchase-item">';
+                purchaseHtml += '<div class="item-img">';
+                purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-name">';
+                purchaseHtml += '<h2>' + bid.engName + '</h2>';
+                purchaseHtml += '<h3>' + bid.shoesSize + '</h3>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-date">';
+                purchaseHtml += '<h2>' + bid.regdate + '</h2>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-status">입찰 진행 중</div>';
+                purchaseHtml += '</div>';
+            });
+
+            $('#total-purchases-count').text(totalPurchases);
+            $('#in-progress-purchases-count').text(inProgressCount);
+            $('#completed-purchases-count').text(completedCount);
+            $('#purchase-container').html(purchaseHtml);
+        }
+    }
     
     function fetchPurchases() {
         $.ajax({
@@ -321,10 +425,12 @@
             success: function(result) {
                 let purchaseHtml = '';
                 let totalPurchases = result.length;
-                let inProgressCount = 0; // 고정값, 상황에 맞게 변경 가능
+                let inProgressCount = 0; // 상황에 맞게 변경 가능
                 let completedCount = 0;
 
-                $.each(result, function(index, purchase) {
+                // 최신 구매 내역 하나만 표시
+                if (result.length > 0) {
+                    let purchase = result[0]; // 첫 번째 (최신) 구매 내역만 표시
                     purchaseHtml += '<div class="parchase-item">';
                     
                     purchaseHtml += '<div class="item-img">';
@@ -345,7 +451,10 @@
                     purchaseHtml += '</div>';
                     
                     purchaseHtml += '</div>';
-                    
+                }
+
+                // 전체 데이터로 상태별 카운트 계산
+                $.each(result, function(index, purchase) {
                     completedCount++;
                 });
 
@@ -353,6 +462,7 @@
                 $('#in-progress-purchases-count').text(inProgressCount);  // 기본값 유지
                 $('#completed-purchases-count').text(completedCount);
 
+                // 최신 구매 내역 표시
                 $('#purchase-container').html(purchaseHtml);
             },
             error: function(error) {
@@ -362,10 +472,10 @@
     }
 
 
-
+    fetchAllPurchasesAndBids();
     fetchSales();
     fetchAllSales();
-    fetchPurchases();
+    
 
     // 해시 변경 시 콘텐츠 로드
     window.addEventListener('hashchange', loadContent);

@@ -8,5 +8,6 @@ import com.cream.dto.BidAccountDTO;
 public interface BidService {
 
 	List<BidAccountDTO> getActiveBids(int salesNo) throws SQLException;
-
+	
+	List<BidAccountDTO> findBidsByUserNo(int userNo) throws SQLException;
 }

@@ -36,7 +36,6 @@ public class ProductDTO {
 			
 	}
 	
-
     public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity ) {
     	
@@ -51,7 +50,6 @@ public class ProductDTO {
 		this.salesQuantity = salesQuantity;
 	}
 
-   
     public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
 			ProductImgDTO productImg) {

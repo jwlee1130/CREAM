@@ -116,7 +116,7 @@
                         <p>217,000원 <br> 즉시 구매가</p>
                     </div>
                 </a>
-                <a href="${pageContext.request.contextPath}/page/sell.jsp">
+                <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}&filePath=${productDetail.productImg.filePath}">
                     <div class="item-sell">
                         <span>판매</span>
                         <p>237,000원 <br> 즉시 판매가</p>
@@ -125,7 +125,7 @@
 
             </div>
             <div class="item-wish">
-                <p>관심상품</p>
+                <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="wishlist-link"><p>관심상품</p></a>
             </div>
         </div>
 
