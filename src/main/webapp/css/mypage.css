@@ -86,5 +86,107 @@
   border-radius: 0.75rem;
   padding: 0 1rem;
 }
+.main .main-content .user-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff;
+}
+.main .main-content .user-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.main .main-content .user-wrapper h1 {
+  width: 100%;
+  font-size: 2rem;
+  padding-bottom: 1.5rem;
+  font-weight: bold;
+  border-bottom: 1px solid #333;
+  margin-bottom: 2rem;
+}
+.main .main-content .user-info-wrapper {
+  margin-bottom: 2rem;
+}
+.main .main-content .user-info-wrapper h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.main .main-content .info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.main .main-content .info-item label {
+  flex: 1;
+  color: #9a9a9a;
+}
+.main .main-content .info-item input {
+  flex: 2;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 1rem;
+  font-size: 1rem;
+}
+.main .main-content .info-item input:disabled {
+  background-color: #f0f0f0;
+}
+.main .main-content .info-item .change-btn, .main .main-content .info-item .save-btn, .main .main-content .info-item .cancel-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #666;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 0.5rem;
+}
+.main .main-content .info-item .change-btn:hover, .main .main-content .info-item .save-btn:hover, .main .main-content .info-item .cancel-btn:hover {
+  background-color: #f0f0f0;
+}
+.main .main-content .info-item .save-btn {
+  border-color: #333;
+  color: #333;
+}
+.main .main-content .info-item .save-btn:hover {
+  background-color: #9a9a9a;
+}
+.main .main-content .info-item .cancel-btn {
+  border-color: #333333;
+  color: #333;
+}
+.main .main-content .info-item .cancel-btn:hover {
+  background-color: #ffe6e6;
+}
+.main .main-content .item-address {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.main .main-content .item-address .receiver {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.main .main-content .item-address .receiver span {
+  width: 100px;
+  font-weight: bold;
+}
+.main .main-content .item-address .receiver p {
+  flex: 1;
+  word-wrap: break-word;
+  white-space: normal;
+}
+.main .main-content .item-address .change-address-btn {
+  padding: 0.5rem;
+  border: 1px solid #666;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.main .main-content .item-address .change-address-btn:hover {
+  background-color: #f0f0f0;
+}
 
 /*# sourceMappingURL=mypage.css.map */

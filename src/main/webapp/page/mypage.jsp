@@ -60,11 +60,85 @@
       })
       .then(data => {
         contentDiv.innerHTML = data;
+        bindChangeButtons();
       })
       .catch(error => {
         contentDiv.innerHTML = `<h2>페이지를 찾을 수 없습니다.</h2>`;
         console.error(error);
       });
+    }
+
+    function bindChangeButtons() {
+      const changeButtons = contentDiv.querySelectorAll('.change-btn');
+
+      changeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const infoItem = button.closest('.info-item');
+          const input = infoItem.querySelector('input');
+
+          input.disabled = false;
+          input.focus();
+
+          button.style.display = 'none';
+
+          // '저장' 및 '취소' 버튼 생성
+          const saveBtn = document.createElement('button');
+          saveBtn.textContent = '저장';
+          saveBtn.classList.add('save-btn');
+
+          const cancelBtn = document.createElement('button');
+          cancelBtn.textContent = '취소';
+          cancelBtn.classList.add('cancel-btn');
+
+          // 버튼 추가
+          infoItem.appendChild(saveBtn);
+          infoItem.appendChild(cancelBtn);
+
+          // '저장' 버튼 클릭 이벤트
+          saveBtn.addEventListener('click', () => {
+            const newValue = input.value.trim();
+            if (newValue === '') {
+              alert('값을 입력해주세요.');
+              return;
+            }
+
+            // 비밀번호인 경우 실제 값을 표시하지 않음
+            if (infoItem.getAttribute('data-field') === 'password') {
+              input.value = '********';
+            }
+
+            // 입력 필드 비활성화
+            input.disabled = true;
+
+            // '저장' 및 '취소' 버튼 제거
+            saveBtn.remove();
+            cancelBtn.remove();
+
+            // '변경' 버튼 다시 표시
+            button.style.display = 'inline-block';
+
+            //여기서 부터 ajax로 수정된거 보내면 됨 /////
+          });
+
+          cancelBtn.addEventListener('click', () => {
+            input.value = input.defaultValue;
+
+            input.disabled = true;
+
+            saveBtn.remove();
+            cancelBtn.remove();
+
+            button.style.display = 'inline-block';
+          });
+        });
+      });
+
+      const changeAddressBtn = contentDiv.querySelector('.change-address-btn');
+      if (changeAddressBtn) {
+        changeAddressBtn.addEventListener('click', () => {
+          alert('주소 변경 구현해야함.');
+        });
+      }
     }
     
     function fetchWishlist() {

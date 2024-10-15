@@ -84,5 +84,127 @@
         }
       }
     }
+    .user-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: #fff;
+    }
+
+    .user-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-wrapper h1 {
+      width: 100%;
+      font-size: 2rem;
+      padding-bottom: 1.5rem;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
+      margin-bottom: 2rem;
+    }
+
+    .user-info-wrapper {
+      margin-bottom: 2rem;
+    }
+
+    .user-info-wrapper h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      label {
+        flex: 1;
+        color: #9a9a9a;
+      }
+
+      input {
+        flex: 2;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 1rem;
+        font-size: 1rem;
+
+        &:disabled {
+          background-color: #f0f0f0;
+        }
+      }
+
+      .change-btn, .save-btn, .cancel-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid #666;
+        border-radius: 0.5rem;
+        background-color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 0.5rem;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+
+      .save-btn {
+        border-color: #333;
+        color: #333;
+
+        &:hover {
+          background-color: #9a9a9a;
+        }
+      }
+
+      .cancel-btn {
+        border-color: #333333;
+        color: #333;
+
+        &:hover {
+          background-color: #ffe6e6;
+        }
+      }
+    }
+
+    .item-address {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .receiver {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+
+        span {
+          width: 100px;
+          font-weight: bold;
+        }
+
+        p {
+          flex: 1;
+          word-wrap: break-word;
+          white-space: normal;
+        }
+      }
+
+      .change-address-btn {
+        padding: 0.5rem;
+        border: 1px solid #666;
+        border-radius: 0.5rem;
+        background-color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
   }
 }
