@@ -59,4 +59,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
+	public int getRecentPrice(int productNo)throws SQLException {
+		return productDao.getRecentPrice(productNo);
+	}
+
+
+	public int getBidPricing(int productNo) throws SQLException {
+		return productDao.getBidPricing(productNo);
+	}
+
+
+	public int getNowPricing(int productNo) throws SQLException {
+		// TODO Auto-generated method stub
+		return productDao.getNowPricing(productNo);
+	}
+
+
+	
+
 }

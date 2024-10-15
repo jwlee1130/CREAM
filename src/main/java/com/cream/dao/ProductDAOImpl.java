@@ -164,4 +164,86 @@ public class ProductDAOImpl implements ProductDAO {
 		return product;
 	}
 
+
+	public int getRecentPrice(int productNo) throws SQLException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int price=0;
+		String sql = "SELECT PRICE FROM PURCHASE WHERE PRODUCT_NO = ? order by REGDATE DESC LIMIT 1";
+
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, productNo);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				 price = rs.getInt(1);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			  throw new SQLException("sql 오류");
+		}finally {
+			DbUtil.dbClose(con, ps,rs);
+		}
+
+		return price;
+	}
+
+
+	public int getBidPricing(int productNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int price=0;
+		String sql = "SELECT b.PRICE FROM BIDACCOUNT b  JOIN USERS_SALES u ON b.SALES_NO = u.NO AND u.SALES_STATUS=1 and u.PRODUCT_NO = ? order by PRICE ASC LIMIT 1";
+
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, productNo);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				 price = rs.getInt(1);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			  throw new SQLException("sql 오류");
+		}finally {
+			DbUtil.dbClose(con, ps,rs);
+		}
+
+		return price;
+	}
+
+
+	public int getNowPricing(int productNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int price=0;
+		String sql = "SELECT NOW_PRICE FROM USERS_SALES u JOIN BIDACCOUNT b ON b.SALES_NO = u.NO WHERE PRODUCT_NO = ? AND SALES_STATUS = 1 order by NOW_PRICE ASC LIMIT 1";
+
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, productNo);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				 price = rs.getInt(1);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			  throw new SQLException("sql 오류");
+		}finally {
+			DbUtil.dbClose(con, ps,rs);
+		}
+
+		return price;
+	}
+
 }

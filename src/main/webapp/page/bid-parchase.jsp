@@ -19,12 +19,12 @@
         <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/shoes1.png" alt="" width="120px" height="120px">
       </div>
       <div class="item-description">
-        <h2>This is product English name</h2>
-        <h3>YUN-SUNG-BAO-1557</h3>
-        <h3>여기는 제품 한글명이 들어갈 곳</h3>
+        <h2>${sale.product.engName}</h2>
+        <h3>${sale.product.modelNumber}</h3>
+        <h3>${sale.product.korName}</h3>
         <div style="display:flex; justify-content: space-between">
-          <h2>280</h2>
-          <h2>117,000원</h2>
+          <h2>${sale.shoesSize.shoesSize}</h2>
+          <h2>${sale.nowPrice}원</h2>
         </div>
       </div>
     </div>
@@ -34,20 +34,20 @@
         <button>주소 변경</button>
       </div>
       <a href="#"><div class="shipping-address">
-        <p>주소를 추가해주세요 > </p>
+        <p>${loginUser.address}</p>
       </div></a>
       <div class="item-address">
         <div class="reciever">
           <span>받는분</span>
-          <p>홍길동</p>
+          <p>${loginUser.name}</p>
         </div>
         <div class="reciever">
           <span>연락처</span>
-          <p>010-1555-1557</p>
+          <p>${loginUser.hp}</p>
         </div>
         <div class="reciever">
           <span style="margin-right: 3.8rem;">주소</span>
-          <p>[12551]경기 남양주시 미금로 10 (다산동, 송라빌딩) !!상세주소 들어가는영역!!</p>
+          <p>${loginUser.address}</p>
         </div>
         <button>요청사항 없음 > </button>
       </div>
@@ -56,7 +56,7 @@
       <h2>포인트</h2>
       <div class="point-inner">
         <div>
-          <span>포인트 잔액</span>
+          <span>${loginUser.cash}</span>
         </div>
         <a href="">충전하러가기</a>
       </div>
@@ -84,7 +84,7 @@
         <h2>190,000원</h2>
       </div>
     </div>
-    <a href="#"><div class="item-sell-btn">
+    <a href="front?key=purchase&methodName=nowBuy&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${sale.nowPrice}"><div class="item-sell-btn">
       <p>190,000원 입찰하기</p>
     </div></a>
   </div>

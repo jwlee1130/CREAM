@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
     <script type="text/javascript">
     $(function(){
+    	
        $("[name=btn]").click(function(){
             console.log($(this)); // 클릭된 요소를 콘솔에 출력
               console.log($(this).attr("data-tab")); // data-tab 속성을 콘솔에 출력       
@@ -82,8 +83,10 @@
         </div>
         <div class="item-description">
             <div class="item-price">
-                <p>즉시 구매가</p>
-                <h1>219,000</h1>
+                <p>최저 입찰가</p>
+                <span>${bidPricing}</span>
+                 <p>최저 즉시구매가</p>
+                <span>${nowPricing}</span>
             </div>
             <div class="item-name">
                 <h2>${productDetail.engName}</h2>
@@ -93,7 +96,7 @@
                 <ul>
                     <li class="item-detail-content">
                         <p>최근 거래가</p>
-                        <span>200,000</span>
+                        <span>${recentPrice}</span>
                     </li>
                     <li class="item-detail-content">
                         <p>발매가</p>
