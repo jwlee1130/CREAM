@@ -38,7 +38,7 @@ public class AjaxDispatcherServlet extends HttpServlet {
 	}
    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String key = request.getParameter("key"); //customer
 		String methodName = request.getParameter("methodName"); //idCheck , insert , selectAll
 		
@@ -60,7 +60,7 @@ public class AjaxDispatcherServlet extends HttpServlet {
 	                .create();
 			
 			String data = gson.toJson(obj);
-			System.out.println("data = " + data);
+			//System.out.println("data = " + data);
 			
 			response.getWriter().print(data);
 

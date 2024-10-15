@@ -7,10 +7,15 @@ public class BrandDTO {
 	@Expose private String brand;
 
     public BrandDTO() {}
+    
+    public BrandDTO(String brand) { //전체 상품 조회 시 필요한 생성자
+    	this.brand = brand;
+    }
 
     public BrandDTO(int no, String brand) {
-        this.no = no;
-        this.brand = brand;
+        this(brand);
+    	this.no = no;
+        
     }
 
     public int getNo() { return no; }

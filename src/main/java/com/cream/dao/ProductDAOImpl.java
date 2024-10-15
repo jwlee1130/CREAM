@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.cream.dto.BrandDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.dto.ProductImgDTO;
 import com.cream.dto.PurchaseDTO;
@@ -39,7 +40,8 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
-		String sql = proFile.getProperty("query.selectAllProduct"); //SELECT * FROM PRODUCT
+		String sql = proFile.getProperty("query.selectAllProduct"); 
+		//sql = SELECT P.*, FILE_PATH, FILE_SIZE, BRAND FROM PRODUCT P JOIN PRODUCT_IMG PI ON P.NO=PI.PRODUCT_NO JOIN BRAND B ON P.BRAND_NO=B.NO;
 		
 		try {
 			con = DbUtil.getConnection();
@@ -50,13 +52,16 @@ public class ProductDAOImpl implements ProductDAO {
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), 
 													rs.getString(6), rs.getString(7), rs.getString(8), 
-													rs.getInt(9), rs.getString(10), rs.getString(11), rs.getInt(12));
+													rs.getInt(9), rs.getString(10), rs.getString(11), rs.getInt(12), 
+													new ProductImgDTO(rs.getString(13), rs.getString(14)), new BrandDTO(rs.getString(15)));
+			
 				productList.add(product);
 			}
 	
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
+		
 		return productList;
 	}
 

@@ -4,84 +4,71 @@ import com.google.gson.annotations.Expose;
 
 public class ProductDTO {
 
-	@Expose private int no; //상품번호 PK
+	@Expose private int no;         //상품번호 PK
 	@Expose private int brandNo;    //브랜드번호 FK
 	@Expose private int categoryNo; //카테고리번호 FK
 	@Expose private int shoesNo;    //신발번호 FK
 	@Expose private int colorNo;    //색깔번호 FK
     @Expose private String engName;
     @Expose private String korName;
-    @Expose  private String release;
+    @Expose private String release;
     @Expose private int releasePrice;
-    @Expose  private String modelNumber;
+    @Expose private String modelNumber;
     @Expose private String regdate;
     @Expose private int salesQuantity;
     @Expose private ProductImgDTO productImg;
+    @Expose private BrandDTO brandName;
     
+	public ProductDTO() {}
+	
+	public ProductDTO(String modelNumber,String engName,
+				String korName) {
+		
+			this.engName = engName;
+			this.korName = korName;
+			this.modelNumber = modelNumber;		
+	}
+	 
+	public ProductDTO(String modelNumber,String engName,
+				String korName, ProductImgDTO productImg) {
+
+			this(modelNumber, engName, korName);
+			this.productImg = productImg;
+			
+	}
+	
     public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity ) {
-		this.no = no;
+    	
+		this(modelNumber, engName, korName);
+    	this.no = no;
 		this.brandNo = brandNo;
 		this.categoryNo = categoryNo;
 		this.shoesNo = shoesNo;
 		this.colorNo = colorNo;
-		this.engName = engName;
-		this.korName = korName;
 		this.release = release;
 		this.releasePrice = releasePrice;
-		this.modelNumber = modelNumber;
 		this.regdate = regdate;
 		this.salesQuantity = salesQuantity;
 	}
 
-    public ProductDTO(String modelNumber,String engName,
-			String korName, ProductImgDTO productImg) {
-
-		this.engName = engName;
-		this.korName = korName;
-		this.modelNumber = modelNumber;
-		this.productImg = productImg;
-		
-	}
-
-    public ProductDTO(String modelNumber,String engName,
-			String korName) {
-
-		this.engName = engName;
-		this.korName = korName;
-		this.modelNumber = modelNumber;
-		
-	}
-
-    
+   
     public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
 			ProductImgDTO productImg) {
-		this.no = no;
-		this.brandNo = brandNo;
-		this.categoryNo = categoryNo;
-		this.shoesNo = shoesNo;
-		this.colorNo = colorNo;
-		this.engName = engName;
-		this.korName = korName;
-		this.release = release;
-		this.releasePrice = releasePrice;
-		this.modelNumber = modelNumber;
-		this.regdate = regdate;
-		this.salesQuantity = salesQuantity;
+    	
+    	this(no, brandNo, categoryNo, shoesNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity);
 		this.productImg = productImg;
 	}
 
+    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName, String korName,
+			String release, int releasePrice, String modelNumber, String regdate, int salesQuantity, ProductImgDTO productImg, BrandDTO brandName) { //인수 14개
+    	
+		this(no, brandNo, categoryNo, shoesNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity, productImg);
+		this.brandName = brandName;
+	}
 
-
-
-
-	public ProductDTO() {}
-
-
-
-
-    public int getNo() { return no; }
+	public int getNo() { return no; }
     public void setNo(int no) { this.no = no; }
 
     public int getBrandNo() { return brandNo; }
@@ -114,14 +101,12 @@ public class ProductDTO {
     public String getRegdate() { return regdate; }
     public void setRegdate(String regdate) { this.regdate = regdate; }
 
-    public ProductImgDTO getProductImg() {
-		return productImg;
-	}
-
-	public void setProductImg(ProductImgDTO productImg) {
-		this.productImg = productImg;
-	}
+    public ProductImgDTO getProductImg() { return productImg;	}
+	public void setProductImg(ProductImgDTO productImg) { this.productImg = productImg;	}
 
 	public int getSalesQuantity() { return salesQuantity; }
     public void setSalesQuantity(int salesQuantity) { this.salesQuantity = salesQuantity; }
+    
+    public BrandDTO getBrandName() { return brandName;	}
+    public void setBrandName(BrandDTO brandName) { this.brandName = brandName;	}
 }
