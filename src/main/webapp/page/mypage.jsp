@@ -178,7 +178,6 @@
             dataType: 'json',
             success: function(result) {
                 let salesHtml = '';
-                let totalSales = result.length;
                 let inProgressCount = 0;
                 let completedCount = 0;
 
@@ -210,6 +209,7 @@
                     salesHtml += '<div class="item-status">';
                     if (sale.salesStatus === 0) {
                         salesHtml += '승인대기';
+                        inProgressCount++; // 승인 대기 상태를 진행 중으로 포함하여 카운트
                     } else if (sale.salesStatus === 1) {
                         salesHtml += '진행중';
                         inProgressCount++;
@@ -220,6 +220,9 @@
                     salesHtml += '</div>';
                     salesHtml += '</div>';
                 });
+
+                // 전체는 승인 대기와 진행중을 합친 것과 완료된 것을 모두 합한 것
+                let totalSales = inProgressCount + completedCount;
 
                 // 상태별 카운트 업데이트
                 $('#total-sales-count').text(totalSales);
@@ -234,6 +237,9 @@
             }
         });
     }
+
+
+
     
     function fetchPurchases() {
         $.ajax({
@@ -288,10 +294,10 @@
     }
 
 
-
+    fetchPurchases();
     fetchSales();
     fetchAllSales();
-    fetchPurchases();
+    
 
     // 해시 변경 시 콘텐츠 로드
     window.addEventListener('hashchange', loadContent);
