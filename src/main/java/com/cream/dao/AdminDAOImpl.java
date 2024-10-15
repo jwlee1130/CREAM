@@ -1,7 +1,6 @@
 package com.cream.dao;
 
-import com.cream.dto.SalesDTO;
-import com.cream.dto.SurveyDTO;
+import com.cream.dto.*;
 import com.cream.util.DbUtil;
 
 import java.sql.Connection;
@@ -243,4 +242,70 @@ public class AdminDAOImpl implements AdminDAO {
         }
         return false; // 관리자 아이디가 아니므로 거짓을 반환
     }
+
+    @Override
+    public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
+        String sql = "SELECT p.*, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
+                "FROM PRODUCT p " +
+                "JOIN BRAND b ON p.BRAND_NO = b.NO " +
+                "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
+                "WHERE p.CATEGORY_NO = ? " +
+                "AND p.BRAND_NO = ? " +
+                "AND p.COLOR_NO = ? " +
+                "AND p.RELEASE_PRICE <= ? " +
+                "ORDER BY p.RELEASE_PRICE DESC " +
+                "LIMIT 1";
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, categoryNo);
+            ps.setInt(2, brandNo);
+            ps.setInt(3, colorNo);
+            ps.setInt(4, releasePrice);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                BrandDTO brand = new BrandDTO();
+                brand.setNo(rs.getInt("b.NO"));
+                brand.setBrand(rs.getString("b.BRAND"));
+
+                ProductImgDTO productImg = new ProductImgDTO();
+                productImg.setFilePath(rs.getString("pi.FILE_PATH"));
+                productImg.setFileSize(rs.getString("pi.FILE_SIZE"));
+                productImg.setRegdate(rs.getString("pi.REGDATE"));
+
+                ProductDTO product = new ProductDTO();
+                product.setNo(rs.getInt("p.NO"));
+                product.setBrandNo(rs.getInt("p.BRAND_NO"));
+                product.setCategoryNo(rs.getInt("p.CATEGORY_NO"));
+                product.setColorNo(rs.getInt("p.COLOR_NO"));
+                product.setEngName(rs.getString("p.ENG_NAME"));
+                product.setKorName(rs.getString("p.KOR_NAME"));
+                product.setRelease(rs.getString("p.RELEASE"));
+                product.setReleasePrice(rs.getInt("p.RELEASE_PRICE"));
+                product.setModelNumber(rs.getString("p.MODEL_NUMBER"));
+                product.setRegdate(rs.getString("p.REGDATE"));
+                product.setSalesQuantity(rs.getInt("p.SALES_QUANTITY"));
+                product.setProductImg(productImg);
+                product.setBrandName(brand);
+
+                return product;
+            }
+        } finally {
+            DbUtil.dbClose(conn, ps, rs);
+        }
+
+        return null;
+    }
+
+
+
+
+
 }

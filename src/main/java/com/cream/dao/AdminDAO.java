@@ -1,5 +1,6 @@
 package com.cream.dao;
 
+import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
 
@@ -56,4 +57,6 @@ public interface AdminDAO {
 	boolean hasUserCompletedSurvey(String userId)throws SQLException;
 
 	boolean isAdmin(String adminId) throws SQLException;
+
+	ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException;
 }
