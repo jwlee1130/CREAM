@@ -41,7 +41,7 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs = null;
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
 		String sql = proFile.getProperty("query.selectAllProduct"); 
-		//sql = SELECT P.*, FILE_PATH, FILE_SIZE, BRAND FROM PRODUCT P JOIN PRODUCT_IMG PI ON P.NO=PI.PRODUCT_NO JOIN BRAND B ON P.BRAND_NO=B.NO;
+		//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO JOIN BRAND B ON P.BRAND_NO=B.NO;
 		
 		try {
 			con = DbUtil.getConnection();
@@ -65,6 +65,35 @@ public class ProductDAOImpl implements ProductDAO {
 		return productList;
 	}
 
+	@Override
+	public List<BrandDTO> selectAllBrand() throws SQLException {
+		// TODO Auto-generated method stub
+		// 브랜드 전체 출력
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<BrandDTO> brandList = new ArrayList<BrandDTO>();
+		String sql = proFile.getProperty("query.selectAllBrand"); 
+		//sql = SELECT * FROM BRAND;
+				
+				try {
+					con = DbUtil.getConnection();
+					ps = con.prepareStatement(sql);
+					rs = ps.executeQuery();
+					
+					
+					while(rs.next()) {
+						BrandDTO brand = new BrandDTO(rs.getInt(1), rs.getString(2));
+						brandList.add(brand);
+					}
+			
+				} finally {
+					DbUtil.dbClose(con, ps, rs);
+				}
+				
+				return brandList;
+	}
+	
 	
 	@Override
 	public ProductDTO searchByProductId(int productId) throws SQLException {

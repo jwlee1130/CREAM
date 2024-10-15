@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cream.dao.ProductDAOImpl;
+import com.cream.dto.BrandDTO;
 import com.cream.dto.ProductDTO;
 
 
@@ -12,6 +13,7 @@ import com.cream.dto.ProductDTO;
 public class ProductServiceImpl implements ProductService {
 	ProductDAOImpl productDao = new ProductDAOImpl();
 	List<ProductDTO> productList = new ArrayList<ProductDTO>();
+	List<BrandDTO> brandList = new ArrayList<BrandDTO>();
 	
 	
 	public ProductDTO detail(int productNo) throws SQLException {
@@ -28,6 +30,13 @@ public class ProductServiceImpl implements ProductService {
 		//전체 상품 검색
 		productList = productDao.selectAllProduct();
 		return productList;
+	}
+	
+	@Override
+	public List<BrandDTO> selectAllBrand() throws SQLException {
+		// 전체 브랜드 검색
+		brandList= productDao.selectAllBrand();
+		return brandList;
 	}
 	
 	@Override

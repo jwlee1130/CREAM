@@ -3,6 +3,7 @@ package com.cream.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cream.dto.BrandDTO;
 import com.cream.dto.ProductDTO;
 
 public interface ProductService {
@@ -12,6 +13,11 @@ public interface ProductService {
 	 * 전체 상품 검색
 	 */
 	List<ProductDTO> selectAllProduct()throws SQLException;
+	
+	/**
+	 * 전체 브랜드 검색
+	 */
+	List<BrandDTO> selectAllBrand()throws SQLException;
 	
 	/**
 	 * 상품 ID로 검색
