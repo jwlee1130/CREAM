@@ -29,7 +29,7 @@ public class ProductDTO {
 	}
 	
 
-	public ProductDTO(String modelNumber,String engName,tring korName, ProductImgDTO productImg) {
+	public ProductDTO(String modelNumber,String engName,String korName, ProductImgDTO productImg) {
 		this(modelNumber, engName, korName);
 		this.productImg = productImg;
 
