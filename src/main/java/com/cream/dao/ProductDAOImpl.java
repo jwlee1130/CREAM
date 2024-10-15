@@ -50,10 +50,10 @@ public class ProductDAOImpl implements ProductDAO {
 			
 			
 			while(rs.next()) {
-				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), 
-													rs.getString(6), rs.getString(7), rs.getString(8), 
-													rs.getInt(9), rs.getString(10), rs.getString(11), rs.getInt(12), 
-													new ProductImgDTO(rs.getString(13), rs.getString(14)), new BrandDTO(rs.getString(15)));
+				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
+													rs.getString(5), rs.getString(6), rs.getString(7), 
+													rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11), 
+													new ProductImgDTO(rs.getString(12), rs.getString(13)), new BrandDTO(rs.getString(14)));
 			
 				productList.add(product);
 			}
@@ -82,9 +82,9 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), 
-													rs.getString(6), rs.getString(7), rs.getString(8), 
-													rs.getInt(9), rs.getString(10), rs.getString(11), rs.getInt(12));
+				product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
+													rs.getString(5), rs.getString(6), rs.getString(7), 
+													rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11));
 			}
 	
 		} finally {
@@ -112,7 +112,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select p.NO, p.BRAND_NO, p.CATEGORY_NO, p.SHOES_NO, p.COLOR_NO, p.ENG_NAME, p.KOR_NAME, p.RELEASE, p.RELEASE_PRICE, p.MODELNUMBER, p. REGDATE, p.SALES_QUANTITY, i.FILE_PATH, i.FILE_SIZE from PRODUCT p join PRODUCT_IMG i on p.NO = i.PRODUCT_NO WHERE p.NO =?";
+		String sql = "select p.NO, p.BRAND_NO, p.CATEGORY_NO, p.COLOR_NO, p.ENG_NAME, p.KOR_NAME, p.RELEASE, p.RELEASE_PRICE, p.MODELNUMBER, p. REGDATE, p.SALES_QUANTITY, i.FILE_PATH, i.FILE_SIZE from PRODUCT p join PRODUCT_IMG i on p.NO = i.PRODUCT_NO WHERE p.NO =?";
 
 		try {
 			con=DbUtil.getConnection();
@@ -122,8 +122,8 @@ public class ProductDAOImpl implements ProductDAO {
 			
 			if(rs.next()) {
 				 product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
-						 rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8), rs.getInt(9), 
-						 rs.getString(10),rs.getString(11), rs.getInt(12),new ProductImgDTO(rs.getString(13),rs.getString(14)));
+						 rs.getString(5),rs.getString(6),rs.getString(7), rs.getInt(8), 
+						 rs.getString(9),rs.getString(10), rs.getInt(11),new ProductImgDTO(rs.getString(12),rs.getString(13)));
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
