@@ -119,42 +119,44 @@ public class StatisticsDAOImpl implements StatisticsDAO
     }
 
     /*
-    SELECT SUM(price) AS TOTAL_SALES
+    SELECT DATE(regdate) AS sale_date, SUM(price) AS total_sales
     FROM PURCHASE
-    WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);
+    WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    AND regdate <= CURDATE() -- 현재 날짜까지의 범위를 추가
+    GROUP BY DATE(regdate);
+
      */
     @Override
-    public Map<String, Integer> getTotalSalesData(int period) throws SQLException
-    {
-        String sql = "SELECT SUM(price) AS TOTAL_SALES " +
+    public Map<String, Integer> getTotalSalesData(int period) throws SQLException {
+        String sql = "SELECT DATE(regdate) AS sale_date, SUM(price) AS total_sales " +
                 "FROM PURCHASE " +
-                "WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY)";
-
+                "WHERE regdate >= DATE_SUB(CURDATE(), INTERVAL ? DAY) " +
+                "AND regdate <= CURDATE() " +
+                "GROUP BY DATE(regdate)";
 
         Map<String, Integer> salesData = new HashMap<>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        try
-        {
+        try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setInt(1, period);
             rs = ps.executeQuery();
 
-            if (rs.next())
-            {
-                salesData.put("total_sales", rs.getInt("total_sales"));
+            while (rs.next()) {
+                String date = rs.getString("sale_date");
+                int totalSales = rs.getInt("total_sales");
+                salesData.put(date, totalSales);
             }
-        }
-        finally
-        {
+        } finally {
             DbUtil.dbClose(conn, ps, rs);
         }
 
         return salesData;
     }
+
 
     /*
     SELECT s.brand, COUNT(s.brand) AS pop

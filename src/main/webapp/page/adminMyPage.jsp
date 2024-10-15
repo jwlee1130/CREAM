@@ -50,7 +50,7 @@
             if (hash === 'inspectionList' || hash === '') {
                 $('#content').load('inspectionList.jsp');
             } else if (hash === 'userManagement') {
-                $('#content').load('userManagement.jsp');
+                contentDiv.innerHTML = '<iframe src="userManagement.jsp" style="width: 100%; height: 600px; border: none;"></iframe>';
             } else if (hash === 'statistics') {
                 $('#content').load('statistics.jsp');
             } else {

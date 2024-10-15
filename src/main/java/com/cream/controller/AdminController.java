@@ -12,17 +12,20 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminController implements RestController {
-
+//
     private final AdminService adminService = new AdminServiceImpl();
 
     public int deleteUserById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        System.out.println("AdminController.deleteUserById");
         int userNo = Integer.parseInt(request.getParameter("userNo"));
-        return adminService.deleteUserById(userNo);
+        return adminService.deleteUserByNo(userNo);
     }
 
-    public int deleteProductById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        int productNo = Integer.parseInt(request.getParameter("productNo"));
-        return adminService.deleteProductById(productNo);
+
+    public int deleteSalesById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        System.out.println("AdminController.deleteSalesById");
+        int salesNo = Integer.parseInt(request.getParameter("salesNo"));
+        return adminService.deleteUsersSalesByNo(salesNo);
     }
 
     public List<SalesDTO> getUnapprovedProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException {

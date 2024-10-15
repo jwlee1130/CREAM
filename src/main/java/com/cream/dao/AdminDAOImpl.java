@@ -19,7 +19,7 @@ public class AdminDAOImpl implements AdminDAO {
     DELETE FROM USERS WHERE NO = 1;
      */
     @Override
-    public int deleteUserById(int userNo) throws SQLException {
+    public int deleteUserByNo(int userNo) throws SQLException {
         String sql = "DELETE FROM USERS WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
@@ -34,24 +34,38 @@ public class AdminDAOImpl implements AdminDAO {
         }
     }
 
-    /*
-    DELETE FROM PRODUCT WHERE NO = 1;
-     */
     @Override
-    public int deleteProductById(int productNo) throws SQLException {
-        String sql = "DELETE FROM PRODUCT WHERE NO=?";
+    public int deleteUsersSalesByNo(int salesNo) throws SQLException {
+        String sql = "DELETE FROM USERS_SALES WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
 
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, productNo);
+            ps.setInt(1, salesNo);
             return ps.executeUpdate();
         } finally {
             DbUtil.dbClose(conn, ps);
         }
     }
+
+
+    public void deletePurchasesBySalesNo(int salesNo, Connection conn) throws SQLException {
+        String sql = "DELETE FROM PURCHASE WHERE SALES_NO=?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, salesNo);
+            ps.executeUpdate();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+    }
+
 
     /*
     SELECT * FROM USERS_SALES WHERE SALES_STATUS = 0;

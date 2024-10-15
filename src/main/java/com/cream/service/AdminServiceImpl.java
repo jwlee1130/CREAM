@@ -14,13 +14,13 @@ public class AdminServiceImpl implements AdminService {
     AdminDAO adminDAO = new AdminDAOImpl();
 
     @Override
-    public int deleteUserById(int userNo) throws SQLException {
-        return adminDAO.deleteUserById(userNo);
+    public int deleteUserByNo(int userNo) throws SQLException {
+        return adminDAO.deleteUserByNo(userNo);
     }
 
     @Override
-    public int deleteProductById(int productNo) throws SQLException {
-        return adminDAO.deleteProductById(productNo);
+    public int deleteUsersSalesByNo(int salesNo) throws SQLException {
+        return adminDAO.deleteUsersSalesByNo(salesNo);
     }
 
     @Override

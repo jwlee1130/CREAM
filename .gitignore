@@ -90,3 +90,4 @@ nb-configuration.xml
 ##############################
 *.log
 src/util/DbProperties.java
+keyInfo.properties
