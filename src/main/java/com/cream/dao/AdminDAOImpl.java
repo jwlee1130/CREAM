@@ -234,13 +234,13 @@ public class AdminDAOImpl implements AdminDAO {
 
             if(rs.next())
             {
-                return rs.getInt(1)>0;
+                return rs.getInt(1)>0; // 관리자 아이디라면 참을 반환
             }
         }
         finally
         {
             DbUtil.dbClose(conn, ps, rs);
         }
-        return false; // 관리자 아이디가 아니므로
+        return false; // 관리자 아이디가 아니므로 거짓을 반환
     }
 }

@@ -70,16 +70,16 @@ public class AdminController implements RestController {
 
     /*
     index.jsp 에서 설문조사를 하지 않은 회윈이라면 팝업창을 띄어야 한다
+    나중에 이 함수의 반환값이 true 이면 관리자이거나 설문조사를 한 회원이다
      */
     public boolean hasUserCompletedSurvey(HttpServletRequest request, HttpServletResponse response) throws SQLException
     {
         UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
 
-        if(user.getUserId().equals("admin"))return true; //만약에 관리자 아이디라면
+        if(adminService.isAdmin(user.getUserId()))return true; // 만약 admin 아이디라면 참을 반환
 
-        if(user == null)return false; // 설문조사를 하지 않은 유저
-
-        return adminService.hasUserCompletedSurvey(user.getUserId());// 설문조사를 한 유저라면 true 를 반환
+        return adminService.hasUserCompletedSurvey(user.getUserId());
+        // 설문조사를 한 유저라면 true 를 반환, 하지 않았다면 거짓을 반환
     }
 
 //    public Map<String, Object> getRecommendedProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -92,6 +92,7 @@ public class AdminController implements RestController {
 //        return result;
 //
 //    }
+
 
     public Map<String, String> getProductName(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         System.out.println("AdminController.getProductName");

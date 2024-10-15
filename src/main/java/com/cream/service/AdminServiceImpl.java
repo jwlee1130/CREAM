@@ -53,4 +53,9 @@ public class AdminServiceImpl implements AdminService {
     {
         return adminDAO.hasUserCompletedSurvey(userId);
     }
+
+    @Override
+    public boolean isAdmin(String adminId) throws SQLException {
+        return adminDAO.isAdmin(adminId);
+    }
 }

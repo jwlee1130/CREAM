@@ -24,4 +24,5 @@ public interface AdminService {
 
     boolean hasUserCompletedSurvey(String userId)throws SQLException;
 
+    boolean isAdmin(String adminId)throws SQLException;
 }
