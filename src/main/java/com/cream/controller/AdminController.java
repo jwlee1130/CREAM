@@ -22,7 +22,6 @@ public class AdminController implements RestController {
         return adminService.deleteUserByNo(userNo);
     }
 
-
     public int deleteSalesById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         System.out.println("AdminController.deleteSalesById");
         int salesNo = Integer.parseInt(request.getParameter("salesNo"));

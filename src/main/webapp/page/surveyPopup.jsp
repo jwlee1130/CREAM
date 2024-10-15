@@ -1,4 +1,7 @@
+<%@ page import="com.cream.dto.UserDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,10 +57,11 @@
             background-color: #00A86B;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <h2>신발 취향 설문조사</h2>
-<form action="SurveyServlet" method="POST">
+<form id="surveyForm">
     <div class="question">
         <label>1. 당신이 선호하는 신발 브랜드는?</label>
         <input type="radio" name="brand" value="1000"> 나이키
@@ -103,8 +107,8 @@
 
     <div class="question">
         <label>5. 50만원 이상의 신발을 구매할 의향이 있으십니까?</label>
-        <input type="radio" name="budget" value="예"> 예
-        <input type="radio" name="budget" value="아니오"> 아니오
+        <input type="radio" name="price" value="500000"> 예
+        <input type="radio" name="price" value="0"> 아니오
     </div>
     <%--  나중에 디비에서 상품초천에서 사용 조건절에 50만원 이상 상품 컷할지 말지 결정--%>
 
@@ -112,3 +116,38 @@
 </form>
 </body>
 </html>
+<script>
+    $(document).ready(function(){
+        $('#surveyForm').on('submit',function(e){
+            e.preventDefault();
+
+            <%--const userNo=`<%= ((UserDTO)session.getAttribute("loginUser")).getNo() %>`;--%>
+            const category=$('input[name="category"]:checked').val();
+            const brand=$('input[name="brand"]:checked').val();
+            const color=$('input[name="color"]:checked').val();
+            const price=$('input[name="price"]:checked').val();
+
+            $.ajax({
+                url:'${pageContext.request.contextPath}/ajax',
+                method:'POST',
+                data:{
+                    key:'admin',
+                    methodName:'submitSurvey',
+                    userNo:'3', // 나중에 userNo로 변경해야 함
+                    category:category,
+                    brand:brand,
+                    color:color,
+                    price:price,
+                },
+                success:function(data){
+                    console.log("설문조사 제출이 완료 되었습니다");
+                },
+                error:function(error)
+                {
+                    console.log(error);
+                }
+            })
+        })
+    })
+
+</script>
