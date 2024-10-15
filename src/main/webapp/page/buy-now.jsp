@@ -70,7 +70,7 @@
       </div>
       <div>
         <h2><a href="#">수수료 💡</a></h2>
-        <h2>${commission}</h2>
+        <h2>${commission}원</h2>
       </div>
       <div>
         <h2>배송비</h2>

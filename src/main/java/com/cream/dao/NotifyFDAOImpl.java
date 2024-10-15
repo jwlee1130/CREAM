@@ -44,6 +44,7 @@ public class NotifyFDAOImpl implements NotifyDAO {
 			result  = ps.executeUpdate();  
 		}catch(SQLException e){
 			e.printStackTrace();
+			throw new SQLException("알림 들가자");
 		}finally {
 			DbUtil.dbClose(ps);
 		}

@@ -61,15 +61,17 @@ public class SalesController implements Controller {
 		
 			String no = request.getParameter("salesNo");
 			int userNo = Integer.parseInt(request.getParameter("userNo"));
-			int nowPrice = Integer.parseInt(request.getParameter("nowPrice"));
+			int bidPrice = Integer.parseInt(request.getParameter("bidPrice"));
 			System.out.println(no);
 
 			try {
 				SalesDTO sale = service.salesDetail(Integer.parseInt(no));
-				int commission = nowPrice-purchaseService.calculateCommission(userNo,nowPrice);
+				int commission = bidPrice-purchaseService.calculateCommission(userNo,bidPrice);
 				request.setAttribute("sale", sale);
 				request.setAttribute("commission", commission);
-				request.setAttribute("sell",  nowPrice+commission+3000);
+				request.setAttribute("bidPrice", bidPrice);
+				request.setAttribute("sell",  bidPrice+commission+3000);
+				
 				return new ModelAndView("page/bid-parchase.jsp");
 
 			}catch(Exception e) {

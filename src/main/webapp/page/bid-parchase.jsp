@@ -64,12 +64,12 @@
     <div class="item-receipt">
       <h1>최종 주문정보</h1>
       <div>
-        <h2>구매 희망가</h2>
-        <h2 style="font-weight: bold">160,000원</h2>
+        <h2>희망 입찰가</h2>
+        <h2 style="font-weight: bold">${bidPrice}원</h2>
       </div>
       <div>
         <h2><a href="#">수수료 💡</a></h2>
-        <h2>12,500원</h2>
+        <h2>${commission}원</h2>
       </div>
       <div>
         <h2>배송비</h2>
@@ -80,12 +80,12 @@
         <h2>YYYY/MM/DD/HH/MM/SS</h2>
       </div>
       <div class="item-last-price">
-        <h2>총 결제 금액</h2>
-        <h2>190,000원</h2>
+        <h2>입찰시 결제 금액</h2>
+        <h2>${sell}원</h2>
       </div>
     </div>
-    <a href="front?key=purchase&methodName=nowBuy&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${sale.nowPrice}"><div class="item-sell-btn">
-      <p>190,000원 입찰하기</p>
+    <a href="front?key=bid&methodName=bid&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${bidPrice}"><div class="item-sell-btn">
+      <p>${bidPrice}원 입찰하기</p>
     </div></a>
   </div>
 </div>
