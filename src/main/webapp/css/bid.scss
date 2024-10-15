@@ -8,6 +8,12 @@ $active-border-color: #007bff; // 활성화된 탭 하이라이트 색상
 *{
   box-sizing: border-box;
 }
+
+.disabled-link {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .bid-container{
   width: 100vw;
   background-color: #c0c0c0;

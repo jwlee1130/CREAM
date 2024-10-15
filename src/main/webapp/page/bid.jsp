@@ -56,7 +56,7 @@
     </div>
     <div class="time-left">
       <p>남은 시간 : </p>
-      <p>
+      <p id="countdown">
 		${sale.regdate}</p>
     </div>
     <div class="tabs-container">
@@ -73,7 +73,7 @@
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href="front?key=sales&methodName=nowBuyDetail&salesNo=${sale.no}&userNo=${loginUser.no}&nowPrice=${sale.nowPrice}"><div class="instant-parchase-btn">
+        <a href="front?key=sales&methodName=nowBuyDetail&salesNo=${sale.no}&userNo=${loginUser.no}&nowPrice=${sale.nowPrice}" id="link"><div class="instant-parchase-btn">
           <span>즉시 구매 계속</span>
         </div>
         </a>
@@ -89,7 +89,7 @@
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        <a href="front?key=sales&methodName=bidDetail&salesNo=${sale.no}&userNo=${loginUser.no}&nowPrice=${sale.nowPrice}"><div class="instant-parchase-btn">
+        <a href="front?key=sales&methodName=bidDetail&salesNo=${sale.no}&userNo=${loginUser.no}&nowPrice=${sale.nowPrice}" id="linked"><div class="instant-parchase-btn">
           <span>구매 입찰 계속</span>
         </div>
         </a>
@@ -101,7 +101,8 @@
 <jsp:include page="../includes/footer.jsp" />
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("test income");
     const tabButtons = document.querySelectorAll(".tab-button");
     const tabContents = document.querySelectorAll(".tab-content");
 
@@ -118,8 +119,48 @@
         document.getElementById(targetTab).classList.add("active");
       });
     });
-  });
 
+    // remainingTime을 숫자로 설정 (초 단위)
+    let remainingTime = parseInt("${sale.regdate != null ? sale.regdate : '0'}", 10);
+    window.isTimeUp = false; // 전역 변수로 시간 종료 상태 관리
+
+    const countdown = () => {
+      if (remainingTime < 0) {
+        remainingTime = 0;
+      }
+
+      const hours = Math.floor(remainingTime / 3600);
+      const minutes = Math.floor((remainingTime % 3600) / 60);
+      const seconds = remainingTime % 60;
+
+      // "시간:분:초" 형식으로 포맷팅
+      function formatTime(hours, minutes, seconds) {
+        return [
+          String(hours).padStart(2, '0'),
+          String(minutes).padStart(2, '0'),
+          String(seconds).padStart(2, '0')
+        ].join(':');
+      }
+
+      const formattedTime = formatTime(hours, minutes, seconds);
+      document.getElementById('countdown').textContent = formattedTime;
+
+      if (remainingTime > 0) {
+        remainingTime--; // 1초 감소
+        setTimeout(countdown, 1000); // 1초마다 카운트다운
+      } else {
+        document.getElementById('countdown').textContent = '시간 종료'; // 카운트다운 종료 시 메시지
+        const biddingLink = document.getElementById('link');
+        const biddingLinked = document.getElementById('linked');
+        biddingLink.classList.add('disabled-link');
+        biddingLink.removeAttribute('href');
+        biddingLinked.classList.add('disabled-link');
+        biddingLinked.removeAttribute('href');
+      }
+    };
+    // 카운트다운 시작
+    countdown();
+  });
 </script>
 <script src="../js/script.js"></script>
 </body>
