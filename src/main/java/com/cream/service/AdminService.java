@@ -21,4 +21,7 @@ public interface AdminService {
     int submitSurvey(SurveyDTO surveyData) throws SQLException; // 설문 제출
 
     Map<String, String> getProductName(int productNo) throws SQLException; // 상품명 가져오기
+
+    boolean hasUserCompletedSurvey(String userId)throws SQLException;
+
 }

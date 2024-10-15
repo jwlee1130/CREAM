@@ -192,12 +192,13 @@
     let formData = new FormData(form);
     let button = $(this); // 클릭된 버튼을 변수에 저장
 
+    // sales_no 값을 추가 (필요하다면)
     let salesNo = $(this).closest('form').data('sales-img-no');
     formData.append('salesNo', salesNo);
     formData.append('methodName','insertSalesImg');
     formData.append('key','sales');
     $.ajax({
-      url: '${pageContext.request.contextPath}/ajax',
+      url: '${pageContext.request.contextPath}/ajax',  // 파일을 업로드할 서버의 URL
       type: 'POST',
       data: formData,
       contentType: false,
@@ -208,6 +209,11 @@
       error: function(xhr, status, error) {
         alert('파일 업로드 실패: ' + error);
       }
+
     });
+
+
+
+
   });
 </script>

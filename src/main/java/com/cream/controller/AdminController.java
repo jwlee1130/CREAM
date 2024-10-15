@@ -2,6 +2,7 @@ package com.cream.controller;
 
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
+import com.cream.dto.UserDTO;
 import com.cream.service.AdminService;
 import com.cream.service.AdminServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -66,6 +67,15 @@ public class AdminController implements RestController {
         survey.setPrice(Integer.parseInt(request.getParameter("price")));
 
         return adminService.submitSurvey(survey);
+    }
+
+    public boolean hasUserCompletedSurvey(HttpServletRequest request, HttpServletResponse response) throws SQLException
+    {
+        UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+
+        if(user == null)return false; // 설문조사를 하지 않은 유저
+
+        return adminService.hasUserCompletedSurvey(user.getUserId());
     }
 
 //    public Map<String, Object> getRecommendedProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {

@@ -52,4 +52,6 @@ public interface AdminDAO {
 	 * productNo를 통해 productName을 가져오는 메서드
 	 */
 	Map<String, String> getProductName(int productNo) throws SQLException; // 반환 타입을 Map<String, String>으로 변경
+
+	boolean hasUserCompletedSurvey(String userId)throws SQLException;
 }
