@@ -293,5 +293,19 @@ public class StatisticsDAOImpl implements StatisticsDAO
         return purchaseList;
     }
 
+    /*
+    SELECT p.*, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE
+    FROM PRODUCT p
+    JOIN BRAND b ON p.BRAND_NO = b.NO
+    JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO
+    WHERE p.CATEGORY_NO = 111
+     AND p.BRAND_NO = 1000
+    AND p.COLOR_NO = 101
+     AND p.RELEASE_PRICE <= 1000000
+   ORDER BY p.RELEASE_PRICE DESC
+    LIMIT 1;
+
+     */
+
 
 }
