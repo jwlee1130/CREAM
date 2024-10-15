@@ -23,7 +23,6 @@ public class PurchaseController implements Controller {
 
 		try {
 			service.nowBuy(new PurchaseDTO(salesNo, salesUserNo,buyUserNo, productNo, price, address));
-			System.out.println("Z");
 			return new ModelAndView("front?key=purchase&methodName=purchaseDetail&buyUserNo="+buyUserNo+"&salesNo="+salesNo);
 			
 		} catch (SQLException e) {
@@ -50,4 +49,7 @@ public class PurchaseController implements Controller {
 		return new ModelAndView("/page/product.jsp", false);
 		
 	}
+	
+	
+	
 }

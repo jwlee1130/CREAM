@@ -28,5 +28,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		List<PurchaseDTO> list=dao.selectPurchase(buyUserNo);
 		return list;
 	}
+
+	@Override
+	public int calculateCommission(int userNo, int price) throws SQLException {
+		int commission = dao.calculateCommission(userNo, price);
+		return commission;
+	}
 	
 }

@@ -14,4 +14,6 @@ public interface PurchaseDAO {
 	PurchaseDTO purchaseDetail(int userNo, int salesNo) throws SQLException;
 	
 	List<PurchaseDTO> selectPurchase(int buyUserNo) throws SQLException;
+
+	public int calculateCommission(int userNo, int price) throws SQLException;
 }

@@ -89,7 +89,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 			}
 			int commision = calculateCommission(con,purchase.getSalesUserNo(), purchase.getPrice());
 			if(commision ==0) throw new SQLException("계산실패");
-			depositCreamToSellerAccount(con,purchase.getSalesUserNo(),commision);
+			depositCreamToSellerAccount(con,purchase.getSalesUserNo(),commision+3000S);
 			depositCreamToAdminAccount(con, purchase.getPrice()-commision);
 			
 			if(notifyDAO.insertNotify(con,new NotifyDTO(purchase.getSalesUserNo(),purchase.getSalesNo(),purchase.getProductNo(),"등록하신 상품이 판매되었습니다"))==0)
@@ -144,6 +144,33 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	}
 	public int calculateCommission(Connection con,int userNo, int price) throws SQLException {
 		int commission =0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = proFile.getProperty("query.calculateCommission");
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, price);
+			ps.setInt(2, userNo);
+			
+			rs = ps.executeQuery();
+			
+	        if (rs.next()) {
+	        	commission = rs.getInt(1);
+	        }
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("구매 실패");
+		}finally {
+			DbUtil.dbClose(ps,rs);
+		}
+		return commission;
+	}
+	
+	public int calculateCommission(int userNo, int price) throws SQLException {
+		int commission =0;
+		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = proFile.getProperty("query.calculateCommission");

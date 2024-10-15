@@ -11,4 +11,6 @@ public interface PurchaseService {
 	PurchaseDTO purchaseDetail(int userNo, int salesNo) throws SQLException;
 	
 	List<PurchaseDTO> selectPurchase(int buyUserNo) throws SQLException;
+	
+	int calculateCommission(int userNo,int price) throws SQLException;
 }
