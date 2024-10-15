@@ -39,11 +39,15 @@ public class AdminController implements RestController {
     }
 
     public int updateSalesStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        int salesNo = Integer.parseInt(request.getParameter("salesNo"));
-        int salesStatus = Integer.parseInt(request.getParameter("salesStatus"));
-        int price = Integer.parseInt(request.getParameter("startingPrice"));
         System.out.println("AdminController.updateSalesStatus");
-        System.out.println(price);
+//        System.out.println(price);
+        int salesNo = Integer.parseInt(request.getParameter("salesNo"));
+        System.out.println("salesNo = " + salesNo);
+        int salesStatus = Integer.parseInt(request.getParameter("salesStatus"));
+        System.out.println("salesStatus = " + salesStatus);
+        int price = Integer.parseInt(request.getParameter("startingPrice"));
+        System.out.println("price = " + price);
+
         return adminService.updateSalesStatus(salesNo, salesStatus,price);
     }
 
