@@ -1,5 +1,6 @@
 package com.cream.controller;
 
+import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
 import com.cream.dto.UserDTO;
@@ -92,6 +93,13 @@ public class AdminController implements RestController {
 //        return result;
 //
 //    }
+    public ProductDTO getProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
+        int brandNo = Integer.parseInt(request.getParameter("brandNo"));
+        int colorNo = Integer.parseInt(request.getParameter("colorNo"));
+        int releasePrice = Integer.parseInt(request.getParameter("releasePrice"));
+        return adminService.getProduct(categoryNo, brandNo, colorNo, releasePrice);
+    }
 
 
     public Map<String, String> getProductName(HttpServletRequest request, HttpServletResponse response) throws SQLException {

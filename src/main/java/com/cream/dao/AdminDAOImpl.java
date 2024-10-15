@@ -243,16 +243,88 @@ public class AdminDAOImpl implements AdminDAO {
         return false; // 관리자 아이디가 아니므로 거짓을 반환
     }
 
+//    @Override
+//    public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
+////        String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
+////                "FROM PRODUCT p " +
+////                "JOIN BRAND b ON p.BRAND_NO = b.NO " +
+////                "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
+////                "WHERE p.CATEGORY_NO = ? " +
+////                "AND p.BRAND_NO = ? " +
+////                "AND p.COLOR_NO = ? " +
+////                "AND p.RELEASE_PRICE <= ? " +
+////                "ORDER BY p.RELEASE_PRICE DESC " +
+////                "LIMIT 1";
+//        String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
+//                "FROM PRODUCT p " +
+//                "JOIN BRAND b ON p.BRAND_NO = b.NO " +
+//                "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
+//                "WHERE p.CATEGORY_NO = 111 " + // 고정된 값
+//                "AND p.BRAND_NO = 1000 " +     // 고정된 값
+//                "AND p.COLOR_NO = 101 " +      // 고정된 값
+//                "AND p.RELEASE_PRICE <= 1000000 " + // 고정된 값
+//                "ORDER BY p.RELEASE_PRICE DESC " +
+//                "LIMIT 1";
+//
+//        Connection conn = null;
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        try {
+//            conn = DbUtil.getConnection();
+//            ps = conn.prepareStatement(sql);
+////            ps.setInt(1, categoryNo);
+////            ps.setInt(2, brandNo);
+////            ps.setInt(3, colorNo);
+////            ps.setInt(4, releasePrice);
+//
+//            rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                BrandDTO brand = new BrandDTO();
+//                brand.setNo(rs.getInt("b.NO"));
+//                brand.setBrand(rs.getString("b.BRAND"));
+//
+//                ProductImgDTO productImg = new ProductImgDTO();
+//                productImg.setFilePath(rs.getString("pi.FILE_PATH"));
+//                productImg.setFileSize(rs.getString("pi.FILE_SIZE"));
+//                productImg.setRegdate(rs.getString("pi.REGDATE"));
+//
+//                ProductDTO product = new ProductDTO();
+//                product.setNo(rs.getInt("p.NO"));
+//                product.setBrandNo(rs.getInt("p.BRAND_NO"));
+//                product.setCategoryNo(rs.getInt("p.CATEGORY_NO"));
+//                product.setColorNo(rs.getInt("p.COLOR_NO"));
+//                product.setEngName(rs.getString("p.ENG_NAME"));
+//                product.setKorName(rs.getString("p.KOR_NAME"));
+//                product.setRelease(rs.getString("p.RELEASE"));
+//                product.setReleasePrice(rs.getInt("p.RELEASE_PRICE"));
+//                product.setModelNumber(rs.getString("p.MODEL_NUMBER"));
+//                product.setRegdate(rs.getString("p.REGDATE"));
+//                product.setSalesQuantity(rs.getInt("p.SALES_QUANTITY"));
+//                product.setProductImg(productImg);
+//                product.setBrandName(brand);
+//
+//                return product;
+//            }
+//        } finally {
+//            DbUtil.dbClose(conn, ps, rs);
+//        }
+//
+//        return null;
+//    }
+
     @Override
     public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
-        String sql = "SELECT p.*, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
+        // 고정된 값으로 SQL 쿼리 생성
+        String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
                 "FROM PRODUCT p " +
                 "JOIN BRAND b ON p.BRAND_NO = b.NO " +
                 "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
-                "WHERE p.CATEGORY_NO = ? " +
-                "AND p.BRAND_NO = ? " +
-                "AND p.COLOR_NO = ? " +
-                "AND p.RELEASE_PRICE <= ? " +
+                "WHERE p.CATEGORY_NO = 111 " + // 고정된 값
+                "AND p.BRAND_NO = 1000 " +     // 고정된 값
+                "AND p.COLOR_NO = 101 " +      // 고정된 값
+                "AND p.RELEASE_PRICE <= 1000000 " + // 고정된 값
                 "ORDER BY p.RELEASE_PRICE DESC " +
                 "LIMIT 1";
 
@@ -263,35 +335,37 @@ public class AdminDAOImpl implements AdminDAO {
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, categoryNo);
-            ps.setInt(2, brandNo);
-            ps.setInt(3, colorNo);
-            ps.setInt(4, releasePrice);
+
+            // 고정된 값 사용 시 파라미터 설정 불필요
+            // ps.setInt(1, categoryNo);
+            // ps.setInt(2, brandNo);
+            // ps.setInt(3, colorNo);
+            // ps.setInt(4, releasePrice);
 
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 BrandDTO brand = new BrandDTO();
-                brand.setNo(rs.getInt("b.NO"));
-                brand.setBrand(rs.getString("b.BRAND"));
+                brand.setNo(rs.getInt("BRAND_NO")); // "b.NO" 대신 "BRAND_NO" 사용
+                brand.setBrand(rs.getString("BRAND")); // "b.BRAND" 대신 "BRAND" 사용
 
                 ProductImgDTO productImg = new ProductImgDTO();
-                productImg.setFilePath(rs.getString("pi.FILE_PATH"));
-                productImg.setFileSize(rs.getString("pi.FILE_SIZE"));
-                productImg.setRegdate(rs.getString("pi.REGDATE"));
+                productImg.setFilePath(rs.getString("FILE_PATH")); // "pi.FILE_PATH" 대신 사용
+                productImg.setFileSize(rs.getString("FILE_SIZE")); // "pi.FILE_SIZE" 대신 사용
+                productImg.setRegdate(rs.getString("REGDATE")); // "pi.REGDATE" 대신 사용
 
                 ProductDTO product = new ProductDTO();
-                product.setNo(rs.getInt("p.NO"));
-                product.setBrandNo(rs.getInt("p.BRAND_NO"));
-                product.setCategoryNo(rs.getInt("p.CATEGORY_NO"));
-                product.setColorNo(rs.getInt("p.COLOR_NO"));
-                product.setEngName(rs.getString("p.ENG_NAME"));
-                product.setKorName(rs.getString("p.KOR_NAME"));
-                product.setRelease(rs.getString("p.RELEASE"));
-                product.setReleasePrice(rs.getInt("p.RELEASE_PRICE"));
-                product.setModelNumber(rs.getString("p.MODEL_NUMBER"));
-                product.setRegdate(rs.getString("p.REGDATE"));
-                product.setSalesQuantity(rs.getInt("p.SALES_QUANTITY"));
+                product.setNo(rs.getInt("NO")); // "p.NO" 대신 "NO" 사용
+                product.setBrandNo(rs.getInt("BRAND_NO")); // "p.BRAND_NO" 대신 사용
+                product.setCategoryNo(rs.getInt("CATEGORY_NO")); // "p.CATEGORY_NO" 대신 사용
+                product.setColorNo(rs.getInt("COLOR_NO")); // "p.COLOR_NO" 대신 사용
+                product.setEngName(rs.getString("ENG_NAME")); // "p.ENG_NAME" 대신 사용
+                product.setKorName(rs.getString("KOR_NAME")); // "p.KOR_NAME" 대신 사용
+                product.setRelease(rs.getString("RELEASE")); // "p.RELEASE" 대신 사용
+                product.setReleasePrice(rs.getInt("RELEASE_PRICE")); // "p.RELEASE_PRICE" 대신 사용
+                product.setModelNumber(rs.getString("MODELNUMBER")); // "p.MODELNUMBER" 대신 사용
+                product.setRegdate(rs.getString("REGDATE")); // "p.REGDATE" 대신 사용
+                product.setSalesQuantity(rs.getInt("SALES_QUANTITY")); // "p.SALES_QUANTITY" 대신 사용
                 product.setProductImg(productImg);
                 product.setBrandName(brand);
 
@@ -303,6 +377,7 @@ public class AdminDAOImpl implements AdminDAO {
 
         return null;
     }
+
 
 
 

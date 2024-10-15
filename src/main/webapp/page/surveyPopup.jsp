@@ -47,7 +47,7 @@
             padding: 15px;
             font-size: 18px;
             color: white;
-            background-color:#41B979;
+            background-color: #41B979;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -65,41 +65,28 @@
     <div class="question">
         <label>1. 당신이 선호하는 신발 브랜드는?</label>
         <input type="radio" name="brand" value="1000"> 나이키
-        <%--    BRAND_NO=1000--%>
         <input type="radio" name="brand" value="2000"> 아디다스
-        <%--    BRAND_NO=2000--%>
         <input type="radio" name="brand" value="3000"> 퓨마
-        <%--    BRAND_NO=3000--%>
         <input type="radio" name="brand" value="4000"> 구찌
-        <%--    BRAND_NO=4000--%>
         <input type="radio" name="brand" value="5000"> 조던
-        <%--    BRAND_NO=5000--%>
         <input type="radio" name="brand" value="6000"> 에르메스
-        <%--    BRAND_NO=6000--%>
     </div>
 
     <div class="question">
         <label>2. 당신이 선호하는 신발의 색깔은?</label>
         <input type="radio" name="color" value="101"> 검정색
-        <%--    COLOR_NO=101--%>
         <input type="radio" name="color" value="202"> 흰색
-        <%--    COLOR_NO=202--%>
         <input type="radio" name="color" value="303"> 유채색
-        <%--    COLOR_NO=303--%>
     </div>
 
     <div class="question">
         <label>3. 당신이 선호하는 신발 카테고리는?</label>
         <input type="radio" name="category" value="111"> 스니커즈
-        <%--    CATEGORY_NO=111--%>
         <input type="radio" name="category" value="222"> 슬리퍼
-        <%--    CATEGORY_NO=222--%>
         <input type="radio" name="category" value="333"> 구두
-        <%--    CATEGORY_NO=333--%>
     </div>
 
     <div class="question">
-        <%-- 아무 의미 X--%>
         <label>4. 소장용 신발을 찾고 계십니까?</label>
         <input type="radio" name="collection" value="예"> 예
         <input type="radio" name="collection" value="아니오"> 아니오
@@ -110,44 +97,85 @@
         <input type="radio" name="price" value="500000"> 예
         <input type="radio" name="price" value="0"> 아니오
     </div>
-    <%--  나중에 디비에서 상품초천에서 사용 조건절에 50만원 이상 상품 컷할지 말지 결정--%>
 
     <button type="submit">제출</button>
 </form>
-</body>
-</html>
+
+<div id="recommendedProductContainer"></div> <!-- 추천 상품 정보가 표시될 div -->
+
 <script>
     $(document).ready(function(){
-        $('#surveyForm').on('submit',function(e){
+        $('#surveyForm').on('submit', function(e){
             e.preventDefault();
-
-            <%--const userNo=`<%= ((UserDTO)session.getAttribute("loginUser")).getNo() %>`;--%>
-            const category=$('input[name="category"]:checked').val();
-            const brand=$('input[name="brand"]:checked').val();
-            const color=$('input[name="color"]:checked').val();
-            const price=$('input[name="price"]:checked').val();
+            const category = $('input[name="category"]:checked').val();
+            const brand = $('input[name="brand"]:checked').val();
+            const color = $('input[name="color"]:checked').val();
+            const price = $('input[name="price"]:checked').val();
 
             $.ajax({
-                url:'${pageContext.request.contextPath}/ajax',
-                method:'POST',
-                data:{
-                    key:'admin',
-                    methodName:'submitSurvey',
-                    userNo:'3', // 나중에 userNo로 변경해야 함
-                    category:category,
-                    brand:brand,
-                    color:color,
-                    price:price,
+                url: '${pageContext.request.contextPath}/ajax',
+                method: 'POST',
+                data: {
+                    key: 'admin',
+                    methodName: 'submitSurvey',
+                    userNo: '4',
+                    category: category,
+                    brand: brand,
+                    color: color,
+                    price: price,
                 },
-                success:function(data){
-                    console.log("설문조사 제출이 완료 되었습니다");
+                success: function(data){
+                    console.log("설문조사 제출이 완료되었습니다");
+                    getProduct(category, brand, color, price);
                 },
-                error:function(error)
-                {
+                error: function(error){
                     console.log(error);
                 }
-            })
-        })
-    })
+            });
+        });
 
+        function getProduct(categoryNo, brandNo, colorNo, releasePrice) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/ajax',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    key: 'admin',
+                    methodName: 'getProduct',
+                    categoryNo: categoryNo,
+                    brandNo: brandNo,
+                    colorNo: colorNo,
+                    releasePrice: releasePrice,
+                },
+                success: function(product){
+                    console.log(product);
+                    displayProduct(product);
+                },
+                error: function(xhr, status, error){
+                    console.error("오류 발생: " + error);
+                }
+            });
+        }
+
+        function displayProduct(product){
+            if (product && product.no) {
+                console.log("displayProduct 함수가 호출되었습니다.");
+
+                var productHtml = '<div id="recommendedProduct">' +
+                    '<h3>추천 상품 정보</h3>' +
+                    '<p>상품 번호: ' + product.no + '</p>' +
+                    '<p>상품 이름: ' + product.engName + '</p>' +
+                    '<p>브랜드: ' + product.brandName.brand + '</p>' +
+                    '<p>출시 가격: ' + product.releasePrice + '원</p>' +
+                    '<img src="' + product.productImg.filePath + '" alt="' + product.engName + '" style="width:200px; height:auto;" />' +
+                    '</div>';
+
+                $('#recommendedProductContainer').html(productHtml);
+            } else {
+                $('#recommendedProductContainer').html('<p>추천 상품을 찾을 수 없습니다.</p>');
+            }
+        }
+    });
 </script>
+</body>
+</html>
