@@ -36,7 +36,8 @@ public class ProductDTO {
 			
 	}
 	
-    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, String engName,
+
+    public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity ) {
     	
 		this(modelNumber, engName, korName);
