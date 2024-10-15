@@ -10,66 +10,98 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
     <script type="text/javascript">
-    $(function(){
-       $("[name=btn]").click(function(){
-            console.log($(this)); // 클릭된 요소를 콘솔에 출력
-              console.log($(this).attr("data-tab")); // data-tab 속성을 콘솔에 출력       
-           $.ajax({
-             url:"ajax",
+      $(function(){
+        $("[name=btn]").click(function(){
+          const dataTab = $(this).attr("data-tab");
+
+          $.ajax({
+            url: "ajax",
             type: "post",
-            dataType: "json" ,
-            data: {key:"sales" , methodName : "selectAll",    productNo : "${productDetail.no}" ,shoesNo : $(this).attr("data-tab")}, //서버에게 보낼 데이터정보(parameter정보)
-         
-            success : function(data){
-
-               let str=""
-               $.each(data, function(index, sales){
-                  console.log(${sales.grade}+"z");
-                  console.log(sales.nowPrice);
-
-                   str += "<div class='list-inner'>";
-                   str += "<span class='rank-a'> 등급: ";
-                   str += sales.grade;
-                   str += "</span>   ";
-                   str += "<span>남은 시간 : ";
-                   str += sales.regdate;
-                   str += "</span>   ";
-                   str += "<span>즉시 구매 : ";
-                   str +=   sales.nowPrice;
-                   str += "</span>   ";
-                   str += "<span>현재 입찰가 : ";
-                   str += sales.bidAccount.price;
-                   str +="</span>   ";
-                   str +=`<span>판매상태 :` +sales.salesStatus+`</span>`;
-                   str += "<button value='구매' data-info="+sales.no+">구매/입찰</button>";
-                   str += "</div>"
-                 });
-               $(".tab-content-list").html(str);
+            dataType: "json",
+            data: {
+              key: "sales",
+              methodName: "selectAll",
+              productNo: "${productDetail.no}",
+              shoesNo: dataTab
             },
-         
-            error : function(err){
-               let str="판매중인 사이즈가 없습니다.";
-               $(".tab-content-list").html(str);
 
-            }         
-          
-          
-          
+            success: function(data){
+              let str = "";
+              $.each(data, function(index, sales){
+                console.log(sales.grade + "z");
+                console.log(sales.nowPrice);
+
+                const countdownId = 'countdown-' + sales.no;
+
+                str += "<div class='list-inner'>";
+                str += "<span class='rank-a'> 등급: " + sales.grade + "</span>   ";
+                str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
+                str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
+                str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
+                str += "<span>판매상태 : " + sales.salesStatus + "</span>";
+                str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
+                str += "</div>";
+              });
+
+              $("#" + dataTab + " .tab-content-list").html(str);
+
+              data.forEach(function(sales) {
+                initializeCountdown(sales.no, parseInt(sales.regdate, 10));
+              });
+            },
+
+            error: function(err){
+              let str = "판매중인 사이즈가 없습니다.";
+              $("#" + dataTab + " .tab-content-list").html(str);
+            }
           });
-          
-          
-       });//끝
-       
-       $(document).on("click","[value=구매]", function(){
-             
-          window.location.href = "front?key=sales&methodName=salesDetail&salesNo="+encodeURIComponent($(this).attr("data-info"));
-          
-       });
-       
-   
-    });
-       
-    
+        }); // 끝
+
+        $(document).on("click", "button[value=구매]", function(){
+          window.location.href = "front?key=sales&methodName=salesDetail&salesNo=" + encodeURIComponent($(this).attr("data-info"));
+        });
+
+        function initializeCountdown(saleNo, remainingTime) {
+          const countdownElement = document.getElementById('countdown-' + saleNo);
+
+          if (!countdownElement) return;
+
+          const updateCountdown = () => {
+            if (remainingTime < 0) {
+              countdownElement.textContent = '시간 종료';
+              return;
+            }
+
+            const hours = Math.floor(remainingTime / 3600);
+            const minutes = Math.floor((remainingTime % 3600) / 60);
+            const seconds = remainingTime % 60;
+
+            function formattedTime(hours, minutes, seconds) {
+              return [
+                String(hours).padStart(2, '0'),
+                String(minutes).padStart(2, '0'),
+                String(seconds).padStart(2, '0')
+              ].join(':');
+            }
+            countdownElement.textContent = formattedTime(hours, minutes, seconds);
+
+            if (remainingTime > 0) {
+              remainingTime--;
+              setTimeout(updateCountdown, 1000);
+            } else {
+              countdownElement.textContent = '시간 종료';
+              const purchaseButton = countdownElement.closest('.list-inner').querySelector('button[value=구매]');
+              if (purchaseButton) {
+                purchaseButton.disabled = true;
+                purchaseButton.textContent = '입찰 종료';
+              }
+            }
+          };
+
+          updateCountdown();
+        }
+
+      });
     
     </script>
 </head>
@@ -82,8 +114,10 @@
         </div>
         <div class="item-description">
             <div class="item-price">
-                <p>즉시 구매가</p>
-                <h1>219,000</h1>
+                <p>최저 입찰가</p>
+                <span>${bidPricing}</span>
+                 <p>최저 즉시구매가</p>
+                <span>${nowPricing}</span>
             </div>
             <div class="item-name">
                 <h2>${productDetail.engName}</h2>
@@ -93,7 +127,7 @@
                 <ul>
                     <li class="item-detail-content">
                         <p>최근 거래가</p>
-                        <span>200,000</span>
+                        <span>${recentPrice}</span>
                     </li>
                     <li class="item-detail-content">
                         <p>발매가</p>
@@ -116,7 +150,7 @@
                         <p>217,000원 <br> 즉시 구매가</p>
                     </div>
                 </a>
-                <a href="${pageContext.request.contextPath}/page/sell.jsp">
+                <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}&filePath=${productDetail.productImg.filePath}">
                     <div class="item-sell">
                         <span>판매</span>
                         <p>237,000원 <br> 즉시 판매가</p>
@@ -125,7 +159,7 @@
 
             </div>
             <div class="item-wish">
-                <p>관심상품</p>
+                <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="wishlist-link"><p>관심상품</p></a>
             </div>
         </div>
 

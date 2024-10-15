@@ -120,7 +120,7 @@ public class UserController implements Controller {
                 UserDTO updatedUser = service.selectUserById(loginUser.getNo());
                 session.setAttribute("loginUser", updatedUser);
 
-                return new ModelAndView("page/mypage.jsp", true);
+                return new ModelAndView("page/mypage.jsp#mypage_point", true);
             } else {
                 return new ModelAndView("error/error.jsp", true);
             }

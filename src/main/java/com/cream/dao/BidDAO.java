@@ -50,4 +50,6 @@ public interface BidDAO {
 
 
     List<BidAccountDTO> selectActiveBids(int salesNo) throws SQLException;
+    
+    List<BidAccountDTO> findBidsByUserNo(int userNo) throws SQLException;
 }

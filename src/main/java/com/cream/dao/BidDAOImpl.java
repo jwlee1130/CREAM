@@ -377,6 +377,41 @@ public class BidDAOImpl implements BidDAO {
 
 	    return activeBids;
 	}
+
+		public List<BidAccountDTO> findBidsByUserNo(int userNo) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    List<BidAccountDTO> bids = new ArrayList<>();
+	
+		    String sql = "SELECT BA.SALES_NO,BA.BUY_USER_NO,BA.PRICE,PR.ENG_NAME,PR.REGDATE,SS.SHOES_SIZE,PI.FILE_PATH FROM BIDACCOUNT BA JOIN USERS_SALES US ON BA.SALES_NO = US.NO JOIN PRODUCT PR ON US.PRODUCT_NO = PR.NO JOIN SHOES_SIZE SS ON US.SHOES_NO = SS.NO JOIN PRODUCT_IMG PI ON PR.NO = PI.PRODUCT_NO WHERE BA.BUY_USER_NO = ? ORDER BY BA.SALES_NO DESC";
+	
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setInt(1, userNo);
+		        rs = ps.executeQuery();
+	
+		        while (rs.next()) {
+		            BidAccountDTO bid = new BidAccountDTO(
+		                rs.getInt("SALES_NO"),
+		                rs.getInt("BUY_USER_NO"),
+		                rs.getInt("PRICE"),
+		                rs.getString("ENG_NAME"),
+		                rs.getString("REGDATE"),
+		                rs.getInt("SHOES_SIZE"),
+		                rs.getString("FILE_PATH")
+		            );
+		            bids.add(bid);
+		        }
+		    } finally {
+		        DbUtil.dbClose(con, ps, rs);
+		    }
+	
+		    return bids;
+		}
+
+
 	
 
 

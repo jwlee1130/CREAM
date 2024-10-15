@@ -4,10 +4,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>입찰</title>
+  <title>구매</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bid-parchase.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/buy-now.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -31,9 +32,7 @@
     <div class="item-shipping">
       <div class="shipping-insert">
         <h2>배송 주소</h2>
-        <button>주소 변경</button>
       </div>
-      <a href="#"><div class="shipping-address">
         <p>${loginUser.address}</p>
       </div></a>
       <div class="item-address">
@@ -49,46 +48,28 @@
           <span style="margin-right: 3.8rem;">주소</span>
           <p>${loginUser.address}</p>
         </div>
-        <button>요청사항 없음 > </button>
-      </div>
-    </div>
-    <div class="point">
-      <h2>포인트</h2>
-      <div class="point-inner">
-        <div>
-          <span>${loginUser.cash}</span>
-        </div>
-        <a href="">충전하러가기</a>
       </div>
     </div>
     <div class="item-receipt">
-      <h1>최종 주문정보</h1>
+      <h1>구매 내역</h1>
       <div>
-        <h2>구매 희망가</h2>
-        <h2 style="font-weight: bold">160,000원</h2>
+        <h2>상품 가격</h2>
+        <h2 style="font-weight: bold">${purchase.price}원</h2>
       </div>
       <div>
         <h2><a href="#">수수료 💡</a></h2>
-        <h2>12,500원</h2>
+        <h2>${commission}</h2>
       </div>
       <div>
         <h2>배송비</h2>
         <h2>3000원</h2>
       </div>
-      <div>
-        <h2>입찰 마감 기한</h2>
-        <h2>YYYY/MM/DD/HH/MM/SS</h2>
-      </div>
       <div class="item-last-price">
         <h2>총 결제 금액</h2>
-        <h2>190,000원</h2>
+        <h2>${purchase.price + commission +3000} 원</h2>
       </div>
     </div>
-    <a href="front?key=purchase&methodName=nowBuy&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${sale.nowPrice}"><div class="item-sell-btn">
-      <p>190,000원 입찰하기</p>
-    </div></a>
   </div>
-</div>
 <jsp:include page="../includes/footer.jsp" />
 </body>
 </html>

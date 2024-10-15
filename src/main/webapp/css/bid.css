@@ -1,6 +1,11 @@
 * {
   box-sizing: border-box;
 }
+.disabled-link {
+  pointer-events: none; /* 클릭 방지 */
+  opacity: 0.5; /* 반투명 효과 */
+  cursor: not-allowed; /* 마우스 커서를 변경 */
+}
 
 .bid-container {
   width: 100vw;

@@ -13,7 +13,7 @@ public class PurchaseDTO {
     @Expose private String regdate;
     @Expose private String address;
     @Expose private String engName; 
-    @Expose private int shoeSize; 
+    @Expose private int shoeSize;
     @Expose private String filePath;
 
     

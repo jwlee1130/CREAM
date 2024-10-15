@@ -16,7 +16,7 @@ public class BidDTO {
         this.salesNo = salesNO;
         this.price = price;
     }
-
+    
 
 
     // 매개변수를 받는 생성자
@@ -66,4 +66,5 @@ public class BidDTO {
     public void setRegDate(int regdate) {
         this.regdate = regdate;
     }
+
 }

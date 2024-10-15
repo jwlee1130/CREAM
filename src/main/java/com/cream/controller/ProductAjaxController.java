@@ -65,4 +65,6 @@ public class ProductAjaxController implements RestController {
 	}//getType End
 
 	
+	
+	
 }

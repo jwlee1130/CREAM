@@ -22,8 +22,15 @@ public class ProductController implements Controller {
 				
 				try {
 						ProductDTO product = service.detail(Integer.parseInt(no));
+						int recentPrice = service.getRecentPrice(Integer.parseInt(no));
+						int bidPricing = service.getBidPricing(Integer.parseInt(no));
+						int nowPricing = service.getNowPricing(Integer.parseInt(no));
 						System.out.println(product.getBrandNo());
 						request.setAttribute("productDetail", product);
+						request.setAttribute("recentPrice", recentPrice);
+						request.setAttribute("bidPricing", bidPricing);
+						request.setAttribute("nowPricing", nowPricing);
+						
 						return new ModelAndView("page/product.jsp");
 			
 				}catch(Exception e) {
