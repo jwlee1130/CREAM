@@ -83,16 +83,7 @@ public class AdminController implements RestController {
         // 설문조사를 한 유저라면 true 를 반환, 하지 않았다면 거짓을 반환
     }
 
-//    public Map<String, Object> getRecommendedProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-//        String brand = request.getParameter("brand");
-//        String color = request.getParameter("color");
-//        int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-//
-//        Map<String, Object> result = new HashMap<>();
-//        result.put("recommendedProduct", adminService.getRecommendedProduct(brand, color, maxPrice));
-//        return result;
-//
-//    }
+    // 설문조사 결과에 따라 추천 상품을 가지고 온다
     public ProductDTO getProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
         int brandNo = Integer.parseInt(request.getParameter("brandNo"));
