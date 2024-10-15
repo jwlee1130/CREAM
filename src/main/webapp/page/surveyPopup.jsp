@@ -123,8 +123,8 @@
 
         <div class="question">
             <label>5. 50만원 이상의 신발을 구매할 의향이 있으십니까?</label>
-            <input type="radio" name="price" value="500000"> 예
-            <input type="radio" name="price" value="0"> 아니오
+            <input type="radio" name="price" value="55500000"> 예
+            <input type="radio" name="price" value="500000"> 아니오
         </div>
 
         <button type="submit">제출</button>
@@ -140,6 +140,7 @@
             const category = $('input[name="category"]:checked').val();
             const brand = $('input[name="brand"]:checked').val();
             const color = $('input[name="color"]:checked').val();
+            console.log(color);
             const price = $('input[name="price"]:checked').val();
 
             $.ajax({
