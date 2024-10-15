@@ -76,6 +76,7 @@
             font-size: 16px;
             color: #333;
             margin-bottom: 10px;
+            text-align: left; /* 왼쪽 정렬 */
         }
         #recommendedProduct img {
             width: 200px;
@@ -89,10 +90,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<h2>신발 취향 설문조사</h2>
 
 <div id="surveyContainer">
     <form id="surveyForm">
+        <h2>신발 취향 설문조사</h2>
+
         <div class="question">
             <label>1. 당신이 선호하는 신발 브랜드는?</label>
             <input type="radio" name="brand" value="1000"> 나이키
@@ -192,7 +194,6 @@
             if (product && product.no) {
                 var productHtml = '<div id="recommendedProduct">' +
                     '<h3>추천 상품 정보</h3>' +
-                    '<p>상품 번호: ' + product.no + '</p>' +
                     '<p>상품 이름: ' + product.engName + '</p>' +
                     '<p>브랜드: ' + product.brandName.brand + '</p>' +
                     '<p>출시 가격: ' + product.releasePrice + '원</p>' +
