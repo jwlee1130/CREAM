@@ -11,7 +11,7 @@
 <body>
 <div class="mypage-container">
   <div class="wrap">
-    <div class="purchase">
+    <div class="sell">
             <h1>구매 내역</h1>
             <div class="parchase-area">
                 <div class="parchase-all">

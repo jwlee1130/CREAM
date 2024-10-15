@@ -142,6 +142,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 			DbUtil.dbClose(con, ps,rs);
 		return purchase;
 	}
+	
 	public int calculateCommission(Connection con,int userNo, int price) throws SQLException {
 		int commission =0;
 		PreparedStatement ps = null;

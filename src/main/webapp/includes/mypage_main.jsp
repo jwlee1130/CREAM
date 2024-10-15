@@ -39,7 +39,7 @@
         </div>
 
         <!-- 구매 내역 영역 -->
-        <div class="purchase">
+        <div class="sell">
             <h1>구매 내역</h1>
             <div class="parchase-area">
                 <div class="parchase-all">
@@ -55,7 +55,7 @@
                     <h2 id="completed-purchases-count">0</h2>
                 </div>
             </div>
-            <div id="parchase-item" style="display: flex; flex-direction: column;">
+            <div id="purchase-container" style="display: flex; flex-direction: column;">
                 <!-- 구매 내역 항목들이 여기에 추가됩니다 -->
             </div>
         </div>

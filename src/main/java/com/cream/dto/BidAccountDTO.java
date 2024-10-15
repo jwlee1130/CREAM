@@ -7,9 +7,50 @@ public class BidAccountDTO {
 	@Expose private int salesNo;       // SALES_NO
 	@Expose  private int buyUserNo;     // BUY_USER_NO
 	@Expose   private int price;         // PRICE
-
+	
+	@Expose private String engName;
+    @Expose private String regdate;
+    @Expose private int shoesSize;
+    @Expose private String filePath;
 	    
-	    public BidAccountDTO() {}
+	    public String getEngName() {
+		return engName;
+	}
+	public void setEngName(String engName) {
+		this.engName = engName;
+	}
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+	public int getShoesSize() {
+		return shoesSize;
+	}
+	public void setShoesSize(int shoesSize) {
+		this.shoesSize = shoesSize;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	
+	
+		public BidAccountDTO(int salesNo, int buyUserNo, int price, String engName, String regdate, int shoesSize,
+			String filePath) {
+		super();
+		this.salesNo = salesNo;
+		this.buyUserNo = buyUserNo;
+		this.price = price;
+		this.engName = engName;
+		this.regdate = regdate;
+		this.shoesSize = shoesSize;
+		this.filePath = filePath;
+	}
+		public BidAccountDTO() {}
 	    // 기본 생성자
 	    public BidAccountDTO(int buyUserNo, int price) {
 	    	this(price);

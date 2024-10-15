@@ -95,5 +95,5 @@ public interface UserService {
 	 * 	관심상품 추가 및 해제
 	 * */
 	boolean isProductInWishlist(int userNo, int productNo) throws SQLException;
-
+	
 }
