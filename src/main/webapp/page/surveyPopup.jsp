@@ -12,80 +12,77 @@
             background-color: #f8f9fa;
             color: #333;
             margin: 0;
-            padding: 20px;
-            width: 400px;
+            padding: 18px;
+            width: 360px;
         }
         h2 {
             text-align: center;
-            font-size: 26px;
+            font-size: 23px;
             color: #4a4a4a;
         }
         form {
             background-color: white;
-            padding: 20px;
+            padding: 18px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 100%;
+            max-width: 90%;
             margin: 0 auto;
         }
         label {
-            font-size: 18px;
+            font-size: 16px;
             color: #333;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 9px;
         }
         input[type="radio"] {
-            margin-right: 10px;
-            transform: scale(1.5);
+            margin-right: 9px;
+            transform: scale(1.35);
         }
         .question {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         button {
             display: block;
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
+            width: 90%;
+            padding: 14px;
+            font-size: 16px;
             color: white;
             background-color: #41B979;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 18px;
         }
         button:hover {
             background-color: #00A86B;
         }
-
-        /* 신발 추천 스타일 */
         #recommendedProduct {
             background-color: white;
-            padding: 20px;
+            padding: 18px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 100%;
-            margin: 20px auto;
+            max-width: 90%;
+            margin: 18px auto;
             text-align: center;
         }
         #recommendedProduct h3 {
-            font-size: 24px;
+            font-size: 21px;
             color: #4a4a4a;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         #recommendedProduct p {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
-            margin-bottom: 10px;
-            text-align: left; /* 왼쪽 정렬 */
+            margin-bottom: 9px;
+            text-align: left;
         }
         #recommendedProduct img {
-            width: 200px;
+            width: 180px;
             height: auto;
-            margin: 20px auto;
+            margin: 18px auto;
             display: block;
             border-radius: 8px;
         }
-
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -94,7 +91,6 @@
 <div id="surveyContainer">
     <form id="surveyForm">
         <h2>신발 취향 설문조사</h2>
-
         <div class="question">
             <label>1. 당신이 선호하는 신발 브랜드는?</label>
             <input type="radio" name="brand" value="1000"> 나이키
@@ -139,6 +135,8 @@
     $(document).ready(function(){
         $('#surveyForm').on('submit', function(e){
             e.preventDefault();
+
+            <%--const userNo=`<%= ((UserDTO)session.getAttribute("loginUser")).getNo() %>`;--%>
             const category = $('input[name="category"]:checked').val();
             const brand = $('input[name="brand"]:checked').val();
             const color = $('input[name="color"]:checked').val();
@@ -150,7 +148,7 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    userNo: '4', // 테스트용 고정값
+                    userNo: '4',// 나중에 실제 사용자 번호로 바꾸기
                     category: category,
                     brand: brand,
                     color: color,
@@ -158,7 +156,6 @@
                 },
                 success: function(data){
                     console.log("설문조사 제출이 완료되었습니다");
-                    // 설문조사 제출 후 getProduct 호출
                     getProduct(category, brand, color, price);
                 },
                 error: function(error){
@@ -197,7 +194,7 @@
                     '<p>상품 이름: ' + product.engName + '</p>' +
                     '<p>브랜드: ' + product.brandName.brand + '</p>' +
                     '<p>출시 가격: ' + product.releasePrice + '원</p>' +
-                    '<img src="' + product.productImg.filePath + '" alt="' + product.engName + '" style="width:200px; height:auto;" />' +
+                    '<img src="' + product.productImg.filePath + '" alt="' + product.engName + '" style="width:180px; height:auto;" />' +
                     '</div>';
 
                 $('#surveyContainer').html(productHtml);
