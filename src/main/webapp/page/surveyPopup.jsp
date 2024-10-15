@@ -56,13 +56,41 @@
         button:hover {
             background-color: #00A86B;
         }
+
+        /* 신발 추천 스타일 */
+        #recommendedProduct {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            margin: 20px auto;
+            text-align: center;
+        }
+        #recommendedProduct h3 {
+            font-size: 24px;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        #recommendedProduct p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        #recommendedProduct img {
+            width: 200px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            border-radius: 8px;
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <h2>신발 취향 설문조사</h2>
 
-<!-- 설문조사 폼을 감싸는 컨테이너 추가 -->
 <div id="surveyContainer">
     <form id="surveyForm">
         <div class="question">
@@ -104,9 +132,6 @@
         <button type="submit">제출</button>
     </form>
 </div>
-
-<!-- 추천 상품 정보가 표시될 div는 필요 없게 됩니다. (선택 사항) -->
-<!-- <div id="recommendedProductContainer"></div> -->
 
 <script>
     $(document).ready(function(){
@@ -165,8 +190,6 @@
 
         function displayProduct(product){
             if (product && product.no) {
-                console.log("displayProduct 함수가 호출되었습니다.");
-
                 var productHtml = '<div id="recommendedProduct">' +
                     '<h3>추천 상품 정보</h3>' +
                     '<p>상품 번호: ' + product.no + '</p>' +
@@ -176,7 +199,6 @@
                     '<img src="' + product.productImg.filePath + '" alt="' + product.engName + '" style="width:200px; height:auto;" />' +
                     '</div>';
 
-                // 설문조사 폼을 감싸는 컨테이너의 내용을 추천 상품으로 대체
                 $('#surveyContainer').html(productHtml);
             } else {
                 $('#surveyContainer').html('<p>추천 상품을 찾을 수 없습니다.</p>');
