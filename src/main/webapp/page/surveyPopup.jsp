@@ -1,6 +1,4 @@
-<%@ page import="com.cream.dto.UserDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +11,14 @@
             color: #333;
             margin: 0;
             padding: 18px;
-            width: 360px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #surveyContainer {
+            width: 100%;
+            max-width: 360px;
         }
         h2 {
             text-align: center;
@@ -61,8 +66,8 @@
             padding: 18px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
-            margin: 18px auto;
+            width: 100%;
+            max-width: 360px;
             text-align: center;
         }
         #recommendedProduct h3 {
@@ -136,11 +141,9 @@
         $('#surveyForm').on('submit', function(e){
             e.preventDefault();
 
-            <%--const userNo=`<%= ((UserDTO)session.getAttribute("loginUser")).getNo() %>`;--%>
             const category = $('input[name="category"]:checked').val();
             const brand = $('input[name="brand"]:checked').val();
             const color = $('input[name="color"]:checked').val();
-            console.log(color);
             const price = $('input[name="price"]:checked').val();
 
             $.ajax({
@@ -149,14 +152,13 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    userNo: '4',// 나중에 실제 사용자 번호로 바꾸기
+                    userNo: '4',
                     category: category,
                     brand: brand,
                     color: color,
                     price: price,
                 },
                 success: function(data){
-                    console.log("설문조사 제출이 완료되었습니다");
                     getProduct(category, brand, color, price);
                 },
                 error: function(error){
@@ -179,7 +181,6 @@
                     releasePrice: releasePrice,
                 },
                 success: function(product){
-                    console.log("AJAX getProduct 성공:", product);
                     displayProduct(product);
                 },
                 error: function(xhr, status, error){
