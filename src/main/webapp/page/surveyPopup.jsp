@@ -61,47 +61,52 @@
 </head>
 <body>
 <h2>신발 취향 설문조사</h2>
-<form id="surveyForm">
-    <div class="question">
-        <label>1. 당신이 선호하는 신발 브랜드는?</label>
-        <input type="radio" name="brand" value="1000"> 나이키
-        <input type="radio" name="brand" value="2000"> 아디다스
-        <input type="radio" name="brand" value="3000"> 퓨마
-        <input type="radio" name="brand" value="4000"> 구찌
-        <input type="radio" name="brand" value="5000"> 조던
-        <input type="radio" name="brand" value="6000"> 에르메스
-    </div>
 
-    <div class="question">
-        <label>2. 당신이 선호하는 신발의 색깔은?</label>
-        <input type="radio" name="color" value="101"> 검정색
-        <input type="radio" name="color" value="202"> 흰색
-        <input type="radio" name="color" value="303"> 유채색
-    </div>
+<!-- 설문조사 폼을 감싸는 컨테이너 추가 -->
+<div id="surveyContainer">
+    <form id="surveyForm">
+        <div class="question">
+            <label>1. 당신이 선호하는 신발 브랜드는?</label>
+            <input type="radio" name="brand" value="1000"> 나이키
+            <input type="radio" name="brand" value="2000"> 아디다스
+            <input type="radio" name="brand" value="3000"> 퓨마
+            <input type="radio" name="brand" value="4000"> 구찌
+            <input type="radio" name="brand" value="5000"> 조던
+            <input type="radio" name="brand" value="6000"> 에르메스
+        </div>
 
-    <div class="question">
-        <label>3. 당신이 선호하는 신발 카테고리는?</label>
-        <input type="radio" name="category" value="111"> 스니커즈
-        <input type="radio" name="category" value="222"> 슬리퍼
-        <input type="radio" name="category" value="333"> 구두
-    </div>
+        <div class="question">
+            <label>2. 당신이 선호하는 신발의 색깔은?</label>
+            <input type="radio" name="color" value="101"> 검정색
+            <input type="radio" name="color" value="202"> 흰색
+            <input type="radio" name="color" value="303"> 유채색
+        </div>
 
-    <div class="question">
-        <label>4. 소장용 신발을 찾고 계십니까?</label>
-        <input type="radio" name="collection" value="예"> 예
-        <input type="radio" name="collection" value="아니오"> 아니오
-    </div>
+        <div class="question">
+            <label>3. 당신이 선호하는 신발 카테고리는?</label>
+            <input type="radio" name="category" value="111"> 스니커즈
+            <input type="radio" name="category" value="222"> 슬리퍼
+            <input type="radio" name="category" value="333"> 구두
+        </div>
 
-    <div class="question">
-        <label>5. 50만원 이상의 신발을 구매할 의향이 있으십니까?</label>
-        <input type="radio" name="price" value="500000"> 예
-        <input type="radio" name="price" value="0"> 아니오
-    </div>
+        <div class="question">
+            <label>4. 소장용 신발을 찾고 계십니까?</label>
+            <input type="radio" name="collection" value="예"> 예
+            <input type="radio" name="collection" value="아니오"> 아니오
+        </div>
 
-    <button type="submit">제출</button>
-</form>
+        <div class="question">
+            <label>5. 50만원 이상의 신발을 구매할 의향이 있으십니까?</label>
+            <input type="radio" name="price" value="500000"> 예
+            <input type="radio" name="price" value="0"> 아니오
+        </div>
 
-<div id="recommendedProductContainer"></div> <!-- 추천 상품 정보가 표시될 div -->
+        <button type="submit">제출</button>
+    </form>
+</div>
+
+<!-- 추천 상품 정보가 표시될 div는 필요 없게 됩니다. (선택 사항) -->
+<!-- <div id="recommendedProductContainer"></div> -->
 
 <script>
     $(document).ready(function(){
@@ -118,7 +123,7 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    userNo: '4',
+                    userNo: '4', // 테스트용 고정값
                     category: category,
                     brand: brand,
                     color: color,
@@ -126,10 +131,11 @@
                 },
                 success: function(data){
                     console.log("설문조사 제출이 완료되었습니다");
+                    // 설문조사 제출 후 getProduct 호출
                     getProduct(category, brand, color, price);
                 },
                 error: function(error){
-                    console.log(error);
+                    console.log("submitSurvey 오류:", error);
                 }
             });
         });
@@ -148,11 +154,11 @@
                     releasePrice: releasePrice,
                 },
                 success: function(product){
-                    console.log(product);
+                    console.log("AJAX getProduct 성공:", product);
                     displayProduct(product);
                 },
                 error: function(xhr, status, error){
-                    console.error("오류 발생: " + error);
+                    console.error("getProduct 오류:", error);
                 }
             });
         }
@@ -170,9 +176,10 @@
                     '<img src="' + product.productImg.filePath + '" alt="' + product.engName + '" style="width:200px; height:auto;" />' +
                     '</div>';
 
-                $('#recommendedProductContainer').html(productHtml);
+                // 설문조사 폼을 감싸는 컨테이너의 내용을 추천 상품으로 대체
+                $('#surveyContainer').html(productHtml);
             } else {
-                $('#recommendedProductContainer').html('<p>추천 상품을 찾을 수 없습니다.</p>');
+                $('#surveyContainer').html('<p>추천 상품을 찾을 수 없습니다.</p>');
             }
         }
     });
