@@ -68,7 +68,10 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 			ps.setInt(5, purchase.getPrice());
 			ps.setString(6,purchase.getAddress());
 			con.setAutoCommit(false);
-			result = bidDAO.checkBalance(con, purchase.getBuyUserNo(), purchase.getPrice());
+			int buyUserCommision = purchase.getPrice()-calculateCommission(con,purchase.getBuyUserNo(), purchase.getPrice());
+			if(buyUserCommision ==0) throw new SQLException("계산실패");
+			result = bidDAO.checkBalance(con, purchase.getBuyUserNo(), purchase.getPrice()+buyUserCommision+3000);
+			depositCreamToAdminAccount(con, buyUserCommision+3000); //수수료+3000원
 			if(result==0) {
 	            throw new SQLException("잔액 부족");
 			}
@@ -89,8 +92,8 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 			}
 			int commision = calculateCommission(con,purchase.getSalesUserNo(), purchase.getPrice());
 			if(commision ==0) throw new SQLException("계산실패");
-			depositCreamToSellerAccount(con,purchase.getSalesUserNo(),commision+3000);
-			depositCreamToAdminAccount(con, purchase.getPrice()-commision);
+			depositCreamToSellerAccount(con,purchase.getSalesUserNo(),commision);//판매가*0.93
+			depositCreamToAdminAccount(con, purchase.getPrice()-commision);//판매가 - 판매가*0.93 = 수수료만큼 더하기
 			
 			if(notifyDAO.insertNotify(con,new NotifyDTO(purchase.getSalesUserNo(),purchase.getSalesNo(),purchase.getProductNo(),"등록하신 상품이 판매되었습니다"))==0)
 				throw new SQLException("알림 전송 실패");

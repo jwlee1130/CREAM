@@ -7,7 +7,6 @@ public class ProductDTO {
 	@Expose private int no;         //상품번호 PK
 	@Expose private int brandNo;    //브랜드번호 FK
 	@Expose private int categoryNo; //카테고리번호 FK
-	@Expose private int shoesNo;    //신발번호 FK
 	@Expose private int colorNo;    //색깔번호 FK
     @Expose private String engName;
     @Expose private String korName;
@@ -37,14 +36,13 @@ public class ProductDTO {
 			
 	}
 	
-    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
+    public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity ) {
     	
 		this(modelNumber, engName, korName);
     	this.no = no;
 		this.brandNo = brandNo;
 		this.categoryNo = categoryNo;
-		this.shoesNo = shoesNo;
 		this.colorNo = colorNo;
 		this.release = release;
 		this.releasePrice = releasePrice;
@@ -53,18 +51,18 @@ public class ProductDTO {
 	}
 
    
-    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName,
+    public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
 			ProductImgDTO productImg) {
     	
-    	this(no, brandNo, categoryNo, shoesNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity);
+    	this(no, brandNo, categoryNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity);
 		this.productImg = productImg;
 	}
 
-    public ProductDTO(int no, int brandNo, int categoryNo, int shoesNo, int colorNo, String engName, String korName,
+    public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName, String korName,
 			String release, int releasePrice, String modelNumber, String regdate, int salesQuantity, ProductImgDTO productImg, BrandDTO brandName) { //인수 14개
     	
-		this(no, brandNo, categoryNo, shoesNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity, productImg);
+		this(no, brandNo, categoryNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity, productImg);
 		this.brandName = brandName;
 	}
 
@@ -76,9 +74,6 @@ public class ProductDTO {
 
     public int getCategoryNo() { return categoryNo; }
     public void setCategoryNo(int categoryNo) { this.categoryNo = categoryNo; }
-
-    public int getShoesNo() { return shoesNo; }
-    public void setShoesNo(int shoesNo) { this.shoesNo = shoesNo; }
 
     public int getColorNo() { return colorNo; }
     public void setColorNo(int colorNo) { this.colorNo = colorNo; }
