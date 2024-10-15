@@ -13,15 +13,11 @@ public interface ProductDAO {
 	 * */
 	List<ProductDTO> selectAllProduct() throws SQLException;
 	
-	/**
-	 * 	상품 브랜드 출력
-	 * */
-	List<BrandDTO> selectAllBrand() throws SQLException;
 	
 	/**
 	 * 	상품 ID로 검색
 	 * */
-	ProductDTO searchByProductId(int productId) throws SQLException;
+	ProductDTO searchByProductId(String productId) throws SQLException;
 	
 	/**
 	 * 	상품 한글검색

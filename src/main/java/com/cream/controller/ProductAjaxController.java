@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ProductAjaxController implements RestController {
 	ProductServiceImpl productService = new ProductServiceImpl();
 	List<ProductDTO> productList = new ArrayList<ProductDTO>();
-	List<BrandDTO> brandList = new ArrayList<BrandDTO>();
 	
 	public Object selectAllProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		//System.out.println("Ajax 상품 전체 검색 메소드...!!!");
@@ -26,12 +25,44 @@ public class ProductAjaxController implements RestController {
 		
 	}//selectAll 끝
 	
-	public Object selectAllBrand(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-		System.out.println("Ajax 브랜드 전체 검색 메소드...!!!");
+	public Object searchProductByKeyword(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		System.out.println("Ajax 키워드 검색 메소드...!!!");
 
-		brandList = productService.selectAllBrand();
-		return brandList;		
+		//String searchKeyword = request.getParameter("searchBar");
+		String searchKeyword = "Asics";
+		System.out.println(searchKeyword);
+		if(getType(searchKeyword)==2) { //한글이다
+			System.out.println("입력값은 한글");
+			productList = productService.searchProductKor(searchKeyword);
+			
+		} else if(getType(searchKeyword)==1) { //영문이다
+			System.out.println("입력값은 영문");
+			productList = productService.searchProductEng(searchKeyword);
+		} else 
+			System.out.println("무언가 문제가 있다...ajax Controller");
+
+		System.out.println(productList);
+		return productList;		
 		
-	}//selectAll 끝
+	}//searchProductByKeyword 끝
+	
+	public static int getType(String word) { //검색 입력값 형태 확인(숫자0, 영문1, 한글2)
+		int re=0;
+		
+		for(int i=0; i < word.length(); i++) {
+			int index = word.charAt(i);
+			
+			if(index >=48 && index <=57) { //숫자
+				re= 0;
+			} else if(index >=65 && index <= 122) { //영문
+				re=1;
+			} else { //한글
+				re=2;
+			}
+		}
+		return re;
+		
+	}//getType End
+
 	
 }
