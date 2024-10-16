@@ -36,7 +36,7 @@
   <div class="bid-wrapper">
     <div class="item-info">
       <div class="item-logo">
-        <img src="${sale.product.productImg.filePath}" alt="">
+        <img src="${sale.salesImg.filePath}" alt="">
       </div>
       <div class="item-description">
         <h2>${sale.product.modelNumber}</h2>

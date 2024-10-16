@@ -2,6 +2,7 @@ package com.cream.service;
 
 import com.cream.dao.AdminDAO;
 import com.cream.dao.AdminDAOImpl;
+import com.cream.dto.ProductDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SurveyDTO;
 
@@ -57,5 +58,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean isAdmin(String adminId) throws SQLException {
         return adminDAO.isAdmin(adminId);
+    }
+
+    @Override
+    public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
+        return adminDAO.getProduct(categoryNo, brandNo, colorNo, releasePrice);
     }
 }

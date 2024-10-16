@@ -11,6 +11,7 @@ import com.cream.dto.BidAccountDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.dto.ProductImgDTO;
 import com.cream.dto.SalesDTO;
+import com.cream.dto.SalesImgDTO;
 import com.cream.util.DbUtil;
 
 public class SalesDAOImpl implements SalesDAO {
@@ -63,8 +64,10 @@ public class SalesDAOImpl implements SalesDAO {
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				 sale = new SalesDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),rs.getInt(5), rs.getInt(6), String.valueOf(rs.getInt(7)),rs.getString(8).charAt(0),rs.getInt(9));
-				 sale.setProduct(new ProductDTO(rs.getString(11),rs.getString(12),rs.getString(13),new ProductImgDTO(rs.getString(10),"0")));
+				 sale.setProduct(new ProductDTO(rs.getString(11),rs.getString(12),rs.getString(13)));
 				 sale.setBidAccount(new BidAccountDTO(rs.getInt(14)));
+				 sale.setSalesImg(new SalesImgDTO(salesNo,rs.getString(10)));
+				 
 			}
 			
 		}catch(SQLException e) {

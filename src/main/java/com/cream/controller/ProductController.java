@@ -56,8 +56,8 @@ public class ProductController implements Controller {
 	public ModelAndView searchProductByKeyword(HttpServletRequest request, HttpServletResponse response) throws SQLException{
 		System.out.println("controller - 상품 키워드 검색 메소드");
 
-		//String searchKeyword = request.getParameter("searchBar");
-		String searchKeyword = "Adidas";
+		String searchKeyword = request.getParameter("inputKeyword");
+		//String searchKeyword = "Adidas";
 		System.out.println(searchKeyword);
 		if(getType(searchKeyword)==2) { //한글이다
 			System.out.println("입력값은 한글");

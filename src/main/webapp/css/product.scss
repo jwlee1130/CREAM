@@ -1,3 +1,15 @@
+$main-bg-color: antiquewhite;
+$placeholder-bg-color: gray;
+$placeholder-text-color: white;
+$arrow-color: #333;
+$arrow-size: 2rem;
+$dot-size: 12px;
+$dot-active-color: #717171;
+$dot-inactive-color: #bbb;
+$slide-height: 400px;
+$slide-width: 100vw;
+$space-between-slides: 30px;
+
 *{
   box-sizing: border-box;
 }
@@ -11,11 +23,84 @@
     align-items: center;
     border-bottom: 1px solid #9a9a9a;
     padding-bottom: 3.5rem;
-    .item-image{
-      border-radius: 5%;
-      background-color: #59a892;
-      margin-right: 1rem;
+
+    .product-swiper-container {
+      width: 100%;
+      max-width: 600px; // 필요에 따라 조정
+      margin: 0 auto;
+      .swiper-wrapper {
+        display: flex;
+      }
+
+      .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .item-image {
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px; // 이미지 모서리 둥글게
+          }
+        }
+      }
+
+      /* 네비게이션 버튼 스타일 */
+      .swiper-button-next,
+      .swiper-button-prev {
+        position: absolute; /* 슬라이더 컨테이너를 기준으로 위치 */
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff; // 화이트 색상
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.5); // 반투명 검정 배경
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 10; // 이미지 위에 표시되도록
+
+        &:after {
+          font-size: 20px;
+        }
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.7);
+        }
+      }
+
+      /* 다음 버튼 위치 */
+      .swiper-button-next {
+        right: 10px; // 오른쪽 여백 조정
+      }
+
+      /* 이전 버튼 위치 */
+      .swiper-button-prev {
+        left: 10px; // 왼쪽 여백 조정
+      }
+
+
+      /* 페이지네이션 스타일 */
+      .swiper-pagination {
+        position: relative;
+        margin-top: 20px;
+        height: 5px;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+
+        .swiper-pagination-progressbar {
+          background-color: #645a4b; // 진행 바 색상
+          height: 100%;
+          border-radius: 5px;
+        }
+      }
     }
+
     .item-description{
       height: inherit;
       display: flex;

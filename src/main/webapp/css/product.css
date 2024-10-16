@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   box-sizing: border-box;
 }
@@ -13,9 +14,73 @@
   border-bottom: 1px solid #9a9a9a;
   padding-bottom: 3.5rem;
 }
-.container .item-wrapper .item-image {
-  border-radius: 5%;
-  background-color: #59a892;
+.container .item-wrapper .product-swiper-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  /* 네비게이션 버튼 스타일 */
+  /* 다음 버튼 위치 */
+  /* 이전 버튼 위치 */
+  /* 페이지네이션 스타일 */
+}
+.container .item-wrapper .product-swiper-container .swiper-wrapper {
+  display: flex;
+}
+.container .item-wrapper .product-swiper-container .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .item-wrapper .product-swiper-container .swiper-slide .item-image {
+  overflow: hidden;
+}
+.container .item-wrapper .product-swiper-container .swiper-slide .item-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.container .item-wrapper .product-swiper-container .swiper-button-next,
+.container .item-wrapper .product-swiper-container .swiper-button-prev {
+  position: absolute; /* 슬라이더 컨테이너를 기준으로 위치 */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+}
+.container .item-wrapper .product-swiper-container .swiper-button-next:after,
+.container .item-wrapper .product-swiper-container .swiper-button-prev:after {
+  font-size: 20px;
+}
+.container .item-wrapper .product-swiper-container .swiper-button-next:hover,
+.container .item-wrapper .product-swiper-container .swiper-button-prev:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.container .item-wrapper .product-swiper-container .swiper-button-next {
+  right: 10px;
+}
+.container .item-wrapper .product-swiper-container .swiper-button-prev {
+  left: 10px;
+}
+.container .item-wrapper .product-swiper-container .swiper-pagination {
+  position: relative;
+  margin-top: 20px;
+  height: 5px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+.container .item-wrapper .product-swiper-container .swiper-pagination .swiper-pagination-progressbar {
+  background-color: #645a4b;
+  height: 100%;
+  border-radius: 5px;
 }
 .container .item-wrapper .item-description {
   height: inherit;
@@ -86,7 +151,7 @@
   border-right: 1px solid #fff;
 }
 .container .item-wrapper .item-description .item-transaction .item-parchase p {
-  margin-right: 5rem;
+  margin-right: 6.5rem;
 }
 .container .item-wrapper .item-description .item-transaction .item-sell {
   padding: 1rem;
@@ -103,7 +168,7 @@
   border-right: 1px solid #fff;
 }
 .container .item-wrapper .item-description .item-transaction .item-sell p {
-  margin-right: 5rem;
+  margin-right: 6.5rem;
 }
 .container .item-wrapper .item-description .item-wish {
   padding: 1.33rem 2rem;
