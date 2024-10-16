@@ -9,8 +9,6 @@
 <head>
 <meta charset="UTF-8">
     <title>Cream</title>
-    
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link
             rel="stylesheet"
@@ -45,7 +43,7 @@
 					    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
 					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
 					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
+					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}원</div>`;
 					    str+=`</div>`;
 					    str+=`</a>`;
 					    str+="</li>";
@@ -74,6 +72,21 @@
 <body>
 <div class="container">
     <jsp:include page="./includes/header.jsp" />
+    <div class="header-bottom">
+        <ul>
+            <li>
+                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=111">스니커즈</a></span>
+            </li>
+            <li>
+                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=222">슬리퍼</a></span>
+            </li>
+            <li>
+                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">구두</a></span>
+            </li>
+
+        </ul>
+    </div>
+</div>
     <main>
         <div class="main-wrapper">
             <section class="main-slider">
@@ -185,7 +198,7 @@
         <% if (loginUser != null && adminUser == null) { %>
 
         $.ajax({
-            url: "${pageContext.request.contextPath}/ajax",
+            url: "ajax",
             type: "get",
             dataType: "json",
             data: {
@@ -197,7 +210,7 @@
             success: function(result){
                 console.log(result);
                 if (!result) { // boolean 형식으로 올거임
-                    window.open('/page/surveyPopup.jsp', 'surveyPopup', 'width=450,height=730');
+                    window.open('${pageContext.request.contextPath}/page/surveyPopup.jsp', 'surveyPopup', 'width=450,height=650');
                 }
             },
             error: function(err){
