@@ -70,7 +70,6 @@
 
 
 </script>
-
 </head>
 <body>
 <div class="container">
@@ -104,42 +103,44 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 1</div>
-                                <div class="brand-description">브랜드 설명 1</div>
-                                <div class="brand-price">가격 1</div>
+                            	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=1000">
+                            	<img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png">
+                            	</a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/ADDIDAS_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 2</div>
-                                <div class="brand-description">브랜드 설명 2</div>
-                                <div class="brand-price">가격 2</div>
+                            	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=2000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/ADIDAS_LOGO.png">
+                            	</a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/PUMA_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 3</div>
-                                <div class="brand-description">브랜드 설명 3</div>
-                                <div class="brand-price">가격 3</div>
+                                <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=3000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/PUMA_LOGO.png">
+                                </a>                          
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 4</div>
-                                <div class="brand-description">브랜드 설명 4</div>
-                                <div class="brand-price">가격 4</div>
+                                <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=4000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/JORDAN_LOGO.png">
+                                </a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder">이미지5</div>
-                                <div class="brand-name">브랜드명 5</div>
-                                <div class="brand-description">브랜드 설명 5</div>
-                                <div class="brand-price">가격 5</div>
+                            	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=5000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png">
+                                </a>
+                            </div>
+                        </div>
+                         <div class="swiper-slide">
+                            <div class="brand-card">
+                            <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=6000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/HERMES_LOGO.png">
+                                </a>
                             </div>
                         </div>
                        

@@ -1,8 +1,11 @@
 package com.cream.controller;
 
+import java.awt.Window;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.tools.DocumentationTool.Location;
 
 import com.cream.dto.ProductDTO;
 import com.cream.exception.AuthenticationException;
@@ -41,55 +44,83 @@ public class ProductController implements Controller {
 		
 		}
 	
-	public ModelAndView selectAllProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException{
-		System.out.println("controller - 상품 전체 검색 메소드");
+		public ModelAndView selectAllProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+			System.out.println("controller - 상품 전체 검색 메소드");
 
 			
 			productList = service.selectAllProduct();
 			request.setAttribute("productList", productList);
 			
-			System.out.println("여기는 controller(상품전체조회) "+ productList);
+			System.out.println("controller(상품전체조회결과)= "+ productList);
 			return new ModelAndView("page/shop.jsp", false);
 		
-	}//selectAll 끝
+		}//selectAll 끝
 	
-	public ModelAndView searchProductByKeyword(HttpServletRequest request, HttpServletResponse response) throws SQLException{
-		System.out.println("controller - 상품 키워드 검색 메소드");
+		public ModelAndView searchProductByKeyword(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+			System.out.println("controller - 상품 키워드 검색 메소드");
+			String searchKeyword = request.getParameter("inputKeyword");
+			searchKeyword = searchKeyword.toUpperCase();
+			//System.out.println(searchKeyword);
+			if(searchKeyword=="" || searchKeyword==null) {
+				productList = service.selectAllProduct();
+			} else if(getType(searchKeyword)==2) { //한글이다
+				System.out.println("입력값은 한글");
+				productList = service.searchProductKor(searchKeyword);
+			
+			} else if(getType(searchKeyword)==1) { //영문이다
+				System.out.println("입력값은 영문");
+				productList = service.searchProductEng(searchKeyword);
+			} else 
+				System.out.println("무언가 문제가 있다...controller");
+			
+			System.out.println(productList);
+			request.setAttribute("productList", productList);
+			return new ModelAndView("page/shop.jsp", false);
+		
+		}//searchProductByKeyword끝
+		
+		public ModelAndView searchProductByCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+			//System.out.println("controller - 상품 카테고리 검색 메소드");
 
-		String searchKeyword = request.getParameter("inputKeyword");
-		//String searchKeyword = "Adidas";
-		System.out.println(searchKeyword);
-		if(getType(searchKeyword)==2) { //한글이다
-			System.out.println("입력값은 한글");
-			productList = service.searchProductKor(searchKeyword);
+			String categoryNum = request.getParameter("productCategory");
+			//System.out.println("categoryNum: "+categoryNum);
+			productList = service.searchProductByCategory(categoryNum);
+			request.setAttribute("productList", productList);
 			
-		} else if(getType(searchKeyword)==1) { //영문이다
-			System.out.println("입력값은 영문");
-			productList = service.searchProductEng(searchKeyword);
-		} else 
-			System.out.println("무언가 문제가 있다...controller");
-			
-		System.out.println(productList);
-		request.setAttribute("productList", productList);
-		return new ModelAndView("page/shop.jsp", false);
+			//System.out.println("controller(카테고리조회결과)= "+ productList);
+			return new ModelAndView("page/shop.jsp", false);
 		
-	}
+		}//searchProductByCategory 끝
 	
-	public static int getType(String word) { //검색 입력값 형태 확인(숫자0, 영문1, 한글2)
-		int re=0;
-		
-		for(int i=0; i < word.length(); i++) {
-			int index = word.charAt(i);
+		public ModelAndView searchProductByBrand(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+			//System.out.println("controller - 상품 카테고리 검색 메소드");
+
+			String brandNum = request.getParameter("productBrand");
+			System.out.println("productBrand: "+brandNum);
+			productList = service.searchProductByBrand(brandNum);
+			request.setAttribute("productList", productList);
 			
-			if(index >=48 && index <=57) { //숫자
-				re= 0;
-			} else if(index >=65 && index <= 122) { //영문
-				re=1;
-			} else { //한글
-				re=2;
-			}
-		}
-		return re;
+			System.out.println("controller(카테고리조회결과)= "+ productList);
+			return new ModelAndView("page/shop.jsp", false);
 		
-	}//getType End
+		}//searchProductByCategory 끝
+	
+	
+		public static int getType(String word) { //검색 입력값 형태 확인(숫자0, 영문1, 한글2)
+			int re=0;
+		
+			for(int i=0; i < word.length(); i++) {
+				int index = word.charAt(i);
+			
+				if(index >=48 && index <=57) { //숫자
+					re= 0;
+				} else if(index >=65 && index <= 122) { //영문
+					re=1;
+				} else { //한글
+					re=2;
+				}
+			}
+			return re;
+		
+		}//getType End
 }

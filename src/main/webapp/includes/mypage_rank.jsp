@@ -1,22 +1,20 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="rank-container">
   <div class="rank-wrapper">
-    <h1>판매자,구매자 등급</h1>
+    <h1>판매자, 구매자 등급</h1>
     <div class="rank-box">
       <div class="rank-commission">
         <div class="current-rank">
-          <h3>현재등급</h3>
-          <!--            여기가 등급 들어오는곳 -->
-          <h2>LV.1</h2>
+          <h3>현재 등급</h3>
+          <h2>LV.1</h2> <!-- 여기가 AJAX로 업데이트될 부분 -->
         </div>
         <div class="current-commission">
           <h3>판매 수수료</h3>
-          <h2 style="color: #d84cff">4.0%</h2>
+          <h2 style="color: #d84cff">4.0%</h2> <!-- 여기가 AJAX로 업데이트될 부분 -->
         </div>
       </div>
-      <p> 적용 기간 2024.10.02 - 2024.11.01 </p>
-      <p> 다음 등급 업데이트 2024.11.02 </p>
+      <p>적용 기간 2024.10.02 - 2024.11.01</p>
+      <p>다음 등급 업데이트 2024.11.02</p>
     </div>
     <div class="rank-reward">
       <h2>등급별 혜택</h2>

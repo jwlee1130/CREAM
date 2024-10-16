@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <style>
+        .wished{
+          background-color: #222;
+          color: white;
+        }
+        .swiper{
+          max-width: 500px;
+        }
+        .swiper-button-next, .swiper-button-prev{
+          color: #9a9a9a;
+        }
+    </style>
     <script type="text/javascript">
       $(function(){
         $("[name=btn]").click(function(){
@@ -32,18 +48,19 @@
                 console.log(sales.nowPrice);
 
                 const countdownId = 'countdown-' + sales.no;
-
+                str+= "<li>";
                 str += "<div class='list-inner'>";
-                str += "<span class='rank-a'> 등급: " + sales.grade + "</span>   ";
+                str += "<span class='rank-a'>" + sales.grade + "</span>   ";
                 str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
                 str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
                 str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
                 str += "<span>판매상태 : " + sales.salesStatus + "</span>";
                 str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
                 str += "</div>";
+                str+= "</li>";
               });
 
-              $("#" + dataTab + " .tab-content-list").html(str);
+              $("#" + dataTab + " .tab-content-list ul").html(str);
 
               data.forEach(function(sales) {
                 initializeCountdown(sales.no, parseInt(sales.regdate, 10));
@@ -109,11 +126,24 @@
 <jsp:include page="../includes/header.jsp" />
 <div class="container">
     <div class="item-wrapper">
-        <div class="item-image">
-            <img src="${productDetail.productImg[0].filePath}"  style="width: 525px; height: 525px;">
-        </div>
-         <div class="item-image">
-            <img src="${productDetail.productImg[1].filePath}"  style="width: 525px; height: 525px;">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+
+                        <img src="${productDetail.productImg[0].filePath}" style="width: 525px; height: 525px;">
+
+                </div>
+                <c:if test="${productDetail.productImg[1].filePath!=null}">
+                <div class="swiper-slide">
+
+                        <img src="${productDetail.productImg[1].filePath}" style="width: 525px; height: 525px;">
+
+                </div>
+                </c:if>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-scrollbar"></div>
         </div>
         <div class="item-description">
             <div class="item-price">
@@ -161,22 +191,17 @@
                 </a>
 
             </div>
+            <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="wishlist-link">
             <div class="item-wish">
-                <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="wishlist-link"><p>관심상품</p></a>
+                <p>관심상품</p>
             </div>
+            </a>
         </div>
-
-
-
 
     </div>
     <div class="item-info-wrapper">
         <div class="item-quote">
             <h2>시세</h2>
-            <div class="item-quote-button">
-                <button class="one-week">1주일</button>
-                <button class="one-month">1개월</button>
-            </div>
             <div class="item-quote-chart">
 <%--                this is chart area--%>
                 <jsp:include page="../chart/productPageChart.jsp"/>
@@ -301,9 +326,24 @@
   });
   document.addEventListener('DOMContentLoaded', () => {
 	    const wishlistButton = document.getElementById('add-to-wishlist');
-	    
+        const productNo = this.getAttribute('data-id');
+
+        $.ajax({
+          url: '${pageContext.request.contextPath}/ajax',
+          method: 'POST',
+          data: {
+            key: 'userAjax',
+            methodName: 'toggleWishlist',
+            product_no: productNo
+          },
+          dataType: 'json',
+          success : function (response){
+
+          }
+        })
+
+
 	    wishlistButton.addEventListener('click', function() {
-	        const productNo = this.getAttribute('data-id');
 	        $.ajax({
 	            url: '${pageContext.request.contextPath}/ajax',
 	            method: 'POST',
@@ -330,7 +370,21 @@
 	    });
 	});
 </script>
-
-<script src="../js/script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper', {
+      slidesPerView: 1,
+      navigation: {
+        nextEl: '.swiper .swiper-button-next',
+        prevEl: '.swiper .swiper-button-prev',
+      },
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+      speed: 600,
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 </html>

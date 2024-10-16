@@ -5,11 +5,11 @@ import com.google.gson.annotations.Expose;
 public class RankDTO {
 	@Expose private int no;
 	@Expose private String rank;
-	@Expose private int discount;
+	@Expose private double discount;
 
     public RankDTO() {}
 
-    public RankDTO(int no, String rank, int discount) {
+    public RankDTO(int no, String rank, double discount) {
         this.no = no;
         this.rank = rank;
         this.discount = discount;
@@ -21,6 +21,6 @@ public class RankDTO {
     public String getRank() { return rank; }
     public void setRank(String rank) { this.rank = rank; }
 
-    public int getDiscount() { return discount; }
+    public double getDiscount() { return discount; }
     public void setDiscount(int discount) { this.discount = discount; }
 }

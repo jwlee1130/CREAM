@@ -1,10 +1,8 @@
 package com.cream.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.cream.dto.SalesDTO;
+import com.cream.dto.AdminDTO;
 import com.cream.dto.UserDTO;
 import com.cream.exception.AuthenticationException;
 import com.cream.service.UserService;
@@ -23,19 +21,26 @@ public class UserController implements Controller {
         String pwd = request.getParameter("pwd");
 
         try {
+            // Admin 로그인 여부 확인
+            AdminDTO admin = service.loginAdminCheck(userId, pwd);
+            if (admin != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("loginAdmin", admin);
+                System.out.println("Admin stored in session: " + admin.getAdminId());
+                return new ModelAndView("index.jsp");
+            }
+
+            // 일반 사용자 로그인 확인
             UserDTO user = new UserDTO(userId, pwd);
             UserDTO checkUser = service.loginCheck(user);
             
             if (checkUser != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", checkUser);
-                // 세션에 제대로 저장되었는지 확인하는 로그 추가
-                UserDTO sessionUser = (UserDTO) session.getAttribute("loginUser");
-                System.out.println("User stored in session: " + (sessionUser != null ? sessionUser.getUserId() : "null"));
-                
+                System.out.println("User stored in session: " + checkUser.getUserId());
                 return new ModelAndView("index.jsp");
             } else {
-                System.out.println("Login failed for user: " + userId);  // 로그인 실패 로그
+                System.out.println("Login failed for user: " + userId);
                 return new ModelAndView("page/login.jsp", true);
             }
         } catch (Exception e) {
@@ -152,6 +157,73 @@ public class UserController implements Controller {
         }
     }
 
+    public ModelAndView register(HttpServletRequest request, HttpServletResponse response) {
+	    String userId = request.getParameter("userId");
+	    String name = request.getParameter("name");
+	    
+	    String userEmail = request.getParameter("userEmail");
+	    String userPw = request.getParameter("userPw");
+	    String hp = request.getParameter("hp");
+	    String nickname = request.getParameter("nickname");
+	    String gender = request.getParameter("gender");
+	    String address =request.getParameter("address");
 
+	    int shoesSize = 0;
+	    int age = 0;
+
+	    try {
+	        String shoesSizeStr = request.getParameter("shoesSize");
+	        if (shoesSizeStr != null && !shoesSizeStr.isEmpty()) {
+	            shoesSize = Integer.parseInt(shoesSizeStr);
+	        } else {
+	            throw new IllegalArgumentException("신발 사이즈를 선택하지 않았습니다.");
+	        }
+
+	        String ageStr = request.getParameter("age");
+	        if (ageStr != null && !ageStr.isEmpty()) {
+	            age = Integer.parseInt(ageStr);
+	        } else {
+	            throw new IllegalArgumentException("나이를 입력하지 않았습니다.");
+	        }
+	    } catch (NumberFormatException e) {
+	        throw new IllegalArgumentException("잘못된 신발 사이즈 형식입니다.");
+	    }  
+
+	    UserDTO user = new UserDTO();
+	    user.setUserId(userId);
+	    user.setName(name);
+	    user.setUserEmail(userEmail);
+	    user.setUserPw(userPw);
+	    user.setHp(hp);
+	    user.setNickname(nickname);
+	     user.setAddress(address);
+	    user.setGender(gender);
+	    user.setShoesSize(shoesSize); 
+	   user.setAge(age);
+	    
+	    
+
+	    try {
+	        int result = service.register(user);
+	        if (result > 0) {
+	            request.setAttribute("successMessage", "회원가입 성공");
+	            return new ModelAndView("page/login.jsp");
+	        } else {
+	            request.setAttribute("errorMessage", "회원가입 실패.");
+	            return new ModelAndView("page/register.jsp");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        request.setAttribute("errorMessage", "회원정보 저장 실패.");
+	        return new ModelAndView("page/register.jsp");
+	    } catch (IllegalArgumentException e) {
+	        request.setAttribute("errorMessage", e.getMessage());
+	        return new ModelAndView("page/register.jsp");
+	    } catch (AuthenticationException e) {
+	    	request.setAttribute("errorMessage", e.getMessage());
+	        return new ModelAndView("page/register.jsp");
+		}
+	
+	}
 
 }
