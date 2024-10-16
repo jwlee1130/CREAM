@@ -11,86 +11,86 @@
             background-color: #f8f9fa;
             color: #333;
             margin: 0;
-            padding: 18px;
+            padding: 21.6px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 120vh;
         }
         #surveyContainer {
             width: 100%;
-            max-width: 360px;
+            max-width: 432px;
         }
         h2 {
             text-align: center;
-            font-size: 23px;
+            font-size: 27.6px;
             color: #4a4a4a;
         }
         form {
             background-color: white;
-            padding: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
+            padding: 21.6px;
+            border-radius: 9.6px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 섀도우 범위 확대 */
+            max-width: 108%;
             margin: 0 auto;
             text-align: center;
         }
         label {
-            font-size: 16px;
+            font-size: 19.2px;
             color: #333;
             display: block;
-            margin-bottom: 9px;
+            margin-bottom: 10.8px;
             text-align: left;
         }
         input[type="radio"] {
-            margin-right: 9px;
-            transform: scale(1.35);
+            margin-right: 10.8px;
+            transform: scale(1.62);
         }
         .question {
-            margin-bottom: 18px;
+            margin-bottom: 21.6px;
             text-align: left;
         }
         button {
             display: block;
-            width: 90%;
-            padding: 14px;
-            font-size: 16px;
+            width: 100%; /* 버튼 너비를 100%로 설정 */
+            padding: 12px; /* 버튼 높이를 줄임 */
+            font-size: 19.2px;
             color: white;
             background-color: #41B979;
             border: none;
-            border-radius: 4px;
+            border-radius: 4.8px;
             cursor: pointer;
-            margin: 18px auto 0 auto;
+            margin: 21.6px auto 0 auto;
         }
         button:hover {
             background-color: #00A86B;
         }
         #recommendedProduct {
             background-color: white;
-            padding: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 21.6px;
+            border-radius: 9.6px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 섀도우 범위 확대 */
             width: 100%;
-            max-width: 360px;
+            max-width: 432px;
             text-align: center;
         }
         #recommendedProduct h3 {
-            font-size: 21px;
+            font-size: 25.2px;
             color: #4a4a4a;
-            margin-bottom: 18px;
+            margin-bottom: 21.6px;
         }
         #recommendedProduct p {
-            font-size: 15px;
+            font-size: 18px;
             color: #333;
-            margin-bottom: 9px;
+            margin-bottom: 10.8px;
             text-align: left;
         }
         #recommendedProduct img {
-            width: 180px;
+            width: 216px;
             height: auto;
-            margin: 18px auto;
+            margin: 21.6px auto;
             display: block;
-            border-radius: 8px;
+            border-radius: 9.6px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -157,8 +157,7 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    // userNo: '5', // 특정 회원으로 설정함. 테스트용
-                    userNo: '<%= loginUser.getNo() %>', // 특정 회원으로 설정함. 테스트용
+                    userNo: '<%= loginUser.getNo() %>',
                     category: category,
                     brand: brand,
                     color: color,
@@ -202,7 +201,7 @@
                     '<p>상품 이름: ' + product.engName + '</p>' +
                     '<p>브랜드: ' + product.brandName.brand + '</p>' +
                     '<p>출시 가격: ' + product.releasePrice + '원</p>' +
-                    '<img src="' + product.productImg[0].filePath + '" alt="' + product.engName + '" style="width:180px; height:auto;" />' +
+                    '<img src="' + product.productImg[0].filePath + '" alt="' + product.engName + '" style="width:216px; height:auto;" />' +
                     '</div>';
 
                 $('#surveyContainer').html(productHtml);
