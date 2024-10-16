@@ -65,7 +65,7 @@ public class PurchaseController implements Controller {
 			request.setAttribute("commission", commission);
 			
 		
-			return new ModelAndView("/page/buy-info.jsp");
+			return new ModelAndView("/page/buy-info.jsp");	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

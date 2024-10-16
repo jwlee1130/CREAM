@@ -107,6 +107,7 @@ section {
 /* Set base line-height */
 body {
   line-height: 1;
+  font-family: 'NanumSquareRound';
 }
 
 /* Remove list styles */
@@ -139,4 +140,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+
+
 

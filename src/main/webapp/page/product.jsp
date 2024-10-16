@@ -324,50 +324,36 @@
       });
     });
   });
-  document.addEventListener('DOMContentLoaded', () => {
-	    const wishlistButton = document.getElementById('add-to-wishlist');
-        const productNo = this.getAttribute('data-id');
+  $(document).ready(function() {
+	  const wishlistButton = $('#add-to-wishlist');
 
-        $.ajax({
-          url: '${pageContext.request.contextPath}/ajax',
-          method: 'POST',
-          data: {
-            key: 'userAjax',
-            methodName: 'toggleWishlist',
-            product_no: productNo
-          },
-          dataType: 'json',
-          success : function (response){
-
-          }
-        })
-
-
-	    wishlistButton.addEventListener('click', function() {
-	        $.ajax({
-	            url: '${pageContext.request.contextPath}/ajax',
-	            method: 'POST',
-	            data: {
-	                key: 'userAjax',
-	                methodName: 'toggleWishlist',
-	                product_no: productNo
-	            },
-	            dataType: 'json',
-	            success: function(response) {
-	                if (response.status === 'added') {
-	                    alert("관심상품이 추가되었습니다.");
-	                } else if (response.status === 'removed') {
-	                    alert("관심상품이 해제되었습니다.");
-	                } else {
-	                    alert("처리에 실패했습니다. 다시 시도해 주세요.");
-	                }
-	            },
-	            error: function(error) {
-	                console.error("Error: ", error);
-	                alert("오류가 발생했습니다. 다시 시도해 주세요.");
-	            }
-	        });
+	  wishlistButton.on('click', function() {
+	    const productNo = $(this).data('id');
+	    
+	    $.ajax({
+	      url: '${pageContext.request.contextPath}/ajax',
+	      method: 'POST',
+	      data: {
+	        key: 'userAjax',
+	        methodName: 'toggleWishlist',
+	        product_no: productNo
+	      },
+	      dataType: 'json',
+	      success: function(response) {
+	        if (response.status === 'added') {
+	          alert("관심상품이 추가되었습니다.");
+	        } else if (response.status === 'removed') {
+	          alert("관심상품이 해제되었습니다.");
+	        } else {
+	          alert("처리에 실패했습니다. 다시 시도해 주세요.");
+	        }
+	      },
+	      error: function(error) {
+	        console.error("Error: ", error);
+	        alert("오류가 발생했습니다. 다시 시도해 주세요.");
+	      }
 	    });
+	  });
 	});
 </script>
 <script>

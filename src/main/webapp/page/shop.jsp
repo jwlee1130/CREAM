@@ -253,6 +253,7 @@
 						<a href="front?key=product&methodName=detail&no=${product.no}">
 						<div class="popular-item">
 						<div class="item-image"><img width=150px height=150px src='${product.productImg[0].filePath}'></div>
+                         <h3 class="item-amount">수량 21</h3>
 						<div class="item-brand">${product.brandName.brand}</div>
 						<p class="item-description">${product.engName}</p>
 						<div class="item-price"><fmt:formatNumber>${product.releasePrice}</fmt:formatNumber></div>
