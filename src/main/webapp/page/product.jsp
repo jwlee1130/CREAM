@@ -283,13 +283,11 @@
     const showModalButton = document.getElementById("show-modal");
     const closeButton = document.querySelector(".close-button");
 
-    // 모달을 보여주는 함수
     showModalButton.addEventListener("click", function (event) {
       event.preventDefault(); // 링크 기본 동작 방지
       modal.style.display = "block"; // 모달 표시
     });
 
-    // 모달 닫기 버튼
     closeButton.addEventListener("click", function () {
       modal.style.display = "none"; // 모달 숨김
     });
@@ -314,11 +312,9 @@
       button.addEventListener("click", function () {
         const targetTab = this.getAttribute("data-tab");
 
-        // 모든 탭 버튼과 콘텐츠 비활성화
         tabButtons.forEach(btn => btn.classList.remove("active"));
         tabContents.forEach(content => content.classList.remove("active"));
 
-        // 클릭한 탭 버튼 활성화
         this.classList.add("active");
         document.getElementById(targetTab).classList.add("active");
       });

@@ -191,7 +191,9 @@
                 loadMoreWishlistItems();
 
                 if (uniqueProducts.length > itemsPerPage) {
-                    $('#wishlist-container').after('<button id="load-more" class="load-more">더보기</button>');
+                    $('#wishlist-container').after(
+                        '<button id="load-more" class="load-more" style="display: block; margin: 20px auto;">더보기</button>'
+                    );
                     $('#load-more').show();
                     $('#load-more').off('click').on('click', loadMoreWishlistItems);
                 } else {
@@ -409,16 +411,8 @@
 
         function renderPurchasesAndBids(purchases, bids) {
             let purchaseHtml = '';
-            let uniqueBids = [];
-            let productMap = {};
 
-            bids.forEach(bid => {
-                if (!productMap[bid.productNo]) {
-                    productMap[bid.productNo] = bid;
-                    uniqueBids.push(bid);
-                }
-            });
-
+            // 구매 항목 추가
             purchases.forEach(function(purchase) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
@@ -437,7 +431,8 @@
                 purchaseHtml += '</div>';
             });
 
-            uniqueBids.forEach(function(bid) {
+            // 입찰 항목 추가 (중복 체크 없이 모든 항목 표시)
+            bids.forEach(function(bid) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
                 purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
@@ -453,11 +448,15 @@
                 purchaseHtml += '</div>';
             });
 
-            $('#total-purchases-count').text(purchases.length + uniqueBids.length);
-            $('#in-progress-purchases-count').text(uniqueBids.length);
+            // 카운트 업데이트
+            $('#total-purchases-count').text(purchases.length + bids.length);
+            $('#in-progress-purchases-count').text(bids.length);
             $('#completed-purchases-count').text(purchases.length);
+
+            // 결과를 페이지에 출력
             $('#purchase-container').html(purchaseHtml);
         }
+
     }
     
     function fetchPurchases() {
