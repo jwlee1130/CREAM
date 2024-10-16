@@ -169,12 +169,20 @@
 .main .main-content .mypage-container .wrap .wish-list .wish-item-list ul {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .main .main-content .mypage-container .wrap .wish-list .wish-item-list ul li {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 250px;
 }
+
+.main .main-content .mypage-container .wrap .wish-list .wish-item-list ul li h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
 .main .main-content .mypage-container .wrap .wish-list .wish-item-list ul li .wish-item-img img {
   width: 200px;
   height: 200px;
