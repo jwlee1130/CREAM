@@ -14,12 +14,6 @@
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-<style type="text/css">
- 	p{
- 		width :200px;
- 		white-space: pre-wrap;
- 	}
- </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
