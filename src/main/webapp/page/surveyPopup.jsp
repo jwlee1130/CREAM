@@ -1,3 +1,4 @@
+<%@ page import="com.cream.dto.UserDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -140,6 +141,7 @@
 </div>
 
 <script>
+    <% UserDTO loginUser=(UserDTO) session.getAttribute("loginUser");%>
     $(document).ready(function(){
         $('#surveyForm').on('submit', function(e){
             e.preventDefault();
@@ -155,7 +157,8 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    userNo: '5', // 특정 회원으로 설정함. 테스트용
+                    // userNo: '5', // 특정 회원으로 설정함. 테스트용
+                    userNo: '<%= loginUser.getNo() %>', // 특정 회원으로 설정함. 테스트용
                     category: category,
                     brand: brand,
                     color: color,
