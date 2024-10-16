@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.cream.dto.AdminDTO;
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductImgDTO;
@@ -113,7 +114,42 @@ import com.cream.util.DbUtil;
 			}
 			return dbDTO;
 		}
+		
+		
+		
+		
+		
 	
+		@Override
+		public AdminDTO loginAdminCheck(String adminId, String adminPw) throws SQLException {
+			Connection con = null;
+	        PreparedStatement ps = null;
+	        ResultSet rs = null;
+	        AdminDTO admin = null;
+
+	        String sql = proFile.getProperty("query.adminLogin");
+
+	        try {
+	            con = DbUtil.getConnection();
+	            ps = con.prepareStatement(sql);
+	            ps.setString(1, adminId);
+	            ps.setString(2, adminPw);
+
+	            rs = ps.executeQuery();
+	            if (rs.next()) {
+	                admin = new AdminDTO(
+	                    rs.getInt("NO"),
+	                    rs.getString("ADMIN_ID"),
+	                    rs.getString("ADMIN_PW"),
+	                    rs.getInt("SHOECREAM")
+	                );
+	            }
+	        } finally {
+	            DbUtil.dbClose(con, ps, rs);
+	        }
+	        return admin;
+	    }
+
 		public BidDTO findBidByUserNo(int no) throws SQLException{
 			Connection con =null;
 			PreparedStatement ps = null;
@@ -168,7 +204,7 @@ import com.cream.util.DbUtil;
 		    ResultSet rs = null;
 		    RankDTO rankDTO = null;
 
-		    String sql = proFile.getProperty("query.getUserRankDiscount");
+		    String sql = proFile.getProperty("query.getUserRank");
 
 		    try {
 		        con = DbUtil.getConnection();
@@ -180,7 +216,7 @@ import com.cream.util.DbUtil;
 		        if (rs.next()) {
 		            int no = rs.getInt("NO");
 		            String rank = rs.getString("RANK");
-		            int discount = rs.getInt("DISCOUNT");
+		            double discount = rs.getDouble("DISCOUNT");
 
 		            rankDTO = new RankDTO(no, rank, discount);
 		        }

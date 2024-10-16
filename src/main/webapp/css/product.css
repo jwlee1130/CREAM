@@ -90,15 +90,19 @@
   padding-left: 3.5rem;
 }
 .container .item-wrapper .item-description .item-price {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 2rem;
 }
 .container .item-wrapper .item-description .item-price p {
   font-size: 1.25rem;
   font-weight: normal;
+  margin-bottom: 0.5rem;
 }
-.container .item-wrapper .item-description .item-price h1 {
-  font-size: 2.5rem;
+.container .item-wrapper .item-description .item-price span {
+  font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 .container .item-wrapper .item-description .item-name {
   margin-bottom: 2rem;
@@ -194,25 +198,19 @@
   margin-bottom: 2rem;
 }
 .container .item-info-wrapper .item-quote .item-quote-chart {
-  width: 450px;
-  height: 300px;
+  width: 550px;
+  height: 400px;
   text-align: center;
   align-content: center;
-  background-color: #fff;
-  border: 1px solid #333;
 }
 .container .item-info-wrapper .item-concluded h2 {
   font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 4rem;
 }
 .container .item-info-wrapper .item-concluded .concluded-transaction {
-  width: 450px;
-  height: 300px;
+  width: 550px;
+  height: 400px;
   text-align: center;
   align-content: center;
-  background-color: #fff;
-  border: 1px solid #333;
 }
 
 .modal {
@@ -284,34 +282,38 @@
 .modal .modal-content .tabs-container .tab-content .tab-content-list ul li {
   margin-bottom: 1rem;
   padding: 1rem;
+  border-bottom: 1px solid #666;
+  margin-bottom: 1rem;
 }
 .modal .modal-content .tabs-container .tab-content .tab-content-list ul li .list-inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .modal .modal-content .tabs-container .tab-content .tab-content-list ul li .list-inner .rank-a {
-  padding: 0.2rem;
-  background-color: #ff4b4b;
-  color: white;
-  border-radius: 25%;
-  font-size: 1.2rem;
+  color: #ff3d3d;
+  font-weight: bolder;
 }
 .modal .modal-content .tabs-container .tab-content .tab-content-list ul li .list-inner .rank-b {
-  padding: 0.2rem;
-  background-color: #5dff4b;
-  color: white;
-  border-radius: 25%;
-  font-size: 1.2rem;
+  font-weight: bolder;
+  color: #00A86B;
 }
 .modal .modal-content .tabs-container .tab-content .tab-content-list ul li .list-inner .rank-c {
-  padding: 0.2rem;
-  background-color: #336eee;
-  color: white;
-  border-radius: 25%;
-  font-size: 1.2rem;
+  font-weight: bolder;
+
+  color: blue;
 }
 .modal .modal-content .tabs-container .tab-content .tab-content-list ul li .list-inner span:nth-child(2) {
   color: #e74545;
+}
+
+.modal .modal-content .tabs-container .tab-content .tab-content-list ul li button {
+  padding: 5px 10px;
+  color: white;
+  background-color: #333;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .modal .modal-content .tabs-container .tab-content .tab-content-parchase {
   font-size: 1.5rem;

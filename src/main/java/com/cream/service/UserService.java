@@ -3,6 +3,7 @@
  import java.sql.SQLException;
 import java.util.List;
 
+import com.cream.dto.AdminDTO;
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductViewDTO;
@@ -22,6 +23,8 @@ public interface UserService {
 	 * 로그인 체크
 	 * */
    UserDTO loginCheck(UserDTO userDTO)throws SQLException , AuthenticationException;
+   
+   AdminDTO loginAdminCheck(String adminId, String adminPw) throws SQLException;
    
    BidDTO findBidByUserNo(int no)throws SQLException , AuthenticationException;
 	

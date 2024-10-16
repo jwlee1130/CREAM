@@ -1,10 +1,8 @@
 package com.cream.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.cream.dto.SalesDTO;
+import com.cream.dto.AdminDTO;
 import com.cream.dto.UserDTO;
 import com.cream.exception.AuthenticationException;
 import com.cream.service.UserService;
@@ -23,19 +21,26 @@ public class UserController implements Controller {
         String pwd = request.getParameter("pwd");
 
         try {
+            // Admin 로그인 여부 확인
+            AdminDTO admin = service.loginAdminCheck(userId, pwd);
+            if (admin != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("loginAdmin", admin);
+                System.out.println("Admin stored in session: " + admin.getAdminId());
+                return new ModelAndView("index.jsp");
+            }
+
+            // 일반 사용자 로그인 확인
             UserDTO user = new UserDTO(userId, pwd);
             UserDTO checkUser = service.loginCheck(user);
             
             if (checkUser != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", checkUser);
-                // 세션에 제대로 저장되었는지 확인하는 로그 추가
-                UserDTO sessionUser = (UserDTO) session.getAttribute("loginUser");
-                System.out.println("User stored in session: " + (sessionUser != null ? sessionUser.getUserId() : "null"));
-                
+                System.out.println("User stored in session: " + checkUser.getUserId());
                 return new ModelAndView("index.jsp");
             } else {
-                System.out.println("Login failed for user: " + userId);  // 로그인 실패 로그
+                System.out.println("Login failed for user: " + userId);
                 return new ModelAndView("page/login.jsp", true);
             }
         } catch (Exception e) {
