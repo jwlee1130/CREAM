@@ -58,6 +58,13 @@ public class ProductServiceImpl implements ProductService {
 		productList = productDao.searchProductByCategory(productCategory);
 		return productList;
 	}
+	
+	@Override
+	public List<ProductDTO> searchProductByBrand(String productBrand) throws SQLException {
+		// 상품 브랜드 검색(나이키, 아디다스, 퓨마, 조던, 구찌, 에르메스)
+		productList = productDao.searchProductByBrand(productBrand);
+		return productList;
+	}
 
 	public int getRecentPrice(int productNo)throws SQLException {
 		return productDao.getRecentPrice(productNo);
@@ -73,7 +80,6 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDao.getNowPricing(productNo);
 	}
-
 
 
 }
