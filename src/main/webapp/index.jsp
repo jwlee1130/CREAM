@@ -1,5 +1,7 @@
+<%@ page import="com.cream.dto.UserDTO" %>
+<%@ page import="com.cream.dto.AdminDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -7,8 +9,6 @@
 <head>
 <meta charset="UTF-8">
     <title>Cream</title>
-    
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link
             rel="stylesheet"
@@ -25,6 +25,9 @@
 <script type="text/javascript">
 	$(function(){
 		
+		let currentIndex=0; //현재까지 로드된 상품의 수
+		const itemsPerPage = 4; //한번에 보여줄 상품의 수
+				
 		//전체검색
 		   function productSelectAll(){
 			   $.ajax({
@@ -33,23 +36,21 @@
 				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(result){
-					console.log(result);
+					//console.log(result);
+					let totalProducts = result.length; //전체 상품 수
+					displayProducts(result, currentIndex, itemsPerPage);
 					
-					let str="";
-					$.each(result, function(index, product){
-						str+="<li>";
-					    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
-					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
-					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-					    str+=`</div>`;
-					    str+=`</a>`;
-					    str+="</li>";
-					}); //eachEnd
-
-					$("#popular-list-wrapper-ul").html(str);
+					//더보기 버튼 클릭 시 4개씩 더 보여주기
+					$(".more-button").on("click", function(){
+						currentIndex += itemsPerPage;
+						if(currentIndex < totalProducts){
+							displayProducts(result, currentIndex, itemsPerPage);
+						}
+						
+						if(currentIndex + itemsPerPage >= totalProducts){
+							$(".more-button").hide(); //마지막 상품까지 표시되면 버튼 숨김 
+						}
+					});
 					
 					
 				} , //성공했을때 실행할 함수 
@@ -61,6 +62,28 @@
 		   }//selectAll 함수끝
 		   /////////////////////////////////////////////////////////////
 		  
+		   function displayProducts(result, startIndex, count){
+			   
+			   let str="";
+			   for(let i= startIndex; i< startIndex+count && i < result.length; i++){
+				   let product = result[i];
+					str+="<li>";
+				    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
+				    str+=`<div class="popular-item">`;
+				    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
+				    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+				    str+=`<p class="item-description">${"${product.engName}"}</p>`;
+				    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}원</div>`;
+				    str+=`</div>`;
+				    str+=`</a>`;
+				    str+="</li>";
+			   }
+
+				$("#popular-list-wrapper-ul").append(str); //기존 목록에 추가
+			   
+		   }//displayProducts 함수끝
+		   /////////////////////////////////////////////////////////////
+		  
 			productSelectAll();
 
 		
@@ -68,11 +91,25 @@
 
 
 </script>
-
 </head>
 <body>
 <div class="container">
     <jsp:include page="./includes/header.jsp" />
+    <div class="header-bottom">
+        <ul>
+            <li>
+                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=111">스니커즈</a></span>
+            </li>
+            <li>
+                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=222">슬리퍼</a></span>
+            </li>
+            <li>
+                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">구두</a></span>
+            </li>
+
+        </ul>
+    </div>
+</div>
     <main>
         <div class="main-wrapper">
             <section class="main-slider">
@@ -102,42 +139,44 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 1</div>
-                                <div class="brand-description">브랜드 설명 1</div>
-                                <div class="brand-price">가격 1</div>
+                            	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=1000">
+                            	<img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png">
+                            	</a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/ADDIDAS_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 2</div>
-                                <div class="brand-description">브랜드 설명 2</div>
-                                <div class="brand-price">가격 2</div>
+                            	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=2000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/ADIDAS_LOGO.png">
+                            	</a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/PUMA_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 3</div>
-                                <div class="brand-description">브랜드 설명 3</div>
-                                <div class="brand-price">가격 3</div>
+                                <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=3000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/PUMA_LOGO.png">
+                                </a>                          
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder"><img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png"></div>
-                                <div class="brand-name">브랜드명 4</div>
-                                <div class="brand-description">브랜드 설명 4</div>
-                                <div class="brand-price">가격 4</div>
+                                <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=4000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/JORDAN_LOGO.png">
+                                </a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
-                                <div class="image-placeholder">이미지5</div>
-                                <div class="brand-name">브랜드명 5</div>
-                                <div class="brand-description">브랜드 설명 5</div>
-                                <div class="brand-price">가격 5</div>
+                            	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=5000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png">
+                                </a>
+                            </div>
+                        </div>
+                         <div class="swiper-slide">
+                            <div class="brand-card">
+                            <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=6000">
+                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/HERMES_LOGO.png">
+                                </a>
                             </div>
                         </div>
                        
@@ -169,6 +208,43 @@
 <jsp:include page="./includes/footer.jsp" />
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+
+<%
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    AdminDTO adminUser=(AdminDTO) session.getAttribute("adminUser"); // 아직 정해지지 않은 부분
+%>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        <% if (loginUser != null && adminUser == null) { %>
+
+        $.ajax({
+            url: "ajax",
+            type: "get",
+            dataType: "json",
+            data: {
+                key: "admin",
+                methodName: "hasUserCompletedSurvey",
+                <%--userNo: "<%= loginUser.getNo() %>"--%>
+                // 서버에서도 이 값을 세션에서 가지고 올 수 있음
+            },
+            success: function(result){
+                console.log(result);
+                if (!result) { // boolean 형식으로 올거임
+                    window.open('${pageContext.request.contextPath}/page/surveyPopup.jsp', 'surveyPopup', 'width=450,height=650');
+                }
+            },
+            error: function(err){
+                console.error("설문조 확인 중 오류 발생:", err);
+                ;
+            }
+        });
+        <% } %>
+    });
+</script>
+
 
 </body>
 </html>

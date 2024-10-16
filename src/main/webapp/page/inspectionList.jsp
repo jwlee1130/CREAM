@@ -3,20 +3,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <h1 style="font-size:2.5rem;">검수 목록</h1>
-<table id="inspectionTable" class="table">
-  <thead>
-  <tr>
-    <th>판매 번호</th>
-    <th>상품명</th>
-    <th>등록 날짜</th>
-    <th>판매 사진 업로드</th>
-    <th>등급</th>
-    <th>승인/반려</th>
-  </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+
+<div style="height: 800px; overflow-y:auto; width: 100%;">
+  <table id="inspectionTable" class="table">
+    <thead>
+    <tr>
+      <th>판매 번호</th>
+      <th>상품명</th>
+      <th>등록 날짜</th>
+      <th>판매 사진 업로드</th>
+      <th>등급</th>
+      <th>승인/반려</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+
+
 
 <script>
   $(document).ready(function() {
@@ -43,7 +48,7 @@
           tb += '<td>';
           tb += '<form class="upload-form" data-sales-img-no="' + inspection.no + '">';
           tb += '파일 첨부: <input type="file" name="file" class="file-input"/>';
-          tb += '<button type="submit" class="upload-btn">업로드하기</button>';
+          tb += '<button type="submit" class="btn btn-primary upload-btn" style="font-size: 14px; padding: 6px 12px; font-weight:bold;">업로드하기</button>';
           tb += '</form>';
           tb += '</td>';
 
@@ -57,8 +62,8 @@
           tb += '</td>';
 
           tb += '<td>';
-          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
-          tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice + '" style="background-color: #EF6253; border-color: #EF6253; color: white;">반려</button>';
+          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979;font-weight:bold; color: white;">승인</button>';
+          tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice + '" style="background-color: #EF6253; border-color: #EF6253;font-weight:bold; color: white;">반려</button>';
           tb += '</td>';
 
           tb += '</tr>';

@@ -4,8 +4,9 @@
 <html>
 <head>
     <title>Title</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
 </head>
 <body>
 <div class="header">
@@ -13,16 +14,39 @@
         <div class="header-top">
        
             <a href="#">고객</a>
-            <a href="${pageContext.request.contextPath}/page/mypage.jsp">마이페이지</a>
+            <c:choose>
+		        <c:when test="${sessionScope.loginAdmin != null}">
+		            <!-- Admin 사용자 -->
+		            <a href="${pageContext.request.contextPath}/page/adminMyPage.jsp">관리자 마이페이지</a>
+		        </c:when>
+		        <c:when test="${sessionScope.loginUser != null}">
+		            <!-- Regular 사용자 -->
+		            <a href="${pageContext.request.contextPath}/page/mypage.jsp">마이페이지</a>
+		        </c:when>
+		        <c:otherwise>
+		            <!-- 로그인이 되어 있지 않은 경우 로그인 페이지로 이동 -->
+		            <a href="${pageContext.request.contextPath}/page/login.jsp">마이페이지</a>
+		        </c:otherwise>
+		    </c:choose>
             <a href="#">알림</a>
                      
-            <c:if test="${sessionScope.loginUser != null}">
-			    <a>${sessionScope.loginUser.nickname}님, 환영합니다!</a>
-			    <a href="${pageContext.request.contextPath}/front?key=user1&methodName=logout" class="btn btn-danger">Logout</a>
-			</c:if>
-			<c:if test="${sessionScope.loginUser == null}">
-			    <a href="${pageContext.request.contextPath}/page/login.jsp">로그인</a>
-			</c:if>
+            <c:choose>
+		    <c:when test="${sessionScope.loginAdmin != null}">
+		        <!-- Content for Admin users -->
+		        <a>${sessionScope.loginAdmin.adminId}, Welcome!</a>
+		        <a href="${pageContext.request.contextPath}/front?key=user1&methodName=logout" class="btn btn-danger">Logout</a>
+		    </c:when>
+		    <c:when test="${sessionScope.loginUser != null}">
+		        <!-- Content for Regular users -->
+		        <a>${sessionScope.loginUser.nickname}님, 환영합니다!</a>
+		        <a href="${pageContext.request.contextPath}/front?key=user1&methodName=logout" class="btn btn-danger">Logout</a>
+		    </c:when>
+		    <c:otherwise>
+		        <!-- Content for guests -->
+		        <a href="${pageContext.request.contextPath}/page/login.jsp">로그인</a>
+		    </c:otherwise>
+		</c:choose>
+
         </div>
         <div class="header-main">
             <div class="logo">
@@ -61,23 +85,6 @@
                 <span><a href="${pageContext.request.contextPath}/page/login.jsp">Login</a></span>
             </div>
         </div>
-        <div class="header-bottom">
-            <ul>
-                <li>
-                    <span><a href="">운동화</a></span>
-                </li>
-                <li>
-                    <span><a href="">부츠</a></span>
-                </li>
-                <li>
-                    <span><a href="">슬리퍼</a></span>
-                </li>
-                <li>
-                    <span><a href="">스니커즈</a></span>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 <script type="text/javascript">
 	// 판매 조회 함수
@@ -127,12 +134,13 @@
 	});
 </script>
 <script type="text/javascript">
-		
 
-		//$(".search-button").click(function(){
-		//	location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword";
-		//})
-
+		$(".search-button").click(function(){
+			console.log("123");
+			var inputKeyword = document.getElementById("searchBar").value;
+			console.log(inputKeyword);
+			location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword&inputKeyword="+inputKeyword;
+		})
 
 		//검색 함수
 		function enterKey(){
@@ -140,7 +148,7 @@
 				console.log("123");
 				var inputKeyword = document.getElementById("searchBar").value;
 				console.log(inputKeyword);
-				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=selectAllProduct&inputKeyword="+inputKeyword;
+				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword&inputKeyword="+inputKeyword;
 			} else
 				console.log("111222333");
 

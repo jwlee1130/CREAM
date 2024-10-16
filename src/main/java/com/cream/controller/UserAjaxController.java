@@ -219,10 +219,12 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateEmail(loginUser.getNo(), email);
+	            if(result==1) return "success";
+	            else  return "fail";
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        return result;
+	        return "fail";
 	    }
 
 	    public Object updatePassword(HttpServletRequest request, HttpServletResponse response) {
@@ -233,10 +235,12 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updatePassword(loginUser.getNo(), password);
+	            if(result==1) return "success";
+	            else  return "fail";
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        return result;
+	        return "fail";
 	    }
 
 	    public Object updateNickname(HttpServletRequest request, HttpServletResponse response) {
@@ -247,10 +251,12 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateNickname(loginUser.getNo(), nickname);
+	            if(result==1) return "success";
+	            else  return "fail";
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        return result;
+	        return "fail";
 	    }
 
 	    public Object updatePhone(HttpServletRequest request, HttpServletResponse response) {
@@ -261,10 +267,12 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updatePhone(loginUser.getNo(), phone);
+	            if(result==1) return "success";
+	            else  return "fail";
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        return result;
+	        return "fail";
 	    }
 
 	    public Object updateShoeSize(HttpServletRequest request, HttpServletResponse response) {
@@ -275,10 +283,12 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateShoeSize(loginUser.getNo(), shoeSize);
+	            if(result==1) return "success";
+	            else  return "fail";
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        return result;
+	        return "fail";
 	    }
 
 	    public Object updateAddress(HttpServletRequest request, HttpServletResponse response) {
@@ -289,10 +299,12 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateAddress(loginUser.getNo(), address);
+	            if(result==1) return "success";
+	            else  return "fail";
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        return result;
+	        return "fail";
 	    }
 	}
 	

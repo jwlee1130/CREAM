@@ -28,12 +28,13 @@ public class BidDAOImpl implements BidDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		//현재 입찰중인 유저 정보랑 가격 정보( 환불,알람용,입금액이 더 큰지)
-		String sql = "SELECT  SALES_NO, COALESCE(BUY_USER_NO,0), PRICE from BIDACCOUNT WHERE SALES_NO = ? AND FLAG =0";
+		String sql = "SELECT  SALES_NO, COALESCE(BUY_USER_NO,0), PRICE from BIDACCOUNT WHERE SALES_NO = ? AND FLAG =0 AND PRICE < ?";
 		System.out.println(productNO+"제품번호");
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			ps.setInt(1, newBidder.getSalesNo());
+			ps.setInt(2, newBidder.getPrice());
 			//최고가 들고 오기
 			rs= ps.executeQuery();
 			setBidFlagOne(con,newBidder.getSalesNo()); //flag =1 설정 다른 유저 접근 못하게

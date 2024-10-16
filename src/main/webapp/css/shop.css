@@ -83,19 +83,24 @@
 .shop-container .shop-wrapper .shop-main .popular-list-wrapper ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 35px;
   margin-top: 20px;
   overflow: auto;
 }
-.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(odd) .item-image {
-  background-color: #a5fdd0;
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(4n+1) .item-image {
+  background-color: #FFCFCF;
+}.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(4n+2) .item-image {
+  background-color: #F2FFCF;
 }
-.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(even) .item-image {
-  background-color: #ffa7a7;
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(4n+3) .item-image {
+  background-color: #E2E0FF;
+}.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul li:nth-child(4n+4) .item-image {
+  background-color: #FFEFCF;
 }
 .shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item {
   flex: 1 1 calc(25% - 10px);
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -105,6 +110,15 @@
 }
 .shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-box {
   padding: 0 0.7rem;
+}
+.shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-amount{
+  position: absolute;
+  top: 25px;
+  right: 0;
+  color: #333;
+  padding: 5px 10px;
+  font-size: 1rem;
+  z-index: 10;
 }
 .shop-container .shop-wrapper .shop-main .popular-list-wrapper ul .popular-item .item-image {
   text-align: center;

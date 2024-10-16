@@ -77,10 +77,10 @@ public class AdminController implements RestController {
     {
         UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
 
-        if(adminService.isAdmin(user.getUserId()))return true; // 만약 admin 아이디라면 참을 반환
-
-        return adminService.hasUserCompletedSurvey(user.getUserId());
+        boolean result = adminService.hasUserCompletedSurvey(user.getNo());
+        System.out.println("result = " + result);
         // 설문조사를 한 유저라면 true 를 반환, 하지 않았다면 거짓을 반환
+        return result;
     }
 
     // 설문조사 결과에 따라 추천 상품을 가지고 온다

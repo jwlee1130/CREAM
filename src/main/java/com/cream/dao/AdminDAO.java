@@ -54,7 +54,7 @@ public interface AdminDAO {
 	 */
 	Map<String, String> getProductName(int productNo) throws SQLException; // 반환 타입을 Map<String, String>으로 변경
 
-	boolean hasUserCompletedSurvey(String userId)throws SQLException;
+	boolean hasUserCompletedSurvey(int userNo)throws SQLException;
 
 	boolean isAdmin(String adminId) throws SQLException;
 

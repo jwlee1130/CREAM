@@ -33,8 +33,9 @@
       <div class="shipping-insert">
         <h2>배송 주소</h2>
       </div>
+      <div class="shipping-address">
         <p>${loginUser.address}</p>
-      </div></a>
+      </div>
       <div class="item-address">
         <div class="reciever">
           <span>받는분</span>
@@ -70,6 +71,7 @@
       </div>
     </div>
   </div>
+</div>
 <jsp:include page="../includes/footer.jsp" />
 </body>
 </html>

@@ -65,7 +65,20 @@
       })
       .then(data => {
         contentDiv.innerHTML = data;
-        bindChangeButtons();
+        if(page==="mypage_sell"){
+        	fetchAllSales();
+        }else if(page === "mypage_main"){
+        	fetchLatestPurchaseOrBid();
+            fetchSales();
+            fetchWishlist();
+        }else if(page==="mypage_parchase"){
+        	fetchAllPurchasesAndBids();
+        }else if(page ==="mypage_user"){
+        	loadUser();
+        	bindChangeButtons();
+        }else if(page==="mypage_rank"){
+        	fetchUserRank();
+        }
       })
       .catch(error => {
         contentDiv.innerHTML = `<h2>페이지를 찾을 수 없습니다.</h2>`;
@@ -111,7 +124,7 @@
             if (infoItem.getAttribute('data-field') === 'password') {
               input.value = '********';
             }
-
+            saveClick(infoItem, newValue);
             // 입력 필드 비활성화
             input.disabled = true;
 
@@ -146,6 +159,12 @@
       }
     }
     
+    
+    
+    let currentWishlistIndex = 0;
+    const itemsPerPage = 3;
+    let uniqueProducts = [];
+
     function fetchWishlist() {
         $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
@@ -156,18 +175,28 @@
             },
             dataType: 'json',
             success: function(result) {
-                // Ajax 성공 시 데이터를 동적으로 추가
-                let wishlistHtml = '';
+                const productMap = {};
+                uniqueProducts = [];
                 $.each(result, function(index, product) {
-                    wishlistHtml += '<li class="wish-item">';
-                    wishlistHtml += '<div class="wish-item-img">';
-                    wishlistHtml += '<img style="width:200px; height:200px;" src="' + product.productImg.filePath + '" alt="' + product.engName + '">';
-                    wishlistHtml += '</div>';
-                    wishlistHtml += '<h2>' + product.engName + '</h2>';
-                    wishlistHtml += '<h3>' + product.korName + '</h3>';
-                    wishlistHtml += '</li>';
+                    if (!productMap[product.no]) {
+                        productMap[product.no] = product;
+                        uniqueProducts.push(product);
+                    }
                 });
-                $('#wishlist-container').html(wishlistHtml);
+
+                uniqueProducts.reverse();
+                currentWishlistIndex = 0;
+                $('#wishlist-container').html(''); // 기존 항목 초기화
+
+                loadMoreWishlistItems();
+
+                if (uniqueProducts.length > itemsPerPage) {
+                    $('#wishlist-container').after('<button id="load-more" class="load-more">더보기</button>');
+                    $('#load-more').show();
+                    $('#load-more').off('click').on('click', loadMoreWishlistItems);
+                } else {
+                    $('#load-more').remove();
+                }
             },
             error: function(error) {
                 console.error("관심 상품을 불러오는 중 오류 발생: ", error);
@@ -175,8 +204,32 @@
         });
     }
 
-    // 페이지 로드 시 관심 상품 데이터 가져오기
-    fetchWishlist();
+    function loadMoreWishlistItems() {
+        let wishlistHtml = '';
+
+        for (let i = currentWishlistIndex; i < currentWishlistIndex + itemsPerPage && i < uniqueProducts.length; i++) {
+            const product = uniqueProducts[i];
+            wishlistHtml += '<li class="wish-item">';
+            wishlistHtml += '<div class="wish-item-img">';
+            wishlistHtml += '<a href="${pageContext.request.contextPath}/front?key=product&methodName=detail&no=' + product.no + '">';
+            wishlistHtml += '<img style="width:200px; height:200px;" src="' + product.productImg.filePath + '" alt="' + product.engName + '">';
+            wishlistHtml += '</a>';
+            wishlistHtml += '</div>';
+            wishlistHtml += '<h2>' + product.engName + '</h2>';
+            wishlistHtml += '<h3>' + product.korName + '</h3>';
+            wishlistHtml += '</li>';
+        }
+
+        $('#wishlist-container').append(wishlistHtml);
+        currentWishlistIndex += itemsPerPage;
+
+        if (currentWishlistIndex >= uniqueProducts.length) {
+            $('#load-more').hide();
+        }
+    }
+
+
+
 
    
     function fetchSales() {
@@ -259,36 +312,31 @@
                 let salesHtml = '';
                 let inProgressCount = 0;
                 let completedCount = 0;
+                let approvalPendingCount = 0;
 
-                // 전체 판매 내역을 가져와 화면에 표시
                 $.each(result, function(index, sale) {
                     salesHtml += '<div class="parchase-item">';
                     
-                    // Hidden inputs for userNo and productNo
-                    salesHtml += '<input type="hidden" name="userNo" value="' + sale.userNo + '">';
-                    salesHtml += '<input type="hidden" name="productNo" value="' + sale.productNo + '">';
-                    
-                    // Product image
+                    // 이미지 클릭 시 'sellInfo' 메소드로 이동하는 링크
                     salesHtml += '<div class="item-img">';
+                    salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
                     salesHtml += '<img style="width:100px; height:100px;" src="' + sale.filePath + '" alt="">';
+                    salesHtml += '</a>';
                     salesHtml += '</div>';
                     
-                    // Product name and shoe size
                     salesHtml += '<div class="item-name">';
                     salesHtml += '<h2>' + sale.engName + '</h2>';
                     salesHtml += '<h3>' + sale.shoesSize + '</h3>';
                     salesHtml += '</div>';
                     
-                    // Registration date
                     salesHtml += '<div class="item-date">';
                     salesHtml += '<h2>' + sale.regdate + '</h2>';
                     salesHtml += '</div>';
                     
-                    // Sales status
                     salesHtml += '<div class="item-status">';
                     if (sale.salesStatus === 0) {
                         salesHtml += '승인대기';
-                        inProgressCount++; // 승인 대기 상태를 진행 중으로 포함하여 카운트
+                        approvalPendingCount++;
                     } else if (sale.salesStatus === 1) {
                         salesHtml += '진행중';
                         inProgressCount++;
@@ -300,15 +348,11 @@
                     salesHtml += '</div>';
                 });
 
-                // 전체는 승인 대기와 진행중을 합친 것과 완료된 것을 모두 합한 것
-                let totalSales = inProgressCount + completedCount;
-
-                // 상태별 카운트 업데이트
-                $('#total-sales-count').text(totalSales);
+                let totalSalesCount = approvalPendingCount + inProgressCount + completedCount;
+                $('#total-sales-count').text(totalSalesCount);
                 $('#in-progress-count').text(inProgressCount);
                 $('#completed-count').text(completedCount);
 
-                // 모든 판매 내역 표시
                 $('#sales-container').html(salesHtml);
             },
             error: function(error) {
@@ -319,12 +363,13 @@
 
 
 
+
+
     
     function fetchAllPurchasesAndBids() {
         let purchases = [];
         let bids = [];
 
-        // 첫 번째로, 결제 완료된 구매 내역을 가져옵니다.
         $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
             method: 'GET',
@@ -335,7 +380,6 @@
             dataType: 'json',
             success: function(result) {
                 purchases = result;
-                // 구매 내역을 가져온 후 입찰 내역을 가져옵니다.
                 fetchBids();
             },
             error: function(error) {
@@ -343,7 +387,6 @@
             }
         });
 
-        // 진행 중인 입찰 내역을 가져옵니다.
         function fetchBids() {
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
@@ -356,7 +399,6 @@
                 dataType: 'json',
                 success: function(result) {
                     bids = result;
-                    // 구매 내역과 입찰 내역을 함께 렌더링합니다.
                     renderPurchasesAndBids(purchases, bids);
                 },
                 error: function(error) {
@@ -365,22 +407,28 @@
             });
         }
 
-        // 구매 내역과 입찰 내역을 합쳐서 화면에 표시합니다.
         function renderPurchasesAndBids(purchases, bids) {
             let purchaseHtml = '';
-            let totalPurchases = purchases.length + bids.length;
-            let inProgressCount = bids.length; // 입찰 진행 중인 내역 수
-            let completedCount = purchases.length; // 결제 완료된 구매 내역 수
+            let uniqueBids = [];
+            let productMap = {};
 
-            // 결제 완료된 구매 내역을 먼저 추가합니다.
+            bids.forEach(bid => {
+                if (!productMap[bid.productNo]) {
+                    productMap[bid.productNo] = bid;
+                    uniqueBids.push(bid);
+                }
+            });
+
             purchases.forEach(function(purchase) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
+                purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=buyInfo&buyUserNo=' + purchase.buyUserNo + '&salesNo=' + purchase.salesNo + '">';
                 purchaseHtml += '<img style="width:100px; height:100px;" src="' + purchase.filePath + '" alt="">';
+                purchaseHtml += '</a>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-name">';
                 purchaseHtml += '<h2>' + purchase.engName + '</h2>';
-                purchaseHtml += '<h3>' + purchase.shoeSize  + '</h3>';
+                purchaseHtml += '<h3>' + purchase.shoeSize + '</h3>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-date">';
                 purchaseHtml += '<h2>' + purchase.regdate + '</h2>';
@@ -389,8 +437,7 @@
                 purchaseHtml += '</div>';
             });
 
-            // 진행 중인 입찰 내역을 추가합니다.
-            bids.forEach(function(bid) {
+            uniqueBids.forEach(function(bid) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
                 purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
@@ -406,9 +453,9 @@
                 purchaseHtml += '</div>';
             });
 
-            $('#total-purchases-count').text(totalPurchases);
-            $('#in-progress-purchases-count').text(inProgressCount);
-            $('#completed-purchases-count').text(completedCount);
+            $('#total-purchases-count').text(purchases.length + uniqueBids.length);
+            $('#in-progress-purchases-count').text(uniqueBids.length);
+            $('#completed-purchases-count').text(purchases.length);
             $('#purchase-container').html(purchaseHtml);
         }
     }
@@ -418,19 +465,18 @@
             url: '${pageContext.request.contextPath}/ajax',
             method: 'GET',
             data: {
-                key: 'purchase',  // 구매 내역용
+                key: 'purchase',
                 methodName: 'selectPurchase'
             },
             dataType: 'json',
             success: function(result) {
                 let purchaseHtml = '';
                 let totalPurchases = result.length;
-                let inProgressCount = 0; // 상황에 맞게 변경 가능
+                let inProgressCount = 0;
                 let completedCount = 0;
 
-                // 최신 구매 내역 하나만 표시
                 if (result.length > 0) {
-                    let purchase = result[0]; // 첫 번째 (최신) 구매 내역만 표시
+                    let purchase = result[0]; 
                     purchaseHtml += '<div class="parchase-item">';
                     
                     purchaseHtml += '<div class="item-img">';
@@ -453,7 +499,6 @@
                     purchaseHtml += '</div>';
                 }
 
-                // 전체 데이터로 상태별 카운트 계산
                 $.each(result, function(index, purchase) {
                     completedCount++;
                 });
@@ -462,7 +507,6 @@
                 $('#in-progress-purchases-count').text(inProgressCount);  // 기본값 유지
                 $('#completed-purchases-count').text(completedCount);
 
-                // 최신 구매 내역 표시
                 $('#purchase-container').html(purchaseHtml);
             },
             error: function(error) {
@@ -471,102 +515,177 @@
         });
     }
     
-    $.ajax({
-        url: '${pageContext.request.contextPath}/ajax',
-        method: 'GET',
-        dataType: 'json',
-        data: {
-            key: 'userAjax',
-            methodName: 'selectUserById'
-        },
-        success: function(response) {
-            $('#userEmail').val(response.userEmail);
-            $('#nickname').val(response.nickname);
-            $('#phone').val(response.hp);
-            $('#shoeSize').val(response.shoesSize);
-            $('#address').val(response.address);
-        },
-        error: function() {
-            alert("사용자 정보를 불러오는 데 실패했습니다.");
-        }
-    });
     
     
-    $('.user-container').on('click', '.save-btn', function() {
-        console.log("저장 버튼 클릭됨"); // 클릭 시 로그 출력
+    function fetchLatestPurchaseOrBid() {
+        let purchases = [];
+        let bids = [];
 
-        const infoItem = $(this).closest('.info-item');
-        const field = infoItem.data('field');
-        const input = infoItem.find('input');
-        const newValue = input.val();
-
-        if (newValue === '') {
-            alert('값을 입력해주세요.');
-            return;
-        }
-
-        // 필드에 맞는 메서드 이름 매핑
-        const fieldMap = {
-            email: 'updateEmail',
-            password: 'updatePassword',
-            nickname: 'updateNickname',
-            phone: 'updatePhone',
-            shoeSize: 'updateShoeSize',
-            address: 'updateAddress'
-        };
-
-        // AJAX 요청
         $.ajax({
-            url: '${pageContext.request.contextPath}/ajax', // 서버의 AJAX 처리 URL
-            method: 'POST',
+            url: '${pageContext.request.contextPath}/ajax',
+            method: 'GET',
             data: {
-                key: 'userAjax',
-                methodName: fieldMap[field],
-                value: newValue
+                key: 'purchase',
+                methodName: 'selectPurchase'
             },
-            success: function(response) {
-                console.log("서버 응답:", response); // 서버 응답 확인
-
-                if (response === 'success') {
-                    input.prop('disabled', true);
-                    infoItem.find('.change-btn').show();
-                    infoItem.find('.save-btn, .cancel-btn').remove();
-                    alert('업데이트 성공!');
-                } else {
-                    alert('업데이트 실패. 다시 시도해주세요.');
-                }
+            dataType: 'json',
+            success: function(result) {
+                purchases = result;
+                fetchLatestBids();
             },
-            error: function(xhr, status, error) {
-                console.error("AJAX 요청 오류:", xhr, status, error); // AJAX 오류 로그 출력
-                alert('서버와의 통신 중 오류가 발생했습니다.');
+            error: function(error) {
+                console.error("구매 내역을 불러오는 중 오류 발생: ", error);
             }
         });
-    });
 
-    // 취소 버튼 클릭 이벤트
-    $('.user-container').on('click', '.cancel-btn', function() {
-        const infoItem = $(this).closest('.info-item');
-        const input = infoItem.find('input');
-        input.val(input.data('original-value')).prop('disabled', true);
+        function fetchLatestBids() {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/ajax',
+                method: 'GET',
+                data: {
+                    key: 'bidAjax',
+                    methodName: 'findBidsByUserNo',
+                    userNo: '<%= loginUser.getNo() %>' // 세션에서 사용자의 ID를 사용합니다.
+                },
+                dataType: 'json',
+                success: function(result) {
+                    bids = result;
+                    renderLatestPurchaseOrBid(purchases, bids);
+                },
+                error: function(error) {
+                    console.error("입찰 내역을 불러오는 중 오류 발생: ", error);
+                }
+            });
+        }
 
-        infoItem.find('.change-btn').show();
-        infoItem.find('.save-btn, .cancel-btn').remove();
-    });
+        function renderLatestPurchaseOrBid(purchases, bids) {
+            let purchaseHtml = '';
+            
+            const allItems = [...purchases, ...bids];
+            if (allItems.length > 0) {
+                // 최신 항목 하나를 선택
+                const latestItem = allItems.sort((a, b) => new Date(b.regdate) - new Date(a.regdate))[0];
 
-    // 취소 버튼 클릭 이벤트
-    $('.user-container').on('click', '.cancel-btn', function() {
-        const infoItem = $(this).closest('.info-item');
-        const input = infoItem.find('input');
-        input.val(input.data('original-value')).prop('disabled', true);
+                purchaseHtml += '<div class="parchase-item">';
+                purchaseHtml += '<div class="item-img">';
+                purchaseHtml += '<img style="width:100px; height:100px;" src="' + latestItem.filePath + '" alt="">';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-name">';
+                purchaseHtml += '<h2>' + latestItem.engName + '</h2>';
+                purchaseHtml += '<h3>' + latestItem.shoeSize + '</h3>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-date">';
+                purchaseHtml += '<h2>' + latestItem.regdate + '</h2>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-status">';
+                purchaseHtml += (latestItem.salesStatus !== undefined) ? '결제 완료' : '입찰 진행 중';
+                purchaseHtml += '</div>';
+                purchaseHtml += '</div>';
+            }
 
-        infoItem.find('.change-btn').show();
-        infoItem.find('.save-btn, .cancel-btn').remove();
-    });
+            const totalCount = allItems.length;
+            const inProgressCount = bids.length;
+            const completedCount = purchases.length;
+
+            $('#total-purchases-count').text(totalCount);
+            $('#in-progress-purchases-count').text(inProgressCount);
+            $('#completed-purchases-count').text(completedCount);
+
+            // 최신 구매 또는 입찰 항목 표시
+            $('#purchase-container').html(purchaseHtml);
+        }
+    }
 
 
-    fetchAllPurchasesAndBids();
-    fetchSales();
-    fetchAllSales();
+    
+    
+    
+    function loadUser(){
+    	$.ajax({
+            url: '${pageContext.request.contextPath}/ajax',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                key: 'userAjax',
+                methodName: 'selectUserById'
+            },
+            success: function(response) {
+                $('#userEmail').val(response.userEmail);
+                $('#nickname').val(response.nickname);
+                $('#phone').val(response.hp);
+                $('#shoeSize').val(response.shoesSize);
+                $('#address').val(response.address);
+            },
+            error: function() {
+                alert("사용자 정보를 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+    
+    
+    
+    
+    
+
+	function saveClick(infoItem, newValue){		
+		  const $infoItem = $(infoItem);
+		  console.log($infoItem);
+		  const field = $infoItem.data('field');
+		  console.log(field);
+
+	        $.ajax({
+	            url: '${pageContext.request.contextPath}/ajax',
+	            method: 'POST',
+	            data: {
+	                key: 'userAjax',
+	                methodName: `update${'${field}'}`,
+	                value: newValue
+	            },
+	            success: function(response) {
+	                if (response === 'success') {
+	                    $infoItem.find('input').prop('disabled', true);
+	                    $infoItem.find('.save-btn, .cancel-btn').remove();
+	                    $infoItem.find('.change-btn').show();
+	                } else {
+	                    alert('정보가 성공적으로 업데이트되었습니다.');
+	                }
+	            },
+	            error: function() {
+	                alert('서버 오류가 발생했습니다.');
+	            }
+	        });
+	}
+	
+	
+	function fetchUserRank() {
+	    $.ajax({
+	        url: '${pageContext.request.contextPath}/ajax',
+	        method: 'GET',
+	        data: {
+	            key: 'userAjax',
+	            methodName: 'getUserRank'
+	        },
+	        dataType: 'json',
+	        success: function(rank) {
+	        	console.log("Fetched Rank Data:", rank);
+	            if (rank) {
+	                const commission = ((1 - rank.discount) * 100).toFixed(1);
+	                $('.current-rank h2').text(rank.rank);
+	                $('.current-commission h2').text(commission + '%');
+	            } else {
+	                console.error("랭크 정보를 불러올 수 없습니다.");
+	            }
+	        },
+	        error: function(error) {
+	            console.error("랭크 정보를 가져오는 중 오류 발생: ", error);
+	        }
+	    });
+	}
+
+    
+
+
+    
     
 
     // 해시 변경 시 콘텐츠 로드

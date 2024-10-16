@@ -50,9 +50,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean hasUserCompletedSurvey(String userId) throws SQLException
+    public boolean hasUserCompletedSurvey(int userNo) throws SQLException
     {
-        return adminDAO.hasUserCompletedSurvey(userId);
+        return adminDAO.hasUserCompletedSurvey(userNo);
     }
 
     @Override
