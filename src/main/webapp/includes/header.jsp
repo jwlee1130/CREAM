@@ -4,8 +4,9 @@
 <html>
 <head>
     <title>Title</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
 </head>
 <body>
 <div class="header">
@@ -84,21 +85,6 @@
                 <span><a href="${pageContext.request.contextPath}/page/login.jsp">Login</a></span>
             </div>
         </div>
-        <div class="header-bottom">
-            <ul>
-                <li>
-                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=111">스니커즈</a></span>
-                </li>
-                <li>
-                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=222">슬리퍼</a></span>
-                </li>
-                <li>
-                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">구두</a></span>
-                </li>
-
-            </ul>
-        </div>
-    </div>
 </div>
 <script type="text/javascript">
 	// 판매 조회 함수

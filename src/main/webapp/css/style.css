@@ -1,7 +1,20 @@
 .header-wrapper {
   max-width: 1200px;
   margin: 0 auto;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
 }
+.header-wrapper:after{
+  content: ''; /* 가상 요소 생성 */
+  position: absolute; /* 부모 요소를 기준으로 절대 위치 설정 */
+  left: -500px;        /* 왼쪽으로 50px 확장 */
+  right: -500px;       /* 오른쪽으로 50px 확장 */
+  bottom: 0;          /* 부모 요소의 하단에 위치 */
+  height: 2px;        /* 선의 두께 */
+  background-color: #666; /* 선의 색상 */
+}
+
 .header-wrapper .header-top {
   display: flex;
   justify-content: flex-end;
@@ -100,12 +113,12 @@
   margin: 0 10px;
   font-size: 1.25rem;
 }
-.header-wrapper .header-bottom {
+.header-bottom {
   margin: 0 auto;
   max-width: 600px;
   padding: 15px;
 }
-.header-wrapper .header-bottom ul {
+.header-bottom ul {
   display: flex;
   justify-content: space-around;
 }
@@ -262,8 +275,8 @@
 .container .main-wrapper .most-popular .popular-list-wrapper ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 65px;
+  justify-content: flex-start;
   margin-top: 20px;
 }
 .container .main-wrapper .most-popular .popular-list-wrapper ul li:nth-child(odd) .item-image {
