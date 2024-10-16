@@ -43,7 +43,7 @@
           tb += '<td>';
           tb += '<form class="upload-form" data-sales-img-no="' + inspection.no + '">';
           tb += '파일 첨부: <input type="file" name="file" class="file-input"/>';
-          tb += '<button type="submit" class="upload-btn">업로드하기</button>';
+          tb += '<button type="submit" class="btn btn-primary upload-btn">업로드하기</button>';
           tb += '</form>';
           tb += '</td>';
 
