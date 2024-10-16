@@ -129,9 +129,12 @@
 <script type="text/javascript">
 		
 	
-		//$(".search-button").click(function(){
-		//	location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword";
-		//})
+		$(".search-button").click(function(){
+			console.log("123");
+			var inputKeyword = document.getElementById("searchBar").value;
+			console.log(inputKeyword);
+			location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword&inputKeyword="+inputKeyword;
+		})
 
 		//검색 함수
 		function enterKey(){
@@ -139,7 +142,7 @@
 				console.log("123");
 				var inputKeyword = document.getElementById("searchBar").value;
 				console.log(inputKeyword);
-				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=selectAllProduct&inputKeyword="+inputKeyword;
+				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword&inputKeyword="+inputKeyword;
 			} else
 				console.log("111222333");
 

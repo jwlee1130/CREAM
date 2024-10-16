@@ -40,8 +40,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> searchProductKor(String keyword) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		// 검색어가 한글인 경우
+		productList = productDao.searchProductKor(keyword);
+		return productList;
 	}
 
 	@Override

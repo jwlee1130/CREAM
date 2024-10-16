@@ -67,7 +67,7 @@
 							str+="<li>";
 						    str+=`<a href="front?key=product&methodName=detail&no=1">`;
 					    	str+=`<div class="popular-item">`;
-					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg.filePath}'}"></div>`;
+					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
 					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
 					    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
 					    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
@@ -234,7 +234,7 @@
                 	<li>
 						<a href="front?key=product&methodName=detail&no=${product.no}">
 						<div class="popular-item">
-						<div class="item-image"><img width=150px height=150px src='${product.productImg.filePath}'></div>
+						<div class="item-image"><img width=150px height=150px src='${product.productImg[0].filePath}'></div>
 						<div class="item-brand">${product.brandName.brand}</div>
 						<p class="item-description">${product.engName}</p>
 						<div class="item-price"><fmt:formatNumber>${product.releasePrice}</fmt:formatNumber></div>
@@ -242,7 +242,6 @@
 					   	</a>
 					 </li>
                 </c:forEach>
-
                 </c:otherwise>
                 </c:choose>
                 
