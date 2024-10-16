@@ -3,20 +3,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <h1 style="font-size:2.5rem;">검수 목록</h1>
-<table id="inspectionTable" class="table">
-  <thead>
-  <tr>
-    <th>판매 번호</th>
-    <th>상품명</th>
-    <th>등록 날짜</th>
-    <th>판매 사진 업로드</th>
-    <th>등급</th>
-    <th>승인/반려</th>
-  </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+
+<div style="height: 800px; overflow-y:auto; width: 100%;">
+  <table id="inspectionTable" class="table">
+    <thead>
+    <tr>
+      <th>판매 번호</th>
+      <th>상품명</th>
+      <th>등록 날짜</th>
+      <th>판매 사진 업로드</th>
+      <th>등급</th>
+      <th>승인/반려</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+
+
 
 <script>
   $(document).ready(function() {

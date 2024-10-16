@@ -48,7 +48,7 @@
             font-size: 16px;
             color: #333;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-align: left;
         }
         input[type="radio"] {
@@ -85,7 +85,7 @@
             margin-bottom: 20px;
         }
         #recommendedProduct p {
-            font-size: 16px;
+            font-size: 20px;
             color: #333;
             margin: 30px 0;
             text-align: left;
@@ -96,6 +96,9 @@
             margin: 20px auto;
             display: block;
             border-radius: 8px;
+        }
+        #closeBtn{
+            background-color: #EF6253;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -150,6 +153,7 @@
         <p>브랜드: <span id="productBrand"></span></p>
         <p>출시 가격: <span id="productPrice"></span>원</p>
         <img id="productImage" src="" alt="상품 이미지" />
+        <button type="button" class="btn btn-danger" id="closeBtn">창 닫기</button>
     </div>
 </div>
 
@@ -212,6 +216,7 @@
 
         function displayProduct(product){
             if (product && product.no) {
+                $('#surveyContainer').find('.error-msg').remove();
                 $('#productName').text(product.engName);
                 $('#productBrand').text(product.brandName.brand);
                 $('#productPrice').text(product.releasePrice.toLocaleString());
@@ -219,9 +224,14 @@
                 $('#surveyForm').hide();
                 $('#recommendedProduct').show();
             } else {
-                $('#surveyContainer').append('<p>추천 상품을 찾을 수 없습니다.</p>');
+                $('#surveyContainer').find('.error-msg').remove();
+                $('#surveyContainer').append('<p class="error-msg">추천 상품을 찾을 수 없습니다.</p>');
             }
         }
+
+        $('#closeBtn').on('click',function(){
+            window.close();
+        });
     });
 </script>
 </body>
