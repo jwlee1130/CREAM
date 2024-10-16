@@ -48,18 +48,19 @@
                 console.log(sales.nowPrice);
 
                 const countdownId = 'countdown-' + sales.no;
-
+                str+= "<li>";
                 str += "<div class='list-inner'>";
-                str += "<span class='rank-a'> 등급: " + sales.grade + "</span>   ";
+                str += "<span class='rank-a'>" + sales.grade + "</span>   ";
                 str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
                 str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
                 str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
                 str += "<span>판매상태 : " + sales.salesStatus + "</span>";
                 str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
                 str += "</div>";
+                str+= "</li>";
               });
 
-              $("#" + dataTab + " .tab-content-list").html(str);
+              $("#" + dataTab + " .tab-content-list ul").html(str);
 
               data.forEach(function(sales) {
                 initializeCountdown(sales.no, parseInt(sales.regdate, 10));
