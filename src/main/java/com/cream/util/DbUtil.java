@@ -1,13 +1,9 @@
 package com.cream.util;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import java.sql.*;
 
 /**
  * DB연동을 위한 로드 연결 닫기
@@ -93,7 +89,8 @@ public class DbUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
+
 }//classEnd
 
 

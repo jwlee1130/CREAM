@@ -1,7 +1,6 @@
 package com.cream.dao;
 
-import com.cream.dto.SalesDTO;
-import com.cream.dto.SurveyDTO;
+import com.cream.dto.*;
 import com.cream.util.DbUtil;
 
 import java.sql.Connection;
@@ -147,23 +146,66 @@ public class AdminDAOImpl implements AdminDAO {
      */
     @Override
     public int submitSurvey(SurveyDTO surveyData) throws SQLException {
-        String sql = "INSERT INTO SURVEY (USER_NO, CATEGORY, BRAND, COLOR, PRICE) VALUES (?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO SURVEY (USER_NO, CATEGORY, BRAND, COLOR, PRICE) VALUES (?, ?, ?, ?, ?)";
+        String sqlCategory = "SELECT CATEGORY FROM CATEGORY WHERE NO = ?";
+        String sqlBrand = "SELECT BRAND FROM BRAND WHERE NO = ?";
+        String sqlColor = "SELECT COLOR FROM COLOR WHERE NO = ?";
+
         Connection conn = null;
-        PreparedStatement ps = null;
+        PreparedStatement psInsert = null;
+        PreparedStatement psCategory = null;
+        PreparedStatement psBrand = null;
+        PreparedStatement psColor = null;
+        ResultSet rsCategory = null;
+        ResultSet rsBrand = null;
+        ResultSet rsColor = null;
 
         try {
             conn = DbUtil.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, surveyData.getUserNo());
-            ps.setString(2, surveyData.getCategory());
-            ps.setString(3, surveyData.getBrand());
-            ps.setString(4, surveyData.getColor());
-            ps.setInt(5, surveyData.getPrice());
-            return ps.executeUpdate();
+
+            psCategory = conn.prepareStatement(sqlCategory);
+            psCategory.setInt(1, Integer.parseInt(surveyData.getCategory()));
+            rsCategory = psCategory.executeQuery();
+            String category = "";
+            if (rsCategory.next()) {
+                category = rsCategory.getString("CATEGORY");
+            }
+
+            psBrand = conn.prepareStatement(sqlBrand);
+            psBrand.setInt(1, Integer.parseInt(surveyData.getBrand()));
+            rsBrand = psBrand.executeQuery();
+            String brand = "";
+            if (rsBrand.next()) {
+                brand = rsBrand.getString("BRAND");
+            }
+
+
+            psColor = conn.prepareStatement(sqlColor);
+            psColor.setInt(1, Integer.parseInt(surveyData.getColor()));
+            rsColor = psColor.executeQuery();
+            String color = "";
+            if (rsColor.next()) {
+                color = rsColor.getString("COLOR");
+            }
+
+
+            psInsert = conn.prepareStatement(sqlInsert);
+            psInsert.setInt(1, surveyData.getUserNo());
+            psInsert.setString(2, category);
+            psInsert.setString(3, brand);
+            psInsert.setString(4, color);
+            psInsert.setInt(5, surveyData.getPrice());
+
+            return psInsert.executeUpdate();
         } finally {
-            DbUtil.dbClose(conn, ps);
+            DbUtil.dbClose(conn, psInsert);
+            DbUtil.dbClose(conn, psCategory,rsCategory);
+            DbUtil.dbClose(conn, psBrand,rsBrand);
+            DbUtil.dbClose(conn, psColor,rsColor);
         }
     }
+
+
 
     /*
     SELECT KOR_NAME FROM PRODUCT WHERE NO = 1;
@@ -243,4 +285,139 @@ public class AdminDAOImpl implements AdminDAO {
         }
         return false; // 관리자 아이디가 아니므로 거짓을 반환
     }
+
+
+
+//    @Override
+//    public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
+//        // 고정된 값으로 SQL 쿼리 생성
+//        String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
+//                "FROM PRODUCT p " +
+//                "JOIN BRAND b ON p.BRAND_NO = b.NO " +
+//                "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
+//                "WHERE p.CATEGORY_NO = 111 " + // 고정된 값 테스트->스니커즈
+//                "AND p.BRAND_NO = 1000 " +     // 고정된 값->나이키
+//                "AND p.COLOR_NO = 101 " +      // 고정된 값-> 검정색
+//                "AND p.RELEASE_PRICE <= 1000000 " + // 고정된 값
+//                "ORDER BY p.RELEASE_PRICE DESC " +
+//                "LIMIT 1";
+//
+//        Connection conn = null;
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        try {
+//            conn = DbUtil.getConnection();
+//            ps = conn.prepareStatement(sql);
+//
+//            // 고정된 값 사용 시 파라미터 설정 불필요
+//            // ps.setInt(1, categoryNo);
+//            // ps.setInt(2, brandNo);
+//            // ps.setInt(3, colorNo);
+//            // ps.setInt(4, releasePrice);
+//
+//            rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                BrandDTO brand = new BrandDTO();
+//                brand.setNo(rs.getInt("BRAND_NO"));
+//                brand.setBrand(rs.getString("BRAND"));
+//
+//                ProductImgDTO productImg = new ProductImgDTO();
+//                productImg.setFilePath(rs.getString("FILE_PATH"));
+//                productImg.setFileSize(rs.getString("FILE_SIZE"));
+//                productImg.setRegdate(rs.getString("REGDATE"));
+//
+//                ProductDTO product = new ProductDTO();
+//                product.setNo(rs.getInt("NO"));
+//                product.setBrandNo(rs.getInt("BRAND_NO"));
+//                product.setCategoryNo(rs.getInt("CATEGORY_NO"));
+//                product.setColorNo(rs.getInt("COLOR_NO"));
+//                product.setEngName(rs.getString("ENG_NAME"));
+//                product.setKorName(rs.getString("KOR_NAME"));
+//                product.setRelease(rs.getString("RELEASE"));
+//                product.setReleasePrice(rs.getInt("RELEASE_PRICE"));
+//                product.setModelNumber(rs.getString("MODELNUMBER"));
+//                product.setRegdate(rs.getString("REGDATE"));
+//                product.setSalesQuantity(rs.getInt("SALES_QUANTITY"));
+//                product.setProductImg(productImg);
+//                product.setBrandName(brand);
+//
+//                return product;
+//            }
+//
+//        } finally {
+//            DbUtil.dbClose(conn, ps, rs);
+//        }
+//
+//        return null;
+//    }
+@Override
+public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
+    String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
+            "FROM PRODUCT p " +
+            "JOIN BRAND b ON p.BRAND_NO = b.NO " +
+            "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
+            "WHERE p.CATEGORY_NO = ? " +
+            "AND p.BRAND_NO = ? " +
+            "AND p.COLOR_NO = ? " +
+            "AND p.RELEASE_PRICE <= ? " +
+            "ORDER BY p.RELEASE_PRICE DESC " +
+            "LIMIT 1";
+
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DbUtil.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, categoryNo);
+        ps.setInt(2, brandNo);
+        ps.setInt(3, colorNo);
+        ps.setInt(4, releasePrice);
+
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            BrandDTO brand = new BrandDTO();
+            brand.setNo(rs.getInt("BRAND_NO"));
+            brand.setBrand(rs.getString("BRAND"));
+
+            ProductImgDTO productImg = new ProductImgDTO();
+            productImg.setFilePath(rs.getString("FILE_PATH"));
+            productImg.setFileSize(rs.getString("FILE_SIZE"));
+            productImg.setRegdate(rs.getString("REGDATE"));
+
+            ProductDTO product = new ProductDTO();
+            product.setNo(rs.getInt("NO"));
+            product.setBrandNo(rs.getInt("BRAND_NO"));
+            product.setCategoryNo(rs.getInt("CATEGORY_NO"));
+            product.setColorNo(rs.getInt("COLOR_NO"));
+            product.setEngName(rs.getString("ENG_NAME"));
+            product.setKorName(rs.getString("KOR_NAME"));
+            product.setRelease(rs.getString("RELEASE"));
+            product.setReleasePrice(rs.getInt("RELEASE_PRICE"));
+            product.setModelNumber(rs.getString("MODELNUMBER"));
+            product.setRegdate(rs.getString("REGDATE"));
+            product.setSalesQuantity(rs.getInt("SALES_QUANTITY"));
+            product.setProductImg(productImg);
+            product.setBrandName(brand);
+
+            return product;
+        }
+
+    } finally {
+        DbUtil.dbClose(conn, ps, rs);
+    }
+
+    return null;
+}
+
+
+
+
+
+
+
 }
