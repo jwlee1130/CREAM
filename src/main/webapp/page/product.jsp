@@ -112,9 +112,12 @@
         <div class="item-image">
             <img src="${productDetail.productImg[0].filePath}"  style="width: 525px; height: 525px;">
         </div>
-         <div class="item-image">
+        <c:if test="${productDetail.productImg[1].filePath !=null}">
+        	 <div class="item-image">
             <img src="${productDetail.productImg[1].filePath}"  style="width: 525px; height: 525px;">
-        </div>
+        	</div>
+        </c:if>
+
         <div class="item-description">
             <div class="item-price">
                 <p>최저 입찰가</p>
