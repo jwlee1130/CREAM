@@ -1,4 +1,5 @@
 <%@ page import="com.cream.dto.UserDTO" %>
+<%@ page import="com.cream.dto.AdminDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -175,17 +176,35 @@
 
 <%
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    AdminDTO adminUser=(AdminDTO) session.getAttribute("adminUser"); // 아직 정해지지 않은 부분
 %>
 
 <script type="text/javascript">
     $(document).ready(function(){
-        var userId = "<%= loginUser.getUserId()%>";
-        var userNo="<%= loginUser.getNo()%>"
+        <% if (loginUser != null && adminUser == null) { %>
 
-
-        console.log("로그인된 유저 ID: " + userId);
-        console.log("로그인된 유저 NO: " + userNo);
-
+        $.ajax({
+            url: "ajax",
+            type: "get",
+            dataType: "json",
+            data: {
+                key: "admin",
+                methodName: "hasUserCompletedSurvey",
+                <%--userNo: "<%= loginUser.getNo() %>"--%>
+                // 서버에서도 이 값을 세션에서 가지고 올 수 있음
+            },
+            success: function(result){
+                console.log(result);
+                if (!result) { // boolean 형식으로 올거임
+                    window.open('/page/surveyPopup.jsp', 'surveyPopup', 'width=400,height=600');
+                }
+            },
+            error: function(err){
+                console.error("설문조 확인 중 오류 발생:", err);
+                ;
+            }
+        });
+        <% } %>
     });
 </script>
 

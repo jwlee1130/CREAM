@@ -23,7 +23,7 @@ public interface AdminService {
 
     Map<String, String> getProductName(int productNo) throws SQLException; // 상품명 가져오기
 
-    boolean hasUserCompletedSurvey(String userId)throws SQLException; // 사용자가 이미 설문조사를 했거나, 관리자인지 확인
+    boolean hasUserCompletedSurvey(int userNo)throws SQLException; // 사용자가 이미 설문조사를 했거나, 관리자인지 확인
 
     boolean isAdmin(String adminId)throws SQLException;// 관리자인지 확인
 

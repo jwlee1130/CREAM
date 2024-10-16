@@ -235,8 +235,8 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public boolean hasUserCompletedSurvey(String userId) throws SQLException {
-        String sql="SELECT COUNT(*) FROM SURVEY WHERE USER_ID = ?";
+    public boolean hasUserCompletedSurvey(int userNo) throws SQLException {
+        String sql="SELECT COUNT(*) FROM SURVEY WHERE USER_NO = ?";
         Connection conn =null;
         PreparedStatement ps =null;
         ResultSet rs = null;
@@ -245,12 +245,14 @@ public class AdminDAOImpl implements AdminDAO {
         {
             conn=DbUtil.getConnection();
             ps=conn.prepareStatement(sql);
-            ps.setString(1, userId);
+            ps.setInt(1, userNo);
             rs = ps.executeQuery();
 
             if(rs.next())
             {
-                return rs.getInt(1)>0;
+                int count=rs.getInt(1);
+                System.out.println("count = " + count);
+                return count>0;
             }
         }
         finally
