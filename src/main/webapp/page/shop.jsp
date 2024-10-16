@@ -15,24 +15,57 @@
    <script type="text/javascript">
 	$(function(){
 	
-		let checkIndex = [];
 		//필터 범위에서 체크박스를 선택하면
 		document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
 			alert(e.target.checked);
-			
+
+			let checkedArr=[]; //필터 내용을 저장하는 배열
 			//체크박스 전체를 돌면서 체크된 값 확인해서 배열에 담기
-			document.querySelectorAll("[type=checkbox]").forEach((item, index)=>{ 
+			document.querySelectorAll("[type=checkbox]:checked").forEach((item, index)=>{ 
 				
-				if(item.checked){ //체크가 되어있다면
 					console.log(item.id);
-					let checkValue = item.id;
-					checkIndex.push(checkValue); //체크된 값들을 배열에 담는다				
-				}		
+					checkedArr.push(item.id); //체크된 값들을 배열에 담는다				
 			});
 			
-			console.log(checkIndex);
-			//selectProductByFilter();
-		});
+			console.log(checkedArr);
+			$.ajax({
+				url :"ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				traditional : true, 
+				data: {
+					key:"product" , 
+					methodName : "checkedList",
+					checkedArr : checkedArr
+				}, //서버에게 보낼 데이터정보(parameter정보)					
+				success :function(result){
+						console.log(result)
+						
+					let str="";
+					$.each(result, function(index, product){
+						str+="<li>";
+					    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
+				    	str+=`<div class="popular-item">`;
+				    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
+				    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+				    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
+				    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
+				    	str+=`</div>`;
+				    	str+=`</a>`;
+				    	str+="</li>";
+					}); //eachEnd
+						
+					$("#popular-list-wrapper-ul").html(str);
+					$("#shop-main-total").html("상품수량 : "+result.length + "개");
+						
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+				alert(err+" 상품 검색에서 에러 발생했어요.");
+				}  //실패했을때 실행할 함수 
+			});//ajax끝
+			
+
+		}); //체크박스 선택 Event 끝
 		
 
 		//전체검색
@@ -74,36 +107,7 @@
 		  
 		   //검색시 상품 조회
 			function selectProductByFilter(){
-				$.ajax({
-					url :"ajax" , //서버요청주소
-					type:"get", //요청방식(method방식 : get | post | put | delete )
-					dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"product" , methodName : "searchProductByKeyword"}, //서버에게 보낼 데이터정보(parameter정보)					
-					success :function(result){
-							//console.log(result)
-							
-						let str="";
-						$.each(result, function(index, product){
-							str+="<li>";
-						    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
-					    	str+=`<div class="popular-item">`;
-					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
-					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-					    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-					    	str+=`</div>`;
-					    	str+=`</a>`;
-					    	str+="</li>";
-						}); //eachEnd
-							
-						$("#popular-list-wrapper-ul").html(str);
-						$("#shop-main-total").html("상품수량 : "+result.length + "개");
-							
-					} , //성공했을때 실행할 함수 
-					error : function(err){  
-					alert(err+" 상품 검색에서 에러 발생했어요.");
-					}  //실패했을때 실행할 함수 
-			});//ajax끝
+				
 		   }//productSearch 함수끝
 		   
 			//productSelectAll();

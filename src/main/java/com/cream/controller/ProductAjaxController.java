@@ -1,17 +1,16 @@
 package com.cream.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cream.dto.BrandDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.service.ProductServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class ProductAjaxController implements RestController {
 	ProductServiceImpl productService = new ProductServiceImpl();
@@ -25,21 +24,29 @@ public class ProductAjaxController implements RestController {
 		
 	}//selectAll 끝
 	
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajax", method = RequestMethod.POST)
+	public Object checkedList(HttpSession session, HttpServletRequest request) throws IOException, SQLException {
+
+		String[] checkArr = request.getParameterValues("checkedArr");
+		System.out.println(checkArr);
+		
+		for( String checkId : checkArr) {
+			System.out.println(checkId);
+			
+		}
+		return null;
+	}
+	
+	
 	public Object searchProductByFilter(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		System.out.println("Ajax 필터로 검색 메소드...!!!");
 
-		String searchKeyword = request.getParameter("checkIndex");
+		String searchKeyword = request.getParameter("checkedArr");
 		//String searchKeyword = "Asics";
-		System.out.println(searchKeyword);
-		if(getType(searchKeyword)==2) { //한글이다
-			System.out.println("입력값은 한글");
-			productList = productService.searchProductKor(searchKeyword);
-			
-		} else if(getType(searchKeyword)==1) { //영문이다
-			System.out.println("입력값은 영문");
-			productList = productService.searchProductEng(searchKeyword);
-		} else 
-			System.out.println("무언가 문제가 있다...ajax Controller");
+		System.out.println("searchKeyword = " + searchKeyword);
+		
 
 		System.out.println(productList);
 		return productList;		
