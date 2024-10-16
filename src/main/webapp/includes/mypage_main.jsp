@@ -67,7 +67,7 @@
                     <h2 id="completed-count">0</h2>
                 </div>
             </div>
-            <div class="parchase-item" id="sales-container" style="display: flex; flex-direction: column;">
+            <div class="purchase-container" id="sales-container" style="display: flex; flex-direction: column;">
                 <!-- 판매 내역 항목들이 여기에 추가됩니다 -->
             </div>
         </div>
