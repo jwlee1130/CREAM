@@ -4,7 +4,7 @@
 
 <h1 style="font-size:2.5rem;">검수 목록</h1>
 
-<div style="height: 400px; overflow-y:auto;">
+<div style="height: 800px; overflow-y:auto; width: 100%;">
   <table id="inspectionTable" class="table">
     <thead>
     <tr>
