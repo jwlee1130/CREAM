@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <style>
+        .wished{
+          background-color: #222;
+          color: white;
+        }
+        .swiper{
+          max-width: 500px;
+        }
+        .swiper-button-next, .swiper-button-prev{
+          color: #9a9a9a;
+        }
+    </style>
     <script type="text/javascript">
       $(function(){
         $("[name=btn]").click(function(){
@@ -109,11 +125,24 @@
 <jsp:include page="../includes/header.jsp" />
 <div class="container">
     <div class="item-wrapper">
-        <div class="item-image">
-            <img src="${productDetail.productImg[0].filePath}"  style="width: 525px; height: 525px;">
-        </div>
-         <div class="item-image">
-            <img src="${productDetail.productImg[1].filePath}"  style="width: 525px; height: 525px;">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+
+                        <img src="${productDetail.productImg[0].filePath}" style="width: 525px; height: 525px;">
+
+                </div>
+                <c:if test="${productDetail.productImg[1].filePath!=null}">
+                <div class="swiper-slide">
+
+                        <img src="${productDetail.productImg[1].filePath}" style="width: 525px; height: 525px;">
+
+                </div>
+                </c:if>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-scrollbar"></div>
         </div>
         <div class="item-description">
             <div class="item-price">
@@ -161,13 +190,12 @@
                 </a>
 
             </div>
+            <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="wishlist-link">
             <div class="item-wish">
-                <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="wishlist-link"><p>관심상품</p></a>
+                <p>관심상품</p>
             </div>
+            </a>
         </div>
-
-
-
 
     </div>
     <div class="item-info-wrapper">
@@ -301,9 +329,24 @@
   });
   document.addEventListener('DOMContentLoaded', () => {
 	    const wishlistButton = document.getElementById('add-to-wishlist');
-	    
+        const productNo = this.getAttribute('data-id');
+
+        $.ajax({
+          url: '${pageContext.request.contextPath}/ajax',
+          method: 'POST',
+          data: {
+            key: 'userAjax',
+            methodName: 'toggleWishlist',
+            product_no: productNo
+          },
+          dataType: 'json',
+          success : function (response){
+
+          }
+        })
+
+
 	    wishlistButton.addEventListener('click', function() {
-	        const productNo = this.getAttribute('data-id');
 	        $.ajax({
 	            url: '${pageContext.request.contextPath}/ajax',
 	            method: 'POST',
@@ -330,7 +373,21 @@
 	    });
 	});
 </script>
-
-<script src="../js/script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper', {
+      slidesPerView: 1,
+      navigation: {
+        nextEl: '.swiper .swiper-button-next',
+        prevEl: '.swiper .swiper-button-prev',
+      },
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+      speed: 600,
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 </html>
