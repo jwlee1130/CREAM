@@ -158,7 +158,6 @@
                 <div class="popular-list-wrapper">
                     <ul id="popular-list-wrapper-ul">
                     </ul>
-
                 </div>
                 <div class="more-button">
                     <button>더보기</button>

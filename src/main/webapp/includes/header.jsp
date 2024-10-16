@@ -32,7 +32,7 @@
             </div>
             <div class="header-searchbar">
                 <div class="search-container">
-                    <input type="text" class="search-bar" id="searchBar" placeholder="Search..." maxlength="16"  onkeypress="enterKey();"/>
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search..." maxlength="16"  onkeypress="enterKey();" />
                     <a class="search-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
                         <line x1="17" y1="17" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -128,17 +128,20 @@
 </script>
 <script type="text/javascript">
 		
-		$(".search-button").click(function(){
-			location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword&keyWord"+$().val();//
-		})
+	
+		//$(".search-button").click(function(){
+		//	location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword";
+		//})
 
 		//검색 함수
 		function enterKey(){
 			if(window.event.keyCode ==13){
 				console.log("123");
-				//console.log("${"${productList.no}"}")
-				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword";
-			}
+				var inputKeyword = document.getElementById("searchBar").value;
+				console.log(inputKeyword);
+				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=selectAllProduct&inputKeyword="+inputKeyword;
+			} else
+				console.log("111222333");
 
 		}//enterKey End
 	
