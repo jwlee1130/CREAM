@@ -3,6 +3,7 @@ package com.cream.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cream.dto.AdminDTO;
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductViewDTO;
@@ -22,6 +23,8 @@ public interface UserDAO {
    * select user_id , pwd, name from users where user_id=? and pwd=?
    * */
 	UserDTO loginCheck(UserDTO userDTO)throws SQLException;
+	
+	AdminDTO loginAdminCheck(String adminId, String adminPw) throws SQLException;
 	
 	/*
 	 * UserNo를 통해 bid(입찰)테이블에 입찰중이던 회원인지 체크한다.

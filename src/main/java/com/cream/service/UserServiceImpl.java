@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cream.dao.UserDAOImpl;
+import com.cream.dto.AdminDTO;
 import com.cream.dto.BidDTO;
 import com.cream.dto.NotifyDTO;
 import com.cream.dto.ProductViewDTO;
@@ -34,6 +35,12 @@ public class UserServiceImpl implements UserService {
 		}
 		return checkUser;
 		
+	}
+	
+	@Override
+	public AdminDTO loginAdminCheck(String adminId, String adminPw) throws SQLException {
+		AdminDTO admin=dao.loginAdminCheck(adminId, adminPw);
+		return admin;
 	}
 
 	@Override
