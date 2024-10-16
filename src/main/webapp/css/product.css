@@ -90,15 +90,19 @@
   padding-left: 3.5rem;
 }
 .container .item-wrapper .item-description .item-price {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 2rem;
 }
 .container .item-wrapper .item-description .item-price p {
   font-size: 1.25rem;
   font-weight: normal;
+  margin-bottom: 0.5rem;
 }
-.container .item-wrapper .item-description .item-price h1 {
-  font-size: 2.5rem;
+.container .item-wrapper .item-description .item-price span {
+  font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 .container .item-wrapper .item-description .item-name {
   margin-bottom: 2rem;
@@ -194,25 +198,19 @@
   margin-bottom: 2rem;
 }
 .container .item-info-wrapper .item-quote .item-quote-chart {
-  width: 450px;
-  height: 300px;
+  width: 550px;
+  height: 400px;
   text-align: center;
   align-content: center;
-  background-color: #fff;
-  border: 1px solid #333;
 }
 .container .item-info-wrapper .item-concluded h2 {
   font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 4rem;
 }
 .container .item-info-wrapper .item-concluded .concluded-transaction {
-  width: 450px;
-  height: 300px;
+  width: 550px;
+  height: 400px;
   text-align: center;
   align-content: center;
-  background-color: #fff;
-  border: 1px solid #333;
 }
 
 .modal {

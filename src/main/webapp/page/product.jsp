@@ -201,10 +201,6 @@
     <div class="item-info-wrapper">
         <div class="item-quote">
             <h2>시세</h2>
-            <div class="item-quote-button">
-                <button class="one-week">1주일</button>
-                <button class="one-month">1개월</button>
-            </div>
             <div class="item-quote-chart">
 <%--                this is chart area--%>
                 <jsp:include page="../chart/productPageChart.jsp"/>
