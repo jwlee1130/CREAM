@@ -146,23 +146,66 @@ public class AdminDAOImpl implements AdminDAO {
      */
     @Override
     public int submitSurvey(SurveyDTO surveyData) throws SQLException {
-        String sql = "INSERT INTO SURVEY (USER_NO, CATEGORY, BRAND, COLOR, PRICE) VALUES (?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO SURVEY (USER_NO, CATEGORY, BRAND, COLOR, PRICE) VALUES (?, ?, ?, ?, ?)";
+        String sqlCategory = "SELECT CATEGORY FROM CATEGORY WHERE NO = ?";
+        String sqlBrand = "SELECT BRAND FROM BRAND WHERE NO = ?";
+        String sqlColor = "SELECT COLOR FROM COLOR WHERE NO = ?";
+
         Connection conn = null;
-        PreparedStatement ps = null;
+        PreparedStatement psInsert = null;
+        PreparedStatement psCategory = null;
+        PreparedStatement psBrand = null;
+        PreparedStatement psColor = null;
+        ResultSet rsCategory = null;
+        ResultSet rsBrand = null;
+        ResultSet rsColor = null;
 
         try {
             conn = DbUtil.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, surveyData.getUserNo());
-            ps.setString(2, surveyData.getCategory());
-            ps.setString(3, surveyData.getBrand());
-            ps.setString(4, surveyData.getColor());
-            ps.setInt(5, surveyData.getPrice());
-            return ps.executeUpdate();
+
+            psCategory = conn.prepareStatement(sqlCategory);
+            psCategory.setInt(1, Integer.parseInt(surveyData.getCategory()));
+            rsCategory = psCategory.executeQuery();
+            String category = "";
+            if (rsCategory.next()) {
+                category = rsCategory.getString("CATEGORY");
+            }
+
+            psBrand = conn.prepareStatement(sqlBrand);
+            psBrand.setInt(1, Integer.parseInt(surveyData.getBrand()));
+            rsBrand = psBrand.executeQuery();
+            String brand = "";
+            if (rsBrand.next()) {
+                brand = rsBrand.getString("BRAND");
+            }
+
+
+            psColor = conn.prepareStatement(sqlColor);
+            psColor.setInt(1, Integer.parseInt(surveyData.getColor()));
+            rsColor = psColor.executeQuery();
+            String color = "";
+            if (rsColor.next()) {
+                color = rsColor.getString("COLOR");
+            }
+
+
+            psInsert = conn.prepareStatement(sqlInsert);
+            psInsert.setInt(1, surveyData.getUserNo());
+            psInsert.setString(2, category);
+            psInsert.setString(3, brand);
+            psInsert.setString(4, color);
+            psInsert.setInt(5, surveyData.getPrice());
+
+            return psInsert.executeUpdate();
         } finally {
-            DbUtil.dbClose(conn, ps);
+            DbUtil.dbClose(conn, psInsert);
+            DbUtil.dbClose(conn, psCategory,rsCategory);
+            DbUtil.dbClose(conn, psBrand,rsBrand);
+            DbUtil.dbClose(conn, psColor,rsColor);
         }
     }
+
+
 
     /*
     SELECT KOR_NAME FROM PRODUCT WHERE NO = 1;

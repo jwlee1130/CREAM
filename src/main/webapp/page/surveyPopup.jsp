@@ -152,7 +152,7 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    userNo: '4',
+                    userNo: '5',
                     category: category,
                     brand: brand,
                     color: color,
