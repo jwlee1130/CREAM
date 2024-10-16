@@ -26,13 +26,13 @@
         }
         #surveyContainer {
             width: 90%;
-            max-width: 480px; /* 팝업 너비에 맞게 조정 */
+            max-width: 480px;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            overflow: auto; /* 내용이 넘칠 경우 스크롤 */
-            height: 80%; /* 팝업 높이에 맞게 조정 */
+            overflow: auto;
+            height: 80%;
         }
         h2 {
             text-align: center;
@@ -75,7 +75,7 @@
             background-color: #00A86B;
         }
         #recommendedProduct {
-            display: none; /* 초기에는 숨김 */
+            display: none;
             width: 100%;
             text-align: center;
         }
@@ -156,7 +156,7 @@
 <script>
     <%
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-        AdminDTO adminUser = (AdminDTO) session.getAttribute("adminUser"); // 아직 정해지지 않은 부분
+        AdminDTO adminUser = (AdminDTO) session.getAttribute("adminUser");
     %>
     $(document).ready(function(){
         $('#surveyForm').on('submit', function(e){
@@ -216,8 +216,8 @@
                 $('#productBrand').text(product.brandName.brand);
                 $('#productPrice').text(product.releasePrice.toLocaleString());
                 $('#productImage').attr('src', product.productImg[0].filePath);
-                $('#surveyForm').hide(); // 설문 폼 숨김
-                $('#recommendedProduct').show(); // 상품 추천 표시
+                $('#surveyForm').hide();
+                $('#recommendedProduct').show();
             } else {
                 $('#surveyContainer').append('<p>추천 상품을 찾을 수 없습니다.</p>');
             }
