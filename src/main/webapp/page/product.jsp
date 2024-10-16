@@ -110,7 +110,10 @@
 <div class="container">
     <div class="item-wrapper">
         <div class="item-image">
-            <img src="${productDetail.productImg.filePath}"  style="width: 525px; height: 525px;">
+            <img src="${productDetail.productImg[0].filePath}"  style="width: 525px; height: 525px;">
+        </div>
+         <div class="item-image">
+            <img src="${productDetail.productImg[1].filePath}"  style="width: 525px; height: 525px;">
         </div>
         <div class="item-description">
             <div class="item-price">
@@ -150,7 +153,7 @@
                         <p>217,000원 <br> 즉시 구매가</p>
                     </div>
                 </a>
-                <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}&filePath=${productDetail.productImg.filePath}">
+                <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}">
                     <div class="item-sell">
                         <span>판매</span>
                         <p>237,000원 <br> 즉시 판매가</p>

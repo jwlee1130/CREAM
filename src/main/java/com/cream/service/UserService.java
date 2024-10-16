@@ -95,5 +95,16 @@ public interface UserService {
 	 * 	관심상품 추가 및 해제
 	 * */
 	boolean isProductInWishlist(int userNo, int productNo) throws SQLException;
+
+	int updateEmail(int userNo, String email) throws SQLException;
 	
+    int updatePassword(int userNo, String password) throws SQLException;
+    
+    int updateNickname(int userNo, String nickname) throws SQLException;
+    
+    int updatePhone(int userNo, String phone) throws SQLException;
+    
+    int updateShoeSize(int userNo, int shoeSize) throws SQLException;
+    
+    int updateAddress(int userNo, String address) throws SQLException;
 }

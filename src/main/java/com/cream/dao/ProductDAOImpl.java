@@ -13,7 +13,6 @@ import java.util.Properties;
 import com.cream.dto.BrandDTO;
 import com.cream.dto.ProductDTO;
 import com.cream.dto.ProductImgDTO;
-import com.cream.dto.PurchaseDTO;
 import com.cream.util.DbUtil;
 
 public class ProductDAOImpl implements ProductDAO {
@@ -48,12 +47,13 @@ public class ProductDAOImpl implements ProductDAO {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
-			
 			while(rs.next()) {
+				List<ProductImgDTO> list = new ArrayList<ProductImgDTO>();
+				list.add(new ProductImgDTO(rs.getString(12), rs.getString(13)));
 				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
 													rs.getString(5), rs.getString(6), rs.getString(7), 
 													rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11), 
-													new ProductImgDTO(rs.getString(12), rs.getString(13)), new BrandDTO(rs.getString(14)));
+													list, new BrandDTO(rs.getString(14)));
 			
 				productList.add(product);
 			}
@@ -108,8 +108,8 @@ public class ProductDAOImpl implements ProductDAO {
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			List<ProductDTO> productList = new ArrayList<ProductDTO>();
 			String sql = proFile.getProperty("query.searchProductByEng"); 
+			List<ProductDTO> productList = new ArrayList<ProductDTO>();
 			//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P 
 			         //JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO 
 			         //JOIN BRAND B ON P.BRAND_NO=B.NO WHERE ENG_NAME LIKE ?
@@ -119,12 +119,14 @@ public class ProductDAOImpl implements ProductDAO {
 				ps = con.prepareStatement(sql);
 				ps.setString(1, "%"+productName+"%");
 				rs = ps.executeQuery();		
-					
+				
 				while(rs.next()) {
+					List<ProductImgDTO> list = new ArrayList<ProductImgDTO>();
+					list.add(new ProductImgDTO(rs.getString(12), rs.getString(13)));
 					ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
 														rs.getString(5), rs.getString(6), rs.getString(7), 
 														rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11), 
-														new ProductImgDTO(rs.getString(12), rs.getString(13)), new BrandDTO(rs.getString(14)));
+														list, new BrandDTO(rs.getString(14)));
 					
 					productList.add(product);
 				}
@@ -141,18 +143,19 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select p.NO, p.BRAND_NO, p.CATEGORY_NO, p.COLOR_NO, p.ENG_NAME, p.KOR_NAME, p.RELEASE, p.RELEASE_PRICE, p.MODELNUMBER, p. REGDATE, p.SALES_QUANTITY, i.FILE_PATH, i.FILE_SIZE from PRODUCT p join PRODUCT_IMG i on p.NO = i.PRODUCT_NO WHERE p.NO =?";
+		String sql = "select NO, BRAND_NO, CATEGORY_NO, COLOR_NO, ENG_NAME, KOR_NAME, `RELEASE`, RELEASE_PRICE, MODELNUMBER,  REGDATE, SALES_QUANTITY from PRODUCT WHERE NO =?";
 
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			ps.setInt(1, productNo);
 			rs = ps.executeQuery();
-			
+			List<ProductImgDTO> list = getFilePath(con,productNo);
 			if(rs.next()) {
 				 product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
 						 rs.getString(5),rs.getString(6),rs.getString(7), rs.getInt(8), 
-						 rs.getString(9),rs.getString(10), rs.getInt(11),new ProductImgDTO(rs.getString(12),rs.getString(13)));
+						 rs.getString(9),rs.getString(10), rs.getInt(11),list);
+				 		
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -163,7 +166,33 @@ public class ProductDAOImpl implements ProductDAO {
 
 		return product;
 	}
+	
+	public List<ProductImgDTO> getFilePath(Connection con, int productNo) throws SQLException{
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<ProductImgDTO> list= new ArrayList<ProductImgDTO>();
+		
+		String sql = "select FILE_PATH, FILE_SIZE FROM PRODUCT_IMG WHERE PRODUCT_NO = ? ";
+			
 
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, productNo);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new ProductImgDTO(rs.getString(1), rs.getString(2)));
+				 		
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			  throw new SQLException("sql 오류");
+		}finally {
+			DbUtil.dbClose(ps,rs);
+		}
+
+		return list;
+	}
 
 	public int getRecentPrice(int productNo) throws SQLException {
 

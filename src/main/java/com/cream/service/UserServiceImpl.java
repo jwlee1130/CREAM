@@ -129,6 +129,38 @@ public class UserServiceImpl implements UserService {
 		boolean result = dao.isProductInWishlist(userNo, productNo);
 		return result;
 	}
+
+	@Override
+    public int updateEmail(int userNo, String email) throws SQLException {
+        return dao.updateEmail(userNo, email);
+    }
+
+    @Override
+    public int updatePassword(int userNo, String password) throws SQLException {
+        return dao.updatePassword(userNo, password);
+    }
+
+    @Override
+    public int updateNickname(int userNo, String nickname) throws SQLException {
+        return dao.updateNickname(userNo, nickname);
+    }
+
+    @Override
+    public int updatePhone(int userNo, String phone) throws SQLException {
+        return dao.updatePhone(userNo, phone);
+    }
+
+    @Override
+    public int updateShoeSize(int userNo, int shoeSize) throws SQLException {
+        return dao.updateShoeSize(userNo, shoeSize);
+    }
+
+    @Override
+    public int updateAddress(int userNo, String address) throws SQLException {
+        return dao.updateAddress(userNo, address);
+    }
+
+	
 	
 	
 	

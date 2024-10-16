@@ -132,6 +132,7 @@
 		//	location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword";
 		//})
 
+
 		//검색 함수
 		function enterKey(){
 			if(window.event.keyCode ==13){

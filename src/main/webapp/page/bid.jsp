@@ -12,7 +12,7 @@
   <script type="text/javascript">
   	$(function(){
   		
-  		$("#a-bid").click(function(){
+  		$(".a-bid").click(function(){
   			
   		
   			window.location.href="front?key=sales&methodName=bidDetail&salesNo=${sale.no}&userNo=${loginUser.no}&bidPrice="+$("#bid").val();
@@ -89,7 +89,7 @@
           <p>총 결제금액</p>
           <p>다음 화면에서 확인</p>
         </div>
-        	<a href="#" id="a-bid"><div class="instant-parchase-btn">
+        	<a href="#"  id="linked" class="a-bid"><div class="instant-parchase-btn">
            <span>구매 입찰 계속</span>
         </div>
         </a>
