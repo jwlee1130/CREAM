@@ -64,17 +64,15 @@
         <div class="header-bottom">
             <ul>
                 <li>
-                    <span><a href="">운동화</a></span>
+                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=111">스니커즈</a></span>
                 </li>
                 <li>
-                    <span><a href="">부츠</a></span>
+                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=222">슬리퍼</a></span>
                 </li>
                 <li>
-                    <span><a href="">슬리퍼</a></span>
+                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">구두</a></span>
                 </li>
-                <li>
-                    <span><a href="">스니커즈</a></span>
-                </li>
+
             </ul>
         </div>
     </div>

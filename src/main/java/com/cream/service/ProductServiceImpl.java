@@ -52,6 +52,12 @@ public class ProductServiceImpl implements ProductService {
 		return productList;
 	}
 
+	@Override
+	public List<ProductDTO> searchProductByCategory(String productCategory) throws SQLException {
+		// 상품 카테고리로 검색(운동화, 슬리퍼, 구두)
+		productList = productDao.searchProductByCategory(productCategory);
+		return productList;
+	}
 
 	public int getRecentPrice(int productNo)throws SQLException {
 		return productDao.getRecentPrice(productNo);
@@ -69,6 +75,5 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
-	
 
 }

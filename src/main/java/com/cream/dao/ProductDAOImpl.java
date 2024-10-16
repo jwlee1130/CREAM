@@ -107,7 +107,6 @@ public class ProductDAOImpl implements ProductDAO {
 		//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P 
 		         //JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO 
 		         //JOIN BRAND B ON P.BRAND_NO=B.NO WHERE KOR_NAME LIKE ?
-		System.out.println("여기는 DAO = "+ productName);	
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -143,7 +142,6 @@ public class ProductDAOImpl implements ProductDAO {
 			//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P 
 			         //JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO 
 			         //JOIN BRAND B ON P.BRAND_NO=B.NO WHERE ENG_NAME LIKE ?
-			System.out.println("여기는 DAO = "+ productName);	
 			try {
 				con = DbUtil.getConnection();
 				ps = con.prepareStatement(sql);
@@ -303,6 +301,43 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 
 		return price;
+	}
+
+
+	@Override
+	public List<ProductDTO> searchProductByCategory(String productCategory) throws SQLException {
+		// 상품 카테고리 검색(운동화, 슬리퍼, 구두)
+				Connection con = null;
+				PreparedStatement ps = null;
+				ResultSet rs = null;
+				String sql = proFile.getProperty("query.searchProductByCategory"); 
+				List<ProductDTO> productList = new ArrayList<ProductDTO>();
+				//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P 
+						//JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO 
+						//JOIN BRAND B ON P.BRAND_NO=B.NO WHERE CATEGORY_NO=?
+				//System.out.println("여기는 DAO = "+ productCategory);	
+				try {
+					con = DbUtil.getConnection();
+					ps = con.prepareStatement(sql);
+					ps.setString(1, productCategory);
+					rs = ps.executeQuery();		
+					
+					while(rs.next()) {
+						List<ProductImgDTO> list = new ArrayList<ProductImgDTO>();
+						list.add(new ProductImgDTO(rs.getString(12), rs.getString(13)));
+						ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),
+															rs.getString(5), rs.getString(6), rs.getString(7), 
+															rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11), 
+															list, new BrandDTO(rs.getString(14)));
+						
+						productList.add(product);
+					}
+				
+				} finally {
+					DbUtil.dbClose(con, ps, rs);
+				}
+					
+				return productList;
 	}
 
 }
