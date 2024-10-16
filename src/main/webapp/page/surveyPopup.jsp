@@ -32,13 +32,13 @@
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             overflow: auto; /* 내용이 넘칠 경우 스크롤 */
-            height: 90%; /* 팝업 높이에 맞게 조정 */
+            height: 80%; /* 팝업 높이에 맞게 조정 */
         }
         h2 {
             text-align: center;
             font-size: 24px;
             color: #4a4a4a;
-            margin-bottom: 20px;
+            margin-bottom: 60px;
         }
         form {
             width: 100%;
@@ -48,7 +48,7 @@
             font-size: 16px;
             color: #333;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             text-align: left;
         }
         input[type="radio"] {
@@ -56,7 +56,7 @@
             transform: scale(1.5);
         }
         .question {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             text-align: left;
         }
         button {
