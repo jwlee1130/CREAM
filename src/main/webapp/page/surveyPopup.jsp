@@ -1,90 +1,99 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="com.cream.dto.UserDTO" %>
+<%@ page import="com.cream.dto.AdminDTO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
+    <meta charset="UTF-8">
     <title>설문조사 팝업</title>
     <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             color: #333;
-            margin: 0;
-            padding: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
         }
         #surveyContainer {
-            width: 100%;
-            max-width: 360px;
+            width: 90%;
+            max-width: 480px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            overflow: auto;
+            height: 80%;
         }
         h2 {
             text-align: center;
-            font-size: 23px;
+            font-size: 24px;
             color: #4a4a4a;
+            margin-bottom: 60px;
         }
         form {
-            background-color: white;
-            padding: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
-            margin: 0 auto;
+            width: 100%;
+            text-align: center;
         }
         label {
             font-size: 16px;
             color: #333;
             display: block;
-            margin-bottom: 9px;
+            margin-bottom: 12px;
+            text-align: left;
         }
         input[type="radio"] {
-            margin-right: 9px;
-            transform: scale(1.35);
+            margin-right: 8px;
+            transform: scale(1.5);
         }
         .question {
-            margin-bottom: 18px;
+            margin-bottom: 40px;
+            text-align: left;
         }
         button {
             display: block;
-            width: 90%;
-            padding: 14px;
+            width: 100%;
+            padding: 10px;
             font-size: 16px;
             color: white;
             background-color: #41B979;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 18px;
+            margin-top: 20px;
         }
         button:hover {
             background-color: #00A86B;
         }
         #recommendedProduct {
-            background-color: white;
-            padding: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
             width: 100%;
-            max-width: 360px;
             text-align: center;
         }
         #recommendedProduct h3 {
-            font-size: 21px;
+            font-size: 20px;
             color: #4a4a4a;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
         #recommendedProduct p {
-            font-size: 15px;
+            font-size: 16px;
             color: #333;
-            margin-bottom: 9px;
+            margin: 30px 0;
             text-align: left;
         }
         #recommendedProduct img {
-            width: 180px;
+            width: 350px;
             height: auto;
-            margin: 18px auto;
+            margin: 20px auto;
             display: block;
             border-radius: 8px;
         }
@@ -134,9 +143,21 @@
 
         <button type="submit">제출</button>
     </form>
+
+    <div id="recommendedProduct">
+        <h2>추천 상품 정보</h2>
+        <p>상품 이름: <span id="productName"></span></p>
+        <p>브랜드: <span id="productBrand"></span></p>
+        <p>출시 가격: <span id="productPrice"></span>원</p>
+        <img id="productImage" src="" alt="상품 이미지" />
+    </div>
 </div>
 
 <script>
+    <%
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+        AdminDTO adminUser = (AdminDTO) session.getAttribute("adminUser");
+    %>
     $(document).ready(function(){
         $('#surveyForm').on('submit', function(e){
             e.preventDefault();
@@ -152,7 +173,7 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    userNo: '5',
+                    userNo: '<%= loginUser != null ? loginUser.getNo() : "" %>',
                     category: category,
                     brand: brand,
                     color: color,
@@ -191,17 +212,14 @@
 
         function displayProduct(product){
             if (product && product.no) {
-                var productHtml = '<div id="recommendedProduct">' +
-                    '<h3>추천 상품 정보</h3>' +
-                    '<p>상품 이름: ' + product.engName + '</p>' +
-                    '<p>브랜드: ' + product.brandName.brand + '</p>' +
-                    '<p>출시 가격: ' + product.releasePrice + '원</p>' +
-                    '<img src="' + product.productImg.filePath + '" alt="' + product.engName + '" style="width:180px; height:auto;" />' +
-                    '</div>';
-
-                $('#surveyContainer').html(productHtml);
+                $('#productName').text(product.engName);
+                $('#productBrand').text(product.brandName.brand);
+                $('#productPrice').text(product.releasePrice.toLocaleString());
+                $('#productImage').attr('src', product.productImg[0].filePath);
+                $('#surveyForm').hide();
+                $('#recommendedProduct').show();
             } else {
-                $('#surveyContainer').html('<p>추천 상품을 찾을 수 없습니다.</p>');
+                $('#surveyContainer').append('<p>추천 상품을 찾을 수 없습니다.</p>');
             }
         }
     });

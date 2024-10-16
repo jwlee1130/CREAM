@@ -1,5 +1,7 @@
+<%@ page import="com.cream.dto.UserDTO" %>
+<%@ page import="com.cream.dto.AdminDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -170,6 +172,43 @@
 <jsp:include page="./includes/footer.jsp" />
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+
+<%
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    AdminDTO adminUser=(AdminDTO) session.getAttribute("adminUser"); // 아직 정해지지 않은 부분
+%>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        <% if (loginUser != null && adminUser == null) { %>
+
+        $.ajax({
+            url: "ajax",
+            type: "get",
+            dataType: "json",
+            data: {
+                key: "admin",
+                methodName: "hasUserCompletedSurvey",
+                <%--userNo: "<%= loginUser.getNo() %>"--%>
+                // 서버에서도 이 값을 세션에서 가지고 올 수 있음
+            },
+            success: function(result){
+                console.log(result);
+                if (!result) { // boolean 형식으로 올거임
+                    window.open('/page/surveyPopup.jsp', 'surveyPopup', 'width=450,height=650');
+                }
+            },
+            error: function(err){
+                console.error("설문조 확인 중 오류 발생:", err);
+                ;
+            }
+        });
+        <% } %>
+    });
+</script>
+
 
 </body>
 </html>

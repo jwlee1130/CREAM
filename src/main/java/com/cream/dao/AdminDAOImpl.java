@@ -235,8 +235,8 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public boolean hasUserCompletedSurvey(String userId) throws SQLException {
-        String sql="SELECT COUNT(*) FROM SURVEY WHERE USER_ID = ?";
+    public boolean hasUserCompletedSurvey(int userNo) throws SQLException {
+        String sql="SELECT COUNT(*) FROM SURVEY WHERE USER_NO = ?";
         Connection conn =null;
         PreparedStatement ps =null;
         ResultSet rs = null;
@@ -245,12 +245,14 @@ public class AdminDAOImpl implements AdminDAO {
         {
             conn=DbUtil.getConnection();
             ps=conn.prepareStatement(sql);
-            ps.setString(1, userId);
+            ps.setInt(1, userNo);
             rs = ps.executeQuery();
 
             if(rs.next())
             {
-                return rs.getInt(1)>0;
+                int count=rs.getInt(1);
+                System.out.println("count = " + count);
+                return count>0;
             }
         }
         finally
@@ -354,7 +356,7 @@ public class AdminDAOImpl implements AdminDAO {
 //    }
 @Override
 public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
-    String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE " +
+    String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.NO AS IMG_NO, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE AS IMG_REGDATE " +
             "FROM PRODUCT p " +
             "JOIN BRAND b ON p.BRAND_NO = b.NO " +
             "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
@@ -385,9 +387,14 @@ public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int relea
             brand.setBrand(rs.getString("BRAND"));
 
             ProductImgDTO productImg = new ProductImgDTO();
+            productImg.setNo(rs.getInt("IMG_NO"));
+            productImg.setProductId(rs.getInt("NO"));
             productImg.setFilePath(rs.getString("FILE_PATH"));
             productImg.setFileSize(rs.getString("FILE_SIZE"));
-            productImg.setRegdate(rs.getString("REGDATE"));
+            productImg.setRegdate(rs.getString("IMG_REGDATE"));
+
+            List<ProductImgDTO> productImgList = new ArrayList<>();
+            productImgList.add(productImg);
 
             ProductDTO product = new ProductDTO();
             product.setNo(rs.getInt("NO"));
@@ -401,18 +408,19 @@ public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int relea
             product.setModelNumber(rs.getString("MODELNUMBER"));
             product.setRegdate(rs.getString("REGDATE"));
             product.setSalesQuantity(rs.getInt("SALES_QUANTITY"));
-            product.setProductImg(productImg);
+            product.setProductImg(productImgList);
             product.setBrandName(brand);
 
             return product;
         }
 
     } finally {
-        DbUtil.dbClose(conn, ps, rs);
+        DbUtil.dbClose(conn, ps,rs);
     }
 
     return null;
 }
+
 
 
 

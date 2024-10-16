@@ -107,7 +107,7 @@
       success: function(data) {
         const labels = Object.keys(data);
         const values = Object.values(data);
-        const backgroundColors = generateColors(labels.length);
+        const backgroundColors = generateGenderColors(labels.length);
 
         new Chart(document.querySelector(canvasId), {
           type: 'doughnut',
@@ -227,7 +227,7 @@
       success: function(data) {
         const labels = Object.keys(data);
         const values = Object.values(data);
-        const backgroundColors = generateColors(labels.length);
+        const backgroundColors = generateSurveyColors(labels.length);
 
         new Chart(document.querySelector(canvasId), {
           type: 'pie',
@@ -262,16 +262,26 @@
     });
   }
 
-  function generateColors(num) {
+  function generateGenderColors(num) {
     const colors = [
       'rgba(255, 99, 132, 0.6)',
       'rgba(54, 162, 235, 0.6)',
-      'rgba(255, 206, 86, 0.6)',
+      'rgba(255, 206, 86, 0.6)'
+    ];
+    const extendedColors = [];
+    for(let i=0; i<num; i++) {
+      extendedColors.push(colors[i % colors.length]);
+    }
+    return extendedColors;
+  }
+
+  function generateSurveyColors(num) {
+    const colors = [
       'rgba(75, 192, 192, 0.6)',
       'rgba(153, 102, 255, 0.6)',
       'rgba(255, 159, 64, 0.6)'
-    ];
-    const extendedColors = [];
+            ];
+    const extendedColors=[];
     for(let i=0; i<num; i++) {
       extendedColors.push(colors[i % colors.length]);
     }

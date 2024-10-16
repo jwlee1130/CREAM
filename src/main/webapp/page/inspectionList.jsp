@@ -43,7 +43,7 @@
           tb += '<td>';
           tb += '<form class="upload-form" data-sales-img-no="' + inspection.no + '">';
           tb += '파일 첨부: <input type="file" name="file" class="file-input"/>';
-          tb += '<button type="submit" class="upload-btn">업로드하기</button>';
+          tb += '<button type="submit" class="btn btn-primary upload-btn" style="font-size: 14px; padding: 6px 12px; font-weight:bold;">업로드하기</button>';
           tb += '</form>';
           tb += '</td>';
 
@@ -57,8 +57,8 @@
           tb += '</td>';
 
           tb += '<td>';
-          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979; color: white;">승인</button>';
-          tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice + '" style="background-color: #EF6253; border-color: #EF6253; color: white;">반려</button>';
+          tb += '<button class="btn mr-2 approve-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice+'" style="background-color: #41B979; border-color: #41B979;font-weight:bold; color: white;">승인</button>';
+          tb += '<button class="btn reject-btn" data-index="' + index + '" data-sales-no="' + inspection.no + '" data-start-price="'+ inspection.startingPrice + '" style="background-color: #EF6253; border-color: #EF6253;font-weight:bold; color: white;">반려</button>';
           tb += '</td>';
 
           tb += '</tr>';
