@@ -111,15 +111,15 @@
                 <h3>카테고리</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="slippers" id="slippers">
-                        <label for="slippers">스니커즈</label>
+                        <input type="checkbox" name="category" id="sneakers" value="sneakers">
+                        <label for="sneakers">스니커즈</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="running-shoes" id="running-shoes">
-                        <label for="running-shoes">슬리퍼</label>
+                        <input type="checkbox" name="category" id="slippers">
+                        <label for="slippers">슬리퍼</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="rain-shoes" id="rain-shoes">
+                        <input type="checkbox" name="category" id="rain-shoes">
                         <label for="rain-shoes">구두</label>
                     </div>
                 </div>
@@ -245,9 +245,7 @@
                 <ul id="popular-list-wrapper-ul">
                 <c:choose>
                 <c:when test="${empty requestScope.productList}">
-                	<td colspan="5">
             		<p align="center"><b><span style="font-size:9pt;">조회된 상품이 없습니다.</span></b></p>
-       				</td>
                 </c:when>
                 <c:otherwise>
                 <c:forEach items="${requestScope.productList}" var="product">
@@ -273,11 +271,22 @@
 <jsp:include page="../includes/footer.jsp" />
 <script src="../js/script.js"></script>
 <script type="text/javascript">
-	document.querySelector("[class=shop-aside-content]").addEventListener("click", (e)=>{
-		//현재 체크박스가 선택되었으면 모든 항목을 선택(checked=true)
-						//아니면 해지(checked=false)
+	
+	//필터 범위에서 체크박스를 선택하면
+	document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
 		alert(e.target.checked);
+
+		document.querySelectorAll("[type=checkbox]").forEach((item, index)=>{ //체크박스 전체를 돌면서 
+			
+			if(item.checked){ //체크가 되어있다면
+				console.log(item.id);
+			}
+			
+			//item.checked = e.target.checked;
+			
+		});
 		
+		productSearch();
 	});
 
 
