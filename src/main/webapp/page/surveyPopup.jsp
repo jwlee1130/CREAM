@@ -87,11 +87,11 @@
         #recommendedProduct p {
             font-size: 16px;
             color: #333;
-            margin: 10px 0;
+            margin: 30px 0;
             text-align: left;
         }
         #recommendedProduct img {
-            width: 200px;
+            width: 350px;
             height: auto;
             margin: 20px auto;
             display: block;
@@ -145,7 +145,7 @@
     </form>
 
     <div id="recommendedProduct">
-        <h3>추천 상품 정보</h3>
+        <h2>추천 상품 정보</h2>
         <p>상품 이름: <span id="productName"></span></p>
         <p>브랜드: <span id="productBrand"></span></p>
         <p>출시 가격: <span id="productPrice"></span>원</p>
