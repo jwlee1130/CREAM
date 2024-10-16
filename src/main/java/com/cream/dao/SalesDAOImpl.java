@@ -120,7 +120,8 @@ public class SalesDAOImpl implements SalesDAO {
 				e.printStackTrace();
 		}
 		finally {
-			DbUtil.dbClose(ps);
+			//DbUtil.dbClose(con,ps);
+			DbUtil.dbClose(con,ps);
 		}
 		return result;
 	}

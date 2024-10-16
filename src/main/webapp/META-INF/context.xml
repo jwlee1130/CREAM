@@ -28,7 +28,7 @@
     -->
     
      <Resource name="jdbc/cream" auth="Container" type="javax.sql.DataSource"
-               maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+               maxTotal="20" maxIdle="10" maxWaitMillis="100"
                username="root" password="dongsub98080!" driverClassName="com.mysql.cj.jdbc.Driver"
 	               url="jdbc:mysql://database-1.c3cgiqia4q8c.ap-northeast-2.rds.amazonaws.com:3306/cream"/>
 		<!-- <Resource name="jdbc/myoracle" auth="Container"
