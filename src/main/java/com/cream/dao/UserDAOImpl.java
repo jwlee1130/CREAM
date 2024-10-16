@@ -45,21 +45,28 @@ import com.cream.util.DbUtil;
 			Connection con=null;
 			
 			int result =0;
+			
+			String insertQuery = proFile.getProperty("query.register");
 			try {
 				con=DbUtil.getConnection();
-				ps = con.prepareStatement("INSERT INTO USERS(USER_ID, NICKNAME, USER_EMAIL, USER_PW, GENDER, AGE, SHOES_SIZE) VALUES(?, ?, ?, ?, ?, ?, ?)"); 
+				ps = con.prepareStatement(insertQuery); 
 				ps.setString(1,user.getUserId());
-				ps.setString(2, user.getNickname());
+				ps.setString(2, user.getName());
 				ps.setString(3, user.getUserEmail());
 				ps.setString(4, user.getUserPw());
-				ps.setString(5, user.getGender());
-				ps.setInt(6, user.getAge());
+				ps.setString(5, user.getHp());
+				ps.setString(6, user.getNickname());
 				ps.setInt(7,user.getShoesSize());
+				ps.setString(8, user.getGender());
+				ps.setInt(9, user.getAge());
+				ps.setString(10,user.getAddress());
+				
 				result = ps.executeUpdate();
 				
 				
 			}catch(SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}finally {
 				DbUtil.dbClose(con,ps);   
 			}
