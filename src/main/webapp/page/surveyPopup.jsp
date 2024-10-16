@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
+    <meta charset="UTF-8">
     <title>설문조사 팝업</title>
     <style>
         body {
@@ -32,12 +32,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 90%;
             margin: 0 auto;
+            text-align: center;
         }
         label {
             font-size: 16px;
             color: #333;
             display: block;
             margin-bottom: 9px;
+            text-align: left;
         }
         input[type="radio"] {
             margin-right: 9px;
@@ -45,6 +47,7 @@
         }
         .question {
             margin-bottom: 18px;
+            text-align: left;
         }
         button {
             display: block;
@@ -56,7 +59,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 18px;
+            margin: 18px auto 0 auto;
         }
         button:hover {
             background-color: #00A86B;
@@ -196,7 +199,7 @@
                     '<p>상품 이름: ' + product.engName + '</p>' +
                     '<p>브랜드: ' + product.brandName.brand + '</p>' +
                     '<p>출시 가격: ' + product.releasePrice + '원</p>' +
-                    '<img src="' + product.productImg.filePath + '" alt="' + product.engName + '" style="width:180px; height:auto;" />' +
+                    '<img src="' + product.productImg[0].filePath + '" alt="' + product.engName + '" style="width:180px; height:auto;" />' +
                     '</div>';
 
                 $('#surveyContainer').html(productHtml);
