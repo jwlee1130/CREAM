@@ -190,6 +190,8 @@ import jakarta.servlet.http.HttpSession;
 	        return user;
 	    }
 	    
+	    
+	    
 	    public Object getUserRank(HttpServletRequest request, HttpServletResponse response) {
 	    	HttpSession session = request.getSession();
 	    	UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
@@ -206,5 +208,94 @@ import jakarta.servlet.http.HttpSession;
 
 	    	return rank;
 	    }
+	    
+	    
+	    
+	    public Object updateEmail(HttpServletRequest request, HttpServletResponse response) {
+	        HttpSession session = request.getSession();
+	        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+	        String email = request.getParameter("value");
+
+	        int result = 0;
+	        try {
+	            result = service.updateEmail(loginUser.getNo(), email);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+
+	    public Object updatePassword(HttpServletRequest request, HttpServletResponse response) {
+	        HttpSession session = request.getSession();
+	        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+	        String password = request.getParameter("value");
+
+	        int result = 0;
+	        try {
+	            result = service.updatePassword(loginUser.getNo(), password);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+
+	    public Object updateNickname(HttpServletRequest request, HttpServletResponse response) {
+	        HttpSession session = request.getSession();
+	        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+	        String nickname = request.getParameter("value");
+
+	        int result = 0;
+	        try {
+	            result = service.updateNickname(loginUser.getNo(), nickname);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+
+	    public Object updatePhone(HttpServletRequest request, HttpServletResponse response) {
+	        HttpSession session = request.getSession();
+	        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+	        String phone = request.getParameter("value");
+
+	        int result = 0;
+	        try {
+	            result = service.updatePhone(loginUser.getNo(), phone);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+
+	    public Object updateShoeSize(HttpServletRequest request, HttpServletResponse response) {
+	        HttpSession session = request.getSession();
+	        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+	        int shoeSize = Integer.parseInt(request.getParameter("value"));
+
+	        int result = 0;
+	        try {
+	            result = service.updateShoeSize(loginUser.getNo(), shoeSize);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+
+	    public Object updateAddress(HttpServletRequest request, HttpServletResponse response) {
+	        HttpSession session = request.getSession();
+	        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+	        String address = request.getParameter("value");
+
+	        int result = 0;
+	        try {
+	            result = service.updateAddress(loginUser.getNo(), address);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
 	}
+	
+	
+	
 

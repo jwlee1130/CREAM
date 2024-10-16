@@ -1,12 +1,5 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>등급</title>
-</head>
-<body>
 <div class="rank-container">
   <div class="rank-wrapper">
     <h1>판매자,구매자 등급</h1>
@@ -44,5 +37,3 @@
     </div>
   </div>
 </div>
-</body>
-</html>

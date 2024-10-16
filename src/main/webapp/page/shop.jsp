@@ -1,5 +1,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,87 +12,83 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/shop.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
- <style type="text/css">
- 	p{
- 		width :200px;
- 		white-space: pre-wrap;
- 	}
- </style>
-
    <script type="text/javascript">
 	$(function(){
 		
 		//전체검색
-			if(true){
-				$.ajax({
-					url :"ajax" , //서버요청주소
-					type:"get", //요청방식(method방식 : get | post | put | delete )
-					dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"product" , methodName : "searchProductByKeyword"}, //서버에게 보낼 데이터정보(parameter정보)
-					success :function(result){
-						//console.log(result);
-						
-						let str="";
-						$.each(result, function(index, product){
-							str+="<li>";
-						    str+=`<a href="front?key=product&methodName=detail&no=1">`;
-						    str+=`<div class="popular-item">`;
-						    str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg.filePath}'}"></div>`;
-						    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-						    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-						    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-						    str+=`</div>`;
-						    str+=`</a>`;
-						    str+="</li>";
-						}); //eachEnd
-						
-						$("#popular-list-wrapper-ul").html(str);
-						$("#shop-main-total").html("상품수량 : "+result.length + "개");
-						
-					} , //성공했을때 실행할 함수 
-					error : function(err){  
-						alert(err+"에러 발생했어요.");
-					}  //실패했을때 실행할 함수 
-				});//ajax끝
-				
-				
-			} else {
-				$.ajax({
-					url :"ajax" , //서버요청주소
-					type:"get", //요청방식(method방식 : get | post | put | delete )
-					dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
-					success :function(result){
-						//console.log(result);
-						
-						let str="";
-						$.each(result, function(index, product){
-							str+="<li>";
-						    str+=`<a href="front?key=product&methodName=detail&no=1">`;
-						    str+=`<div class="popular-item">`;
-						    str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg.filePath}'}"></div>`;
-						    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-						    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-						    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-						    str+=`</div>`;
-						    str+=`</a>`;
-						    str+="</li>";
-						}); //eachEnd
-						
-						$("#popular-list-wrapper-ul").html(str);
-						$("#shop-main-total").html("상품수량 : "+result.length + "개");
-						
-					} , //성공했을때 실행할 함수 
-					error : function(err){  
-						alert(err+"에러 발생했어요.");
-					}  //실팽했을때 실행할 함수 
-				});//ajax끝
-			
-			}//else끝
-			
-		
-	}); //ready End
+		   function productSelectAll(){
+			   $.ajax({
+				url :"ajax" , //서버요청주소
+				type:"get", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					console.log(result);
+					
+					let str="";
+					$.each(result, function(index, product){
+						str+="<li>";
+					    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
+					    str+=`<div class="popular-item">`;
+					    str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg.filePath}'}"></div>`;
+					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
+					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
+					    str+=`</div>`;
+					    str+=`</a>`;
+					    str+="</li>";
+					}); //eachEnd
 
+					$("#popular-list-wrapper-ul").html(str);
+					$("#shop-main-total").html("상품수량 : "+result.length + "개");
+					
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"상품 조회에서 에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+			
+		   }//selectAll 함수끝
+		   /////////////////////////////////////////////////////////////
+		  
+		   //검색시 상품 조회
+			function productSearch(){
+				$.ajax({
+					url :"ajax" , //서버요청주소
+					type:"get", //요청방식(method방식 : get | post | put | delete )
+					dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data: {key:"product" , methodName : "searchProductByKeyword"}, //서버에게 보낼 데이터정보(parameter정보)					
+					success :function(result){
+							//console.log(result)
+							
+						let str="";
+						$.each(result, function(index, product){
+							str+="<li>";
+						    str+=`<a href="front?key=product&methodName=detail&no=1">`;
+					    	str+=`<div class="popular-item">`;
+					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg.filePath}'}"></div>`;
+					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+					    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
+					    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
+					    	str+=`</div>`;
+					    	str+=`</a>`;
+					    	str+="</li>";
+						}); //eachEnd
+							
+						$("#popular-list-wrapper-ul").html(str);
+						$("#shop-main-total").html("상품수량 : "+result.length + "개");
+							
+					} , //성공했을때 실행할 함수 
+					error : function(err){  
+					alert(err+" 상품 검색에서 에러 발생했어요.");
+					}  //실패했을때 실행할 함수 
+			});//ajax끝
+		   }//productSearch 함수끝
+		   
+			//productSelectAll();
+		   
+	}); //ready End
 
 </script>
 </head>
@@ -216,13 +215,37 @@
         </div>
         <div class="shop-main">
             <div class="shop-main-info">
-                <p id="shop-main-total"></p>
+                <p id="shop-main-total">상품 수량 : ${fn:length(requestScope.productList)} 개</p>
+                
                 <span>
           인기순 ⇞
         </span>
             </div>
             <div class="popular-list-wrapper">
                 <ul id="popular-list-wrapper-ul">
+                <c:choose>
+                <c:when test="${empty requestScope.productList}">
+                	<td colspan="5">
+            		<p align="center"><b><span style="font-size:9pt;">조회된 상품이 없습니다.</span></b></p>
+       				</td>
+                </c:when>
+                <c:otherwise>
+                <c:forEach items="${requestScope.productList}" var="product">
+                	<li>
+						<a href="front?key=product&methodName=detail&no=${product.no}">
+						<div class="popular-item">
+						<div class="item-image"><img width=150px height=150px src='${product.productImg.filePath}'></div>
+						<div class="item-brand">${product.brandName.brand}</div>
+						<p class="item-description">${product.engName}</p>
+						<div class="item-price"><fmt:formatNumber>${product.releasePrice}</fmt:formatNumber></div>
+					   	</div>
+					   	</a>
+					 </li>
+                </c:forEach>
+
+                </c:otherwise>
+                </c:choose>
+                
                 </ul>
             </div>
         </div>

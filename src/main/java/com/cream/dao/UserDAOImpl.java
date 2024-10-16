@@ -531,6 +531,129 @@ import com.cream.util.DbUtil;
 		    return exist;
 		}
 
+
+		// 이메일 업데이트 메소드
+		@Override
+		public int updateEmail(int userNo, String email) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+		    String sql = "UPDATE USERS SET USER_EMAIL = ? WHERE NO = ?";
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setString(1, email);
+		        ps.setInt(2, userNo);
+		        result = ps.executeUpdate();
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    return result;
+		}
+
+		// 비밀번호 업데이트 메소드
+		@Override
+		public int updatePassword(int userNo, String password) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+		    String sql = "UPDATE USERS SET USER_PW = ? WHERE NO = ?";
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setString(1, password);
+		        ps.setInt(2, userNo);
+		        result = ps.executeUpdate();
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    return result;
+		}
+
+		// 닉네임 업데이트 메소드
+		@Override
+		public int updateNickname(int userNo, String nickname) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+		    String sql = "UPDATE USERS SET NICKNAME = ? WHERE NO = ?";
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setString(1, nickname);
+		        ps.setInt(2, userNo);
+		        result = ps.executeUpdate();
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    return result;
+		}
+
+		// 휴대폰 번호 업데이트 메소드
+		@Override
+		public int updatePhone(int userNo, String phone) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+		    String sql = "UPDATE USERS SET HP = ? WHERE NO = ?";
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setString(1, phone);
+		        ps.setInt(2, userNo);
+		        result = ps.executeUpdate();
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    return result;
+		}
+
+		// 신발 사이즈 업데이트 메소드
+		@Override
+		public int updateShoeSize(int userNo, int shoeSize) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+		    String sql = "UPDATE USERS SET SHOES_SIZE = ? WHERE NO = ?";
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setInt(1, shoeSize);
+		        ps.setInt(2, userNo);
+		        result = ps.executeUpdate();
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    return result;
+		}
+
+		// 주소 업데이트 메소드
+		@Override
+		public int updateAddress(int userNo, String address) throws SQLException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    int result = 0;
+		    String sql = "UPDATE USERS SET ADDRESS = ? WHERE NO = ?";
+		    
+		    try {
+		        con = DbUtil.getConnection();
+		        ps = con.prepareStatement(sql);
+		        ps.setString(1, address);
+		        ps.setInt(2, userNo);
+		        result = ps.executeUpdate();
+		    } finally {
+		        DbUtil.dbClose(con, ps);
+		    }
+		    return result;
+		}
+
+		
+
 		
 }
 	

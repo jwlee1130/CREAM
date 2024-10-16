@@ -15,6 +15,7 @@ public class SalesDTO {
     @Expose private ProductDTO product;
     @Expose private BidAccountDTO bidAccount;
     @Expose private ShoesSizeDTO shoesSize;
+    @Expose private SalesImgDTO salesImg;
     
     public ShoesSizeDTO getShoesSize() {
 		return shoesSize;
@@ -88,5 +89,13 @@ public class SalesDTO {
 		this.shoesNo = shoesNo;
 	}
 
+	public SalesImgDTO getSalesImg() {
+		return salesImg;
+	}
+
+	public void setSalesImg(SalesImgDTO salesImg) {
+		this.salesImg = salesImg;
+	}
+	
     
 }

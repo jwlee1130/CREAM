@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/mypage.css">
     
-   	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
@@ -178,7 +178,7 @@
     // 페이지 로드 시 관심 상품 데이터 가져오기
     fetchWishlist();
 
-	
+   
     function fetchSales() {
         $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
@@ -470,6 +470,98 @@
             }
         });
     }
+    
+    $.ajax({
+        url: '${pageContext.request.contextPath}/ajax',
+        method: 'GET',
+        dataType: 'json',
+        data: {
+            key: 'userAjax',
+            methodName: 'selectUserById'
+        },
+        success: function(response) {
+            $('#userEmail').val(response.userEmail);
+            $('#nickname').val(response.nickname);
+            $('#phone').val(response.hp);
+            $('#shoeSize').val(response.shoesSize);
+            $('#address').val(response.address);
+        },
+        error: function() {
+            alert("사용자 정보를 불러오는 데 실패했습니다.");
+        }
+    });
+    
+    
+    $('.user-container').on('click', '.save-btn', function() {
+        console.log("저장 버튼 클릭됨"); // 클릭 시 로그 출력
+
+        const infoItem = $(this).closest('.info-item');
+        const field = infoItem.data('field');
+        const input = infoItem.find('input');
+        const newValue = input.val();
+
+        if (newValue === '') {
+            alert('값을 입력해주세요.');
+            return;
+        }
+
+        // 필드에 맞는 메서드 이름 매핑
+        const fieldMap = {
+            email: 'updateEmail',
+            password: 'updatePassword',
+            nickname: 'updateNickname',
+            phone: 'updatePhone',
+            shoeSize: 'updateShoeSize',
+            address: 'updateAddress'
+        };
+
+        // AJAX 요청
+        $.ajax({
+            url: '${pageContext.request.contextPath}/ajax', // 서버의 AJAX 처리 URL
+            method: 'POST',
+            data: {
+                key: 'userAjax',
+                methodName: fieldMap[field],
+                value: newValue
+            },
+            success: function(response) {
+                console.log("서버 응답:", response); // 서버 응답 확인
+
+                if (response === 'success') {
+                    input.prop('disabled', true);
+                    infoItem.find('.change-btn').show();
+                    infoItem.find('.save-btn, .cancel-btn').remove();
+                    alert('업데이트 성공!');
+                } else {
+                    alert('업데이트 실패. 다시 시도해주세요.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX 요청 오류:", xhr, status, error); // AJAX 오류 로그 출력
+                alert('서버와의 통신 중 오류가 발생했습니다.');
+            }
+        });
+    });
+
+    // 취소 버튼 클릭 이벤트
+    $('.user-container').on('click', '.cancel-btn', function() {
+        const infoItem = $(this).closest('.info-item');
+        const input = infoItem.find('input');
+        input.val(input.data('original-value')).prop('disabled', true);
+
+        infoItem.find('.change-btn').show();
+        infoItem.find('.save-btn, .cancel-btn').remove();
+    });
+
+    // 취소 버튼 클릭 이벤트
+    $('.user-container').on('click', '.cancel-btn', function() {
+        const infoItem = $(this).closest('.info-item');
+        const input = infoItem.find('input');
+        input.val(input.data('original-value')).prop('disabled', true);
+
+        infoItem.find('.change-btn').show();
+        infoItem.find('.save-btn, .cancel-btn').remove();
+    });
 
 
     fetchAllPurchasesAndBids();

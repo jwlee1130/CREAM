@@ -40,7 +40,7 @@
 						str+="<li>";
 					    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
 					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg.filePath}'}"></div>`;
+					    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
 					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
 					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
 					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
@@ -158,7 +158,6 @@
                 <div class="popular-list-wrapper">
                     <ul id="popular-list-wrapper-ul">
                     </ul>
-
                 </div>
                 <div class="more-button">
                     <button>더보기</button>

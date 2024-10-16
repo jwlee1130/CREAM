@@ -36,6 +36,149 @@
   flex: 0 0 80%; /* 10컬럼 */
   max-width: 80%;
 }
+.main .main-content .mypage-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.main .main-content .mypage-container .wrap {
+  display: flex;
+  flex-direction: column;
+}
+.main .main-content .mypage-container .wrap .user-profile {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #9a9a9a;
+}
+.main .main-content .mypage-container .wrap .user-profile .profile-img {
+  background-color: #ff4b4b;
+}
+.main .main-content .mypage-container .wrap .user-profile .profile-img img {
+  border-radius: 50%;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-identify h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-identify h3 {
+  color: #888888;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-point {
+  display: flex;
+  font-size: 1.5rem;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-point i {
+  margin-right: 8px;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-rank {
+  display: flex;
+  font-size: 1.5rem;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-rank i {
+  margin-right: 8px;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-setting button {
+  border: 1px solid #9a9a9a;
+  background: none;
+  color: #9a9a9a;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  transition: 0.1s ease-in-out;
+}
+.main .main-content .mypage-container .wrap .user-profile .user-setting button:hover {
+  background-color: #9a9a9a;
+  color: #333;
+  border: 1px solid #333;
+}
+.main .main-content .mypage-container .wrap .parchase, .main .main-content .mypage-container .wrap .sell {
+  display: flex;
+  flex-direction: column;
+}
+.main .main-content .mypage-container .wrap .parchase h1, .main .main-content .mypage-container .wrap .sell h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 1rem;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-area, .main .main-content .mypage-container .wrap .sell .parchase-area {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #666;
+  background-color: #f5f5f5;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-area .parchase-all, .main .main-content .mypage-container .wrap .sell .parchase-area .parchase-all {
+  display: flex;
+  flex-direction: column;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-area .parchase-all h2, .main .main-content .mypage-container .wrap .sell .parchase-area .parchase-all h2 {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-area .parchase-all h2:first-child, .main .main-content .mypage-container .wrap .sell .parchase-area .parchase-all h2:first-child {
+  margin-bottom: 1rem;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-area .parchase-all:first-child, .main .main-content .mypage-container .wrap .sell .parchase-area .parchase-all:first-child {
+  border-right: 1px solid #333333;
+  padding-right: 6rem;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-item, .main .main-content .mypage-container .wrap .sell .parchase-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+  padding: 0 1rem;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-item .item-img, .main .main-content .mypage-container .wrap .sell .parchase-item .item-img {
+  border-radius: 0.7rem;
+  background-color: #6ecdff;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-item .item-img img, .main .main-content .mypage-container .wrap .sell .parchase-item .item-img img {
+  width: 150px;
+  width: 150px;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-item .item-name, .main .main-content .mypage-container .wrap .sell .parchase-item .item-name {
+  display: flex;
+  flex-direction: column;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-item .item-name h2, .main .main-content .mypage-container .wrap .sell .parchase-item .item-name h2 {
+  font-weight: bolder;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-item .item-date, .main .main-content .mypage-container .wrap .sell .parchase-item .item-date {
+  font-size: 1.25rem;
+  color: #888888;
+}
+.main .main-content .mypage-container .wrap .parchase .parchase-item .item-status, .main .main-content .mypage-container .wrap .sell .parchase-item .item-status {
+  font-size: 1.25rem;
+  font-weight: bolder;
+}
+.main .main-content .mypage-container .wrap .wish-list {
+  margin-bottom: 2rem;
+}
+.main .main-content .mypage-container .wrap .wish-list h2 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 1rem;
+  margin-block-end: 0;
+}
+.main .main-content .mypage-container .wrap .wish-list .wish-item-list ul {
+  display: flex;
+  justify-content: space-between;
+}
+.main .main-content .mypage-container .wrap .wish-list .wish-item-list ul li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.main .main-content .mypage-container .wrap .wish-list .wish-item-list ul li .wish-item-img img {
+  width: 200px;
+  height: 200px;
+}
 .main .main-content .point-container {
   max-width: 800px;
   margin: 0 auto;
