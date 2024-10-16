@@ -105,7 +105,7 @@ public class AdminDAOImpl implements AdminDAO {
      */
     @Override
     public int updateSalesStatus(int salesNo, int salesStatus, int price) throws SQLException {
-    	String sql = "UPDATE USERS_SALES SET SALES_STATUS=?, REGDATE=DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:00') WHERE NO=?";
+    	String sql = "UPDATE USERS_SALES SET SALES_STATUS=?, REGDATE=DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:00'), INTERVAL 7 DAY) WHERE NO=?";
         Connection conn = null;
         PreparedStatement ps = null;
 
