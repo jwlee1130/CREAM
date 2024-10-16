@@ -53,7 +53,7 @@
 		   /////////////////////////////////////////////////////////////
 		  
 		   //검색시 상품 조회
-			function productSearch(){
+			function selectProductByFilter(){
 				$.ajax({
 					url :"ajax" , //서버요청주소
 					type:"get", //요청방식(method방식 : get | post | put | delete )
@@ -65,7 +65,7 @@
 						let str="";
 						$.each(result, function(index, product){
 							str+="<li>";
-						    str+=`<a href="front?key=product&methodName=detail&no=1">`;
+						    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
 					    	str+=`<div class="popular-item">`;
 					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
 					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
@@ -247,6 +247,10 @@
                 <c:when test="${empty requestScope.productList}">
             		<p align="center"><b><span style="font-size:9pt;">조회된 상품이 없습니다.</span></b></p>
                 </c:when>
+                <c:when test="">
+                	<h1>여기로 들어오게 해야해</h1>
+                	
+                </c:when>
                 <c:otherwise>
                 <c:forEach items="${requestScope.productList}" var="product">
                 	<li>
@@ -273,6 +277,16 @@
 <script src="../js/script.js"></script>
 <script type="text/javascript">
 	
+	const users = [1,2,3];
+	
+	const re = users.filter((score)=>{
+		score=1;
+		return score
+	});
+	console.log(re)
+	
+	
+	
 	//필터 범위에서 체크박스를 선택하면
 	document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
 		alert(e.target.checked);
@@ -281,13 +295,14 @@
 			
 			if(item.checked){ //체크가 되어있다면
 				console.log(item.id);
+				
 			}
 			
 			//item.checked = e.target.checked;
 			
 		});
 		
-		productSearch();
+		selectProductByFilter();
 	});
 
 
