@@ -312,13 +312,14 @@
                 let salesHtml = '';
                 let inProgressCount = 0;
                 let completedCount = 0;
+                let approvalPendingCount = 0;
 
                 $.each(result, function(index, sale) {
                     salesHtml += '<div class="parchase-item">';
                     
                     // 이미지 클릭 시 'sellInfo' 메소드로 이동하는 링크
                     salesHtml += '<div class="item-img">';
-                    salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&buyUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
+                    salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
                     salesHtml += '<img style="width:100px; height:100px;" src="' + sale.filePath + '" alt="">';
                     salesHtml += '</a>';
                     salesHtml += '</div>';
@@ -332,9 +333,11 @@
                     salesHtml += '<h2>' + sale.regdate + '</h2>';
                     salesHtml += '</div>';
                     
-                    // 판매 상태를 기준으로 카운트를 업데이트
                     salesHtml += '<div class="item-status">';
-                    if (sale.salesStatus === 1) {
+                    if (sale.salesStatus === 0) {
+                        salesHtml += '승인대기';
+                        approvalPendingCount++;
+                    } else if (sale.salesStatus === 1) {
                         salesHtml += '진행중';
                         inProgressCount++;
                     } else if (sale.salesStatus === 2) {
@@ -345,8 +348,7 @@
                     salesHtml += '</div>';
                 });
 
-                // 총 판매 수, 진행 중인 판매 및 완료된 판매 수를 표시
-                let totalSalesCount = inProgressCount + completedCount;
+                let totalSalesCount = approvalPendingCount + inProgressCount + completedCount;
                 $('#total-sales-count').text(totalSalesCount);
                 $('#in-progress-count').text(inProgressCount);
                 $('#completed-count').text(completedCount);
@@ -358,6 +360,7 @@
             }
         });
     }
+
 
 
 
@@ -437,10 +440,7 @@
             uniqueBids.forEach(function(bid) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
-                // 이미지 클릭 시 'buyInfo' 메소드로 이동하는 링크 추가
-                purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=buyInfo&buyUserNo=' + bid.buyUserNo + '&salesNo=' + bid.salesNo + '">';
                 purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
-                purchaseHtml += '</a>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-name">';
                 purchaseHtml += '<h2>' + bid.engName + '</h2>';
@@ -452,7 +452,6 @@
                 purchaseHtml += '<div class="item-status">입찰 진행 중</div>';
                 purchaseHtml += '</div>';
             });
-
 
             $('#total-purchases-count').text(purchases.length + uniqueBids.length);
             $('#in-progress-purchases-count').text(uniqueBids.length);
