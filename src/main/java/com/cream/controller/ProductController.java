@@ -1,8 +1,11 @@
 package com.cream.controller;
 
+import java.awt.Window;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.tools.DocumentationTool.Location;
 
 import com.cream.dto.ProductDTO;
 import com.cream.exception.AuthenticationException;
@@ -48,18 +51,19 @@ public class ProductController implements Controller {
 			productList = service.selectAllProduct();
 			request.setAttribute("productList", productList);
 			
-			System.out.println("여기는 controller(상품전체조회) "+ productList);
+			System.out.println("controller(상품전체조회결과)= "+ productList);
 			return new ModelAndView("page/shop.jsp", false);
 		
 	}//selectAll 끝
 	
 	public ModelAndView searchProductByKeyword(HttpServletRequest request, HttpServletResponse response) throws SQLException{
 		System.out.println("controller - 상품 키워드 검색 메소드");
-
 		String searchKeyword = request.getParameter("inputKeyword");
-		//String searchKeyword = "Adidas";
+		searchKeyword = searchKeyword.toUpperCase();
 		System.out.println(searchKeyword);
-		if(getType(searchKeyword)==2) { //한글이다
+		if(searchKeyword=="" || searchKeyword==null) {
+			productList = service.selectAllProduct();
+		} else if(getType(searchKeyword)==2) { //한글이다
 			System.out.println("입력값은 한글");
 			productList = service.searchProductKor(searchKeyword);
 			
