@@ -14,7 +14,6 @@ public interface ProductService {
 	 */
 	List<ProductDTO> selectAllProduct()throws SQLException;
 
-	
 	/**
 	 * 상품 ID로 검색
 	 */
@@ -29,6 +28,16 @@ public interface ProductService {
 	 * 검색어가 영어인 경우
 	 */
 	List<ProductDTO> searchProductEng(String keyword)throws SQLException;
+	
+	/**
+	 * 상품 카테고리로 검색
+	 */
+	List<ProductDTO> searchProductByCategory(String productCategory)throws SQLException;
+	
+	/**
+	 * 상품 브랜드로 검색
+	 */
+	List<ProductDTO> searchProductByBrand(String productBrand)throws SQLException;
 	
 	/*
 	 * 상품 상세보기

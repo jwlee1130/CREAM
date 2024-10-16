@@ -67,7 +67,7 @@
 							str+="<li>";
 						    str+=`<a href="front?key=product&methodName=detail&no=1">`;
 					    	str+=`<div class="popular-item">`;
-					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg.filePath}'}"></div>`;
+					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
 					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
 					    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
 					    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
@@ -88,6 +88,14 @@
 		   
 			//productSelectAll();
 		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
 	}); //ready End
 
 </script>
@@ -104,15 +112,15 @@
                 <div>
                     <div class="filter-check">
                         <input type="checkbox" name="slippers" id="slippers">
-                        <label for="slippers">슬리퍼</label>
+                        <label for="slippers">스니커즈</label>
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="running-shoes" id="running-shoes">
-                        <label for="running-shoes">운동화</label>
+                        <label for="running-shoes">슬리퍼</label>
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="rain-shoes" id="rain-shoes">
-                        <label for="rain-shoes">장화</label>
+                        <label for="rain-shoes">구두</label>
                     </div>
                 </div>
             </div>
@@ -132,6 +140,18 @@
                     <div class="filter-check">
                         <input type="checkbox" name="puma" id="puma">
                         <label for="puma">퓨마</label>
+                    </div>
+                    <div class="filter-check">
+                        <input type="checkbox" name="jordan" id="jordan">
+                        <label for="jordan">조던</label>
+                    </div>
+                    <div class="filter-check">
+                        <input type="checkbox" name="gucci" id="gucci">
+                        <label for="gucci">구찌</label>
+                    </div>
+                    <div class="filter-check">
+                        <input type="checkbox" name="hermes" id="hermes">
+                        <label for="hermes">에르메스</label>
                     </div>
                 </div>
             </div>
@@ -242,7 +262,6 @@
 					   	</a>
 					 </li>
                 </c:forEach>
-
                 </c:otherwise>
                 </c:choose>
                 
@@ -253,5 +272,15 @@
 </div>
 <jsp:include page="../includes/footer.jsp" />
 <script src="../js/script.js"></script>
+<script type="text/javascript">
+	document.querySelector("[class=shop-aside-content]").addEventListener("click", (e)=>{
+		//현재 체크박스가 선택되었으면 모든 항목을 선택(checked=true)
+						//아니면 해지(checked=false)
+		alert(e.target.checked);
+		
+	});
+
+
+</script>
 </body>
 </html>

@@ -64,17 +64,15 @@
         <div class="header-bottom">
             <ul>
                 <li>
-                    <span><a href="">운동화</a></span>
+                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=111">스니커즈</a></span>
                 </li>
                 <li>
-                    <span><a href="">부츠</a></span>
+                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=222">슬리퍼</a></span>
                 </li>
                 <li>
-                    <span><a href="">슬리퍼</a></span>
+                    <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">구두</a></span>
                 </li>
-                <li>
-                    <span><a href="">스니커즈</a></span>
-                </li>
+
             </ul>
         </div>
     </div>
@@ -129,9 +127,12 @@
 <script type="text/javascript">
 		
 	
-		//$(".search-button").click(function(){
-		//	location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword";
-		//})
+		$(".search-button").click(function(){
+			console.log("123");
+			var inputKeyword = document.getElementById("searchBar").value;
+			console.log(inputKeyword);
+			location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword&inputKeyword="+inputKeyword;
+		})
 
 		//검색 함수
 		function enterKey(){
@@ -139,7 +140,7 @@
 				console.log("123");
 				var inputKeyword = document.getElementById("searchBar").value;
 				console.log(inputKeyword);
-				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=selectAllProduct&inputKeyword="+inputKeyword;
+				location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword&inputKeyword="+inputKeyword;
 			} else
 				console.log("111222333");
 

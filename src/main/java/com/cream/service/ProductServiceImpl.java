@@ -40,8 +40,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> searchProductKor(String keyword) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		// 검색어가 한글인 경우
+		productList = productDao.searchProductKor(keyword);
+		return productList;
 	}
 
 	@Override
@@ -51,6 +52,19 @@ public class ProductServiceImpl implements ProductService {
 		return productList;
 	}
 
+	@Override
+	public List<ProductDTO> searchProductByCategory(String productCategory) throws SQLException {
+		// 상품 카테고리로 검색(운동화, 슬리퍼, 구두)
+		productList = productDao.searchProductByCategory(productCategory);
+		return productList;
+	}
+	
+	@Override
+	public List<ProductDTO> searchProductByBrand(String productBrand) throws SQLException {
+		// 상품 브랜드 검색(나이키, 아디다스, 퓨마, 조던, 구찌, 에르메스)
+		productList = productDao.searchProductByBrand(productBrand);
+		return productList;
+	}
 
 	public int getRecentPrice(int productNo)throws SQLException {
 		return productDao.getRecentPrice(productNo);
@@ -67,7 +81,5 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getNowPricing(productNo);
 	}
 
-
-	
 
 }
