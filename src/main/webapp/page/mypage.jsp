@@ -316,11 +316,11 @@
                 $.each(result, function(index, sale) {
                     salesHtml += '<div class="parchase-item">';
                     
-                    salesHtml += '<input type="hidden" name="userNo" value="' + sale.userNo + '">';
-                    salesHtml += '<input type="hidden" name="productNo" value="' + sale.productNo + '">';
-                    
+                    // 이미지 클릭 시 'sellInfo' 메소드로 이동하는 링크
                     salesHtml += '<div class="item-img">';
+                    salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&buyUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
                     salesHtml += '<img style="width:100px; height:100px;" src="' + sale.filePath + '" alt="">';
+                    salesHtml += '</a>';
                     salesHtml += '</div>';
                     
                     salesHtml += '<div class="item-name">';
@@ -332,11 +332,9 @@
                     salesHtml += '<h2>' + sale.regdate + '</h2>';
                     salesHtml += '</div>';
                     
+                    // 판매 상태를 기준으로 카운트를 업데이트
                     salesHtml += '<div class="item-status">';
-                    if (sale.salesStatus === 0) {
-                        salesHtml += '승인대기';
-                        inProgressCount++;
-                    } else if (sale.salesStatus === 1) {
+                    if (sale.salesStatus === 1) {
                         salesHtml += '진행중';
                         inProgressCount++;
                     } else if (sale.salesStatus === 2) {
@@ -347,9 +345,9 @@
                     salesHtml += '</div>';
                 });
 
-                let totalSales = inProgressCount + completedCount;
-
-                $('#total-sales-count').text(totalSales);
+                // 총 판매 수, 진행 중인 판매 및 완료된 판매 수를 표시
+                let totalSalesCount = inProgressCount + completedCount;
+                $('#total-sales-count').text(totalSalesCount);
                 $('#in-progress-count').text(inProgressCount);
                 $('#completed-count').text(completedCount);
 
@@ -360,6 +358,7 @@
             }
         });
     }
+
 
 
 
@@ -407,20 +406,26 @@
 
         function renderPurchasesAndBids(purchases, bids) {
             let purchaseHtml = '';
-            let totalPurchases = purchases.length + bids.length;
-            let inProgressCount = bids.length;
-            let completedCount = purchases.length;
+            let uniqueBids = [];
+            let productMap = {};
+
+            bids.forEach(bid => {
+                if (!productMap[bid.productNo]) {
+                    productMap[bid.productNo] = bid;
+                    uniqueBids.push(bid);
+                }
+            });
 
             purchases.forEach(function(purchase) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
-                purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=purchaseDetail&buyUserNo=' + purchase.buyUserNo + '&salesNo=' + purchase.salesNo + '">';
+                purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=buyInfo&buyUserNo=' + purchase.buyUserNo + '&salesNo=' + purchase.salesNo + '">';
                 purchaseHtml += '<img style="width:100px; height:100px;" src="' + purchase.filePath + '" alt="">';
                 purchaseHtml += '</a>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-name">';
                 purchaseHtml += '<h2>' + purchase.engName + '</h2>';
-                purchaseHtml += '<h3>' + purchase.shoeSize  + '</h3>';
+                purchaseHtml += '<h3>' + purchase.shoeSize + '</h3>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-date">';
                 purchaseHtml += '<h2>' + purchase.regdate + '</h2>';
@@ -429,10 +434,13 @@
                 purchaseHtml += '</div>';
             });
 
-            bids.forEach(function(bid) {
+            uniqueBids.forEach(function(bid) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
+                // 이미지 클릭 시 'buyInfo' 메소드로 이동하는 링크 추가
+                purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=buyInfo&buyUserNo=' + bid.buyUserNo + '&salesNo=' + bid.salesNo + '">';
                 purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
+                purchaseHtml += '</a>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-name">';
                 purchaseHtml += '<h2>' + bid.engName + '</h2>';
@@ -445,9 +453,10 @@
                 purchaseHtml += '</div>';
             });
 
-            $('#total-purchases-count').text(totalPurchases);
-            $('#in-progress-purchases-count').text(inProgressCount);
-            $('#completed-purchases-count').text(completedCount);
+
+            $('#total-purchases-count').text(purchases.length + uniqueBids.length);
+            $('#in-progress-purchases-count').text(uniqueBids.length);
+            $('#completed-purchases-count').text(purchases.length);
             $('#purchase-container').html(purchaseHtml);
         }
     }
