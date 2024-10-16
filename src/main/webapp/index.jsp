@@ -25,6 +25,9 @@
 <script type="text/javascript">
 	$(function(){
 		
+		let currentIndex=0; //현재까지 로드된 상품의 수
+		const itemsPerPage = 4; //한번에 보여줄 상품의 수
+				
 		//전체검색
 		   function productSelectAll(){
 			   $.ajax({
@@ -33,23 +36,21 @@
 				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(result){
-					console.log(result);
+					//console.log(result);
+					let totalProducts = result.length; //전체 상품 수
+					displayProducts(result, currentIndex, itemsPerPage);
 					
-					let str="";
-					$.each(result, function(index, product){
-						str+="<li>";
-					    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
-					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
-					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}원</div>`;
-					    str+=`</div>`;
-					    str+=`</a>`;
-					    str+="</li>";
-					}); //eachEnd
-
-					$("#popular-list-wrapper-ul").html(str);
+					//더보기 버튼 클릭 시 4개씩 더 보여주기
+					$(".more-button").on("click", function(){
+						currentIndex += itemsPerPage;
+						if(currentIndex < totalProducts){
+							displayProducts(result, currentIndex, itemsPerPage);
+						}
+						
+						if(currentIndex + itemsPerPage >= totalProducts){
+							$(".more-button").hide(); //마지막 상품까지 표시되면 버튼 숨김 
+						}
+					});
 					
 					
 				} , //성공했을때 실행할 함수 
@@ -59,6 +60,28 @@
 			});//ajax끝
 			
 		   }//selectAll 함수끝
+		   /////////////////////////////////////////////////////////////
+		  
+		   function displayProducts(result, startIndex, count){
+			   
+			   let str="";
+			   for(let i= startIndex; i< startIndex+count && i < result.length; i++){
+				   let product = result[i];
+					str+="<li>";
+				    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
+				    str+=`<div class="popular-item">`;
+				    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
+				    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+				    str+=`<p class="item-description">${"${product.engName}"}</p>`;
+				    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}원</div>`;
+				    str+=`</div>`;
+				    str+=`</a>`;
+				    str+="</li>";
+			   }
+
+				$("#popular-list-wrapper-ul").append(str); //기존 목록에 추가
+			   
+		   }//displayProducts 함수끝
 		   /////////////////////////////////////////////////////////////
 		  
 			productSelectAll();
