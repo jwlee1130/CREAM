@@ -1,5 +1,6 @@
+<%@ page import="com.cream.dto.UserDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -169,6 +170,25 @@
 <jsp:include page="./includes/footer.jsp" />
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+
+<%
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+%>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var userId = "<%= loginUser.getUserId()%>";
+        var userNo="<%= loginUser.getNo()%>"
+
+
+        console.log("로그인된 유저 ID: " + userId);
+        console.log("로그인된 유저 NO: " + userNo);
+
+    });
+</script>
+
 
 </body>
 </html>

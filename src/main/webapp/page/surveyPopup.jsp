@@ -155,7 +155,7 @@
                 data: {
                     key: 'admin',
                     methodName: 'submitSurvey',
-                    userNo: '5',
+                    userNo: '5', // 특정 회원으로 설정함. 테스트용
                     category: category,
                     brand: brand,
                     color: color,
