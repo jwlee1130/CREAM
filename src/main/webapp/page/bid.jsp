@@ -42,7 +42,7 @@
         <h2>${sale.product.modelNumber}</h2>
         <h3>${sale.product.engName}</h3>
         <h3>${sale.product.korName}</h3>
-        <h4>${sale.shoesNo}</h4>
+        <h4>${sale.shoesSize.shoesSize}</h4>
       </div>
     </div>
     <div class="item-price">

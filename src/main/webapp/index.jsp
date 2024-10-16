@@ -197,7 +197,7 @@
             success: function(result){
                 console.log(result);
                 if (!result) { // boolean 형식으로 올거임
-                    window.open('/page/surveyPopup.jsp', 'surveyPopup', 'width=450,height=650');
+                    window.open('${pageContext.request.contextPath}/page/surveyPopup.jsp', 'surveyPopup', 'width=450,height=650');
                 }
             },
             error: function(err){
