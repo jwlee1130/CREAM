@@ -48,7 +48,7 @@
             font-size: 16px;
             color: #333;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-align: left;
         }
         input[type="radio"] {
@@ -85,7 +85,7 @@
             margin-bottom: 20px;
         }
         #recommendedProduct p {
-            font-size: 16px;
+            font-size: 20px;
             color: #333;
             margin: 30px 0;
             text-align: left;
