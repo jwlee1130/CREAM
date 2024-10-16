@@ -212,6 +212,7 @@
 
         function displayProduct(product){
             if (product && product.no) {
+                $('#surveyContainer').find('.error-msg').remove();
                 $('#productName').text(product.engName);
                 $('#productBrand').text(product.brandName.brand);
                 $('#productPrice').text(product.releasePrice.toLocaleString());
@@ -219,7 +220,8 @@
                 $('#surveyForm').hide();
                 $('#recommendedProduct').show();
             } else {
-                $('#surveyContainer').append('<p>추천 상품을 찾을 수 없습니다.</p>');
+                $('#surveyContainer').find('.error-msg').remove();
+                $('#surveyContainer').append('<p class="error-msg">추천 상품을 찾을 수 없습니다.</p>');
             }
         }
     });

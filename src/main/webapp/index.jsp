@@ -185,7 +185,7 @@
         <% if (loginUser != null && adminUser == null) { %>
 
         $.ajax({
-            url: "ajax",
+            url: "${pageContext.request.contextPath}/ajax",
             type: "get",
             dataType: "json",
             data: {
