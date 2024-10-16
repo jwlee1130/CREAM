@@ -1,5 +1,7 @@
 package com.cream.dto;
 
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 
 public class ProductDTO {
@@ -15,7 +17,7 @@ public class ProductDTO {
 	@Expose private String modelNumber;
 	@Expose private String regdate;
 	@Expose private int salesQuantity;
-	@Expose private ProductImgDTO productImg;
+	@Expose private List<ProductImgDTO> productImg;
 	@Expose private BrandDTO brandName;
 
 	public ProductDTO() {}
@@ -29,7 +31,7 @@ public class ProductDTO {
 	}
 	
 
-	public ProductDTO(String modelNumber,String engName,String korName, ProductImgDTO productImg) {
+	public ProductDTO(String modelNumber,String engName,String korName,  List<ProductImgDTO> productImg) {
 		this(modelNumber, engName, korName);
 		this.productImg = productImg;
 
@@ -51,7 +53,7 @@ public class ProductDTO {
 
     public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
-			ProductImgDTO productImg) {
+			List<ProductImgDTO> productImg) {
     	
     	this(no, brandNo, categoryNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity);
 		this.productImg = productImg;
@@ -60,7 +62,7 @@ public class ProductDTO {
 
 
 	public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName, String korName, String release,
-			int releasePrice, String modelNumber, String regdate, int salesQuantity, ProductImgDTO productImg,
+			int releasePrice, String modelNumber, String regdate, int salesQuantity, List<ProductImgDTO> productImg,
 			BrandDTO brandName) {
 		this.no = no;
 		this.brandNo = brandNo;
@@ -107,8 +109,8 @@ public class ProductDTO {
 	public String getRegdate() { return regdate; }
 	public void setRegdate(String regdate) { this.regdate = regdate; }
 
-	public ProductImgDTO getProductImg() { return productImg;	}
-	public void setProductImg(ProductImgDTO productImg) { this.productImg = productImg;	}
+	public List<ProductImgDTO>getProductImg() { return productImg;	}
+	public void setProductImg(List<ProductImgDTO> productImg) { this.productImg = productImg;	}
 
 	public int getSalesQuantity() { return salesQuantity; }
 	public void setSalesQuantity(int salesQuantity) { this.salesQuantity = salesQuantity; }

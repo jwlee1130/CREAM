@@ -46,6 +46,7 @@ public class BidDAOImpl implements BidDAO {
 					checkBalance(con ,newBidder.getBuyUserNo(), newBidder.getPrice());  //입찰유저가 돈 있는지 체크하면서 돈빼기
 					if(currentBidder.getBuyUserNo()!=0) {
 						refundBidAmount(con,currentBidder.getBuyUserNo(), currentBidder.getPrice());//현재 입찰자한테 돈 돌려주기
+						notifyDAO.insertNotify(con, new NotifyDTO(currentBidder.getBuyUserNo(),currentBidder.getSalesNo(),productNO,"새로운 상위 입찰자가 등장했습니다. 다시 입찰해보세요!"));
 					}
 					//입찰 테이블에 입찰한 유저인지 신규 입찰자인지 판단
 					int checkExistBidUserNo = checkBidExists(con, newBidder.getBuyUserNo(), newBidder.getSalesNo()); // 입찰중인 유저인지
@@ -57,7 +58,6 @@ public class BidDAOImpl implements BidDAO {
 					}
 					//관리계좌 현재입찰자로 교체
 					updateAdminAccount(con, newBidder.getBuyUserNo(), newBidder.getSalesNo(), newBidder.getPrice());
-					notifyDAO.insertNotify(con, new NotifyDTO(currentBidder.getBuyUserNo(),currentBidder.getSalesNo(),productNO,"새로운 상위 입찰자가 등장했습니다. 다시 입찰해보세요!"));
 					setBidFlagZero(con,newBidder.getSalesNo()); //flag =0 설정 다른 유저 접근 하게
 					con.commit();
 

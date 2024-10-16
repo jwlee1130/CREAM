@@ -128,6 +128,7 @@
 </script>
 <script type="text/javascript">
 		
+
 		//$(".search-button").click(function(){
 		//	location.href = "${pageContext.request.contextPath}/front?key=product&methodName=searchProductByKeyword";
 		//})
