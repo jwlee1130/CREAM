@@ -25,51 +25,51 @@
             height: 100%;
         }
         #surveyContainer {
-            width: 90%;
-            max-width: 480px;
+            width: 81%;
+            max-width: 432px;
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 18px;
+            border-radius: 9px;
+            box-shadow: 0 7.2px 14.4px rgba(0, 0, 0, 0.2);
             overflow: auto;
-            height: 80%;
+            height: 100%;
         }
         h2 {
             text-align: center;
-            font-size: 24px;
+            font-size: 21.6px;
             color: #4a4a4a;
-            margin-bottom: 60px;
+            margin-bottom: 54px;
         }
         form {
             width: 100%;
             text-align: center;
         }
         label {
-            font-size: 16px;
+            font-size: 14.4px;
             color: #333;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 13.5px;
             text-align: left;
         }
         input[type="radio"] {
-            margin-right: 8px;
-            transform: scale(1.5);
+            margin-right: 7.2px;
+            transform: scale(1.35);
         }
         .question {
-            margin-bottom: 40px;
+            margin-bottom: 36px;
             text-align: left;
         }
         button {
             display: block;
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
+            padding: 9px;
+            font-size: 14.4px;
             color: white;
             background-color: #41B979;
             border: none;
-            border-radius: 5px;
+            border-radius: 4.5px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 18px;
         }
         button:hover {
             background-color: #00A86B;
@@ -78,24 +78,26 @@
             display: none;
             width: 100%;
             text-align: center;
+            height:100%;
         }
         #recommendedProduct h3 {
-            font-size: 20px;
+            font-size: 18px;
             color: #4a4a4a;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+
         }
         #recommendedProduct p {
-            font-size: 20px;
+            font-size: 18px;
             color: #333;
-            margin: 30px 0;
+            margin: 27px 0;
             text-align: left;
         }
         #recommendedProduct img {
-            width: 350px;
+            width: 315px;
             height: auto;
-            margin: 20px auto;
+            margin: 18px auto;
             display: block;
-            border-radius: 8px;
+            border-radius: 7.2px;
         }
         #closeBtn{
             background-color: #EF6253;
