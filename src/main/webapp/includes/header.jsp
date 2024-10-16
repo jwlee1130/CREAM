@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
 </head>
 <body>
+<div class="error-container" id="error-container">
+    <div class="error-inner">
+        <i>
+            <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e11b1b">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M2.20164 18.4695L10.1643 4.00506C10.9021 2.66498 13.0979 2.66498 13.8357 4.00506L21.7984 18.4695C22.4443 19.6428 21.4598 21 19.9627 21H4.0373C2.54022 21 1.55571 19.6428 2.20164 18.4695Z" stroke="#e12a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M12 9V13" stroke="#e12a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M12 17.0195V17" stroke="#e12a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </svg>
+        </i>
+        <p id="error-message">error message가 나오는 곳 입니다~~!!!</p>
+    </div>
+</div>
 <div class="header">
     <div class="header-wrapper">
         <div class="header-top">
@@ -46,7 +62,6 @@
 		        <a href="${pageContext.request.contextPath}/page/login.jsp">로그인</a>
 		    </c:otherwise>
 		</c:choose>
-
         </div>
         <div class="header-main">
             <div class="logo">
@@ -54,6 +69,7 @@
                     <img height="100px" src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/logo.png">
                 </a>
             </div>
+            <button id="trigger-error-button">에러 메시지 표시하기</button>
             <div class="header-searchbar">
                 <div class="search-container">
                     <input type="text" class="search-bar" id="searchBar" placeholder="Search..." maxlength="16"  onkeypress="enterKey();" />
@@ -86,9 +102,11 @@
             </div>
         </div>
 </div>
+
+
+
 <script type="text/javascript">
 	// 판매 조회 함수
-
 	function notify() {
 		$.ajax({
 			url : '${pageContext.request.contextPath}/ajax',
@@ -157,6 +175,22 @@
 	
 
 </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#trigger-error-button').click(function(){
+          // 테스트용 에러 메시지 설정
+          $('#error-message').text('테스트 에러 메시지가 표시됩니다!');
+
+          // 에러 컨테이너를 보이도록 클래스 추가
+          $('#error-container').addClass('show');
+
+          // 5초 후에 슬라이드 업
+          setTimeout(function(){
+            $('#error-container').removeClass('show');
+          }, 5000);
+        });
+      });
+    </script>
 <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 </html>

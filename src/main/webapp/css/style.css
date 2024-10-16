@@ -1,3 +1,56 @@
+.error-container {
+  : center;
+  position: fixed;
+  top: -100px; /* 초기에는 화면 밖에 숨김 */
+  left: 35%;
+  width: 30%;
+  background-color: #adadad; /* 배경색 (연한 빨강) */
+  color: white;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 2rem;
+  z-index: 1000; /* 다른 요소보다 위에 표시 */
+  transition: top 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 중앙 정렬 */
+}
+
+/* 에러 메시지가 보일 때 */
+.error-container.show {
+  top: 20px; /* 슬라이드 다운 */
+}
+
+/* 에러 내부 컨텐츠 스타일 */
+.error-inner {
+  display: flex;
+  align-items: center;
+  position: relative; /* 닫기 버튼 위치를 위해 상대 위치 설정 */
+}
+
+/* SVG 아이콘 스타일 */
+.error-inner i {
+  margin-right: 20px;
+}
+
+/* 에러 메시지 텍스트 스타일 */
+#error-message {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* 닫기 버튼 스타일 */
+.close-error-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #721c24;
+}
 .header-wrapper {
   max-width: 1200px;
   margin: 0 auto;
