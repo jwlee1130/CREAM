@@ -17,7 +17,7 @@
   <div class="transaction-wrapper">
     <div class="item-info">
       <div class="item-img">
-        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/shoes1.png" alt="" width="120px" height="120px">
+        <img src="${sale.salesImg.filePath}" alt="" width="120px" height="120px">
       </div>
       <div class="item-description">
         <h2>${sale.product.engName}</h2>
