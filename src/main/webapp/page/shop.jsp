@@ -14,7 +14,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <script type="text/javascript">
 	$(function(){
+	
+		let checkIndex = [];
+		//필터 범위에서 체크박스를 선택하면
+		document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
+			alert(e.target.checked);
+			
+			//체크박스 전체를 돌면서 체크된 값 확인해서 배열에 담기
+			document.querySelectorAll("[type=checkbox]").forEach((item, index)=>{ 
+				
+				if(item.checked){ //체크가 되어있다면
+					console.log(item.id);
+					let checkValue = item.id;
+					checkIndex.push(checkValue); //체크된 값들을 배열에 담는다				
+				}		
+			});
+			
+			console.log(checkIndex);
+			//selectProductByFilter();
+		});
 		
+
 		//전체검색
 		   function productSelectAll(){
 			   $.ajax({
@@ -87,17 +107,12 @@
 		   }//productSearch 함수끝
 		   
 			//productSelectAll();
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
+		   		   
 		   
 	}); //ready End
-
+	
+	
+	
 </script>
 </head>
 <body>
@@ -111,15 +126,15 @@
                 <h3>카테고리</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="category" id="sneakers" value="sneakers">
+                        <input type="checkbox" name="category" id="111">
                         <label for="sneakers">스니커즈</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="category" id="slippers">
+                        <input type="checkbox" name="category" id="222">
                         <label for="slippers">슬리퍼</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="category" id="rain-shoes">
+                        <input type="checkbox" name="category" id="333">
                         <label for="rain-shoes">구두</label>
                     </div>
                 </div>
@@ -130,47 +145,47 @@
                 <h3>브랜드</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="nike" id="nike">
+                        <input type="checkbox" name="nike" id="1000">
                         <label for="nike">나이키</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="adidas" id="adidas">
+                        <input type="checkbox" name="adidas" id="2000">
                         <label for="adidas">아디다스</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="puma" id="puma">
+                        <input type="checkbox" name="puma" id="3000">
                         <label for="puma">퓨마</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="jordan" id="jordan">
+                        <input type="checkbox" name="jordan" id="4000">
                         <label for="jordan">조던</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="gucci" id="gucci">
+                        <input type="checkbox" name="gucci" id="5000">
                         <label for="gucci">구찌</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="hermes" id="hermes">
+                        <input type="checkbox" name="hermes" id="6000">
                         <label for="hermes">에르메스</label>
                     </div>
                 </div>
             </div>
-
-            <!-- 성별 섹션 -->
+            
+            <!-- 색상 섹션 -->
             <div class="shop-aside-content">
-                <h3>성별</h3>
+                <h3>색상</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="남성" id="남성">
-                        <label for="남성">남성</label>
+                        <input type="checkbox" name="10" id="black">
+                        <label for="black">블랙</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="여성" id="여성">
-                        <label for="여성">여성</label>
+                        <input type="checkbox" name="20" id="gray">
+                        <label for="gray">그레이</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="키즈" id="키즈">
-                        <label for="키즈">키즈</label>
+                        <input type="checkbox" name="30" id="white">
+                        <label for="white">화이트</label>
                     </div>
                 </div>
             </div>
@@ -190,25 +205,6 @@
                     <div class="filter-check">
                         <input type="checkbox" name="280" id="280">
                         <label for="280">280</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 색상 섹션 -->
-            <div class="shop-aside-content">
-                <h3>색상</h3>
-                <div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="black" id="black">
-                        <label for="black">블랙</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="gray" id="gray">
-                        <label for="gray">그레이</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="white" id="white">
-                        <label for="white">화이트</label>
                     </div>
                 </div>
             </div>
@@ -275,37 +271,6 @@
 </div>
 <jsp:include page="../includes/footer.jsp" />
 <script src="../js/script.js"></script>
-<script type="text/javascript">
-	
-	const users = [1,2,3];
-	
-	const re = users.filter((score)=>{
-		score=1;
-		return score
-	});
-	console.log(re)
-	
-	
-	
-	//필터 범위에서 체크박스를 선택하면
-	document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
-		alert(e.target.checked);
 
-		document.querySelectorAll("[type=checkbox]").forEach((item, index)=>{ //체크박스 전체를 돌면서 
-			
-			if(item.checked){ //체크가 되어있다면
-				console.log(item.id);
-				
-			}
-			
-			//item.checked = e.target.checked;
-			
-		});
-		
-		selectProductByFilter();
-	});
-
-
-</script>
 </body>
 </html>

@@ -25,11 +25,11 @@ public class ProductAjaxController implements RestController {
 		
 	}//selectAll 끝
 	
-	public Object searchProductByKeyword(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-		System.out.println("Ajax 키워드 검색 메소드...!!!");
+	public Object searchProductByFilter(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		System.out.println("Ajax 필터로 검색 메소드...!!!");
 
-		//String searchKeyword = request.getParameter("searchBar");
-		String searchKeyword = "Asics";
+		String searchKeyword = request.getParameter("checkIndex");
+		//String searchKeyword = "Asics";
 		System.out.println(searchKeyword);
 		if(getType(searchKeyword)==2) { //한글이다
 			System.out.println("입력값은 한글");
