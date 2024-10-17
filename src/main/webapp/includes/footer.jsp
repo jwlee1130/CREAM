@@ -10,16 +10,15 @@
         <div class="footer-section about">
             <h2>About Us</h2>
             <p>
-                제육볶음은 매콤하고 달콤한 양념에 돼지고기를 볶아낸 한국의 대표적인 가정식 요리입니다. 고추장과 고춧가루로 만든 양념이 고기에 배어들어 밥과 함께 먹을 때 최고의 궁합을 자랑합니다. 잘 익은 김치와 함께 곁들이면 한층 더 깊은 풍미를 즐길 수 있습니다.
+                	CREAM 주식회사 · 대표 이정우<br>
+                	사업자등록번호 : 123-45-6789<br>
+                	사업장소재지 : 경기 성남시 분당구 성남대로 34 하나프라자 6층
             </p>
         </div>
         <div class="footer-section links">
-            <h2>Quick Links</h2>
+            <h2>채무지급보증 안내</h2>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Blog</a></li>
+                <li>당사는 고객님의 현금 결제 금액에 대해 신한은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.</li>
             </ul>
         </div>
         <div class="footer-section contact">
@@ -29,7 +28,7 @@
         </div>
     </div>
     <div class="footer-bottom">
-        &copy; 2024 조이름 뭐였더라 | All Rights Reserved
+        &copy; 2024 ShoeCream | All Rights Reserved
     </div>
 </footer>
 </body>

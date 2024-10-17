@@ -250,44 +250,59 @@
                 let completedCount = 0;
 
                 $.each(result, function(index, sale) {
-                    if (sale.salesStatus === 1) {
+                    if (sale.salesStatus === 0 || sale.salesStatus === 1) {
                         inProgressCount++;
                     } else if (sale.salesStatus === 2) {
                         completedCount++;
                     }
                 });
 
-                const recentSale = result[0];
-                if (recentSale) {
+                result.slice(0, 2).forEach(function(sale) {
                     salesHtml += '<div class="parchase-item">';
-                    
-                    salesHtml += '<input type="hidden" name="userNo" value="' + recentSale.userNo + '">';
-                    salesHtml += '<input type="hidden" name="productNo" value="' + recentSale.productNo + '">';
-                    
+
+                    salesHtml += '<input type="hidden" name="userNo" value="' + sale.userNo + '">';
+                    salesHtml += '<input type="hidden" name="productNo" value="' + sale.productNo + '">';
+
                     salesHtml += '<div class="item-img">';
-                    salesHtml += '<img style="width:100px; height:100px;" src="' + recentSale.filePath + '" alt="">';
+
+                    if (sale.salesStatus === 2) {
+                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
+                    } else if (sale.salesStatus === 1) {
+                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=sales&methodName=salesDetail&salesNo=' + sale.no + '">';
+                    } else {
+                        salesHtml += '<div style="pointer-events: none; cursor: not-allowed;">';
+                    }
+
+                    salesHtml += '<img style="width:100px; height:100px;" src="' + sale.filePath + '" alt="">';
+
+                    if (sale.salesStatus === 0) {
+                        salesHtml += '</div>'; // 승인 대기 상태일 때 div 태그 종료
+                    } else {
+                        salesHtml += '</a>'; // 링크일 경우 a 태그 종료
+                    }
+
                     salesHtml += '</div>';
-                    
+
                     salesHtml += '<div class="item-name">';
-                    salesHtml += '<h2>' + recentSale.engName + '</h2>';
-                    salesHtml += '<h3>' + recentSale.shoesSize + '</h3>';
+                    salesHtml += '<h2>' + sale.engName + '</h2>';
+                    salesHtml += '<h3>' + sale.shoesSize + '</h3>';
                     salesHtml += '</div>';
-                    
+
                     salesHtml += '<div class="item-date">';
-                    salesHtml += '<h2>' + recentSale.regdate + '</h2>';
+                    salesHtml += '<h2>' + sale.regdate + '</h2>';
                     salesHtml += '</div>';
 
                     salesHtml += '<div class="item-status">';
-                    if (recentSale.salesStatus === 0) {
+                    if (sale.salesStatus === 0) {
                         salesHtml += '승인대기';
-                    } else if (recentSale.salesStatus === 1) {
+                    } else if (sale.salesStatus === 1) {
                         salesHtml += '진행중';
-                    } else if (recentSale.salesStatus === 2) {
+                    } else if (sale.salesStatus === 2) {
                         salesHtml += '정산 완료';
                     }
                     salesHtml += '</div>';
                     salesHtml += '</div>';
-                }
+                });
 
                 $('#total-sales-count').text(totalSales);
                 $('#in-progress-count').text(inProgressCount);
@@ -300,8 +315,18 @@
             }
         });
     }
+
     
     function fetchAllSales() {
+        let sales = [];
+        let currentIndex = 0;
+        const itemsPerPage = 5;
+
+        $('#sales-container').html(''); // 초기화
+        $('#load-more-sales').hide(); // 초기에는 숨김 상태로 설정하고 이후 로딩 결과에 따라 표시
+
+        $('#load-more-sales').off('click').on('click', loadMoreSales);
+
         $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
             method: 'GET',
@@ -311,70 +336,91 @@
             },
             dataType: 'json',
             success: function(result) {
-                let salesHtml = '';
-                let inProgressCount = 0;
-                let completedCount = 0;
-                let approvalPendingCount = 0;
+                sales = result;
+                updateSalesCounts(sales); // 카운트 업데이트
+                loadMoreSales(); // 첫 로드 시 5개씩 보여줌
 
-                $.each(result, function(index, sale) {
-                    salesHtml += '<div class="parchase-item">';
-
-                    salesHtml += '<div class="item-img">';
-                    
-                    if (sale.salesStatus === 2) {
-                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
-                    } else if (sale.salesStatus === 1) {
-                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=sales&methodName=salesDetail&salesNo=' + sale.no + '">';
-                    } else {
-                        salesHtml += '<div style="pointer-events: none; cursor: not-allowed;">';
-                    }
-                    
-                    salesHtml += '<img style="width:100px; height:100px;" src="' + sale.filePath + '" alt="">';
-
-                    if (sale.salesStatus === 0) {
-                        salesHtml += '</div>';
-                    } else {
-                        salesHtml += '</a>';
-                    }
-                    
-                    salesHtml += '</div>';
-                    
-                    salesHtml += '<div class="item-name">';
-                    salesHtml += '<h2>' + sale.engName + '</h2>';
-                    salesHtml += '<h3>' + sale.shoesSize + '</h3>';
-                    salesHtml += '</div>';
-
-                    salesHtml += '<div class="item-date">';
-                    salesHtml += '<h2>' + sale.regdate + '</h2>';
-                    salesHtml += '</div>';
-                    
-                    salesHtml += '<div class="item-status">';
-                    if (sale.salesStatus === 0) {
-                        salesHtml += '승인대기';
-                        approvalPendingCount++;
-                    } else if (sale.salesStatus === 1) {
-                        salesHtml += '진행중';
-                        inProgressCount++;
-                    } else if (sale.salesStatus === 2) {
-                        salesHtml += '정산 완료';
-                        completedCount++;
-                    }
-                    salesHtml += '</div>';
-                    salesHtml += '</div>';
-                });
-
-                let totalSalesCount = approvalPendingCount + inProgressCount + completedCount;
-                $('#total-sales-count').text(totalSalesCount);
-                $('#in-progress-count').text(inProgressCount);
-                $('#completed-count').text(completedCount);
-
-                $('#sales-container').html(salesHtml);
+                if (sales.length > itemsPerPage) {
+                    $('#load-more-sales').show(); // 데이터가 충분히 있는 경우에만 더보기 버튼을 표시
+                }
             },
             error: function() {
-            	showError("판매 내역을 불러오는 중 오류가 발생했습니다");
+                showError("판매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
+
+        function loadMoreSales() {
+            let salesHtml = '';
+            const salesItems = sales.slice(currentIndex, currentIndex + itemsPerPage);
+
+            salesItems.forEach(function(sale) {
+                salesHtml += '<div class="parchase-item">';
+                salesHtml += '<div class="item-img">';
+
+                if (sale.salesStatus === 2) {
+                    salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
+                } else if (sale.salesStatus === 1) {
+                    salesHtml += '<a href="${pageContext.request.contextPath}/front?key=sales&methodName=salesDetail&salesNo=' + sale.no + '">';
+                } else {
+                    salesHtml += '<div style="pointer-events: none; cursor: not-allowed;">';
+                }
+
+                salesHtml += '<img style="width:100px; height:100px;" src="' + sale.filePath + '" alt="">';
+
+                if (sale.salesStatus === 0) {
+                    salesHtml += '</div>';
+                } else {
+                    salesHtml += '</a>';
+                }
+
+                salesHtml += '</div>';
+                salesHtml += '<div class="item-name">';
+                salesHtml += '<h2>' + sale.engName + '</h2>';
+                salesHtml += '<h3>' + sale.shoesSize + '</h3>';
+                salesHtml += '</div>';
+                salesHtml += '<div class="item-date">';
+                salesHtml += '<h2>' + sale.regdate + '</h2>';
+                salesHtml += '</div>';
+                salesHtml += '<div class="item-status">';
+
+                if (sale.salesStatus === 0) {
+                    salesHtml += '승인대기';
+                } else if (sale.salesStatus === 1) {
+                    salesHtml += '진행중';
+                } else if (sale.salesStatus === 2) {
+                    salesHtml += '정산 완료';
+                }
+                
+                salesHtml += '</div>';
+                salesHtml += '</div>';
+            });
+
+            $('#sales-container').append(salesHtml);
+            currentIndex += itemsPerPage;
+
+            if (currentIndex >= sales.length) {
+                $('#load-more-sales').hide();
+            }
+        }
+
+        function updateSalesCounts(sales) {
+            let inProgressCount = 0;
+            let completedCount = 0;
+
+            sales.forEach(function(sale) {
+                if (sale.salesStatus === 0 || sale.salesStatus === 1) {
+                    inProgressCount++;
+                } else if (sale.salesStatus === 2) {
+                    completedCount++;
+                }
+            });
+
+            $('#total-sales-count').text(sales.length);
+            $('#in-progress-count').text(inProgressCount);
+            $('#completed-count').text(completedCount);
+        }
     }
+
 
 
 
@@ -385,89 +431,111 @@
     function fetchAllPurchasesAndBids() {
         let purchases = [];
         let bids = [];
+        let currentPurchaseIndex = 0;
+        let currentBidIndex = 0;
+        const itemsPerPage = 5;
 
-        $.ajax({
-            url: '${pageContext.request.contextPath}/ajax',
-            method: 'GET',
-            data: {
-                key: 'purchase',
-                methodName: 'selectPurchase'
-            },
-            dataType: 'json',
-            success: function(result) {
-                purchases = result;
-                fetchBids();
-            },
-            error: function(error) {
-            	showError("구매 내역을 불러오는 중 오류가 발생했습니다");
-            }
-        });
+        $('#purchase-container').html(''); // 초기화
+        $('#load-more').hide(); // 초기에는 숨김 상태로 설정하고 이후 로딩 결과에 따라 표시
 
-        function fetchBids() {
+        $('#load-more').off('click').on('click', loadMoreItems);
+
+        $.when(
             $.ajax({
                 url: '${pageContext.request.contextPath}/ajax',
                 method: 'GET',
-                data: {
-                    key: 'bidAjax',
-                    methodName: 'findBidsByUserNo',
-                    userNo: '<%= loginUser.getNo() %>' // 세션에서 사용자의 ID를 사용합니다.
-                },
-                dataType: 'json',
-                success: function(result) {
-                    bids = result;
-                    renderPurchasesAndBids(purchases, bids);
-                },
-                error: function(error) {
-                	showError("입찰 내역을 불러오는 중 오류가 발생했습니다");
+                data: { key: 'purchase', methodName: 'selectPurchase' },
+                dataType: 'json'
+            }),
+            $.ajax({
+                url: '${pageContext.request.contextPath}/ajax',
+                method: 'GET',
+                data: { key: 'bidAjax', methodName: 'findBidsByUserNo', userNo: '<%= loginUser.getNo() %>' },
+                dataType: 'json'
+            })
+        ).done(function(purchaseResult, bidResult) {
+            purchases = purchaseResult[0];
+            bids = bidResult[0];
+
+            updateCounts(); // 카운트 업데이트
+            loadMoreItems(); // 첫 로드 시 5개씩 보여줌
+
+            if (purchases.length + bids.length > 0) {
+                $('#load-more').show(); // 데이터가 있는 경우에만 더보기 버튼을 표시
+            }
+        }).fail(function() {
+            showError("구매 또는 입찰 내역을 불러오는 중 오류가 발생했습니다");
+        });
+
+        function loadMoreItems() {
+            let purchaseHtml = '';
+            
+            // 구매와 입찰 항목을 합쳐 총 5개를 추출
+            let displayedItems = 0;
+
+            while (displayedItems < itemsPerPage && (currentPurchaseIndex < purchases.length || currentBidIndex < bids.length)) {
+                if (currentPurchaseIndex < purchases.length && displayedItems < itemsPerPage) {
+                    let purchase = purchases[currentPurchaseIndex++];
+                    purchaseHtml += '<div class="parchase-item">';
+                    purchaseHtml += '<div class="item-img">';
+                    purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=buyInfo&buyUserNo=' + purchase.buyUserNo + '&salesNo=' + purchase.salesNo + '">';
+                    purchaseHtml += '<img style="width:100px; height:100px;" src="' + purchase.filePath + '" alt="">';
+                    purchaseHtml += '</a>';
+                    purchaseHtml += '</div>';
+                    purchaseHtml += '<div class="item-name">';
+                    purchaseHtml += '<h2>' + purchase.engName + '</h2>';
+                    purchaseHtml += '<h3>' + purchase.shoeSize + '</h3>';
+                    purchaseHtml += '</div>';
+                    purchaseHtml += '<div class="item-date">';
+                    purchaseHtml += '<h2>' + purchase.regdate + '</h2>';
+                    purchaseHtml += '</div>';
+                    purchaseHtml += '<div class="item-status">결제 완료</div>';
+                    purchaseHtml += '</div>';
+                    displayedItems++;
                 }
-            });
+
+                if (currentBidIndex < bids.length && displayedItems < itemsPerPage) {
+                    let bid = bids[currentBidIndex++];
+                    purchaseHtml += '<div class="parchase-item">';
+                    purchaseHtml += '<div class="item-img">';
+                    purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
+                    purchaseHtml += '</div>';
+                    purchaseHtml += '<div class="item-name">';
+                    purchaseHtml += '<h2>' + bid.engName + '</h2>';
+                    purchaseHtml += '<h3>' + bid.shoesSize + '</h3>';
+                    purchaseHtml += '</div>';
+                    purchaseHtml += '<div class="item-date">';
+                    purchaseHtml += '<h2>' + bid.regdate + '</h2>';
+                    purchaseHtml += '</div>';
+                    purchaseHtml += '<div class="item-status">입찰 진행 중</div>';
+                    purchaseHtml += '</div>';
+                    displayedItems++;
+                }
+            }
+
+            $('#purchase-container').append(purchaseHtml);
+
+            // 모든 항목이 다 로드되면 버튼 숨기기
+            if (currentPurchaseIndex >= purchases.length && currentBidIndex >= bids.length) {
+                $('#load-more').hide();
+            }
         }
 
-        function renderPurchasesAndBids(purchases, bids) {
-            let purchaseHtml = '';
-
-            purchases.forEach(function(purchase) {
-                purchaseHtml += '<div class="parchase-item">';
-                purchaseHtml += '<div class="item-img">';
-                purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=buyInfo&buyUserNo=' + purchase.buyUserNo + '&salesNo=' + purchase.salesNo + '">';
-                purchaseHtml += '<img style="width:100px; height:100px;" src="' + purchase.filePath + '" alt="">';
-                purchaseHtml += '</a>';
-                purchaseHtml += '</div>';
-                purchaseHtml += '<div class="item-name">';
-                purchaseHtml += '<h2>' + purchase.engName + '</h2>';
-                purchaseHtml += '<h3>' + purchase.shoeSize + '</h3>';
-                purchaseHtml += '</div>';
-                purchaseHtml += '<div class="item-date">';
-                purchaseHtml += '<h2>' + purchase.regdate + '</h2>';
-                purchaseHtml += '</div>';
-                purchaseHtml += '<div class="item-status">결제 완료</div>';
-                purchaseHtml += '</div>';
-            });
-
-            bids.forEach(function(bid) {
-                purchaseHtml += '<div class="parchase-item">';
-                purchaseHtml += '<div class="item-img">';
-                purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
-                purchaseHtml += '</div>';
-                purchaseHtml += '<div class="item-name">';
-                purchaseHtml += '<h2>' + bid.engName + '</h2>';
-                purchaseHtml += '<h3>' + bid.shoesSize + '</h3>';
-                purchaseHtml += '</div>';
-                purchaseHtml += '<div class="item-date">';
-                purchaseHtml += '<h2>' + bid.regdate + '</h2>';
-                purchaseHtml += '</div>';
-                purchaseHtml += '<div class="item-status">입찰 진행 중</div>';
-                purchaseHtml += '</div>';
-            });
-
+        function updateCounts() {
             $('#total-purchases-count').text(purchases.length + bids.length);
             $('#in-progress-purchases-count').text(bids.length);
             $('#completed-purchases-count').text(purchases.length);
-
-            $('#purchase-container').html(purchaseHtml);
         }
-
     }
+
+
+
+
+
+    
+    
+    
+
     
     function fetchPurchases() {
         $.ajax({
@@ -543,7 +611,7 @@
                 fetchLatestBids();
             },
             error: function(error) {
-            	showError("구매 내역을 불러오는 중 오류가 발생했습니다");
+                showError("구매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
 
@@ -562,46 +630,62 @@
                     renderLatestPurchaseOrBid(purchases, bids);
                 },
                 error: function(error) {
-                	showError("입찰 내역을 불러오는 중 오류가 발생했습니다");
+                    showError("입찰 내역을 불러오는 중 오류가 발생했습니다");
                 }
             });
         }
 
         function renderLatestPurchaseOrBid(purchases, bids) {
             let purchaseHtml = '';
-            
-            const allItems = [...purchases, ...bids];
-            if (allItems.length > 0) {
-                const latestItem = allItems.sort((a, b) => new Date(b.regdate) - new Date(a.regdate))[0];
 
+            // 최신 구매 내역
+            const latestPurchase = purchases[0];
+            if (latestPurchase) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
-                purchaseHtml += '<img style="width:100px; height:100px;" src="' + latestItem.filePath + '" alt="">';
+                purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=buyInfo&buyUserNo=' + latestPurchase.buyUserNo + '&salesNo=' + latestPurchase.salesNo + '">';
+                purchaseHtml += '<img style="width:100px; height:100px;" src="' + latestPurchase.filePath + '" alt="">';
+                purchaseHtml += '</a>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-name">';
-                purchaseHtml += '<h2>' + latestItem.engName + '</h2>';
-                purchaseHtml += '<h3>' + latestItem.shoesSize + '</h3>';
+                purchaseHtml += '<h2>' + latestPurchase.engName + '</h2>';
+                purchaseHtml += '<h3>' + latestPurchase.shoeSize + '</h3>';
                 purchaseHtml += '</div>';
                 purchaseHtml += '<div class="item-date">';
-                purchaseHtml += '<h2>' + latestItem.regdate + '</h2>';
+                purchaseHtml += '<h2>' + latestPurchase.regdate + '</h2>';
                 purchaseHtml += '</div>';
-                purchaseHtml += '<div class="item-status">';
-                purchaseHtml += (latestItem.salesStatus !== undefined) ? '결제 완료' : '입찰 진행 중';
-                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-status">결제 완료</div>';
                 purchaseHtml += '</div>';
             }
 
-            const totalCount = allItems.length;
-            const inProgressCount = bids.length;
-            const completedCount = purchases.length;
+            // 최신 입찰 내역
+            const latestBid = bids[0];
+            if (latestBid) {
+                purchaseHtml += '<div class="parchase-item">';
+                purchaseHtml += '<div class="item-img">';
+                purchaseHtml += '<img style="width:100px; height:100px;" src="' + latestBid.filePath + '" alt="">';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-name">';
+                purchaseHtml += '<h2>' + latestBid.engName + '</h2>';
+                purchaseHtml += '<h3>' + latestBid.shoesSize + '</h3>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-date">';
+                purchaseHtml += '<h2>' + latestBid.regdate + '</h2>';
+                purchaseHtml += '</div>';
+                purchaseHtml += '<div class="item-status">입찰 진행 중</div>';
+                purchaseHtml += '</div>';
+            }
 
-            $('#total-purchases-count').text(totalCount);
-            $('#in-progress-purchases-count').text(inProgressCount);
-            $('#completed-purchases-count').text(completedCount);
-
+            // 내역 업데이트
             $('#purchase-container').html(purchaseHtml);
+
+            // 카운트 업데이트
+            $('#total-purchases-count').text(purchases.length + bids.length);
+            $('#in-progress-purchases-count').text(bids.length);
+            $('#completed-purchases-count').text(purchases.length);
         }
     }
+
 
 
     

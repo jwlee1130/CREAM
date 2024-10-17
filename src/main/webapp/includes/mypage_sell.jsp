@@ -19,8 +19,9 @@
 			    </div>
 			</div>
 			<div id="sales-container">
-			    <!-- 전체 판매 내역이 여기에 추가됩니다 -->
+			    <!-- 전체 판매 내역이 여기에 추가됩니다 -->	
 			</div>
+			<button id="load-more-sales" class="load-more" style="display: block; margin: 20px auto;">더보기</button>
         </div>
     </div>
 </div>
