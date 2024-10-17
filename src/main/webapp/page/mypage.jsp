@@ -191,7 +191,9 @@
                 loadMoreWishlistItems();
 
                 if (uniqueProducts.length > itemsPerPage) {
-                    $('#wishlist-container').after('<button id="load-more" class="load-more">더보기</button>');
+                    $('#wishlist-container').after(
+                        '<button id="load-more" class="load-more" style="display: block; margin: 20px auto;">더보기</button>'
+                    );
                     $('#load-more').show();
                     $('#load-more').off('click').on('click', loadMoreWishlistItems);
                 } else {
@@ -316,23 +318,44 @@
 
                 $.each(result, function(index, sale) {
                     salesHtml += '<div class="parchase-item">';
-                    
-                    // 이미지 클릭 시 'sellInfo' 메소드로 이동하는 링크
+
+                    // 이미지 클릭 시 링크 설정
                     salesHtml += '<div class="item-img">';
-                    salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
+                    
+                    if (sale.salesStatus === 2) {
+                        // 상태가 2일 때는 기존 링크로 이동
+                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
+                    } else if (sale.salesStatus === 1) {
+                        // 상태가 1일 때는 salesDetail 페이지로 이동
+                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=salesDetail&salesNo=' + sale.no + '">';
+                    } else {
+                        // 상태가 0일 때는 클릭 금지 (a 태그 없이 이미지 표시)
+                        salesHtml += '<div style="pointer-events: none; cursor: not-allowed;">';
+                    }
+                    
+                    // 이미지
                     salesHtml += '<img style="width:100px; height:100px;" src="' + sale.filePath + '" alt="">';
-                    salesHtml += '</a>';
+
+                    if (sale.salesStatus === 0) {
+                        salesHtml += '</div>'; // 상태가 0일 때 닫는 div
+                    } else {
+                        salesHtml += '</a>'; // 상태가 1 또는 2일 때 닫는 a 태그
+                    }
+                    
                     salesHtml += '</div>';
                     
+                    // 상품명 및 사이즈
                     salesHtml += '<div class="item-name">';
                     salesHtml += '<h2>' + sale.engName + '</h2>';
                     salesHtml += '<h3>' + sale.shoesSize + '</h3>';
                     salesHtml += '</div>';
                     
+                    // 등록일
                     salesHtml += '<div class="item-date">';
                     salesHtml += '<h2>' + sale.regdate + '</h2>';
                     salesHtml += '</div>';
                     
+                    // 상태에 따른 표시
                     salesHtml += '<div class="item-status">';
                     if (sale.salesStatus === 0) {
                         salesHtml += '승인대기';
@@ -360,6 +383,7 @@
             }
         });
     }
+
 
 
 
@@ -409,16 +433,8 @@
 
         function renderPurchasesAndBids(purchases, bids) {
             let purchaseHtml = '';
-            let uniqueBids = [];
-            let productMap = {};
 
-            bids.forEach(bid => {
-                if (!productMap[bid.productNo]) {
-                    productMap[bid.productNo] = bid;
-                    uniqueBids.push(bid);
-                }
-            });
-
+            // 구매 항목 추가
             purchases.forEach(function(purchase) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
@@ -437,7 +453,8 @@
                 purchaseHtml += '</div>';
             });
 
-            uniqueBids.forEach(function(bid) {
+            // 입찰 항목 추가 (중복 체크 없이 모든 항목 표시)
+            bids.forEach(function(bid) {
                 purchaseHtml += '<div class="parchase-item">';
                 purchaseHtml += '<div class="item-img">';
                 purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
@@ -453,11 +470,15 @@
                 purchaseHtml += '</div>';
             });
 
-            $('#total-purchases-count').text(purchases.length + uniqueBids.length);
-            $('#in-progress-purchases-count').text(uniqueBids.length);
+            // 카운트 업데이트
+            $('#total-purchases-count').text(purchases.length + bids.length);
+            $('#in-progress-purchases-count').text(bids.length);
             $('#completed-purchases-count').text(purchases.length);
+
+            // 결과를 페이지에 출력
             $('#purchase-container').html(purchaseHtml);
         }
+
     }
     
     function fetchPurchases() {

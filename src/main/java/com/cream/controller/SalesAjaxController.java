@@ -55,10 +55,17 @@ public class SalesAjaxController implements RestController {
 	    	File file = new File(saveDir, fileName); 
 
 	    	awsService.upload(file, fileName);
-	    	saveDir = "https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/"+URLEncoder.encode(fileName,"UTF-8"); 
-	    
+	    	String url = fileName;
+	    	if(url.equals("")) {
+	    		url  = "https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/no-shoes.webp";
+	    		System.out.println("파일 업로드 안했을때 url :"+url);
+		    	result = service.insertSalesImg(salesNo,url,fileSize);
+	    	}else {
+	    		saveDir = "https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/"+URLEncoder.encode(fileName,"UTF-8"); 
+	    		System.out.println("파일 업로드 했을떄 fimeName :"+fileName);
+	    		result = service.insertSalesImg(salesNo,saveDir,fileSize);
+	    	}
 	    	
-	    	result = service.insertSalesImg(salesNo,saveDir,fileSize);
 		} catch (Exception e) {
 			
 		}

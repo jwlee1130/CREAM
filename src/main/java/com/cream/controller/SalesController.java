@@ -28,6 +28,7 @@ public class SalesController implements Controller {
 	
 		}catch(Exception e) {
 				e.printStackTrace();
+
 		}
 		request.setAttribute("errorMsg", "상품보기 실패");
 		return new ModelAndView("error/error.jsp",true);

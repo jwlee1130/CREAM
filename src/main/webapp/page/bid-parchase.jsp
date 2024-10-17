@@ -31,7 +31,6 @@
     <div class="item-shipping">
       <div class="shipping-insert">
         <h2>배송 주소</h2>
-        <button>주소 변경</button>
       </div>
       <a href="#"><div class="shipping-address">
         <p>${loginUser.address}</p>
@@ -57,7 +56,7 @@
         <div>
           <span>${loginUser.cash}</span>
         </div>
-        <a href="">충전하러가기</a>
+        <a href="${pageContext.request.contextPath}/page/mypage.jsp#mypage_point">충전하러가기</a>
       </div>
     </div>
     <div class="item-receipt">
