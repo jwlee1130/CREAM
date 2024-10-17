@@ -31,7 +31,7 @@ public class SalesAjaxController implements RestController {
 	public Object selectAll(HttpServletRequest request, HttpServletResponse response) throws SQLException {
     	int shoesNo = Integer.parseInt(request.getParameter("shoesNo"));
     	int productNo = Integer.parseInt(request.getParameter("productNo"));
-    	
+    	System.err.println(shoesNo);
     	List<SalesDTO> sales = service.selectAll(shoesNo,productNo);
         System.out.println("사진 등록 됐냐?????");
         return sales;

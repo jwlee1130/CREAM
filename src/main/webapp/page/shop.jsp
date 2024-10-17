@@ -241,8 +241,8 @@
             <div class="shop-main-info">
                 <p id="shop-main-total">상품 수량 : ${fn:length(requestScope.productList)} 개</p>
                 <div>
-                <span id="shop-main-sort">인기순 </span>
-                 <span id="shop-main-sort-order">↓</span>
+                <span id="shop-main-sort" style="cursor :pointer;  ">인기순 </span>
+                 <span id="shop-main-sort-order" style="cursor :pointer;  ">↓</span>
                </div>
             </div>
             <div class="popular-list-wrapper">

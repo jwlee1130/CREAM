@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,11 +49,11 @@
     <div class="item-price">
       <div class="current-price">
         <p>현재 입찰가</p>
-        <span>${sale.bidAccount.price}원</span>        
+        <span><fmt:formatNumber>${sale.bidAccount.price}</fmt:formatNumber>원</span>        
       </div>
       <div class="instant-price">
         <p>즉시 구매가</p>
-        <span>${sale.nowPrice}원</span></div>
+        <span><fmt:formatNumber>${sale.nowPrice}</fmt:formatNumber>원</span></div>
     </div>
     <div class="time-left">
       <p>남은 시간 : </p>
@@ -67,7 +68,7 @@
       <div class="tab-content active" id="instantPurchase">
         <div class="tab-content-parchase">
           <p>즉시 구매가</p>
-          <p>${sale.nowPrice}</p>
+          <p><fmt:formatNumber>${sale.nowPrice}</fmt:formatNumber>원</p>
         </div>
         <div class="tab-content-total">
           <p>총 결제금액</p>
@@ -119,7 +120,15 @@
         document.getElementById(targetTab).classList.add("active");
       });
     });
-
+    //,추가
+    document.getElementById('bid').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/,/g, ''); // 쉼표 제거
+        if (!isNaN(value)) {
+            e.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 천 단위 콤마 추가
+        } else {
+            e.target.value = ''; // 숫자가 아닐 경우 빈 문자열로 설정
+        }
+    });
     // remainingTime을 숫자로 설정 (초 단위)
     let remainingTime = parseInt("${sale.regdate != null ? sale.regdate : '0'}", 10);
     window.isTimeUp = false; // 전역 변수로 시간 종료 상태 관리
@@ -129,20 +138,23 @@
         remainingTime = 0;
       }
 
-      const hours = Math.floor(remainingTime / 3600);
-      const minutes = Math.floor((remainingTime % 3600) / 60);
+      // 남은 시간을 일, 시간, 분, 초로 계산
+      const days = Math.floor(remainingTime / 86400); // 86400초 = 1일
+      const hours = Math.floor((remainingTime % 86400) / 3600); // 3600초 = 1시간
+      const minutes = Math.floor((remainingTime % 3600) / 60); // 60초 = 1분
       const seconds = remainingTime % 60;
 
-      // "시간:분:초" 형식으로 포맷팅
-      function formatTime(hours, minutes, seconds) {
-        return [
-          String(hours).padStart(2, '0'),
-          String(minutes).padStart(2, '0'),
-          String(seconds).padStart(2, '0')
-        ].join(':');
+      // "일일 시간시간 분분 초초" 형식으로 포맷팅
+      function formatTime(days, hours, minutes, seconds) {
+        return (
+                String(days).padStart(2, '') + '일 ' +
+                String(hours).padStart(2, '0') + '시간 ' +
+                String(minutes).padStart(2, '0') + '분 ' +
+                String(seconds).padStart(2, '0') + '초'
+        );
       }
 
-      const formattedTime = formatTime(hours, minutes, seconds);
+      const formattedTime = formatTime(days, hours, minutes, seconds);
       document.getElementById('countdown').textContent = formattedTime;
 
       if (remainingTime > 0) {
@@ -158,7 +170,7 @@
         biddingLinked.removeAttribute('href');
       }
     };
-    // 카운트다운 시작
+// 카운트다운 시작
     countdown();
   });
 </script>

@@ -29,7 +29,7 @@ public class BidDAOImpl implements BidDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		//현재 입찰중인 유저 정보랑 가격 정보( 환불,알람용,입금액이 더 큰지)
-		String sql = "SELECT  SALES_NO, COALESCE(BUY_USER_NO,0), PRICE from BIDACCOUNT WHERE SALES_NO = ? AND FLAG =0 AND PRICE < ? AND";
+		String sql = "SELECT  SALES_NO, COALESCE(BUY_USER_NO,0), PRICE from BIDACCOUNT WHERE SALES_NO = ? AND FLAG =0 AND PRICE < ?";
 		System.out.println(productNO+"제품번호");
 		try {
 			con=DbUtil.getConnection();
