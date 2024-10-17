@@ -223,7 +223,7 @@
                     </ul>
                 </div>
                 <div class="more-button">
-                    <button>더보기</button>
+                    <button style="font-size: 20px">더보기</button>
                 </div>
             </section>
         </div>

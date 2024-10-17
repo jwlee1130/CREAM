@@ -17,12 +17,12 @@ public class ProductAjaxController implements RestController {
 	List<ProductDTO> productList = new ArrayList<ProductDTO>();
 	
 	public Object selectAllProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-		//System.out.println("Ajax 상품 전체 검색 메소드...!!!");
+		System.out.println("Ajax 상품 전체 검색 메소드...!!!");
 
 		productList = productService.selectAllProduct();	
 		return productList;		
 		
-	}//selectAll 끝
+	}//selectAllProduct 끝
 	
 	public Object searchByProductId(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		//System.out.println("Ajax 상품 ID 검색 메소드...!!!");
@@ -34,35 +34,20 @@ public class ProductAjaxController implements RestController {
 	}//searchByProductId 끝
 	
 	
-//	@ResponseBody
-//	@RequestMapping(value = "/ajax", method = RequestMethod.POST)
-//	public Object checkedList(HttpSession session, HttpServletRequest request) throws IOException, SQLException {
-//
-//		String[] checkArr = request.getParameterValues("checkedArr");
-//		System.out.println(checkArr);
-//		
-//		for( String checkId : checkArr) {
-//			System.out.println(checkId);
-//			
-//		}
-//		return null;
-//	}
-	
-	
 	public Object searchProductByFilter(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		System.out.println("Ajax 필터로 검색 메소드...!!!");
 
-		//String[] categoryArr = request.getParameter("categoryArr");
-		//String[] brandArr = request.getParameter("brandArr");
-		String[] categoryArr = {"111"};
-		String[] brandArr = {"1000","2000"};
-		System.out.println("선택된 카테고리" + categoryArr + "선택된 브랜드" + brandArr);
-		productList = productService.searchProductByFilter(categoryArr, brandArr);
+		String[] categoryArr = request.getParameterValues("categoryArr");
+		String[] brandArr = request.getParameterValues("brandArr");
+		String[] colorArr = request.getParameterValues("colorArr");
+		
+		productList = productService.searchProductByFilter(categoryArr, brandArr, colorArr);
 
 		System.out.println(productList);
 		return productList;		
 		
-	}//searchProductByKeyword 끝
+	}//searchProductByFilter 끝
+	
 	
 	public static int getType(String word) { //검색 입력값 형태 확인(숫자0, 영문1, 한글2)
 		int re=0;

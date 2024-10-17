@@ -42,7 +42,7 @@ public interface ProductService {
 	/**
 	 * 상품 필터로 검색
 	 */
-	List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr) throws SQLException;
+	List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr, String[] colorArr) throws SQLException;
 	
 	
 	/*

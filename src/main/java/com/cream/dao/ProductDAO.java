@@ -43,7 +43,7 @@ public interface ProductDAO {
 	/**
 	 * 	상품 필터로검색
 	 * */
-	List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr) throws SQLException;
+	List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr, String[] colorArr) throws SQLException;
 
 	/*
 	 * 상품 상세보기

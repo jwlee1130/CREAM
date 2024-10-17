@@ -17,17 +17,70 @@
 	
 		//필터 범위에서 체크박스를 선택하면
 		document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
-			alert(e.target.checked);
-
-			let checkedArr=[]; //필터 내용을 저장하는 배열
+			//alert(e.target.checked);
+			selectByFilter();
+			
+		}); //체크박스 선택 Event 끝
+			
+		
+		//정렬하기(인기순, 최신순)
+		document.querySelector("#shop-main-sort").addEventListener("click", (e)=>{
+			
+			selectByFilter();
+			
+			if($("#shop-main-sort").text().trim() == "인기순"){
+				$("#shop-main-sort").text("가격순");
+				
+			} else if($("#shop-main-sort").text().trim() == "가격순"){
+				$("#shop-main-sort").text("인기순");
+			}
+		}); //정렬하기(인기순, 최신순) Event 끝
+		
+		
+		//정렬하기(내림차순, 오름차순)
+		document.querySelector("#shop-main-sort-order").addEventListener("click", (e)=>{
+			
+			selectByFilter();
+			
+			if($("#shop-main-sort-order").text().trim() == "↑"){
+				$("#shop-main-sort-order").text("↓");
+				
+			} else if($("#shop-main-sort-order").text().trim() == "↓"){
+				$("#shop-main-sort-order").text("↑");
+			}
+		}); //정렬하기(내림차순, 오름차순) Event 끝
+		
+		
+		///////////////////////////////////////////////////////////////////////////////
+		function selectByFilter(){
+			let categoryArr=[]; //카테고리 필터 내용을 저장하는 배열
+			let brandArr=[]; //브랜드 필터 배열
+			let colorArr=[]; //색상 필터 배열
+			
 			//체크박스 전체를 돌면서 체크된 값 확인해서 배열에 담기
 			document.querySelectorAll("[type=checkbox]:checked").forEach((item, index)=>{ 
 				
-					console.log(item.id);
-					checkedArr.push(item.id); //체크된 값들을 배열에 담는다
+				if(item.name=="category"){
+					//console.log("카테고리 여기다 : "+item.id);
+					categoryArr.push(item.id); //체크된 값들을 배열에 담는다
+				}
+				
+				if(item.name=="brand"){
+					//console.log("브랜드 여기다 : "+item.id);
+					brandArr.push(item.id); //체크된 값들을 배열에 담는다
+				}
+				
+				if(item.name=="color"){
+					//console.log("색상 여기다 : "+item.id);
+					colorArr.push(item.id); //체크된 값들을 배열에 담는다
+				}
+					
 			});
 			
-			console.log(checkedArr);
+			//console.log("categoryArr = " + categoryArr);
+			//console.log("brandArr = " + brandArr);
+			//console.log("colorArr = " + colorArr);
+			
 			$.ajax({
 				url :"ajax" , //서버요청주소
 				type:"POST", //요청방식(method방식 : get | post | put | delete )
@@ -35,24 +88,62 @@
 				traditional : true, 
 				data: {
 					key:"product" , 
-					methodName : "searchProductByFilter"
+					methodName : "searchProductByFilter",
+					categoryArr : categoryArr,
+					brandArr : brandArr,
+					colorArr : colorArr
 				}, //서버에게 보낼 데이터정보(parameter정보)					
 				success :function(result){
-						console.log(result)
+					
+					//console.log("정렬 이전 결과 = "+result)
+					
+					if($("#shop-main-sort").text().trim() == "인기순" && $("#shop-main-sort-order").text().trim() == "↓"){
+						//console.log("인기순 + 내림차순으로 정렬하기");
+						result.sort(function(a,b){
+							return b.salesQuantity - a.salesQuantity;		
+						});
+						
+					} else if($("#shop-main-sort").text().trim() == "인기순" && $("#shop-main-sort-order").text().trim() == "↑"){
+						//console.log("인기순 + 오름차순으로 정렬하기");
+						result.sort(function(a,b){
+							return a.releasePrice - b.releasePrice;		
+						});
+					} else if($("#shop-main-sort").text().trim() == "가격순" && $("#shop-main-sort-order").text().trim() == "↓"){
+						//console.log("가격순 + 내림차순으로 정렬하기");
+						result.sort(function(a,b){
+							return b.releasePrice - a.releasePrice;		
+						});
+					} else if($("#shop-main-sort").text().trim() == "가격순" && $("#shop-main-sort-order").text().trim() == "↑"){
+						//console.log("가격순 + 오름차순으로 정렬하기");
+						result.sort(function(a,b){
+							return a.releasePrice - b.releasePrice;		
+						});
+					}
 						
 					let str="";
-					$.each(result, function(index, product){
-						str+="<li>";
-					    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
-				    	str+=`<div class="popular-item">`;
-				    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
-				    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-				    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
-				    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-				    	str+=`</div>`;
-				    	str+=`</a>`;
-				    	str+="</li>";
-					}); //eachEnd
+					
+					if(result==""){ //조회된 값이 없으면
+						
+						str+=`<div style="display:flex; justify-content:center; align-items: center; height: 30vh;">`;
+						str+=`<b><span style="font-size:20pt;">조회된 상품이 없습니다.</span></b>`;
+						str+=`</div>`;
+						
+					} else{ //조회된 값이 있으면
+						
+						$.each(result, function(index, product){
+							str+="<li>";
+						    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
+					    	str+=`<div class="popular-item">`;
+					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
+					    	str+=`<h3 class="item-amount">거래 ${"${product.salesQuantity}"}</h3>`;
+					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+					    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
+					    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
+					    	str+=`</div>`;
+					    	str+=`</a>`;
+					    	str+="</li>";
+						}); //eachEnd
+					}
 						
 					$("#popular-list-wrapper-ul").html(str);
 					$("#shop-main-total").html("상품수량 : "+result.length + "개");
@@ -60,9 +151,11 @@
 				} , //성공했을때 실행할 함수 
 				error : function(){
 				showError('상품 검색에서 에러 발생했어요');
+
 				}  //실패했을때 실행할 함수 
 			});//ajax끝
 			
+		}//selectByFilter끝
 
 		}); //체크박스 선택 Event 끝
 		
@@ -130,15 +223,15 @@
                 <div>
                     <div class="filter-check">
                         <input type="checkbox" name="category" id="111">
-                        <label for="sneakers">스니커즈</label>
+                        <label for="111">스니커즈</label>
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="category" id="222">
-                        <label for="slippers">슬리퍼</label>
+                        <label for="222">슬리퍼</label>
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="category" id="333">
-                        <label for="rain-shoes">구두</label>
+                        <label for="333">구두</label>
                     </div>
                 </div>
             </div>
@@ -148,28 +241,28 @@
                 <h3>브랜드</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="nike" id="1000">
-                        <label for="nike">나이키</label>
+                        <input type="checkbox" name="brand" id="1000">
+                        <label for="1000">나이키</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="adidas" id="2000">
-                        <label for="adidas">아디다스</label>
+                        <input type="checkbox" name="brand" id="2000">
+                        <label for="2000">아디다스</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="puma" id="3000">
-                        <label for="puma">퓨마</label>
+                        <input type="checkbox" name="brand" id="3000">
+                        <label for="3000">퓨마</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="jordan" id="4000">
-                        <label for="jordan">조던</label>
+                        <input type="checkbox" name="brand" id="4000">
+                        <label for="4000">조던</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="gucci" id="5000">
-                        <label for="gucci">구찌</label>
+                        <input type="checkbox" name="brand" id="5000">
+                        <label for="5000">구찌</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="hermes" id="6000">
-                        <label for="hermes">에르메스</label>
+                        <input type="checkbox" name="brand" id="6000">
+                        <label for="6000">에르메스</label>
                     </div>
                 </div>
             </div>
@@ -179,76 +272,35 @@
                 <h3>색상</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="10" id="black">
-                        <label for="black">블랙</label>
+                        <input type="checkbox" name="color" id="101">
+                        <label for="101">블랙</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="20" id="gray">
-                        <label for="gray">그레이</label>
+                        <input type="checkbox" name="color" id="202">
+                        <label for="202">그레이</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="30" id="white">
-                        <label for="white">화이트</label>
+                        <input type="checkbox" name="color" id="303">
+                        <label for="303">화이트</label>
                     </div>
                 </div>
             </div>
-
-            <!-- 사이즈 섹션 -->
-            <div class="shop-aside-content">
-                <h3>사이즈</h3>
-                <div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="240" id="240">
-                        <label for="240">240</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="260" id="260">
-                        <label for="260">260</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="280" id="280">
-                        <label for="280">280</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 가격 섹션 -->
-            <div class="shop-aside-content">
-                <h3>가격</h3>
-                <div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="under10" id="under10">
-                        <label for="under10">10만원 이하</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="between1030" id="between1030">
-                        <label for="between1030">10만원~30만원</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="between3050" id="between3050">
-                        <label for="between3050">30만원~50만원</label>
-                    </div>
-                </div>
-            </div>
-
         </div>
         <div class="shop-main">
             <div class="shop-main-info">
                 <p id="shop-main-total">상품 수량 : ${fn:length(requestScope.productList)} 개</p>
-                
-                <span>
-          인기순 ⇞
-        </span>
+                <div>
+                <span id="shop-main-sort">인기순 </span>
+                 <span id="shop-main-sort-order">↓</span>
+               </div>
             </div>
             <div class="popular-list-wrapper">
                 <ul id="popular-list-wrapper-ul">
                 <c:choose>
                 <c:when test="${empty requestScope.productList}">
-            		<p align="center"><b><span style="font-size:9pt;">조회된 상품이 없습니다.</span></b></p>
-                </c:when>
-                <c:when test="">
-                	<h1>여기로 들어오게 해야해</h1>
-                	
+            		<div style="display:flex; justify-content:center; align-items: center; height: 30vh;">
+            			<b><span style="font-size:20pt;">조회된 상품이 없습니다.</span></b>
+            		</div>
                 </c:when>
                 <c:otherwise>
                 <c:forEach items="${requestScope.productList}" var="product">
