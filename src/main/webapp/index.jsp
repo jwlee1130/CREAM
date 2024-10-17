@@ -118,7 +118,7 @@
                                 </div>
                                 <h2 style="color: #555">Adidas Yeezy Boost 350 V2 Black Red 2020</h2>
                                 <h3 style="color: #555">24/25 F/W 시즌 중국으로 간 푸바오도 그리워하는 바로 그 신발</h3>
-                                <button>지금 보러가기</button>
+                                <button style="cursor: pointer;" onclick="window.location.href='http://localhost:8000/Cream/front?key=product&methodName=detail&no=19'">지금 보러가기</button>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                     </div>
                                     <h2>Adidas Yeezy Slide Glow Green 2022/2023</h2>
                                     <h3>여름철 최고의 선택</h3>
-                                    <button>지금 보러가기</button>
+                                    <button style="cursor: pointer;" onclick="window.location.href='http://localhost:8000/Cream/front?key=product&methodName=detail&no=98'">지금 보러가기</button>
                                 </div>
                             </div>
                         </div>x
@@ -144,7 +144,7 @@
                                     </div>
                                     <h2 style="color: #221e1d">Adidas Yeezy Boost 350 V2 Black Red 2020</h2>
                                     <h3 style="color: #221e1d">24/25 F/W 시즌 중국으로 간 푸바오도 그리워하는 바로 그 신발</h3>
-                                    <button>지금 보러가기</button>
+                                    <button style="cursor: pointer;">지금 보러가기</button>
                                 </div>
                             </div>
                         </div>
