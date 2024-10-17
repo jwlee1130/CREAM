@@ -68,6 +68,19 @@ public class ProductAjaxController implements RestController {
 		
 	}//searchProductByKeyword 끝
 	
+	public Object sortProductBySalesAmount(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		System.out.println("Ajax 정렬 메소드...!!!");
+		
+		Object result = this.searchProductByFilter(request, response);
+		if(result instanceof List<?>) {
+			productList = (List<ProductDTO>)result;
+		} else throw new SQLException("정렬 메소드 List로 변환 오류");
+		
+		System.out.println(productList);
+		return productList;		
+		
+	}//searchProductByKeyword 끝
+	
 	public static int getType(String word) { //검색 입력값 형태 확인(숫자0, 영문1, 한글2)
 		int re=0;
 		
