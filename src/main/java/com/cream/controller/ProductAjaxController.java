@@ -24,29 +24,40 @@ public class ProductAjaxController implements RestController {
 		
 	}//selectAll 끝
 	
-	
-	@ResponseBody
-	@RequestMapping(value = "/ajax", method = RequestMethod.POST)
-	public Object checkedList(HttpSession session, HttpServletRequest request) throws IOException, SQLException {
-
-		String[] checkArr = request.getParameterValues("checkedArr");
-		System.out.println(checkArr);
+	public Object searchByProductId(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		//System.out.println("Ajax 상품 ID 검색 메소드...!!!");
 		
-		for( String checkId : checkArr) {
-			System.out.println(checkId);
-			
-		}
-		return null;
-	}
+		String inputProductId = request.getParameter("productId");
+		ProductDTO product = productService.searchByProductId(inputProductId);
+		return product;		
+		
+	}//searchByProductId 끝
+	
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/ajax", method = RequestMethod.POST)
+//	public Object checkedList(HttpSession session, HttpServletRequest request) throws IOException, SQLException {
+//
+//		String[] checkArr = request.getParameterValues("checkedArr");
+//		System.out.println(checkArr);
+//		
+//		for( String checkId : checkArr) {
+//			System.out.println(checkId);
+//			
+//		}
+//		return null;
+//	}
 	
 	
 	public Object searchProductByFilter(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		System.out.println("Ajax 필터로 검색 메소드...!!!");
 
-		String searchKeyword = request.getParameter("checkedArr");
-		//String searchKeyword = "Asics";
-		System.out.println("searchKeyword = " + searchKeyword);
-		
+		//String[] categoryArr = request.getParameter("categoryArr");
+		//String[] brandArr = request.getParameter("brandArr");
+		String[] categoryArr = {"111"};
+		String[] brandArr = {"1000","2000"};
+		System.out.println("선택된 카테고리" + categoryArr + "선택된 브랜드" + brandArr);
+		productList = productService.searchProductByFilter(categoryArr, brandArr);
 
 		System.out.println(productList);
 		return productList;		
