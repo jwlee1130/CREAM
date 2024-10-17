@@ -53,9 +53,9 @@
         <div class="item-description">
             <div class="item-price">
                 <p>최저 입찰가</p>
-                <span>${bidPricing}</span>
+                <span><fmt:formatNumber>${bidPricing}</fmt:formatNumber>원</span>
                 <p>최저 즉시구매가</p>
-                <span>${nowPricing}</span>
+                <span><fmt:formatNumber>${nowPricing}</fmt:formatNumber>원</span>
             </div>
             <div class="item-name">
                 <h2>${productDetail.engName}</h2>
@@ -65,11 +65,11 @@
                 <ul>
                     <li class="item-detail-content">
                         <p>최근 거래가</p>
-                        <span>${recentPrice}</span>
+                        <span><fmt:formatNumber>${recentPrice}</fmt:formatNumber>원</span>
                     </li>
                     <li class="item-detail-content">
                         <p>발매가</p>
-                        <span>${productDetail.releasePrice}</span>
+                        <span><fmt:formatNumber>${productDetail.releasePrice}</fmt:formatNumber>원</span>
                     </li>
                     <li class="item-detail-content">
                         <p>모델 번호</p>
@@ -112,7 +112,7 @@
 			        </c:when>
 			        <c:otherwise>
 			            <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
-			            <a href="${pageContext.request.contextPath}/page/sell.jsp?error=salesUpdate&productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}" class="item-sell">
+			            <a href="${pageContext.request.contextPath}/page/sell.jsp?error=salesUpdate&productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}&filePath=${productDetail.productImg[0].filePath}" class="item-sell">
 			                <span>판매</span>
 			                <p>237,000원 <br> 즉시 판매가</p>
 			            </a>
