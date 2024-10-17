@@ -4,6 +4,12 @@
 <%
     // 세션에서 사용자 정보 가져오기
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+	if (loginUser == null) {
+	    response.sendRedirect("login.jsp");
+	    return;
+	}
+
 	String productNo = request.getParameter("productNo");
 	String brandName = request.getParameter("brandName");
 	String engName = request.getParameter("engName");
