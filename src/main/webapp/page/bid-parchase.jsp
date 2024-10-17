@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,7 @@
         <h3>${sale.product.korName}</h3>
         <div style="display:flex; justify-content: space-between">
           <h2>${sale.shoesSize.shoesSize}</h2>
-          <h2>${sale.nowPrice}원</h2>
+          <h2><fmt:formatNumber>${sale.nowPrice}</fmt:formatNumber>원</h2>
         </div>
       </div>
     </div>
@@ -54,7 +55,7 @@
       <h2>포인트</h2>
       <div class="point-inner">
         <div>
-          <span>${loginUser.cash}</span>
+          <span><fmt:formatNumber>${loginUser.cash}</fmt:formatNumber></span>
         </div>
         <a href="${pageContext.request.contextPath}/page/mypage.jsp#mypage_point">충전하러가기</a>
       </div>
@@ -63,7 +64,7 @@
       <h1>최종 주문정보</h1>
       <div>
         <h2>희망 입찰가</h2>
-        <h2 style="font-weight: bold">${bidPrice}원</h2>
+        <h2 style="font-weight: bold"><fmt:formatNumber>${bidPrice}</fmt:formatNumber>원</h2>
       </div>
     </div>
     <a href="front?key=bid&methodName=bid&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${bidPrice}"><div class="item-sell-btn">

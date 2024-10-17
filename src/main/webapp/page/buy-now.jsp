@@ -1,5 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +27,7 @@
         <h3>${sale.product.korName}</h3>
         <div style="display:flex; justify-content: space-between">
           <h2>${sale.shoesSize.shoesSize}</h2>
-          <h2>${sale.nowPrice}원</h2>
+          <h2><fmt:formatNumber>${sale.nowPrice}</fmt:formatNumber>원</h2>
         </div>
       </div>
     </div>
@@ -69,7 +71,7 @@
       </div>
       <div>
         <h2><a href="#">수수료 💡</a></h2>
-        <h2>${commission}원</h2>
+        <h2><fmt:formatNumber>${commission}</fmt:formatNumber>원</h2>
       </div>
       <div>
         <h2>배송비</h2>
@@ -77,11 +79,11 @@
       </div>
       <div class="item-last-price">
         <h2>총 결제 금액</h2>
-        <h2>${sell}원</h2>
+        <h2><fmt:formatNumber>${sell}원</fmt:formatNumber></h2>
       </div>
     </div>
     <a href="front?key=purchase&methodName=nowBuy&productNo=${sale.productNo}&salesUserNo=${sale.userNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${sale.nowPrice}&address=${loginUser.address}"><div class="item-sell-btn">
-      <p>${sell}원 구매하기</p>
+      <p><fmt:formatNumber>${sell}</fmt:formatNumber>원 구매하기</p>
     </div></a>
   </div>
 </div>
