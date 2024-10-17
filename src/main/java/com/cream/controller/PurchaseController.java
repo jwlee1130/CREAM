@@ -58,7 +58,7 @@ public class PurchaseController implements Controller {
 			int buyUserNo = Integer.parseInt(request.getParameter("buyUserNo"));
 			int salesNo = Integer.parseInt(request.getParameter("salesNo"));
 			SalesDTO sale = saleService.salesDetail(salesNo);
-			PurchaseDTO purchase =  service.purchaseSalesUserDetail(buyUserNo, salesNo);
+			PurchaseDTO purchase =  service.purchaseBuyUserDetail(buyUserNo, salesNo);
 			int commission = purchase.getPrice() - service.calculateCommission(buyUserNo,purchase.getPrice());
 			request.setAttribute("sale", sale);
 			request.setAttribute("purchase", purchase);

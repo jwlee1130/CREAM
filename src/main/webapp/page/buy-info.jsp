@@ -54,20 +54,8 @@
     <div class="item-receipt">
       <h1>구매 내역</h1>
       <div>
-        <h2>상품 가격</h2>
+        <h2>최종 내역</h2>
         <h2 style="font-weight: bold">${purchase.price}원</h2>
-      </div>
-      <div>
-        <h2><a href="#">수수료 💡</a></h2>
-        <h2>${commission}</h2>
-      </div>
-      <div>
-        <h2>배송비</h2>
-        <h2>3000원</h2>
-      </div>
-      <div class="item-last-price">
-        <h2>총 결제 금액</h2>
-        <h2>${purchase.price + commission +3000} 원</h2>
       </div>
     </div>
   </div>

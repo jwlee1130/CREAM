@@ -324,7 +324,7 @@
                     if (sale.salesStatus === 2) {
                         salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=sellInfo&saleUserNo=' + sale.userNo + '&salesNo=' + sale.no + '">';
                     } else if (sale.salesStatus === 1) {
-                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=purchase&methodName=salesDetail&salesNo=' + sale.no + '">';
+                        salesHtml += '<a href="${pageContext.request.contextPath}/front?key=sales&methodName=salesDetail&salesNo=' + sale.no + '">';
                     } else {
                         salesHtml += '<div style="pointer-events: none; cursor: not-allowed;">';
                     }
