@@ -14,8 +14,6 @@ public class SalesServiceImpl implements SalesService {
 	public List<SalesDTO> selectAll(int shoesNo, int productNo) throws SQLException {
 		List<SalesDTO> list = dao.selectAll(shoesNo,productNo);
 		
-		if(list.size()==0)
-			throw new SQLException("sql 오류 발생");
 		return list;
 	}
 

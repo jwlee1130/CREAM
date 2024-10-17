@@ -28,7 +28,7 @@ public class BidController implements Controller {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return new ModelAndView("index.jsp?error=bidError",true);
+		return new ModelAndView("front?key=sales&methodName=salesDetail&salesNo="+salesNo+"?error=bidError",true);
 		
 		
 		
