@@ -14,6 +14,7 @@ import com.cream.util.DbUtil;
 
 public class BidDAOImpl implements BidDAO {
 	NotifyDAO notifyDAO = new NotifyFDAOImpl();
+	
 	/*	//최고가 비교부터 트랜잭션 시작
 	 * FLAG=1 설정으로 입찰 겹치는거 방지
 	 * 유저한테 돈 있는지 확인후 빼기
@@ -28,7 +29,7 @@ public class BidDAOImpl implements BidDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		//현재 입찰중인 유저 정보랑 가격 정보( 환불,알람용,입금액이 더 큰지)
-		String sql = "SELECT  SALES_NO, COALESCE(BUY_USER_NO,0), PRICE from BIDACCOUNT WHERE SALES_NO = ? AND FLAG =0 AND PRICE < ?";
+		String sql = "SELECT  SALES_NO, COALESCE(BUY_USER_NO,0), PRICE from BIDACCOUNT WHERE SALES_NO = ? AND FLAG =0 AND PRICE < ? AND";
 		System.out.println(productNO+"제품번호");
 		try {
 			con=DbUtil.getConnection();
@@ -36,14 +37,15 @@ public class BidDAOImpl implements BidDAO {
 			ps.setInt(1, newBidder.getSalesNo());
 			ps.setInt(2, newBidder.getPrice());
 			//최고가 들고 오기
-			rs= ps.executeQuery();
+			rs= ps.executeQuery();			
+
 			setBidFlagOne(con,newBidder.getSalesNo()); //flag =1 설정 다른 유저 접근 못하게
+
 			con.setAutoCommit(false);
 
 			if(rs.next()) {
 					//기존 입찰자
-					BidAccountDTO currentBidder = new BidAccountDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-					
+					BidAccountDTO currentBidder = new BidAccountDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3));					
 					checkBalance(con ,newBidder.getBuyUserNo(), newBidder.getPrice());  //입찰유저가 돈 있는지 체크하면서 돈빼기
 					if(currentBidder.getBuyUserNo()!=0) {
 						refundBidAmount(con,currentBidder.getBuyUserNo(), currentBidder.getPrice());//현재 입찰자한테 돈 돌려주기
@@ -63,7 +65,7 @@ public class BidDAOImpl implements BidDAO {
 					con.commit();
 
 			}else {
-				  throw new SQLException("입찰 실패");
+				  throw new SQLException("입찰가 보다 높게 입력하세요.");
 			}
 			
 		}catch(SQLException e){
@@ -116,7 +118,7 @@ public class BidDAOImpl implements BidDAO {
 	 */
 	public int setBidFlagOne(Connection con, int salesNO) throws SQLException {
 		PreparedStatement ps = null;
-		String sql = "UPDATE  BIDACCOUNT SET  FLAG=1 WHERE SALES_NO = ?";	
+		String sql = "UPDATE  BIDACCOUNT SET  FLAG=1 WHERE SALES_NO = ? AND FLAG = 0";	
 		int result = 0;
 		try {
 			ps=con.prepareStatement(sql);
@@ -215,7 +217,7 @@ public class BidDAOImpl implements BidDAO {
 			result = ps.executeUpdate();
 			
 			if(result==0)
-				 throw new SQLException("유저에 돈이 없습니다.");
+				 throw new SQLException("포인트가 부족합니다.");
 			
 		}catch(SQLException e){
 			  throw new SQLException("sql 오류");
@@ -227,6 +229,7 @@ public class BidDAOImpl implements BidDAO {
 
 	@Override
 	public int refundBidAmount(Connection con, int user_no, int price) throws SQLException {
+		
 		PreparedStatement ps = null;
 		String sql = "UPDATE USERS SET SHOECREAM=SHOECREAM+? WHERE NO = ?";	
 		int result = 0;

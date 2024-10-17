@@ -59,7 +59,7 @@
           <span>${loginUser.cash}</span>
         </div>
         <a href="">충전하러가기</a>
-      </div>	
+      </div>
     </div>
     <div class="item-receipt">
       <h1>최종 주문정보</h1>

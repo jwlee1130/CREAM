@@ -12,6 +12,7 @@ import com.cream.dto.ProductDTO;
 import com.cream.dto.ProductImgDTO;
 import com.cream.dto.SalesDTO;
 import com.cream.dto.SalesImgDTO;
+import com.cream.dto.ShoesSizeDTO;
 import com.cream.util.DbUtil;
 
 public class SalesDAOImpl implements SalesDAO {
@@ -55,7 +56,7 @@ public class SalesDAOImpl implements SalesDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select s.NO, s.USER_NO, s.PRODUCT_NO, s.STARTING_PRICE, s.NOW_PRICE, s.SALES_STATUS, TIMESTAMPDIFF(SECOND, SYSDATE(), s.REGDATE), s.GRADE, s.SHOES_NO , i.FILE_PATH,  p.MODELNUMBER, p.ENG_NAME, p.KOR_NAME, b.PRICE from USERS_SALES s JOIN SALES_IMG i ON s.NO = i.SALES_NO JOIN PRODUCT p ON s.PRODUCT_NO = p.NO JOIN BIDACCOUNT b ON b.SALES_NO = s.NO WHERE s.NO=?";
+		String sql = "select s.NO, s.USER_NO, s.PRODUCT_NO, s.STARTING_PRICE, s.NOW_PRICE, s.SALES_STATUS, TIMESTAMPDIFF(SECOND, SYSDATE(), s.REGDATE), s.GRADE, s.SHOES_NO , i.FILE_PATH,  p.MODELNUMBER, p.ENG_NAME, p.KOR_NAME, b.PRICE, h.SHOES_SIZE from USERS_SALES s JOIN SALES_IMG i ON s.NO = i.SALES_NO JOIN PRODUCT p ON s.PRODUCT_NO = p.NO JOIN BIDACCOUNT b ON b.SALES_NO = s.NO JOIN SHOES_SIZE h ON h.NO = s.SHOES_NO  WHERE s.NO=?";
 				
 		try {
 			con=DbUtil.getConnection();
@@ -67,6 +68,7 @@ public class SalesDAOImpl implements SalesDAO {
 				 sale = new SalesDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4),rs.getInt(5), rs.getInt(6), String.valueOf(rs.getInt(7)),rs.getString(8).charAt(0),rs.getInt(9));
 				 sale.setProduct(new ProductDTO(rs.getString(11),rs.getString(12),rs.getString(13)));
 				 sale.setBidAccount(new BidAccountDTO(rs.getInt(14)));
+				 sale.setShoesSize(new ShoesSizeDTO(rs.getInt(9), rs.getInt(15)));
 				 String imgUrl = rs.getString(10);
 				 if(imgUrl==null) {
 					 sale.setSalesImg(new SalesImgDTO(salesNo,"https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/no-shoes.webp"));
