@@ -20,97 +20,6 @@
         .swiper-button-next, .swiper-button-prev {
           color: #9a9a9a;
         }
-    </style>
-    <script type="text/javascript">
-      $(function(){
-        $("[name=btn]").click(function(){
-          const dataTab = $(this).attr("data-tab");
-
-          $.ajax({
-            url: "ajax",
-            type: "post",
-            dataType: "json",
-            data: {
-              key: "sales",
-              methodName: "selectAll",
-              productNo: "${productDetail.no}",
-              shoesNo: dataTab
-            },
-
-            success: function(data){
-              let str = "";
-              $.each(data, function(index, sales){
-                console.log(sales.grade + "z");
-                console.log(sales.nowPrice);
-
-                const countdownId = 'countdown-' + sales.no;
-                str+= "<li>";
-                str += "<div class='list-inner'>";
-                str += "<span class='rank-a'>" + sales.grade + "</span>   ";
-                str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
-                str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
-                str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
-                str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
-                str += "</div>";
-                str+= "</li>";
-              });
-
-              $("#" + dataTab + " .tab-content-list ul").html(str);
-
-              data.forEach(function(sales) {
-                initializeCountdown(sales.no, parseInt(sales.regdate, 10));
-              });
-            },
-
-            error: function(err){
-              let str = "판매중인 사이즈가 없습니다.";
-              $("#" + dataTab + " .tab-content-list").html(str);
-            }
-          });
-        }); // 끝
-
-        $(document).on("click", "button[value=구매]", function(){
-          window.location.href = "front?key=sales&methodName=salesDetail&salesNo=" + encodeURIComponent($(this).attr("data-info"));
-        });
-
-        function initializeCountdown(saleNo, remainingTime) {
-          const countdownElement = document.getElementById('countdown-' + saleNo);
-
-          if (!countdownElement) return;
-
-          const updateCountdown = () => {
-            if (remainingTime < 0) {
-              countdownElement.textContent = '시간 종료';
-              return;
-            }
-
-            const hours = Math.floor(remainingTime / 3600);
-            const minutes = Math.floor((remainingTime % 3600) / 60);
-            const seconds = remainingTime % 60;
-
-            function formattedTime(hours, minutes, seconds) {
-              return [
-                String(hours).padStart(2, '0'),
-                String(minutes).padStart(2, '0'),
-                String(seconds).padStart(2, '0')
-              ].join(':');
-            }
-            countdownElement.textContent = formattedTime(hours, minutes, seconds);
-
-            if (remainingTime > 0) {
-              remainingTime--;
-              setTimeout(updateCountdown, 1000);
-            } else {
-              countdownElement.textContent = '시간 종료';
-              const purchaseButton = countdownElement.closest('.list-inner').querySelector('button[value=구매]');
-              if (purchaseButton) {
-                purchaseButton.disabled = true;
-                purchaseButton.textContent = '입찰 종료';
-              }
-            }
-          };
-
-          updateCountdown();
         /* 비활성화된 버튼의 스타일 */
         .disabled-button {
           pointer-events: none;
@@ -118,6 +27,102 @@
           cursor: not-allowed;
         }
     </style>
+    <script type="text/javascript">
+  $(function() {
+    // 탭 버튼 클릭 이벤트
+    $(".tab-button").click(function() {
+      const dataTab = $(this).attr("data-tab");
+
+      // 모든 탭 버튼과 콘텐츠에서 'active' 클래스 제거
+      $(".tab-button").removeClass("active");
+      $(".tab-content").removeClass("active");
+
+      // 클릭한 버튼과 해당 콘텐츠에 'active' 클래스 추가
+      $(this).addClass("active");
+      $("#" + dataTab).addClass("active");
+
+      // Ajax 호출
+      $.ajax({
+        url: "ajax",
+        type: "post",
+        dataType: "json",
+        data: {
+          key: "sales",
+          methodName: "selectAll",
+          productNo: "${productDetail.no}",
+          shoesNo: dataTab
+        },
+        success: function(data) {
+          let str = "";
+          $.each(data, function(index, sales) {
+            const countdownId = 'countdown-' + sales.no;
+            str += "<li>";
+            str += "<div class='list-inner'>";
+            str += "<span class='rank-a'>" + sales.grade + "</span>   ";
+            str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
+            str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
+            str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
+            str += "<span>판매상태 : " + sales.salesStatus + "</span>";
+            str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
+            str += "</div>";
+            str += "</li>";
+          });
+
+          $("#" + dataTab + " .tab-content-list ul").html(str);
+
+          data.forEach(function(sales) {
+            initializeCountdown(sales.no, parseInt(sales.regdate, 10));
+          });
+        },
+        error: function(err) {
+          let str = "판매중인 사이즈가 없습니다.";
+          $("#" + dataTab + " .tab-content-list").html(str);
+        }
+      });
+    });
+    $(document).on("click", "button[value=구매]", function(){
+        window.location.href = "front?key=sales&methodName=salesDetail&salesNo=" + encodeURIComponent($(this).attr("data-info"));
+    });
+
+
+    // 초기화 함수
+    function initializeCountdown(saleNo, remainingTime) {
+      const countdownElement = document.getElementById('countdown-' + saleNo);
+      if (!countdownElement) return;
+
+      const updateCountdown = () => {
+        if (remainingTime < 0) {
+          countdownElement.textContent = '시간 종료';
+          return;
+        }
+
+        const hours = Math.floor(remainingTime / 3600);
+        const minutes = Math.floor((remainingTime % 3600) / 60);
+        const seconds = remainingTime % 60;
+
+        countdownElement.textContent = [
+          String(hours).padStart(2, '0'),
+          String(minutes).padStart(2, '0'),
+          String(seconds).padStart(2, '0')
+        ].join(':');
+
+        if (remainingTime > 0) {
+          remainingTime--;
+          setTimeout(updateCountdown, 1000);
+        } else {
+          countdownElement.textContent = '시간 종료';
+          const purchaseButton = countdownElement.closest('.list-inner').querySelector('button[value=구매]');
+          if (purchaseButton) {
+            purchaseButton.disabled = true;
+            purchaseButton.textContent = '입찰 종료';
+          }
+        }
+      };
+      updateCountdown();
+    }
+  });
+</script>
+
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -201,7 +206,7 @@
                     </c:when>
                     <c:otherwise>
                         <!-- 어드민이 아닌 경우 활성화된 버튼 -->
-                        <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}" class="item-sell">
+                        <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}&filePath=${productDetail.productImg[0].filePath}" class="item-sell">
                             <span>판매</span>
                             <p>237,000원 <br> 즉시 판매가</p>
                         </a>

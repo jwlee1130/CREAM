@@ -65,22 +65,6 @@
         <h2>희망 입찰가</h2>
         <h2 style="font-weight: bold">${bidPrice}원</h2>
       </div>
-      <div>
-        <h2><a href="#">수수료 💡</a></h2>
-        <h2>${commission}원</h2>
-      </div>
-      <div>
-        <h2>배송비</h2>
-        <h2>3000원</h2>
-      </div>
-      <div>
-        <h2>입찰 마감 기한</h2>
-        <h2>YYYY/MM/DD/HH/MM/SS</h2>
-      </div>
-      <div class="item-last-price">
-        <h2>입찰시 결제 금액</h2>
-        <h2>${sell}원</h2>
-      </div>
     </div>
     <a href="front?key=bid&methodName=bid&productNo=${sale.productNo}&buyUserNo=${loginUser.no}&salesNo=${sale.no}&price=${bidPrice}"><div class="item-sell-btn">
       <p>${bidPrice}원 입찰하기</p>
