@@ -18,11 +18,16 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public PurchaseDTO purchaseDetail(int userNo, int salesNo) throws SQLException{
-		PurchaseDTO purchase = dao.purchaseDetail(userNo,salesNo);
+	public PurchaseDTO purchaseBuyUserDetail(int buyUserNo, int salesNo) throws SQLException{
+		PurchaseDTO purchase = dao.purchaseBuyUserDetail(buyUserNo,salesNo);
 		return purchase;
 	}
 
+	@Override
+	public PurchaseDTO purchaseSalesUserDetail(int salesUserNo, int salesNo) throws SQLException{
+		PurchaseDTO purchase = dao.purchaseSalesUserDetail(salesUserNo,salesNo);
+		return purchase;
+	}
 	@Override
 	public List<PurchaseDTO> selectPurchase(int buyUserNo) throws SQLException {
 		List<PurchaseDTO> list=dao.selectPurchase(buyUserNo);

@@ -50,7 +50,6 @@
           <span style="margin-right: 3.8rem;">주소</span>
           <p>${loginUser.address}</p>
         </div>
-        <button>요청사항 없음 > </button>
       </div>
     </div>
     <div class="point">
@@ -60,7 +59,7 @@
           <span>${loginUser.cash}</span>
         </div>
         <a href="">충전하러가기</a>
-      </div>
+      </div>	
     </div>
     <div class="item-receipt">
       <h1>최종 주문정보</h1>

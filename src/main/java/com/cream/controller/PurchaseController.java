@@ -41,7 +41,7 @@ public class PurchaseController implements Controller {
 			int buyUserNo = Integer.parseInt(request.getParameter("buyUserNo"));
 			int salesNo = Integer.parseInt(request.getParameter("salesNo"));
 
-			PurchaseDTO purchase =  service.purchaseDetail(buyUserNo, salesNo);
+			PurchaseDTO purchase =  service.purchaseSalesUserDetail(buyUserNo, salesNo);
 			request.setAttribute("purchase", purchase);
 		
 			return new ModelAndView("/page/info.jsp");
@@ -58,7 +58,7 @@ public class PurchaseController implements Controller {
 			int buyUserNo = Integer.parseInt(request.getParameter("buyUserNo"));
 			int salesNo = Integer.parseInt(request.getParameter("salesNo"));
 			SalesDTO sale = saleService.salesDetail(salesNo);
-			PurchaseDTO purchase =  service.purchaseDetail(buyUserNo, salesNo);
+			PurchaseDTO purchase =  service.purchaseSalesUserDetail(buyUserNo, salesNo);
 			int commission = purchase.getPrice() - service.calculateCommission(buyUserNo,purchase.getPrice());
 			request.setAttribute("sale", sale);
 			request.setAttribute("purchase", purchase);
@@ -79,7 +79,7 @@ public class PurchaseController implements Controller {
 			int saleUserNo = Integer.parseInt(request.getParameter("saleUserNo"));
 			int salesNo = Integer.parseInt(request.getParameter("salesNo"));
 			SalesDTO sale = saleService.salesDetail(salesNo);
-			PurchaseDTO purchase =  service.purchaseDetail(saleUserNo, salesNo);
+			PurchaseDTO purchase =  service.purchaseSalesUserDetail(saleUserNo, salesNo);
 			int commission = purchase.getPrice() - service.calculateCommission(saleUserNo,purchase.getPrice());
 			request.setAttribute("sale", sale);
 			request.setAttribute("purchase", purchase);

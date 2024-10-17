@@ -119,16 +119,43 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	}
 
 	@Override
-	public PurchaseDTO purchaseDetail(int buyUserNo, int salesNo) throws SQLException {
+	public PurchaseDTO purchaseBuyUserDetail(int buyUserNo, int salesNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		PurchaseDTO purchase = null;
-		String sql = proFile.getProperty("query.purchaseDetail");
+		String sql = proFile.getProperty("query.purchaseBuyUserDetail");
 		try {
 			con=DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, buyUserNo);
+			ps.setInt(2, salesNo);
+			
+			rs = ps.executeQuery();
+			
+	        if (rs.next()) {
+	        	purchase = new PurchaseDTO(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getString(7),rs.getString(8));
+	        }
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("구매 실패");
+		}
+			DbUtil.dbClose(con, ps,rs);
+		return purchase;
+	}
+	
+	@Override
+	public PurchaseDTO purchaseSalesUserDetail(int salesUserNo, int salesNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		PurchaseDTO purchase = null;
+		String sql = proFile.getProperty("query.purchaseSalesUserDetail");
+		try {
+			con=DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, salesUserNo);
 			ps.setInt(2, salesNo);
 			
 			rs = ps.executeQuery();

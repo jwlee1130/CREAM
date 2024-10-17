@@ -54,7 +54,6 @@
                 str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
                 str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
                 str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
-                str += "<span>판매상태 : " + sales.salesStatus + "</span>";
                 str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
                 str += "</div>";
                 str+= "</li>";
