@@ -89,46 +89,64 @@
 <body>
 <div class="container">
     <jsp:include page="./includes/header.jsp" />
-    <div class="header-bottom">
-        <ul>
-            <li>
-                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=111">스니커즈</a></span>
-            </li>
-            <li>
-                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=222">슬리퍼</a></span>
-            </li>
-            <li>
-                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">구두</a></span>
-            </li>
+<%--    <div class="header-bottom" style="position: relative; top: -2rem; font-weight: bolder">--%>
+<%--        <ul>--%>
+<%--            <li>--%>
+<%--                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=111">스니커즈</a></span>--%>
+<%--            </li>--%>
+<%--            <li>--%>
+<%--                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=222">슬리퍼</a></span>--%>
+<%--            </li>--%>
+<%--            <li>--%>
+<%--                <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">구두</a></span>--%>
+<%--            </li>--%>
 
-        </ul>
-    </div>
+<%--        </ul>--%>
+<%--    </div>--%>
 </div>
-    <main>
+    <main style="position: relative; top: -31px">
         <div class="main-wrapper">
             <section class="main-slider">
                 <div class="main-swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="image-placeholder" style="background-color: #6ecdff">슬라이드 1</div>
+                            <div class="image-placeholder" style="background-color: #d8dde1">
+                                <div class="slider-inner">
+                                <div class="inner-img">
+                                    <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%A0%88%EB%93%9C1.webp" alt="" style="top:-50px">
+                                    <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%A0%88%EB%93%9C2.webp" alt="" style="top:-50px">
+                                </div>
+                                <h2 style="color: #555">Adidas Yeezy Boost 350 V2 Black Red 2020</h2>
+                                <h3 style="color: #555">24/25 F/W 시즌 중국으로 간 푸바오도 그리워하는 바로 그 신발</h3>
+                                <button>지금 보러가기</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="image-placeholder" style="background-color: #a5fdd0;">
-
+                            <div class="image-placeholder" style="background-color: #69644b;">
                                 <div class="slider-inner">
                                     <div class="inner-img">
                                         <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%AF%B9%EC%8A%A41.webp" alt="" style="top:-50px">
                                         <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%AF%B9%EC%8A%A42.webp" alt="" style="top:-50px">
-
                                     </div>
                                     <h2>Adidas Yeezy Slide Glow Green 2022/2023</h2>
-                                    <h2>여름철 최고의 선택 어쩌구 저쩌구</h2>
+                                    <h3>여름철 최고의 선택</h3>
+                                    <button>지금 보러가기</button>
                                 </div>
-
                             </div>
                         </div>x
                         <div class="swiper-slide">
-                            <div class="image-placeholder" style="background-color:tomato">슬라이드 3</div>
+                            <div class="image-placeholder" style="background-color:#c4b2af">
+                                <div class="slider-inner">
+                                    <div class="inner-img">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%A0%88%EB%93%9C1.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%A0%88%EB%93%9C2.webp" alt="" style="top:-50px">
+                                    </div>
+                                    <h2 style="color: #221e1d">Adidas Yeezy Boost 350 V2 Black Red 2020</h2>
+                                    <h3 style="color: #221e1d">24/25 F/W 시즌 중국으로 간 푸바오도 그리워하는 바로 그 신발</h3>
+                                    <button>지금 보러가기</button>
+                                </div>
+                            </div>
                         </div>
                         <!-- 추가 슬라이드가 필요하면 여기에 추가 -->
                     </div>
