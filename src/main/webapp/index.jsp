@@ -87,13 +87,25 @@
                 <div class="main-swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="image-placeholder">슬라이드 1</div>
+                            <div class="image-placeholder" style="background-color: #6ecdff">슬라이드 1</div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="image-placeholder">슬라이드 2</div>
-                        </div>
+                            <div class="image-placeholder" style="background-color: #a5fdd0;">
+
+                                <div class="slider-inner">
+                                    <div class="inner-img">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%AF%B9%EC%8A%A41.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%AF%B9%EC%8A%A42.webp" alt="" style="top:-50px">
+
+                                    </div>
+                                    <h2>Adidas Yeezy Slide Glow Green 2022/2023</h2>
+                                    <h2>여름철 최고의 선택 어쩌구 저쩌구</h2>
+                                </div>
+
+                            </div>
+                        </div>x
                         <div class="swiper-slide">
-                            <div class="image-placeholder">슬라이드 3</div>
+                            <div class="image-placeholder" style="background-color:tomato">슬라이드 3</div>
                         </div>
                         <!-- 추가 슬라이드가 필요하면 여기에 추가 -->
                     </div>
@@ -111,42 +123,42 @@
                         <div class="swiper-slide">
                             <div class="brand-card">
                             	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=1000">
-                            	<img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png">
+                            	<img width=200px height=120px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/NIKE_LOGO.png">
                             	</a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
                             	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=2000">
-                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/ADIDAS_LOGO.png">
+                                <img width=200px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/ADIDAS_LOGO.png">
                             	</a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
                                 <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=3000">
-                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/PUMA_LOGO.png">
+                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/PUMA_LOGO.png">
                                 </a>                          
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
                                 <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=4000">
-                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/JORDAN_LOGO.png">
+                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/JORDAN_LOGO.png">
                                 </a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
                             	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=5000">
-                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png">
+                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png">
                                 </a>
                             </div>
                         </div>
                          <div class="swiper-slide">
                             <div class="brand-card">
                             <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=6000">
-                                <img width=150px height=150px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/HERMES_LOGO.png">
+                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/HERMES_LOGO.png">
                                 </a>
                             </div>
                         </div>

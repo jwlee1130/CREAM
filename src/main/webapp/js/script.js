@@ -2,19 +2,18 @@ const bellIcon = document.querySelector('.bell-icon');
 const tooltip = document.querySelector('.tooltip');
 
 bellIcon.addEventListener('click', () => {
-  // tooltip의 show 클래스를 토글하여 팝업을 나타내거나 숨김
   tooltip.classList.toggle('show');
 });
 
 document.addEventListener('click', (event) => {
   if (!tooltip.contains(event.target) && !bellIcon.contains(event.target)) {
-    tooltip.classList.remove('show'); // show 클래스 제거하여 툴팁 숨기기
+    tooltip.classList.remove('show');
   }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   const swiper = new Swiper('.main-swiper-container', {
-    // Optional parameters
+    slidesPerView: 1,
     loop: true, // 무한 루프
     autoplay: {
       delay: 15000,
@@ -28,12 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Navigation arrows
     navigation: {
       nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      prevEl: '.swiper-but'
+          + 'ton-prev',
     },
     // 슬라이드 전환 효과
     effect: 'slide', // 'fade', 'cube', 'coverflow', 'flip' 등 선택 가능
-    // 기타 설정
-    spaceBetween: 30,
+    spaceBetween:  0,
     centeredSlides: true,
     // 반응형 설정 등 추가 가능
   });

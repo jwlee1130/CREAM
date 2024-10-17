@@ -5,7 +5,6 @@
 <head>
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
 </head>
 <body>
@@ -98,7 +97,7 @@
                 </div>
                 <span><a href="">Home</a></span>
                 <span><a href="${pageContext.request.contextPath}/front?key=product&methodName=selectAllProduct">Shop</a></span>
-                <span><a href="${pageContext.request.contextPath}/page/login.jsp">Login</a></span>
+<%--                <span><a href="${pageContext.request.contextPath}/page/login.jsp">Login</a></span>--%>
             </div>
         </div>
 </div>

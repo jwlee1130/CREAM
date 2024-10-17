@@ -89,7 +89,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  left: 75px;
+  left: 30px;
 }
 .header-wrapper .header-main .search-container .search-bar {
   width: 400px;
@@ -194,8 +194,7 @@
 .container .main-wrapper .main-slider .main-swiper-container {
   width: 100%;
   height: 400px;
-  background-color: antiquewhite;
-  position: relative;
+  background-color: #ffffff;
 }
 .container .main-wrapper .main-slider .main-swiper-container .swiper-wrapper {
   display: flex;
@@ -208,14 +207,31 @@
 .container .main-wrapper .main-slider .main-swiper-container .swiper-slide .image-placeholder {
   width: 100%;
   height: 100%;
-  background-color: gray;
   display: flex;
+  background-color: gray;;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 2rem;
-  border-radius: 10px;
 }
+.container .main-wrapper .main-slider .main-swiper-container .swiper-slide .image-placeholder .slider-inner{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+.slider-inner img{
+  position: relative;
+  top: -50px;
+  width: 300px;
+  height: 300px;
+}
+.slider-inner h2 {
+  position: relative;
+  top: -30px;
+  color : #222
+}
+
 .container .main-wrapper .main-slider .main-swiper-container .swiper-button-next,
 .container .main-wrapper .main-slider .main-swiper-container .swiper-button-prev {
   color: #333;
