@@ -149,62 +149,13 @@
 					$("#shop-main-total").html("상품수량 : "+result.length + "개");
 						
 				} , //성공했을때 실행할 함수 
-				error : function(){
-				showError('상품 검색에서 에러 발생했어요');
-
+				error : function(err){  
+				alert(err+" 상품 필터에서 에러 발생했어요.");
 				}  //실패했을때 실행할 함수 
 			});//ajax끝
 			
 		}//selectByFilter끝
 
-		}); //체크박스 선택 Event 끝
-		
-
-		//전체검색
-		   function productSelectAll(){
-			   $.ajax({
-				url :"ajax" , //서버요청주소
-				type:"get", //요청방식(method방식 : get | post | put | delete )
-				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
-				success :function(result){
-					console.log(result);
-					
-					let str="";
-					$.each(result, function(index, product){
-						str+="<li>";
-					    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
-					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
-					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-					    str+=`</div>`;
-					    str+=`</a>`;
-					    str+="</li>";
-					}); //eachEnd
-
-					$("#popular-list-wrapper-ul").html(str);
-					$("#shop-main-total").html("상품수량 : "+result.length + "개");
-					
-					
-				} , //성공했을때 실행할 함수 
-				error : function(err){  
-					showError('상품정보를 불러오지 못했습니다');
-				}  //실팽했을때 실행할 함수 
-			});//ajax끝
-			
-		   }//selectAll 함수끝
-		   /////////////////////////////////////////////////////////////
-		  
-		   //검색시 상품 조회
-			function selectProductByFilter(){
-				
-		   }//productSearch 함수끝
-		   
-			//productSelectAll();
-		   		   
-		   
 	}); //ready End
 	
 	
