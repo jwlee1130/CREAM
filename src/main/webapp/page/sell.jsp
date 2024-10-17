@@ -95,7 +95,6 @@ const productNo = '<%= productNo %>';
 const userNo = '<%= loginUser.getNo() %>'
 $(document).ready(function() {
     function calculateCommission(price) {
-        // 서버에 수수료 계산 요청
         $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
             method: 'GET',
@@ -112,9 +111,8 @@ $(document).ready(function() {
                 $('#commission').text(commission + '원');
                 $('#finalAmount').text(finalAmount + '원');
             },
-            error: function(error) {
-                console.error("수수료 계산 오류:", error);
-                alert("수수료를 계산하는 중 오류가 발생했습니다.");
+            error: function() {
+                showError('수수료를 계산하는 중 오류가 발생했습니다.');
             }
         });
     }
@@ -137,11 +135,11 @@ $(document).ready(function() {
         const shoesNo  = $('#shoesNo').val();
 
         if (!startingPrice || !desiredPrice || !shoesNo) {
-            alert("시작 입찰가와 판매 희망가, 신발 사이즈를 모두 선택해 주세요.");
+            showError('시작 입찰가와 판매 희망가, 신발 사이즈를 모두 선택해 주세요.');
             return;
         }
         if (startingPrice > desiredPrice) {
-            alert("시작 입찰가는 판매 희망가보다 높을 수 없습니다. 다시 입력해 주세요.");
+            showError('시작 입찰가는 판매 희망가보다 높을 수 없습니다. 다시 입력해 주세요.');
             return;
         }
 
@@ -160,12 +158,11 @@ $(document).ready(function() {
                 grade: 'U'
             },
             success: function(response) {
-                alert("판매가 등록되었습니다.");
                 window.location.href = "../index.jsp";
+                showError('판매가 등록되었습니다.');
             },
-            error: function(error) {
-                console.error(error);
-                alert("등록에 실패했습니다. 다시 시도해 주세요.");
+            error: function() {
+                showError('등록에 실패했습니다. 다시 시도해 주세요.');
             }
         });
     });

@@ -82,7 +82,7 @@
       })
       .catch(error => {
         contentDiv.innerHTML = `<h2>페이지를 찾을 수 없습니다.</h2>`;
-        console.error(error);
+        showError(`페이지를 찾을 수 없습니다: ${error.message}`);
       });
     }
 
@@ -116,7 +116,7 @@
           saveBtn.addEventListener('click', () => {
             const newValue = input.value.trim();
             if (newValue === '') {
-              alert('값을 입력해주세요.');
+              showError('값을 입력해주세요.');
               return;
             }
 
@@ -200,8 +200,8 @@
                     $('#load-more').remove();
                 }
             },
-            error: function(error) {
-                console.error("관심 상품을 불러오는 중 오류 발생: ", error);
+            error: function() {
+                showError("관심 상품을 불러오는 중 오류가 발생했습니다");
             }
         });
     }
@@ -295,8 +295,8 @@
 
                 $('#sales-container').html(salesHtml);
             },
-            error: function(error) {
-                console.error("판매 내역을 불러오는 중 오류 발생: ", error);
+            error: function() {
+                showError("판매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
     }
@@ -370,8 +370,8 @@
 
                 $('#sales-container').html(salesHtml);
             },
-            error: function(error) {
-                console.error("판매 내역을 불러오는 중 오류 발생: ", error);
+            error: function() {
+            	showError("판매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
     }
@@ -399,7 +399,7 @@
                 fetchBids();
             },
             error: function(error) {
-                console.error("구매 내역을 불러오는 중 오류 발생: ", error);
+            	showError("구매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
 
@@ -418,7 +418,7 @@
                     renderPurchasesAndBids(purchases, bids);
                 },
                 error: function(error) {
-                    console.error("입찰 내역을 불러오는 중 오류 발생: ", error);
+                	showError("입찰 내역을 불러오는 중 오류가 발생했습니다");
                 }
             });
         }
@@ -518,8 +518,8 @@
 
                 $('#purchase-container').html(purchaseHtml);
             },
-            error: function(error) {
-                console.error("구매 내역을 불러오는 중 오류 발생: ", error);
+            error: function() {
+            	showError("구매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
     }
@@ -543,7 +543,7 @@
                 fetchLatestBids();
             },
             error: function(error) {
-                console.error("구매 내역을 불러오는 중 오류 발생: ", error);
+            	showError("구매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
 
@@ -562,7 +562,7 @@
                     renderLatestPurchaseOrBid(purchases, bids);
                 },
                 error: function(error) {
-                    console.error("입찰 내역을 불러오는 중 오류 발생: ", error);
+                	showError("입찰 내역을 불러오는 중 오류가 발생했습니다");
                 }
             });
         }
@@ -624,7 +624,7 @@
                 $('#address').val(response.address);
             },
             error: function() {
-                alert("사용자 정보를 불러오는 데 실패했습니다.");
+            	showError("사용자 정보를 불러오는 중 오류가 발생했습니다");
             }
         });
     }
@@ -654,11 +654,11 @@
 	                    $infoItem.find('.save-btn, .cancel-btn').remove();
 	                    $infoItem.find('.change-btn').show();
 	                } else {
-	                    alert('정보가 성공적으로 업데이트되었습니다.');
+	                    showError("정보가 성공적으로 업데이트되었습니다");
 	                }
 	            },
 	            error: function() {
-	                alert('서버 오류가 발생했습니다.');
+	            	showError("사용자 정보를 업데이트하지 못했습니다 다시 시도해주세요");
 	            }
 	        });
 	}
@@ -674,17 +674,16 @@
 	        },
 	        dataType: 'json',
 	        success: function(rank) {
-	        	console.log("Fetched Rank Data:", rank);
 	            if (rank) {
 	                const commission = ((1 - rank.discount) * 100).toFixed(1);
 	                $('.current-rank h2').text(rank.rank);
 	                $('.current-commission h2').text(commission + '%');
 	            } else {
-	                console.error("랭크 정보를 불러올 수 없습니다.");
+	            	showError("랭크 정보를 불러올 수 없습니다");
 	            }
 	        },
 	        error: function(error) {
-	            console.error("랭크 정보를 가져오는 중 오류 발생: ", error);
+	        	showError("랭크 정보를 불러오는 중 오류가 발생했습니다");
 	        }
 	    });
 	}

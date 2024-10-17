@@ -16,22 +16,19 @@ public class UserController implements Controller {
    
     UserService service = new UserServiceImpl();
    
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws SQLException, AuthenticationException {
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String userId = request.getParameter("userId");
         String pwd = request.getParameter("pwd");
 
         try {
-            // Admin 로그인 여부 확인
             AdminDTO admin = service.loginAdminCheck(userId, pwd);
             if (admin != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginAdmin", admin);
                 session.setAttribute("isAdmin", true);
-                System.out.println("Admin stored in session: " + admin.getAdminId());
                 return new ModelAndView("index.jsp");
             }
 
-            // 일반 사용자 로그인 확인
             UserDTO user = new UserDTO(userId, pwd);
             UserDTO checkUser = service.loginCheck(user);
             
@@ -39,17 +36,18 @@ public class UserController implements Controller {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", checkUser);
                 session.setAttribute("isAdmin", false);
-                System.out.println("User stored in session: " + checkUser.getUserId());
                 return new ModelAndView("index.jsp");
             } else {
-                System.out.println("Login failed for user: " + userId);
-                return new ModelAndView("page/login.jsp", true);
+                HttpSession session = request.getSession();
+                session.setAttribute("errorMessage", "사용자 정보가 틀립니다. 다시 입력해주세요.");
+                return new ModelAndView("page/login.jsp?error=invalid", true);
             }
         } catch (Exception e) {
             e.printStackTrace();
             return new ModelAndView("error/error.jsp", true);
         }
     }
+
    
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -80,7 +78,7 @@ public class UserController implements Controller {
 
                 return new ModelAndView("page/mypage.jsp#test3", true);
             } else {
-                return new ModelAndView("error/error.jsp", true);
+                return new ModelAndView("page/mypage.jsp#test3?error=updateError", true);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,7 +127,7 @@ public class UserController implements Controller {
 
                 return new ModelAndView("page/mypage.jsp#mypage_point", true);
             } else {
-                return new ModelAndView("error/error.jsp", true);
+                return new ModelAndView("page/mypage.jsp#mypage_point?error=updateCashError", true);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,10 +207,10 @@ public class UserController implements Controller {
 	        int result = service.register(user);
 	        if (result > 0) {
 	            request.setAttribute("successMessage", "회원가입 성공");
-	            return new ModelAndView("page/login.jsp");
+	            return new ModelAndView("page/login.jsp?error=insertUserSuccess",true);
 	        } else {
 	            request.setAttribute("errorMessage", "회원가입 실패.");
-	            return new ModelAndView("page/register.jsp");
+	            return new ModelAndView("page/register.jsp?error=insertUserError");
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();

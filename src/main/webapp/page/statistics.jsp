@@ -141,7 +141,7 @@
         });
       },
       error: function(error) {
-        console.error("차트 데이터 로드 오류 : ", error);
+    	  showError('차트 데이터 로드 오류');
       }
     });
   }
@@ -210,7 +210,7 @@
         });
       },
       error: function(error) {
-        console.error("일일 판매액 로드 오류:", error);
+    	  showError('일일 판매액 로드 오류');
       }
     });
   }
@@ -256,8 +256,8 @@
           }
         });
       },
-      error: function(error) {
-        console.error("설문조사 데이터 로드 오류:", error);
+      error: function() {
+        showError('설문조사 데이터 로드 오류');
       }
     });
   }

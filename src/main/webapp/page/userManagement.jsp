@@ -95,12 +95,11 @@
           methodName: 'deleteUserById',
           userNo: userNo
         },
-        success: function(response) {
-          console.log(response);
-          alert('사용자가 성공적으로 삭제되었습니다.')
+        success: function() {
+          showError('사용자 성공적으로 삭제되었습니다.');
         },
         error: function() {
-          alert('사용자 삭제에 실패했습니다.')
+          showError('사용자 삭제에 실패했습니다.');
         }
       });
     });
@@ -120,11 +119,10 @@
           salesNo: salesNo
         },
         success: function(response) {
-          console.log(response);
-          alert('판매글이 성공적으로 삭제되었습니다.')
+          showError('판매글이 성공적으로 삭제되었습니다.');
         },
         error: function() {
-          alert('판매글 삭제에 실패했습니다.')
+          showError('판매글 삭제에 실패했습니다');
         }
       });
     });

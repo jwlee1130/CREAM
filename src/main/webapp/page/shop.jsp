@@ -58,8 +58,8 @@
 					$("#shop-main-total").html("상품수량 : "+result.length + "개");
 						
 				} , //성공했을때 실행할 함수 
-				error : function(err){  
-				alert(err+" 상품 검색에서 에러 발생했어요.");
+				error : function(){
+				showError('상품 검색에서 에러 발생했어요');
 				}  //실패했을때 실행할 함수 
 			});//ajax끝
 			
@@ -97,7 +97,7 @@
 					
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
-					alert(err+"상품 조회에서 에러 발생했어요.");
+					showError('상품정보를 불러오지 못했습니다');
 				}  //실팽했을때 실행할 함수 
 			});//ajax끝
 			

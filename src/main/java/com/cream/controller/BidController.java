@@ -24,11 +24,11 @@ public class BidController implements Controller {
 		//최고가 입찰가보다 낮으면 입찰하지 못함
 		try {
 			bidService.bidTransaction(new BidDTO(buyUserNo,salesNo,price),productNo);
-			return new ModelAndView("front?key=sales&methodName=salesDetail&salesNo="+salesNo,true);
+			return new ModelAndView("front?error=bidSuccess&key=sales&methodName=salesDetail&salesNo="+salesNo,true);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return new ModelAndView("error.jsp",true);
+		return new ModelAndView("index.jsp?error=bidError",true);
 		
 		
 		

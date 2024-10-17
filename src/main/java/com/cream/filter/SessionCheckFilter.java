@@ -39,6 +39,10 @@ public class SessionCheckFilter extends HttpFilter implements Filter {
           chain.doFilter(request, response); 
           return; 
        }
+      if (key.equals("user1") && methodName.equals("register")) {
+          chain.doFilter(request, response); 
+          return; 
+       }
       
       if (key.equals("product") && methodName.equals("detail")) {
          chain.doFilter(request, response); 

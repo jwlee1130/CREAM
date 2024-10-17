@@ -28,11 +28,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO loginCheck(UserDTO userDTO) throws SQLException, AuthenticationException {
+	public UserDTO loginCheck(UserDTO userDTO) throws SQLException{
 		UserDTO checkUser = dao.loginCheck(userDTO);
-		if(checkUser==null) {//실패
-			throw new SQLException();
-		}
 		return checkUser;
 		
 	}

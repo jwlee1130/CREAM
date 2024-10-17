@@ -83,14 +83,14 @@
             success: function(response) {
               $('.productNameCell[data-product-no="' + inspection.productNo + '"]').text(response.productName);
             },
-            error: function(error) {
-              console.error("ProductName 로드 오류: ", error);
+            error: function() {
+              showError('ProductName 로드 오류');
             }
           });
         });
       },
-      error: function(error) {
-        console.error("목록 로드 오류: ", error);
+      error: function() {
+        showError('목록 로드 오류');
       }
     });
   }
@@ -137,12 +137,11 @@
         startingPrice : price
       },
       success: function(response) {
-        alert("상품이 승인되었습니다.");
+        showError('상품이 승인되었습니다.');
         loadInspectionList();
       },
       error: function(error) {
-        console.error("승인 실패:", error);
-        alert("승인에 실패했습니다.");
+    	showError('승인에 실패했습니다.');
       }
     });
   }
@@ -160,12 +159,11 @@
         startingPrice : price
       },
       success: function(response) {
-        alert("상품이 반려되었습니다.");
+        showError('상품이 반려되었습니다.');
         loadInspectionList();
       },
       error: function(error) {
-        console.error("반려 실패:", error);
-        alert("반려에 실패했습니다.");
+    	  showError('반려에 실패했습니다.');
       }
     });
   }
@@ -181,11 +179,11 @@
         grade: grade
       },
       success: function(response) {
-        alert("등급이 업데이트되었습니다.");
+        showError('등급이 업데이트되었습니다.');
       },
       error: function(error) {
         console.error("등급 업데이트 실패:", error);
-        alert("등급 업데이트에 실패했습니다.");
+        showError('등급 업데이트에 실패했습니다.');
       }
     });
   }
@@ -212,7 +210,7 @@
         button.remove();
       },
       error: function(xhr, status, error) {
-        alert('파일 업로드 실패: ' + error);
+    	  showError('파일 업로드에 실패했습니다.');
       }
 
     });

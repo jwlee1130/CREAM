@@ -22,7 +22,7 @@ public interface UserService {
 	/**
 	 * 로그인 체크
 	 * */
-   UserDTO loginCheck(UserDTO userDTO)throws SQLException , AuthenticationException;
+   UserDTO loginCheck(UserDTO userDTO)throws SQLException;
    
    AdminDTO loginAdminCheck(String adminId, String adminPw) throws SQLException;
    

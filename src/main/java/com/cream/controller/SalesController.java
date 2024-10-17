@@ -31,7 +31,7 @@ public class SalesController implements Controller {
 
 		}
 		request.setAttribute("errorMsg", "상품보기 실패");
-		return new ModelAndView("error/error.jsp",true);
+		return new ModelAndView("page/bid.jsp?error=salesDetailError");
 
 	}
 	
@@ -54,7 +54,7 @@ public class SalesController implements Controller {
 				e.printStackTrace();
 		}
 		request.setAttribute("errorMsg", "상품보기 실패");
-		return new ModelAndView("error/error.jsp",true);
+		return new ModelAndView("page/buy-now.jsp?error=nowBuyError");
 
 	}
 	
@@ -79,7 +79,7 @@ public class SalesController implements Controller {
 				e.printStackTrace();
 			}
 			request.setAttribute("errorMsg", "상품보기 실패");
-			return new ModelAndView("error/error.jsp",true);
+			return new ModelAndView("page/bid-parchase.jsp?error=bidDtailError");
 
 	}
 

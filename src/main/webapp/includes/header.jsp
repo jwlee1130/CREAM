@@ -11,15 +11,7 @@
 <div class="error-container" id="error-container">
     <div class="error-inner">
         <i>
-            <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e11b1b">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                    <path d="M2.20164 18.4695L10.1643 4.00506C10.9021 2.66498 13.0979 2.66498 13.8357 4.00506L21.7984 18.4695C22.4443 19.6428 21.4598 21 19.9627 21H4.0373C2.54022 21 1.55571 19.6428 2.20164 18.4695Z" stroke="#e12a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M12 9V13" stroke="#e12a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M12 17.0195V17" stroke="#e12a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </g>
-            </svg>
+            
         </i>
         <p id="error-message">error message가 나오는 곳 입니다~~!!!</p>
     </div>
@@ -68,7 +60,6 @@
                     <img height="100px" src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/logo.png">
                 </a>
             </div>
-            <button id="trigger-error-button">에러 메시지 표시하기</button>
             <div class="header-searchbar">
                 <div class="search-container">
                     <input type="text" class="search-bar" id="searchBar" placeholder="Search..." maxlength="16"  onkeypress="enterKey();" />
@@ -174,21 +165,53 @@
 
 </script>
     <script type="text/javascript">
-      $(document).ready(function(){
-        $('#trigger-error-button').click(function(){
-          // 테스트용 에러 메시지 설정
-          $('#error-message').text('테스트 에러 메시지가 표시됩니다!');
+    $(document).ready(function(){
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
 
-          // 에러 컨테이너를 보이도록 클래스 추가
-          $('#error-container').addClass('show');
+        if (error === 'invalid') {
+            showError('사용자 정보가 틀립니다. 다시 입력해주세요.');
+        }
+        else if(error ==='updateError'){
+        	showError('고객님의 회원정보 수정 오류입니다 다시 시도해주세요');
+        }
+        else if(error ==='updateCashError'){
+        	showError('포인트 충전 오류입니다 다시 시도해주세요');
+        }
+        else if(error ==='insertUserError'){
+        	showError('회원가입에 실패했습니다 다시 시도해주세요');
+        }
+        else if(error ==='salesDetailError'){
+        	showError('상품정보를 불러오지 못했습니다');
+        }
+        else if(error ==='nowBuyError'){
+        	showError('상품정보를 불러오지 못했습니다');
+        }
+        else if(error ==='bidDtailError'){
+        	showError('상품정보를 불러오지 못했습니다');
+        }
+        else if(error==='insertUserSuccess'){
+        	showError('회원가입을 축하드립니다!');
+        }
+        else if(error==='bidError'){
+        	showError('최고가 입찰가보다 낮습니다 다시 시도해주세요');
+        }
+        else if(error === 'bidSuccess'){
+        	showError('입찰에 성공하셨습니다!');
+        }
+        else if(error==='error=salesUpdate'){
+        	showError('판매등록 성공!');
+        }
+    });
 
-          // 5초 후에 슬라이드 업
-          setTimeout(function(){
+    function showError(message) {
+        $('#error-message').text(message);
+        $('#error-container').addClass('show');
+        setTimeout(function(){
             $('#error-container').removeClass('show');
-          }, 5000);
-        });
-      });
-    </script>
+        }, 5000);
+    }
+</script>
 <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 </html>

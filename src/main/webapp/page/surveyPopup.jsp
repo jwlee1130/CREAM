@@ -189,7 +189,7 @@
                     getProduct(category, brand, color, price);
                 },
                 error: function(error){
-                    console.log("submitSurvey 오류:", error);
+                    showError('submitSurvey 오류');
                 }
             });
         });
@@ -211,7 +211,7 @@
                     displayProduct(product);
                 },
                 error: function(xhr, status, error){
-                    console.error("getProduct 오류:", error);
+                    showError('getProduct 오류');
                 }
             });
         }

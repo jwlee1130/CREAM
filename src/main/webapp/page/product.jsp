@@ -177,56 +177,57 @@
 
             <!-- 구매, 판매 및 관심상품 버튼 -->
             <div class="item-transaction">
-                <!-- 구매 버튼 -->
-                <c:choose>
-                    <c:when test="${sessionScope.isAdmin}">
-                        <!-- 어드민인 경우 비활성화된 버튼, 동일한 CSS 클래스 유지 -->
-                        <div class="item-parchase disabled-button">
-                            <span>구매</span>
-                            <p>217,000원 <br> 즉시 구매가</p>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- 어드민이 아닌 경우 활성화된 버튼 -->
-                        <a href="#" id="show-modal" class="item-parchase">
-                            <span>구매</span>
-                            <p>217,000원 <br> 즉시 구매가</p>
-                        </a>
-                    </c:otherwise>
-                </c:choose>
-
-                <!-- 판매 버튼 -->
-                <c:choose>
-                    <c:when test="${sessionScope.isAdmin}">
-                        <!-- 어드민인 경우 비활성화된 버튼, 동일한 CSS 클래스 유지 -->
-                        <div class="item-sell disabled-button">
-                            <span>판매</span>
-                            <p>237,000원 <br> 즉시 판매가</p>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- 어드민이 아닌 경우 활성화된 버튼 -->
-                        <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}" class="item-sell">
-                            <span>판매</span>
-                            <p>237,000원 <br> 즉시 판매가</p>
-                        </a>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-            <!-- 관심상품 버튼 -->
-            <c:choose>
-                <c:when test="${sessionScope.isAdmin}">
-                    <div class="item-wish disabled-button">
-                        <p>관심상품</p>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="item-wish">
-                        <p>관심상품</p>
-                    </a>
-                </c:otherwise>
-            </c:choose>
+			    <c:choose>
+			        <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
+			            <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
+			            <div class="item-parchase disabled-button">
+			                <span>구매</span>
+			                <p>217,000원 <br> 즉시 구매가</p>
+			            </div>
+			        </c:when>
+			        <c:otherwise>
+			            <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
+			            <a href="#" id="show-modal" class="item-parchase">
+			                <span>구매</span>
+			                <p>217,000원 <br> 즉시 구매가</p>
+			            </a>
+			        </c:otherwise>
+			    </c:choose>
+			
+			    <!-- 판매 버튼 -->
+			    <c:choose>
+			        <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
+			            <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
+			            <div class="item-sell disabled-button">
+			                <span>판매</span>
+			                <p>237,000원 <br> 즉시 판매가</p>
+			            </div>
+			        </c:when>
+			        <c:otherwise>
+			            <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
+			            <a href="${pageContext.request.contextPath}/page/sell.jsp?error=salesUpdate&productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}" class="item-sell">
+			                <span>판매</span>
+			                <p>237,000원 <br> 즉시 판매가</p>
+			            </a>
+			        </c:otherwise>
+			    </c:choose>
+			</div>
+			
+			<!-- 관심상품 버튼 -->
+			<c:choose>
+			    <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
+			        <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
+			        <div class="item-wish disabled-button">
+			            <p>관심상품</p>
+			        </div>
+			    </c:when>
+			    <c:otherwise>
+			        <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
+			        <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="item-wish">
+			            <p>관심상품</p>
+			        </a>
+			    </c:otherwise>
+			</c:choose>
         </div>
     </div>
 
@@ -321,16 +322,15 @@
         dataType: 'json',
         success: function(response) {
           if (response.status === 'added') {
-            alert("관심상품이 추가되었습니다.");
+            showError("관심상품이 추가되었습니다.");
           } else if (response.status === 'removed') {
-            alert("관심상품이 해제되었습니다.");
+            showError("관심상품이 해제되었습니다.");
           } else {
-            alert("처리에 실패했습니다. 다시 시도해 주세요.");
+            showError("처리에 실패했습니다. 다시 시도해 주세요");
           }
         },
-        error: function(error) {
-          console.error("Error: ", error);
-          alert("오류가 발생했습니다. 다시 시도해 주세요.");
+        error: function() {
+          showError("오류가 발생했습니다. 다시 시도해 주세요");
         }
       });
     });
