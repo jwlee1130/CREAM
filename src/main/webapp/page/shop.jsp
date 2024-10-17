@@ -18,16 +18,36 @@
 		//필터 범위에서 체크박스를 선택하면
 		document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
 			alert(e.target.checked);
-
-			let checkedArr=[]; //필터 내용을 저장하는 배열
+			
+			
+			let categoryArr=[]; //카테고리 필터 내용을 저장하는 배열
+			let brandArr=[]; //브랜드 필터 배열
+			let colorArr=[]; //색상 필터 배열
+			
 			//체크박스 전체를 돌면서 체크된 값 확인해서 배열에 담기
 			document.querySelectorAll("[type=checkbox]:checked").forEach((item, index)=>{ 
 				
-					console.log(item.id);
-					checkedArr.push(item.id); //체크된 값들을 배열에 담는다
+				if(item.name=="category"){
+					console.log("카테고리 여기다 : "+item.id);
+					categoryArr.push(item.id); //체크된 값들을 배열에 담는다
+				}
+				
+				if(item.name=="brand"){
+					console.log("브랜드 여기다 : "+item.id);
+					brandArr.push(item.id); //체크된 값들을 배열에 담는다
+				}
+				
+				if(item.name=="color"){
+					console.log("색상 여기다 : "+item.id);
+					colorArr.push(item.id); //체크된 값들을 배열에 담는다
+				}
+					
 			});
 			
-			console.log(checkedArr);
+			//console.log("categoryArr = " + categoryArr);
+			//console.log("brandArr = " + brandArr);
+			//console.log("colorArr = " + colorArr);
+			
 			$.ajax({
 				url :"ajax" , //서버요청주소
 				type:"POST", //요청방식(method방식 : get | post | put | delete )
@@ -35,7 +55,10 @@
 				traditional : true, 
 				data: {
 					key:"product" , 
-					methodName : "searchProductByFilter"
+					methodName : "searchProductByFilter",
+					categoryArr : categoryArr,
+					brandArr : brandArr,
+					colorArr : colorArr
 				}, //서버에게 보낼 데이터정보(parameter정보)					
 				success :function(result){
 						console.log(result)
@@ -67,51 +90,6 @@
 		}); //체크박스 선택 Event 끝
 		
 
-		//전체검색
-		   function productSelectAll(){
-			   $.ajax({
-				url :"ajax" , //서버요청주소
-				type:"get", //요청방식(method방식 : get | post | put | delete )
-				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
-				success :function(result){
-					console.log(result);
-					
-					let str="";
-					$.each(result, function(index, product){
-						str+="<li>";
-					    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
-					    str+=`<div class="popular-item">`;
-					    str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
-					    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-					    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-					    str+=`</div>`;
-					    str+=`</a>`;
-					    str+="</li>";
-					}); //eachEnd
-
-					$("#popular-list-wrapper-ul").html(str);
-					$("#shop-main-total").html("상품수량 : "+result.length + "개");
-					
-					
-				} , //성공했을때 실행할 함수 
-				error : function(err){  
-					alert(err+"상품 조회에서 에러 발생했어요.");
-				}  //실팽했을때 실행할 함수 
-			});//ajax끝
-			
-		   }//selectAll 함수끝
-		   /////////////////////////////////////////////////////////////
-		  
-		   //검색시 상품 조회
-			function selectProductByFilter(){
-				
-		   }//productSearch 함수끝
-		   
-			//productSelectAll();
-		   		   
-		   
 	}); //ready End
 	
 	
@@ -148,27 +126,27 @@
                 <h3>브랜드</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="nike" id="1000">
+                        <input type="checkbox" name="brand" id="1000">
                         <label for="nike">나이키</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="adidas" id="2000">
+                        <input type="checkbox" name="brand" id="2000">
                         <label for="adidas">아디다스</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="puma" id="3000">
+                        <input type="checkbox" name="brand" id="3000">
                         <label for="puma">퓨마</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="jordan" id="4000">
+                        <input type="checkbox" name="brand" id="4000">
                         <label for="jordan">조던</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="gucci" id="5000">
+                        <input type="checkbox" name="brand" id="5000">
                         <label for="gucci">구찌</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="hermes" id="6000">
+                        <input type="checkbox" name="brand" id="6000">
                         <label for="hermes">에르메스</label>
                     </div>
                 </div>
@@ -179,15 +157,15 @@
                 <h3>색상</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="10" id="black">
+                        <input type="checkbox" name="color" id="101">
                         <label for="black">블랙</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="20" id="gray">
+                        <input type="checkbox" name="color" id="202">
                         <label for="gray">그레이</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="30" id="white">
+                        <input type="checkbox" name="color" id="303">
                         <label for="white">화이트</label>
                     </div>
                 </div>

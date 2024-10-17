@@ -379,7 +379,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
 	@Override
-	public List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr) throws SQLException {
+	public List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr, String[] colorArr) throws SQLException {
 		// 상품 필터로 검색
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -389,17 +389,23 @@ public class ProductDAOImpl implements ProductDAO {
 		//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P 
 				//JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO 
 				//JOIN BRAND B ON P.BRAND_NO=B.NO WHERE 1=1
-
+		
 		if(categoryArr != null && categoryArr.length >0 ) {
 			String categoryStr = String.join(",",categoryArr);
-			sql += "CATEGORY_NO IN("+ categoryStr +")";
+			sql += " AND CATEGORY_NO IN("+ categoryStr +")";
 		}
 		
 		if(brandArr != null && brandArr.length >0 ) {
 			String brandStr = String.join(",",brandArr);
-			sql += "BRAND_NO IN("+ brandStr +")";
+			sql += " AND BRAND_NO IN("+ brandStr +")";
+		}
+		
+		if(colorArr != null && colorArr.length >0 ) {
+			String colorStr = String.join(",",colorArr);
+			sql += " AND P.COLOR_NO IN("+ colorStr +")";
 		}
 
+		System.out.println("sql = " + sql);
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);

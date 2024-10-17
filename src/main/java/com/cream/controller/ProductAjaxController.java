@@ -52,12 +52,16 @@ public class ProductAjaxController implements RestController {
 	public Object searchProductByFilter(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		System.out.println("Ajax 필터로 검색 메소드...!!!");
 
-		//String[] categoryArr = request.getParameter("categoryArr");
-		//String[] brandArr = request.getParameter("brandArr");
-		String[] categoryArr = {"111"};
-		String[] brandArr = {"1000","2000"};
-		System.out.println("선택된 카테고리" + categoryArr + "선택된 브랜드" + brandArr);
-		productList = productService.searchProductByFilter(categoryArr, brandArr);
+		String[] categoryArr = request.getParameterValues("categoryArr");
+		String[] brandArr = request.getParameterValues("brandArr");
+		String[] colorArr = request.getParameterValues("colorArr");
+		
+		//String[] brandArr = {};
+		System.out.println("선택된 카테고리 : " + categoryArr);
+		System.out.println("선택된 브랜드 : " + brandArr);
+		System.out.println("선택된 색상 : " + colorArr);
+		
+		productList = productService.searchProductByFilter(categoryArr, brandArr, colorArr);
 
 		System.out.println(productList);
 		return productList;		

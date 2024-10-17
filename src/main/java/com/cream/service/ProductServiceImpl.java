@@ -67,9 +67,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr) throws SQLException {
+	public List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr, String[] colorArr) throws SQLException {
 		// 상품 필터로 검색
-		productList = productDao.searchProductByFilter(categoryArr, brandArr);
+		productList = productDao.searchProductByFilter(categoryArr, brandArr, colorArr);
 		return productList;
 	}
 	
