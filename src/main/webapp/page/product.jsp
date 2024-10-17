@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,118 +8,25 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <style>
-        .wished{
+        .wished {
           background-color: #222;
           color: white;
         }
-        .swiper{
+        .swiper {
           max-width: 500px;
         }
-        .swiper-button-next, .swiper-button-prev{
+        .swiper-button-next, .swiper-button-prev {
           color: #9a9a9a;
         }
-    </style>
-    <script type="text/javascript">
-      $(function(){
-        $("[name=btn]").click(function(){
-          const dataTab = $(this).attr("data-tab");
-
-          $.ajax({
-            url: "ajax",
-            type: "post",
-            dataType: "json",
-            data: {
-              key: "sales",
-              methodName: "selectAll",
-              productNo: "${productDetail.no}",
-              shoesNo: dataTab
-            },
-
-            success: function(data){
-              let str = "";
-              $.each(data, function(index, sales){
-                console.log(sales.grade + "z");
-                console.log(sales.nowPrice);
-
-                const countdownId = 'countdown-' + sales.no;
-                str+= "<li>";
-                str += "<div class='list-inner'>";
-                str += "<span class='rank-a'>" + sales.grade + "</span>   ";
-                str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
-                str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
-                str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
-                str += "<span>판매상태 : " + sales.salesStatus + "</span>";
-                str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
-                str += "</div>";
-                str+= "</li>";
-              });
-
-              $("#" + dataTab + " .tab-content-list ul").html(str);
-
-              data.forEach(function(sales) {
-                initializeCountdown(sales.no, parseInt(sales.regdate, 10));
-              });
-            },
-
-            error: function(err){
-              let str = "판매중인 사이즈가 없습니다.";
-              $("#" + dataTab + " .tab-content-list").html(str);
-            }
-          });
-        }); // 끝
-
-        $(document).on("click", "button[value=구매]", function(){
-          window.location.href = "front?key=sales&methodName=salesDetail&salesNo=" + encodeURIComponent($(this).attr("data-info"));
-        });
-
-        function initializeCountdown(saleNo, remainingTime) {
-          const countdownElement = document.getElementById('countdown-' + saleNo);
-
-          if (!countdownElement) return;
-
-          const updateCountdown = () => {
-            if (remainingTime < 0) {
-              countdownElement.textContent = '시간 종료';
-              return;
-            }
-
-            const hours = Math.floor(remainingTime / 3600);
-            const minutes = Math.floor((remainingTime % 3600) / 60);
-            const seconds = remainingTime % 60;
-
-            function formattedTime(hours, minutes, seconds) {
-              return [
-                String(hours).padStart(2, '0'),
-                String(minutes).padStart(2, '0'),
-                String(seconds).padStart(2, '0')
-              ].join(':');
-            }
-            countdownElement.textContent = formattedTime(hours, minutes, seconds);
-
-            if (remainingTime > 0) {
-              remainingTime--;
-              setTimeout(updateCountdown, 1000);
-            } else {
-              countdownElement.textContent = '시간 종료';
-              const purchaseButton = countdownElement.closest('.list-inner').querySelector('button[value=구매]');
-              if (purchaseButton) {
-                purchaseButton.disabled = true;
-                purchaseButton.textContent = '입찰 종료';
-              }
-            }
-          };
-
-          updateCountdown();
+        /* 비활성화된 버튼의 스타일 */
+        .disabled-button {
+          pointer-events: none;
+          opacity: 0.5;
+          cursor: not-allowed;
         }
-
-      });
-    
-    </script>
+    </style>
 </head>
 <body>
 <jsp:include page="../includes/header.jsp" />
@@ -129,15 +35,11 @@
         <div class="swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-
-                        <img src="${productDetail.productImg[0].filePath}" style="width: 525px; height: 525px;">
-
+                    <img src="${productDetail.productImg[0].filePath}" style="width: 525px; height: 525px;">
                 </div>
                 <c:if test="${productDetail.productImg[1].filePath!=null}">
                 <div class="swiper-slide">
-
-                        <img src="${productDetail.productImg[1].filePath}" style="width: 525px; height: 525px;">
-
+                    <img src="${productDetail.productImg[1].filePath}" style="width: 525px; height: 525px;">
                 </div>
                 </c:if>
             </div>
@@ -149,7 +51,7 @@
             <div class="item-price">
                 <p>최저 입찰가</p>
                 <span>${bidPricing}</span>
-                 <p>최저 즉시구매가</p>
+                <p>최저 즉시구매가</p>
                 <span>${nowPricing}</span>
             </div>
             <div class="item-name">
@@ -176,41 +78,72 @@
                     </li>
                 </ul>
             </div>
+
+            <!-- 구매, 판매 및 관심상품 버튼 -->
             <div class="item-transaction">
-                <a href="#" id="show-modal">
-                    <div class="item-parchase">
-                        <span>구매</span>
-                        <p>217,000원 <br> 즉시 구매가</p>
-                    </div>
-                </a>
-                <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}">
-                    <div class="item-sell">
-                        <span>판매</span>
-                        <p>237,000원 <br> 즉시 판매가</p>
-                    </div>
-                </a>
+                <!-- 구매 버튼 -->
+                <c:choose>
+                    <c:when test="${sessionScope.isAdmin}">
+                        <!-- 어드민인 경우 비활성화된 버튼, 동일한 CSS 클래스 유지 -->
+                        <div class="item-parchase disabled-button">
+                            <span>구매</span>
+                            <p>217,000원 <br> 즉시 구매가</p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- 어드민이 아닌 경우 활성화된 버튼 -->
+                        <a href="#" id="show-modal" class="item-parchase">
+                            <span>구매</span>
+                            <p>217,000원 <br> 즉시 구매가</p>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
 
+                <!-- 판매 버튼 -->
+                <c:choose>
+                    <c:when test="${sessionScope.isAdmin}">
+                        <!-- 어드민인 경우 비활성화된 버튼, 동일한 CSS 클래스 유지 -->
+                        <div class="item-sell disabled-button">
+                            <span>판매</span>
+                            <p>237,000원 <br> 즉시 판매가</p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- 어드민이 아닌 경우 활성화된 버튼 -->
+                        <a href="${pageContext.request.contextPath}/page/sell.jsp?productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}" class="item-sell">
+                            <span>판매</span>
+                            <p>237,000원 <br> 즉시 판매가</p>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
             </div>
-            <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="wishlist-link">
-            <div class="item-wish">
-                <p>관심상품</p>
-            </div>
-            </a>
+
+            <!-- 관심상품 버튼 -->
+            <c:choose>
+                <c:when test="${sessionScope.isAdmin}">
+                    <div class="item-wish disabled-button">
+                        <p>관심상품</p>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="item-wish">
+                        <p>관심상품</p>
+                    </a>
+                </c:otherwise>
+            </c:choose>
         </div>
-
     </div>
+
     <div class="item-info-wrapper">
         <div class="item-quote">
             <h2>시세</h2>
             <div class="item-quote-chart">
-<%--                this is chart area--%>
                 <jsp:include page="../chart/productPageChart.jsp"/>
             </div>
         </div>
         <div class="item-concluded">
             <h2>체결거래</h2>
             <div class="concluded-transaction">
-<%--                this is concluded-transaction area--%>
                 <jsp:include page="../chart/transactionChart.jsp"/>
             </div>
         </div>
@@ -243,7 +176,6 @@
             </div>
             <div class="tab-content" id="30">
                 <div class="tab-content-list">
-                    <!--            여기 뿌려야함-->
                     <ul>
                         <li>
                             <div class="list-inner">
@@ -254,22 +186,6 @@
                                 <button>구매/입찰</button>
                             </div>
                         </li>
-                        <li>
-                            <div class="list-inner">
-                                <span class="rank-a">A</span>
-                                <span>남은 시간 : 24:24:24</span>
-                                <span>즉시 구매 : 190,000 원 /</span>
-                                <span>현재 입찰가 : 150,000 </span>
-                                <button>구매/입찰</button>
-                            </div>
-                        </li>
-                        <li><div class="list-inner">
-                            <span class="rank-a">A</span>
-                            <span>남은 시간 : 24:24:24</span>
-                            <span>즉시 구매 : 190,000 원 /</span>
-                            <span>현재 입찰가 : 150,000 </span>
-                            <button>구매/입찰</button>
-                        </div></li>
                     </ul>
                 </div>
             </div>
@@ -277,6 +193,7 @@
     </div>
 </div>
 <jsp:include page="../includes/footer.jsp" />
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("modal");
@@ -284,73 +201,44 @@
     const closeButton = document.querySelector(".close-button");
 
     showModalButton.addEventListener("click", function (event) {
-      event.preventDefault(); // 링크 기본 동작 방지
-      modal.style.display = "block"; // 모달 표시
+      event.preventDefault(); 
+      modal.style.display = "block"; 
     });
 
     closeButton.addEventListener("click", function () {
-      modal.style.display = "none"; // 모달 숨김
+      modal.style.display = "none";
     });
-
-
-
-    // 모달 외부 클릭 시 닫기
-    // window.addEventListener("click", function (event) {
-    //   if (event.target == modal) {
-    //     modal.style.display = "none"; // 모달 숨김
-    //   }
-    // });
   });
 
-</script>
-<script !src="">
-  document.addEventListener("DOMContentLoaded", function () {
-    const tabButtons = document.querySelectorAll(".tab-button");
-    const tabContents = document.querySelectorAll(".tab-content");
-
-    tabButtons.forEach(button => {
-      button.addEventListener("click", function () {
-        const targetTab = this.getAttribute("data-tab");
-
-        tabButtons.forEach(btn => btn.classList.remove("active"));
-        tabContents.forEach(content => content.classList.remove("active"));
-
-        this.classList.add("active");
-        document.getElementById(targetTab).classList.add("active");
+  $(document).ready(function() {
+    const wishlistButton = $('#add-to-wishlist');
+    wishlistButton.on('click', function() {
+      const productNo = $(this).data('id');
+      $.ajax({
+        url: '${pageContext.request.contextPath}/ajax',
+        method: 'POST',
+        data: {
+          key: 'userAjax',
+          methodName: 'toggleWishlist',
+          product_no: productNo
+        },
+        dataType: 'json',
+        success: function(response) {
+          if (response.status === 'added') {
+            alert("관심상품이 추가되었습니다.");
+          } else if (response.status === 'removed') {
+            alert("관심상품이 해제되었습니다.");
+          } else {
+            alert("처리에 실패했습니다. 다시 시도해 주세요.");
+          }
+        },
+        error: function(error) {
+          console.error("Error: ", error);
+          alert("오류가 발생했습니다. 다시 시도해 주세요.");
+        }
       });
     });
   });
-  $(document).ready(function() {
-	  const wishlistButton = $('#add-to-wishlist');
-
-	  wishlistButton.on('click', function() {
-	    const productNo = $(this).data('id');
-	    
-	    $.ajax({
-	      url: '${pageContext.request.contextPath}/ajax',
-	      method: 'POST',
-	      data: {
-	        key: 'userAjax',
-	        methodName: 'toggleWishlist',
-	        product_no: productNo
-	      },
-	      dataType: 'json',
-	      success: function(response) {
-	        if (response.status === 'added') {
-	          alert("관심상품이 추가되었습니다.");
-	        } else if (response.status === 'removed') {
-	          alert("관심상품이 해제되었습니다.");
-	        } else {
-	          alert("처리에 실패했습니다. 다시 시도해 주세요.");
-	        }
-	      },
-	      error: function(error) {
-	        console.error("Error: ", error);
-	        alert("오류가 발생했습니다. 다시 시도해 주세요.");
-	      }
-	    });
-	  });
-	});
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -358,7 +246,7 @@
       slidesPerView: 1,
       navigation: {
         nextEl: '.swiper .swiper-button-next',
-        prevEl: '.swiper .swiper-button-prev',
+        prevEl: '.swiper-button-prev',
       },
       scrollbar: {
         el: '.swiper-scrollbar',

@@ -26,6 +26,7 @@ public class UserController implements Controller {
             if (admin != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginAdmin", admin);
+                session.setAttribute("isAdmin", true);
                 System.out.println("Admin stored in session: " + admin.getAdminId());
                 return new ModelAndView("index.jsp");
             }
@@ -37,6 +38,7 @@ public class UserController implements Controller {
             if (checkUser != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", checkUser);
+                session.setAttribute("isAdmin", false);
                 System.out.println("User stored in session: " + checkUser.getUserId());
                 return new ModelAndView("index.jsp");
             } else {
