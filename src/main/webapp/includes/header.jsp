@@ -20,7 +20,6 @@
     <div class="header-wrapper">
         <div class="header-top">
        
-            <a href="#">고객</a>
             <c:choose>
 		        <c:when test="${sessionScope.loginAdmin != null}">
 		            <!-- Admin 사용자 -->
@@ -35,7 +34,6 @@
 		            <a href="${pageContext.request.contextPath}/page/login.jsp">마이페이지</a>
 		        </c:otherwise>
 		    </c:choose>
-            <a href="#">알림</a>
                      
             <c:choose>
 		    <c:when test="${sessionScope.loginAdmin != null}">
