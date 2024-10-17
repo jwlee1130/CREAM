@@ -53,7 +53,7 @@ public class ProductDTO {
 
     public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName,
 			String korName, String release, int releasePrice, String modelNumber, String regdate, int salesQuantity,
-			 List<ProductImgDTO> productImg) {
+			List<ProductImgDTO> productImg) {
     	
     	this(no, brandNo, categoryNo, colorNo, engName, korName, release, releasePrice, modelNumber, regdate, salesQuantity);
 		this.productImg = productImg;
@@ -62,7 +62,7 @@ public class ProductDTO {
 
 
 	public ProductDTO(int no, int brandNo, int categoryNo, int colorNo, String engName, String korName, String release,
-			int releasePrice, String modelNumber, String regdate, int salesQuantity,  List<ProductImgDTO> productImg,
+			int releasePrice, String modelNumber, String regdate, int salesQuantity, List<ProductImgDTO> productImg,
 			BrandDTO brandName) {
 		this.no = no;
 		this.brandNo = brandNo;
@@ -109,7 +109,7 @@ public class ProductDTO {
 	public String getRegdate() { return regdate; }
 	public void setRegdate(String regdate) { this.regdate = regdate; }
 
-	public  List<ProductImgDTO> getProductImg() { return productImg;	}
+	public List<ProductImgDTO>getProductImg() { return productImg;	}
 	public void setProductImg(List<ProductImgDTO> productImg) { this.productImg = productImg;	}
 
 	public int getSalesQuantity() { return salesQuantity; }

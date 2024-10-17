@@ -151,8 +151,7 @@
 	});
 </script>
 <script type="text/javascript">
-		
-	
+
 		$(".search-button").click(function(){
 			console.log("123");
 			var inputKeyword = document.getElementById("searchBar").value;

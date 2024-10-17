@@ -39,6 +39,12 @@ public interface ProductService {
 	 */
 	List<ProductDTO> searchProductByBrand(String productBrand)throws SQLException;
 	
+	/**
+	 * 상품 필터로 검색
+	 */
+	List<ProductDTO> searchProductByFilter(String[] categoryArr, String[] brandArr) throws SQLException;
+	
+	
 	/*
 	 * 상품 상세보기
 	 */

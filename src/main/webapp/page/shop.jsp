@@ -14,7 +14,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <script type="text/javascript">
 	$(function(){
+	
+		//필터 범위에서 체크박스를 선택하면
+		document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
+			alert(e.target.checked);
+
+			let checkedArr=[]; //필터 내용을 저장하는 배열
+			//체크박스 전체를 돌면서 체크된 값 확인해서 배열에 담기
+			document.querySelectorAll("[type=checkbox]:checked").forEach((item, index)=>{ 
+				
+					console.log(item.id);
+					checkedArr.push(item.id); //체크된 값들을 배열에 담는다
+			});
+			
+			console.log(checkedArr);
+			$.ajax({
+				url :"ajax" , //서버요청주소
+				type:"POST", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				traditional : true, 
+				data: {
+					key:"product" , 
+					methodName : "searchProductByFilter"
+				}, //서버에게 보낼 데이터정보(parameter정보)					
+				success :function(result){
+						console.log(result)
+						
+					let str="";
+					$.each(result, function(index, product){
+						str+="<li>";
+					    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
+				    	str+=`<div class="popular-item">`;
+				    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
+				    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+				    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
+				    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
+				    	str+=`</div>`;
+				    	str+=`</a>`;
+				    	str+="</li>";
+					}); //eachEnd
+						
+					$("#popular-list-wrapper-ul").html(str);
+					$("#shop-main-total").html("상품수량 : "+result.length + "개");
+						
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+				alert(err+" 상품 검색에서 에러 발생했어요.");
+				}  //실패했을때 실행할 함수 
+			});//ajax끝
+			
+
+		}); //체크박스 선택 Event 끝
 		
+
 		//전체검색
 		   function productSelectAll(){
 			   $.ajax({
@@ -54,50 +106,16 @@
 		  
 		   //검색시 상품 조회
 			function selectProductByFilter(){
-				$.ajax({
-					url :"ajax" , //서버요청주소
-					type:"get", //요청방식(method방식 : get | post | put | delete )
-					dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"product" , methodName : "searchProductByKeyword"}, //서버에게 보낼 데이터정보(parameter정보)					
-					success :function(result){
-							//console.log(result)
-							
-						let str="";
-						$.each(result, function(index, product){
-							str+="<li>";
-						    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
-					    	str+=`<div class="popular-item">`;
-					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
-					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-					    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
-					    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-					    	str+=`</div>`;
-					    	str+=`</a>`;
-					    	str+="</li>";
-						}); //eachEnd
-							
-						$("#popular-list-wrapper-ul").html(str);
-						$("#shop-main-total").html("상품수량 : "+result.length + "개");
-							
-					} , //성공했을때 실행할 함수 
-					error : function(err){  
-					alert(err+" 상품 검색에서 에러 발생했어요.");
-					}  //실패했을때 실행할 함수 
-			});//ajax끝
+				
 		   }//productSearch 함수끝
 		   
 			//productSelectAll();
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
+		   		   
 		   
 	}); //ready End
-
+	
+	
+	
 </script>
 </head>
 <body>
@@ -111,15 +129,15 @@
                 <h3>카테고리</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="category" id="sneakers" value="sneakers">
+                        <input type="checkbox" name="category" id="111">
                         <label for="sneakers">스니커즈</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="category" id="slippers">
+                        <input type="checkbox" name="category" id="222">
                         <label for="slippers">슬리퍼</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="category" id="rain-shoes">
+                        <input type="checkbox" name="category" id="333">
                         <label for="rain-shoes">구두</label>
                     </div>
                 </div>
@@ -130,47 +148,47 @@
                 <h3>브랜드</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="nike" id="nike">
+                        <input type="checkbox" name="nike" id="1000">
                         <label for="nike">나이키</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="adidas" id="adidas">
+                        <input type="checkbox" name="adidas" id="2000">
                         <label for="adidas">아디다스</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="puma" id="puma">
+                        <input type="checkbox" name="puma" id="3000">
                         <label for="puma">퓨마</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="jordan" id="jordan">
+                        <input type="checkbox" name="jordan" id="4000">
                         <label for="jordan">조던</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="gucci" id="gucci">
+                        <input type="checkbox" name="gucci" id="5000">
                         <label for="gucci">구찌</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="hermes" id="hermes">
+                        <input type="checkbox" name="hermes" id="6000">
                         <label for="hermes">에르메스</label>
                     </div>
                 </div>
             </div>
-
-            <!-- 성별 섹션 -->
+            
+            <!-- 색상 섹션 -->
             <div class="shop-aside-content">
-                <h3>성별</h3>
+                <h3>색상</h3>
                 <div>
                     <div class="filter-check">
-                        <input type="checkbox" name="남성" id="남성">
-                        <label for="남성">남성</label>
+                        <input type="checkbox" name="10" id="black">
+                        <label for="black">블랙</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="여성" id="여성">
-                        <label for="여성">여성</label>
+                        <input type="checkbox" name="20" id="gray">
+                        <label for="gray">그레이</label>
                     </div>
                     <div class="filter-check">
-                        <input type="checkbox" name="키즈" id="키즈">
-                        <label for="키즈">키즈</label>
+                        <input type="checkbox" name="30" id="white">
+                        <label for="white">화이트</label>
                     </div>
                 </div>
             </div>
@@ -190,25 +208,6 @@
                     <div class="filter-check">
                         <input type="checkbox" name="280" id="280">
                         <label for="280">280</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 색상 섹션 -->
-            <div class="shop-aside-content">
-                <h3>색상</h3>
-                <div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="black" id="black">
-                        <label for="black">블랙</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="gray" id="gray">
-                        <label for="gray">그레이</label>
-                    </div>
-                    <div class="filter-check">
-                        <input type="checkbox" name="white" id="white">
-                        <label for="white">화이트</label>
                     </div>
                 </div>
             </div>
@@ -275,37 +274,6 @@
 </div>
 <jsp:include page="../includes/footer.jsp" />
 <script src="../js/script.js"></script>
-<script type="text/javascript">
-	
-	const users = [1,2,3];
-	
-	const re = users.filter((score)=>{
-		score=1;
-		return score
-	});
-	console.log(re)
-	
-	
-	
-	//필터 범위에서 체크박스를 선택하면
-	document.querySelector("[class=shop-aside]").addEventListener("click", (e)=>{
-		alert(e.target.checked);
 
-		document.querySelectorAll("[type=checkbox]").forEach((item, index)=>{ //체크박스 전체를 돌면서 
-			
-			if(item.checked){ //체크가 되어있다면
-				console.log(item.id);
-				
-			}
-			
-			//item.checked = e.target.checked;
-			
-		});
-		
-		selectProductByFilter();
-	});
-
-
-</script>
 </body>
 </html>
