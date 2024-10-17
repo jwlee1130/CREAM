@@ -121,19 +121,29 @@
 					}
 						
 					let str="";
-					$.each(result, function(index, product){
-						str+="<li>";
-					    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
-				    	str+=`<div class="popular-item">`;
-				    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
-				    	str+=`<h3 class="item-amount">거래 ${"${product.salesQuantity}"}</h3>`;
-				    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-				    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
-				    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
-				    	str+=`</div>`;
-				    	str+=`</a>`;
-				    	str+="</li>";
-					}); //eachEnd
+					
+					if(result==""){ //조회된 값이 없으면
+						
+						str+=`<div style="display:flex; justify-content:center; align-items: center; height: 30vh;">`;
+						str+=`<b><span style="font-size:20pt;">조회된 상품이 없습니다.</span></b>`;
+						str+=`</div>`;
+						
+					} else{ //조회된 값이 있으면
+						
+						$.each(result, function(index, product){
+							str+="<li>";
+						    str+=`<a href="front?key=product&methodName=detail&no=1">`; 
+					    	str+=`<div class="popular-item">`;
+					    	str+=`<div class="item-image"><img width=150px height=150px src="${'${product.productImg[0].filePath}'}"></div>`;
+					    	str+=`<h3 class="item-amount">거래 ${"${product.salesQuantity}"}</h3>`;
+					    	str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+					    	str+=`<p class="item-description">${"${product.engName}"}</p>`;
+					    	str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}</div>`;
+					    	str+=`</div>`;
+					    	str+=`</a>`;
+					    	str+="</li>";
+						}); //eachEnd
+					}
 						
 					$("#popular-list-wrapper-ul").html(str);
 					$("#shop-main-total").html("상품수량 : "+result.length + "개");
@@ -239,11 +249,9 @@
                 <ul id="popular-list-wrapper-ul">
                 <c:choose>
                 <c:when test="${empty requestScope.productList}">
-            		<p align="center"><b><span style="font-size:9pt;">조회된 상품이 없습니다.</span></b></p>
-                </c:when>
-                <c:when test="">
-                	<h1>여기로 들어오게 해야해</h1>
-                	
+            		<div style="display:flex; justify-content:center; align-items: center; height: 30vh;">
+            			<b><span style="font-size:20pt;">조회된 상품이 없습니다.</span></b>
+            		</div>
                 </c:when>
                 <c:otherwise>
                 <c:forEach items="${requestScope.productList}" var="product">
