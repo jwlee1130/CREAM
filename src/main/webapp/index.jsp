@@ -185,14 +185,14 @@
                         <div class="swiper-slide">
                             <div class="brand-card">
                                 <a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=4000">
-                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/JORDAN_LOGO.png">
+                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png">
                                 </a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="brand-card">
                             	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByBrand&productBrand=5000">
-                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/GUCCI_LOGO.png">
+                                <img width=200px height=200px src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/JORDAN_LOGO.png">
                                 </a>
                             </div>
                         </div>

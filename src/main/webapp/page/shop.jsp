@@ -205,11 +205,11 @@
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="brand" id="4000">
-                        <label for="4000">조던</label>
+                        <label for="4000">구찌</label>
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="brand" id="5000">
-                        <label for="5000">구찌</label>
+                        <label for="5000">조던</label>
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="brand" id="6000">
@@ -228,11 +228,11 @@
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="color" id="202">
-                        <label for="202">그레이</label>
+                        <label for="202">화이트</label>
                     </div>
                     <div class="filter-check">
                         <input type="checkbox" name="color" id="303">
-                        <label for="303">화이트</label>
+                        <label for="303">컬러</label>
                     </div>
                 </div>
             </div>
