@@ -62,7 +62,6 @@
             str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
             str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
             str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
-            str += "<span>판매상태 : " + sales.salesStatus + "</span>";
             str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
             str += "</div>";
             str += "</li>";
@@ -93,31 +92,44 @@
       const updateCountdown = () => {
         if (remainingTime < 0) {
           countdownElement.textContent = '시간 종료';
+          handleCountdownEnd(countdownElement);
           return;
         }
 
-        const hours = Math.floor(remainingTime / 3600);
-        const minutes = Math.floor((remainingTime % 3600) / 60);
+        // 남은 시간을 일, 시간, 분, 초로 계산
+        const days = Math.floor(remainingTime / 86400); // 86400초 = 1일
+        const hours = Math.floor((remainingTime % 86400) / 3600); // 3600초 = 1시간
+        const minutes = Math.floor((remainingTime % 3600) / 60); // 60초 = 1분
         const seconds = remainingTime % 60;
 
-        countdownElement.textContent = [
-          String(hours).padStart(2, '0'),
-          String(minutes).padStart(2, '0'),
-          String(seconds).padStart(2, '0')
-        ].join(':');
+        // "일일 시간시간 분분 초초" 형식으로 포맷팅
+        const formattedTime =
+            String(days).padStart(2, ' ') + '일 ' +
+            String(hours).padStart(2, '0') + '시간 ' +
+            String(minutes).padStart(2, '0') + '분 ' +
+            String(seconds).padStart(2, '0') + '초';
+
+        countdownElement.textContent = formattedTime;
 
         if (remainingTime > 0) {
-          remainingTime--;
-          setTimeout(updateCountdown, 1000);
+          remainingTime--; // 1초 감소
+          setTimeout(updateCountdown, 1000); // 1초마다 카운트다운
         } else {
-          countdownElement.textContent = '시간 종료';
-          const purchaseButton = countdownElement.closest('.list-inner').querySelector('button[value=구매]');
-          if (purchaseButton) {
-            purchaseButton.disabled = true;
-            purchaseButton.textContent = '입찰 종료';
-          }
+          countdownElement.textContent = '시간 종료'; // 카운트다운 종료 시 메시지
+          handleCountdownEnd(countdownElement);
         }
       };
+
+      // 카운트다운 종료 시 처리 함수
+      const handleCountdownEnd = (element) => {
+        const purchaseButton = element.closest('.list-inner').querySelector('button[value=구매]');
+        if (purchaseButton) {
+          purchaseButton.disabled = true;
+          purchaseButton.textContent = '입찰 종료';
+          purchaseButton.classList.add('disabled-button'); // 추가적인 스타일링을 원할 경우
+        }
+      };
+
       updateCountdown();
     }
   });

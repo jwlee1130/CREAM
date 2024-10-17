@@ -129,20 +129,23 @@
         remainingTime = 0;
       }
 
-      const hours = Math.floor(remainingTime / 3600);
-      const minutes = Math.floor((remainingTime % 3600) / 60);
+      // 남은 시간을 일, 시간, 분, 초로 계산
+      const days = Math.floor(remainingTime / 86400); // 86400초 = 1일
+      const hours = Math.floor((remainingTime % 86400) / 3600); // 3600초 = 1시간
+      const minutes = Math.floor((remainingTime % 3600) / 60); // 60초 = 1분
       const seconds = remainingTime % 60;
 
-      // "시간:분:초" 형식으로 포맷팅
-      function formatTime(hours, minutes, seconds) {
-        return [
-          String(hours).padStart(2, '0'),
-          String(minutes).padStart(2, '0'),
-          String(seconds).padStart(2, '0')
-        ].join(':');
+      // "일일 시간시간 분분 초초" 형식으로 포맷팅
+      function formatTime(days, hours, minutes, seconds) {
+        return (
+                String(days).padStart(2, '') + '일 ' +
+                String(hours).padStart(2, '0') + '시간 ' +
+                String(minutes).padStart(2, '0') + '분 ' +
+                String(seconds).padStart(2, '0') + '초'
+        );
       }
 
-      const formattedTime = formatTime(hours, minutes, seconds);
+      const formattedTime = formatTime(days, hours, minutes, seconds);
       document.getElementById('countdown').textContent = formattedTime;
 
       if (remainingTime > 0) {
@@ -158,7 +161,7 @@
         biddingLinked.removeAttribute('href');
       }
     };
-    // 카운트다운 시작
+// 카운트다운 시작
     countdown();
   });
 </script>
