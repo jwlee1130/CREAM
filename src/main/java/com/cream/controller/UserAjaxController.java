@@ -219,8 +219,13 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateEmail(loginUser.getNo(), email);
-	            if(result==1) return "success";
-	            else  return "fail";
+	            if(result == 1) {
+	                loginUser.setUserEmail(email);
+	                session.setAttribute("loginUser", loginUser);
+	                return "success";
+	            } else {
+	                return "fail";
+	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -235,8 +240,13 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updatePassword(loginUser.getNo(), password);
-	            if(result==1) return "success";
-	            else  return "fail";
+	            if(result == 1) {
+	                loginUser.setUserPw(password);
+	                session.setAttribute("loginUser", loginUser);
+	                return "success";
+	            } else {
+	                return "fail";
+	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -251,8 +261,13 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateNickname(loginUser.getNo(), nickname);
-	            if(result==1) return "success";
-	            else  return "fail";
+	            if(result == 1) {
+	                loginUser.setNickname(nickname);
+	                session.setAttribute("loginUser", loginUser);
+	                return "success";
+	            } else {
+	                return "fail";
+	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -267,8 +282,13 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updatePhone(loginUser.getNo(), phone);
-	            if(result==1) return "success";
-	            else  return "fail";
+	            if(result == 1) {
+	                loginUser.setHp(phone);
+	                session.setAttribute("loginUser", loginUser);
+	                return "success";
+	            } else {
+	                return "fail";
+	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -283,8 +303,13 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateShoeSize(loginUser.getNo(), shoeSize);
-	            if(result==1) return "success";
-	            else  return "fail";
+	            if(result == 1) {
+	                loginUser.setShoesSize(shoeSize);
+	                session.setAttribute("loginUser", loginUser);
+	                return "success";
+	            } else {
+	                return "fail";
+	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -299,13 +324,19 @@ import jakarta.servlet.http.HttpSession;
 	        int result = 0;
 	        try {
 	            result = service.updateAddress(loginUser.getNo(), address);
-	            if(result==1) return "success";
-	            else  return "fail";
+	            if(result == 1) {
+	                loginUser.setAddress(address);
+	                session.setAttribute("loginUser", loginUser);
+	                return "success";
+	            } else {
+	                return "fail";
+	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 	        return "fail";
 	    }
+
 	}
 	
 	
