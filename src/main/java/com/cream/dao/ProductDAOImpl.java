@@ -40,7 +40,9 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs = null;
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
 		String sql = proFile.getProperty("query.selectAllProduct"); 
-		//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO JOIN BRAND B ON P.BRAND_NO=B.NO;
+		//sql = SELECT P.*, FILE_PATH, FILE_SIZE, B.BRAND FROM PRODUCT P 
+				//JOIN (SELECT * FROM PRODUCT_IMG GROUP BY PRODUCT_NO) PI ON P.NO=PI.PRODUCT_NO 
+				//JOIN BRAND B ON P.BRAND_NO=B.NO;
 		
 		try {
 			con = DbUtil.getConnection();

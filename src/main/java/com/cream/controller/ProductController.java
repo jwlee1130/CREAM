@@ -45,7 +45,7 @@ public class ProductController implements Controller {
 		}
 	
 		public ModelAndView selectAllProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException{
-			System.out.println("controller - 상품 전체 검색 메소드");
+			//System.out.println("controller - 상품 전체 검색 메소드");
 
 			
 			productList = service.selectAllProduct();
@@ -57,7 +57,7 @@ public class ProductController implements Controller {
 		}//selectAll 끝
 	
 		public ModelAndView searchProductByKeyword(HttpServletRequest request, HttpServletResponse response) throws SQLException{
-			System.out.println("controller - 상품 키워드 검색 메소드");
+			//System.out.println("controller - 상품 키워드 검색 메소드");
 			String searchKeyword = request.getParameter("inputKeyword");
 			searchKeyword = searchKeyword.toUpperCase();
 			//System.out.println(searchKeyword);
@@ -96,11 +96,11 @@ public class ProductController implements Controller {
 			//System.out.println("controller - 상품 카테고리 검색 메소드");
 
 			String brandNum = request.getParameter("productBrand");
-			System.out.println("productBrand: "+brandNum);
+			//System.out.println("productBrand: "+brandNum);
 			productList = service.searchProductByBrand(brandNum);
 			request.setAttribute("productList", productList);
 			
-			System.out.println("controller(카테고리조회결과)= "+ productList);
+			//System.out.println("controller(카테고리조회결과)= "+ productList);
 			return new ModelAndView("page/shop.jsp", false);
 		
 		}//searchProductByCategory 끝

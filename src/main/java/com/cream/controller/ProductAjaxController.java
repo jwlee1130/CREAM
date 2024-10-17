@@ -17,12 +17,12 @@ public class ProductAjaxController implements RestController {
 	List<ProductDTO> productList = new ArrayList<ProductDTO>();
 	
 	public Object selectAllProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-		//System.out.println("Ajax 상품 전체 검색 메소드...!!!");
+		System.out.println("Ajax 상품 전체 검색 메소드...!!!");
 
 		productList = productService.selectAllProduct();	
 		return productList;		
 		
-	}//selectAll 끝
+	}//selectAllProduct 끝
 	
 	public Object searchByProductId(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		//System.out.println("Ajax 상품 ID 검색 메소드...!!!");
