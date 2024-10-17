@@ -16,75 +16,6 @@
     />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<script type="text/javascript">
-	$(function(){
-		
-		let currentIndex=0; //현재까지 로드된 상품의 수
-		const itemsPerPage = 4; //한번에 보여줄 상품의 수
-				
-		//전체검색
-		   function productSelectAll(){
-			   $.ajax({
-				url :"ajax" , //서버요청주소
-				type:"get", //요청방식(method방식 : get | post | put | delete )
-				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
-				success :function(result){
-					//console.log(result);
-					let totalProducts = result.length; //전체 상품 수
-					displayProducts(result, currentIndex, itemsPerPage);
-					
-					//더보기 버튼 클릭 시 4개씩 더 보여주기
-					$(".more-button").on("click", function(){
-						currentIndex += itemsPerPage;
-						if(currentIndex < totalProducts){
-							displayProducts(result, currentIndex, itemsPerPage);
-						}
-						
-						if(currentIndex + itemsPerPage >= totalProducts){
-							$(".more-button").hide(); //마지막 상품까지 표시되면 버튼 숨김 
-						}
-					});
-					
-					
-				} , //성공했을때 실행할 함수 
-				error : function(err){  
-					alert(err+"상품 조회에서 에러 발생했어요.");
-				}  //실팽했을때 실행할 함수 
-			});//ajax끝
-			
-		   }//selectAll 함수끝
-		   /////////////////////////////////////////////////////////////
-		  
-		   function displayProducts(result, startIndex, count){
-			   
-			   let str="";
-			   for(let i= startIndex; i< startIndex+count && i < result.length; i++){
-				   let product = result[i];
-					str+="<li>";
-				    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
-				    str+=`<div class="popular-item">`;
-				    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
-				    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
-				    str+=`<p class="item-description">${"${product.engName}"}</p>`;
-				    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}원</div>`;
-				    str+=`</div>`;
-				    str+=`</a>`;
-				    str+="</li>";
-			   }
-
-				$("#popular-list-wrapper-ul").append(str); //기존 목록에 추가
-			   
-		   }//displayProducts 함수끝
-		   /////////////////////////////////////////////////////////////
-		  
-			productSelectAll();
-
-		
-	}); //ready End
-
-
-</script>
 </head>
 <body>
 <div class="container">
@@ -118,7 +49,7 @@
                                 </div>
                                 <h2 style="color: #555">Adidas Yeezy Boost 350 V2 Black Red 2020</h2>
                                 <h3 style="color: #555">24/25 F/W 시즌 중국으로 간 푸바오도 그리워하는 바로 그 신발</h3>
-                                <button>지금 보러가기</button>
+                                <button><a href="front?key=product&methodName=detail&no=19">지금 보러가기</a></button>
                                 </div>
                             </div>
                         </div>
@@ -126,12 +57,12 @@
                             <div class="image-placeholder" style="background-color: #69644b;">
                                 <div class="slider-inner">
                                     <div class="inner-img">
-                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%AF%B9%EC%8A%A41.webp" alt="" style="top:-50px">
-                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%AF%B9%EC%8A%A42.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/117-1.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/117-2.webp" alt="" style="top:-50px">
                                     </div>
-                                    <h2>Adidas Yeezy Slide Glow Green 2022/2023</h2>
-                                    <h3>여름철 최고의 선택</h3>
-                                    <button>지금 보러가기</button>
+                                    <h2>Nike Air Force 1 '07 Low White</h2>
+                                    <h3>모두가 한 켤레쯤은 소장한 스테디셀러, 나이키 에어포스를 만나보세요!</h3>
+                                    <button><a href="front?key=product&methodName=detail&no=117">지금 보러가기</a></button>
                                 </div>
                             </div>
                         </div>x
@@ -139,12 +70,18 @@
                             <div class="image-placeholder" style="background-color:#c4b2af">
                                 <div class="slider-inner">
                                     <div class="inner-img">
-                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%A0%88%EB%93%9C1.webp" alt="" style="top:-50px">
-                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/%EB%A0%88%EB%93%9C2.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/89.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/110.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/152.webp" alt="" style="top:-50px">
+                                        <img src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/87.webp" alt="" style="top:-50px">
                                     </div>
-                                    <h2 style="color: #221e1d">Adidas Yeezy Boost 350 V2 Black Red 2020</h2>
-                                    <h3 style="color: #221e1d">24/25 F/W 시즌 중국으로 간 푸바오도 그리워하는 바로 그 신발</h3>
-                                    <button>지금 보러가기</button>
+                                    <h2 style="color: #221e1d">SHOECREAM FALL COLLECTION</h2>
+                                    <h3 style="color: #221e1d">가을의 색깔을 담은 슈크림 신상품, 소개합니다</h3>
+                                    <button>
+                                    	<a href="${pageContext.request.contextPath}/front?key=product&methodName=searchProductByCategory&productCategory=333">
+                                    	지금 보러가기
+                                    	</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -268,7 +205,75 @@
         <% } %>
     });
 </script>
+<script type="text/javascript">
+	$(function(){
+		
+		let currentIndex=0; //현재까지 로드된 상품의 수
+		const itemsPerPage = 4; //한번에 보여줄 상품의 수
+				
+		//전체검색
+		   function productSelectAll(){
+			   $.ajax({
+				url :"ajax" , //서버요청주소
+				type:"get", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"product" , methodName : "selectAllProduct"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					//console.log(result);
+					let totalProducts = result.length; //전체 상품 수
+					displayProducts(result, currentIndex, itemsPerPage);
+					
+					//더보기 버튼 클릭 시 4개씩 더 보여주기
+					$(".more-button").on("click", function(){
+						currentIndex += itemsPerPage;
+						if(currentIndex < totalProducts){
+							displayProducts(result, currentIndex, itemsPerPage);
+						}
+						
+						if(currentIndex + itemsPerPage >= totalProducts){
+							$(".more-button").hide(); //마지막 상품까지 표시되면 버튼 숨김 
+						}
+					});
+					
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"상품 조회에서 에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+			
+		   }//selectAll 함수끝
+		   /////////////////////////////////////////////////////////////
+		  
+		   function displayProducts(result, startIndex, count){
+			   
+			   let str="";
+			   for(let i= startIndex; i< startIndex+count && i < result.length; i++){
+				   let product = result[i];
+					str+="<li>";
+				    str+=`<a href="front?key=product&methodName=detail&no=${"${product.no}"}">`;
+				    str+=`<div class="popular-item">`;
+				    str+=`<div class="item-image"><img width=250px height=250px src="${'${product.productImg[0].filePath}'}"></div>`;
+				    str+=`<div class="item-brand">${"${product.brandName.brand}"}</div>`;
+				    str+=`<p class="item-description">${"${product.engName}"}</p>`;
+				    str+=`<div class="item-price">${"${product.releasePrice.toLocaleString()}"}원</div>`;
+				    str+=`</div>`;
+				    str+=`</a>`;
+				    str+="</li>";
+			   }
 
+				$("#popular-list-wrapper-ul").append(str); //기존 목록에 추가
+			   
+		   }//displayProducts 함수끝
+		   /////////////////////////////////////////////////////////////
+		  
+			productSelectAll();
+
+		
+	}); //ready End
+
+
+</script>
 
 </body>
 </html>
