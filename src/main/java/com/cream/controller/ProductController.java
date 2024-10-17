@@ -51,7 +51,7 @@ public class ProductController implements Controller {
 			productList = service.selectAllProduct();
 			request.setAttribute("productList", productList);
 			
-			System.out.println("controller(상품전체조회결과)= "+ productList);
+			//System.out.println("controller(상품전체조회결과)= "+ productList);
 			return new ModelAndView("page/shop.jsp", false);
 		
 		}//selectAll 끝

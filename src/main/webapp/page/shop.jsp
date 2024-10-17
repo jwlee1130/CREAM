@@ -20,12 +20,12 @@
 			//alert(e.target.checked);
 			selectByFilter();
 			
-			
 		}); //체크박스 선택 Event 끝
 			
 		
 		//정렬하기(인기순, 최신순)
 		document.querySelector("#shop-main-sort").addEventListener("click", (e)=>{
+			
 			selectByFilter();
 			
 			if($("#shop-main-sort").text().trim() == "인기순"){
@@ -34,7 +34,21 @@
 			} else if($("#shop-main-sort").text().trim() == "가격순"){
 				$("#shop-main-sort").text("인기순");
 			}
-		}); //정렬 Event 끝
+		}); //정렬하기(인기순, 최신순) Event 끝
+		
+		
+		//정렬하기(내림차순, 오름차순)
+		document.querySelector("#shop-main-sort-order").addEventListener("click", (e)=>{
+			
+			selectByFilter();
+			
+			if($("#shop-main-sort-order").text().trim() == "↑"){
+				$("#shop-main-sort-order").text("↓");
+				
+			} else if($("#shop-main-sort-order").text().trim() == "↓"){
+				$("#shop-main-sort-order").text("↑");
+			}
+		}); //정렬하기(내림차순, 오름차순) Event 끝
 		
 		
 		///////////////////////////////////////////////////////////////////////////////
@@ -47,17 +61,17 @@
 			document.querySelectorAll("[type=checkbox]:checked").forEach((item, index)=>{ 
 				
 				if(item.name=="category"){
-					console.log("카테고리 여기다 : "+item.id);
+					//console.log("카테고리 여기다 : "+item.id);
 					categoryArr.push(item.id); //체크된 값들을 배열에 담는다
 				}
 				
 				if(item.name=="brand"){
-					console.log("브랜드 여기다 : "+item.id);
+					//console.log("브랜드 여기다 : "+item.id);
 					brandArr.push(item.id); //체크된 값들을 배열에 담는다
 				}
 				
 				if(item.name=="color"){
-					console.log("색상 여기다 : "+item.id);
+					//console.log("색상 여기다 : "+item.id);
 					colorArr.push(item.id); //체크된 값들을 배열에 담는다
 				}
 					
@@ -83,16 +97,26 @@
 					
 					//console.log("정렬 이전 결과 = "+result)
 					
-					if($("#shop-main-sort").text().trim() == "인기순"){
-						console.log("인기순으로 정렬하기");
+					if($("#shop-main-sort").text().trim() == "인기순" && $("#shop-main-sort-order").text().trim() == "↓"){
+						//console.log("인기순 + 내림차순으로 정렬하기");
+						result.sort(function(a,b){
+							return b.salesQuantity - a.salesQuantity;		
+						});
+						
+					} else if($("#shop-main-sort").text().trim() == "인기순" && $("#shop-main-sort-order").text().trim() == "↑"){
+						//console.log("인기순 + 오름차순으로 정렬하기");
+						result.sort(function(a,b){
+							return a.releasePrice - b.releasePrice;		
+						});
+					} else if($("#shop-main-sort").text().trim() == "가격순" && $("#shop-main-sort-order").text().trim() == "↓"){
+						//console.log("가격순 + 내림차순으로 정렬하기");
 						result.sort(function(a,b){
 							return b.releasePrice - a.releasePrice;		
 						});
-						
-					} else if($("#shop-main-sort").text().trim() == "가격순"){
-						console.log("가격순으로 정렬하기");
+					} else if($("#shop-main-sort").text().trim() == "가격순" && $("#shop-main-sort-order").text().trim() == "↑"){
+						//console.log("가격순 + 오름차순으로 정렬하기");
 						result.sort(function(a,b){
-							return b.release - a.release;		
+							return a.releasePrice - b.releasePrice;		
 						});
 					}
 						
@@ -208,7 +232,7 @@
                 <p id="shop-main-total">상품 수량 : ${fn:length(requestScope.productList)} 개</p>
                 <div>
                 <span id="shop-main-sort">인기순 </span>
-                 <span id="shop-main-sort-order">↑</span>
+                 <span id="shop-main-sort-order">↓</span>
                </div>
             </div>
             <div class="popular-list-wrapper">
