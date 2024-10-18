@@ -356,10 +356,10 @@ public class AdminDAOImpl implements AdminDAO {
 //    }
 @Override
 public ProductDTO getProduct(int categoryNo, int brandNo, int colorNo, int releasePrice) throws SQLException {
-    String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.NO AS IMG_NO, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE AS IMG_REGDATE " +
+	String sql = "SELECT p.*, b.NO AS BRAND_NO, b.BRAND, pi.NO AS IMG_NO, pi.FILE_PATH, pi.FILE_SIZE, pi.REGDATE AS IMG_REGDATE " +
             "FROM PRODUCT p " +
             "JOIN BRAND b ON p.BRAND_NO = b.NO " +
-            "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO AND p.COLOR_NO = pi.COLOR_NO " +
+            "JOIN PRODUCT_IMG pi ON p.NO = pi.PRODUCT_NO " +  
             "WHERE p.CATEGORY_NO = ? " +
             "AND p.BRAND_NO = ? " +
             "AND p.COLOR_NO = ? " +
