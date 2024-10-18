@@ -58,7 +58,7 @@
         <div>
           <span>${loginUser.cash}</span>
         </div>
-        <a href="">충전하러가기</a>
+        <a href="${pageContext.request.contextPath}/page/mypage.jsp#mypage_point">충전하러가기</a>
       </div>
     </div>
     <div class="item-receipt">
