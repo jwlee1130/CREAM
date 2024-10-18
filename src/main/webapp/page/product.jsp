@@ -84,57 +84,57 @@
 
             <!-- 구매, 판매 및 관심상품 버튼 -->
             <div class="item-transaction">
-			    <c:choose>
-			        <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
-			            <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
-			            <div class="item-parchase disabled-button">
-			                <span>구매</span>
-			                <p>217,000원 <br> 즉시 구매가</p>
-			            </div>
-			        </c:when>
-			        <c:otherwise>
-			            <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
-			            <a href="#" id="show-modal" class="item-parchase">
-			                <span>구매</span>
-			                <p>217,000원 <br> 즉시 구매가</p>
-			            </a>
-			        </c:otherwise>
-			    </c:choose>
-			
-			    <!-- 판매 버튼 -->
-			    <c:choose>
-			        <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
-			            <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
-			            <div class="item-sell disabled-button">
-			                <span>판매</span>
-			                <p>237,000원 <br> 즉시 판매가</p>
-			            </div>
-			        </c:when>
-			        <c:otherwise>
-			            <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
-			            <a href="${pageContext.request.contextPath}/page/sell.jsp?error=salesUpdate&productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}" class="item-sell">
-			                <span>판매</span>
-			                <p>237,000원 <br> 즉시 판매가</p>
-			            </a>
-			        </c:otherwise>
-			    </c:choose>
-			</div>
-			
-			<!-- 관심상품 버튼 -->
-			<c:choose>
-			    <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
-			        <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
-			        <div class="item-wish disabled-button">
-			            <p>관심상품</p>
-			        </div>
-			    </c:when>
-			    <c:otherwise>
-			        <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
-			        <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="item-wish">
-			            <p>관심상품</p>
-			        </a>
-			    </c:otherwise>
-			</c:choose>
+             <c:choose>
+                 <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
+                     <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
+                     <div class="item-parchase disabled-button">
+                         <span>구매</span>
+                         <p>217,000원 <br> 즉시 구매가</p>
+                     </div>
+                 </c:when>
+                 <c:otherwise>
+                     <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
+                     <a href="#" id="show-modal" class="item-parchase">
+                         <span>구매</span>
+                         <p>217,000원 <br> 즉시 구매가</p>
+                     </a>
+                 </c:otherwise>
+             </c:choose>
+         
+             <!-- 판매 버튼 -->
+             <c:choose>
+                 <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
+                     <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
+                     <div class="item-sell disabled-button">
+                         <span>판매</span>
+                         <p>237,000원 <br> 즉시 판매가</p>
+                     </div>
+                 </c:when>
+                 <c:otherwise>
+                     <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
+                     <a href="${pageContext.request.contextPath}/page/sell.jsp?error=salesUpdate&productNo=${productDetail.no}&brandName=${productDetail.brandName.name}&engName=${productDetail.engName}&korName=${productDetail.korName}&filePath=${productDetail.productImg[0].filePath}" class="item-sell">
+                         <span>판매</span>
+                         <p>237,000원 <br> 즉시 판매가</p>
+                     </a>
+                 </c:otherwise>
+             </c:choose>
+         </div>
+         
+         <!-- 관심상품 버튼 -->
+         <c:choose>
+             <c:when test="${sessionScope.loginAdmin != null || sessionScope.loginUser == null}">
+                 <!-- 관리자가 로그인한 경우 또는 로그인이 되어 있지 않은 경우 비활성화된 버튼 -->
+                 <div class="item-wish disabled-button">
+                     <p>관심상품</p>
+                 </div>
+             </c:when>
+             <c:otherwise>
+                 <!-- 일반 사용자가 로그인한 경우 활성화된 버튼 -->
+                 <a href="javascript:void(0);" id="add-to-wishlist" data-id="${productDetail.no}" class="item-wish">
+                     <p>관심상품</p>
+                 </a>
+             </c:otherwise>
+         </c:choose>
         </div>
     </div>
 
@@ -191,7 +191,6 @@
                             </div>
                         </li>
                     </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -256,41 +255,41 @@
 
       modal.style.display = "block";
       $.ajax({
-	        url: "ajax",
-	        type: "post",
-	        dataType: "json",
-	        data: {
-	          key: "sales",
-	          methodName: "selectAll",
-	          productNo: "${productDetail.no}",
-	          shoesNo: "10"
-	        },
-	        success: function(data) {
-	          let str = "";
-	          $.each(data, function(index, sales) {
-	            const countdownId = 'countdown-' + sales.no;
-	            str += "<li>";
-	            str += "<div class='list-inner'>";
-	            str += "<span class='rank-a'>" + sales.grade + "</span>   ";
-	            str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
-	            str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
-	            str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
-	            str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
-	            str += "</div>";
-	            str += "</li>";
-	          });
+           url: "ajax",
+           type: "post",
+           dataType: "json",
+           data: {
+             key: "sales",
+             methodName: "selectAll",
+             productNo: "${productDetail.no}",
+             shoesNo: "10"
+           },
+           success: function(data) {
+             let str = "";
+             $.each(data, function(index, sales) {
+               const countdownId = 'countdown-' + sales.no;
+               str += "<li>";
+               str += "<div class='list-inner'>";
+               str += "<span class='rank-a'>" + sales.grade + "</span>   ";
+               str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
+               str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
+               str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
+               str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
+               str += "</div>";
+               str += "</li>";
+             });
 
-	          $("#" + 10 + " .tab-content-list ul").html(str);
+             $("#" + 10 + " .tab-content-list ul").html(str);
 
-	          data.forEach(function(sales) {
-	            initializeCountdown(sales.no, parseInt(sales.regdate, 10));
-	          });
-	        },
-	        error: function(err) {
-	          let str = "판매중인 사이즈가 없습니다.";
-	        }
-	      });
-	
+             data.forEach(function(sales) {
+               initializeCountdown(sales.no, parseInt(sales.regdate, 10));
+             });
+           },
+           error: function(err) {
+             let str = "판매중인 사이즈가 없습니다.";
+           }
+         });
+   
     });
 
     closeButton.addEventListener("click", function () {
@@ -375,62 +374,62 @@
 
 
     // 탭 버튼 클릭 이벤트
- 	    
- 	    $(".tab-button").click(function() {
- 	      const dataTab = $(this).attr("data-tab");
+        
+        $(".tab-button").click(function() {
+          const dataTab = $(this).attr("data-tab");
 
- 	      // 모든 탭 버튼과 콘텐츠에서 'active' 클래스 제거
- 	      $(".tab-button").removeClass("active");
- 	      $(".tab-content").removeClass("active");
+          // 모든 탭 버튼과 콘텐츠에서 'active' 클래스 제거
+          $(".tab-button").removeClass("active");
+          $(".tab-content").removeClass("active");
 
- 	      // 클릭한 버튼과 해당 콘텐츠에 'active' 클래스 추가
- 	      $(this).addClass("active");
- 	      $("#" + dataTab).addClass("active");
+          // 클릭한 버튼과 해당 콘텐츠에 'active' 클래스 추가
+          $(this).addClass("active");
+          $("#" + dataTab).addClass("active");
 
- 	      // Ajax 호출
- 	      $.ajax({
- 	        url: "ajax",
- 	        type: "post",
- 	        dataType: "json",
- 	        data: {
- 	          key: "sales",
- 	          methodName: "selectAll",
- 	          productNo: "${productDetail.no}",
- 	          shoesNo: dataTab
- 	        },
- 	        success: function(data) {
- 	          let str = "";
- 	          $.each(data, function(index, sales) {
- 	            const countdownId = 'countdown-' + sales.no;
- 	            str += "<li>";
- 	            str += "<div class='list-inner'>";
- 	            str += "<span class='rank-a'>" + sales.grade + "</span>   ";
- 	            str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
- 	            str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
- 	            str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
- 	            str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
- 	            str += "</div>";
- 	            str += "</li>";
- 	          });
+          // Ajax 호출
+          $.ajax({
+            url: "ajax",
+            type: "post",
+            dataType: "json",
+            data: {
+              key: "sales",
+              methodName: "selectAll",
+              productNo: "${productDetail.no}",
+              shoesNo: dataTab
+            },
+            success: function(data) {
+              let str = "";
+              $.each(data, function(index, sales) {
+                const countdownId = 'countdown-' + sales.no;
+                str += "<li>";
+                str += "<div class='list-inner'>";
+                str += "<span class='rank-a'>" + sales.grade + "</span>   ";
+                str += "<span>남은 시간 : <span class='countdown' id='" + countdownId + "'>00:00:00</span></span>   ";
+                str += "<span>즉시 구매 : " + sales.nowPrice + "원</span>   ";
+                str += "<span>현재 입찰가 : " + sales.bidAccount.price + "원</span>   ";
+                str += "<button value='구매' data-info='" + sales.no + "'>구매/입찰</button>";
+                str += "</div>";
+                str += "</li>";
+              });
 
- 	          $("#" + dataTab + " .tab-content-list ul").html(str);
+              $("#" + dataTab + " .tab-content-list ul").html(str);
 
- 	          data.forEach(function(sales) {
- 	            initializeCountdown(sales.no, parseInt(sales.regdate, 10));
- 	          });
- 	        },
- 	        error: function(err) {
- 	          let str = "판매중인 사이즈가 없습니다.";
- 	          $("#" + dataTab + " .tab-content-list").html(str);
- 	        }
- 	      });
- 	    });
- 	    $(document).on("click", "button[value=구매]", function(){
- 	        window.location.href = "front?key=sales&methodName=salesDetail&salesNo=" + encodeURIComponent($(this).attr("data-info"));
- 	    });
+              data.forEach(function(sales) {
+                initializeCountdown(sales.no, parseInt(sales.regdate, 10));
+              });
+            },
+            error: function(err) {
+              let str = "판매중인 사이즈가 없습니다.";
+              $("#" + dataTab + " .tab-content-list").html(str);
+            }
+          });
+        });
+        $(document).on("click", "button[value=구매]", function(){
+            window.location.href = "front?key=sales&methodName=salesDetail&salesNo=" + encodeURIComponent($(this).attr("data-info"));
+        });
 
- 	    // 초기화 함수
- 	 
+        // 초기화 함수
+     
   });
 </script>
 <script>
@@ -449,7 +448,7 @@
   });
   
   
-	
+   
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>

@@ -5,16 +5,16 @@
     // 세션에서 사용자 정보 가져오기
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
-	if (loginUser == null) {
-	    response.sendRedirect("login.jsp");
-	    return;
-	}
+   if (loginUser == null) {
+       response.sendRedirect("login.jsp");
+       return;
+   }
 
-	String productNo = request.getParameter("productNo");
-	String brandName = request.getParameter("brandName");
-	String engName = request.getParameter("engName");
-	String korName = request.getParameter("korName");
-	String filePath = request.getParameter("filePath");
+   String productNo = request.getParameter("productNo");
+   String brandName = request.getParameter("brandName");
+   String engName = request.getParameter("engName");
+   String korName = request.getParameter("korName");
+   String filePath = request.getParameter("filePath");
 
 %>
 <!DOCTYPE html>
@@ -37,14 +37,14 @@
       </div>
       <div class="item-description">
         <h2><%= brandName %></h2>
-    	<h3><%= engName %></h3>
-    	<h3><%= korName %></h3>
+       <h3><%= engName %></h3>
+       <h3><%= korName %></h3>
         <h2>신발 사이즈 선택</h2>
-		  <select id="shoesNo">
-		    <option value="10">240</option>
-		    <option value="20">260</option>
-		    <option value="30">280</option>
-		  </select>
+        <select id="shoesNo">
+          <option value="10">240</option>
+          <option value="20">260</option>
+          <option value="30">280</option>
+        </select>
       </div>
     </div>
     <div class="item-shipping">
@@ -59,8 +59,8 @@
     <div class="item-receipt">
       <h1>최종 주문정보</h1>
       <div>
-      	<h2>시작 입찰가</h2>
-      	<h2 style="font-weight: bold"> <input type="text" id="startingPrice"></h2>
+         <h2>시작 입찰가</h2>
+         <h2 style="font-weight: bold"> <input type="text" id="startingPrice"></h2>
       </div>
       <div>
         <h2>판매 희망가</h2>
@@ -101,7 +101,7 @@ $(document).ready(function() {
             data: {
                 key: 'purchase',
                 methodName: 'calculateCommission',
-                userNo: userNo,	
+                userNo: userNo,   
                 price: price
             },
             success: function(response) {
@@ -129,7 +129,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#sellBtn').on('click', function() {	
+    $('#sellBtn').on('click', function() {   
         const startingPrice = $('#startingPrice').val();
         const desiredPrice = $('#desiredPrice').val();
         const shoesNo  = $('#shoesNo').val();

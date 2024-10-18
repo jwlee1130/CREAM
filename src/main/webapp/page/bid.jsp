@@ -68,7 +68,7 @@
       <div class="tab-content active" id="instantPurchase">
         <div class="tab-content-parchase">
           <p>즉시 구매가</p>
-          <p><fmt:formatNumber>${sale.nowPrice}</fmt:formatNumber>원</p>
+          <p>${sale.nowPrice}원</p>
         </div>
         <div class="tab-content-total">
           <p>총 결제금액</p>
@@ -120,15 +120,7 @@
         document.getElementById(targetTab).classList.add("active");
       });
     });
-    //,추가
-    document.getElementById('bid').addEventListener('input', function (e) {
-        let value = e.target.value.replace(/,/g, ''); // 쉼표 제거
-        if (!isNaN(value)) {
-            e.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 천 단위 콤마 추가
-        } else {
-            e.target.value = ''; // 숫자가 아닐 경우 빈 문자열로 설정
-        }
-    });
+
     // remainingTime을 숫자로 설정 (초 단위)
     let remainingTime = parseInt("${sale.regdate != null ? sale.regdate : '0'}", 10);
     window.isTimeUp = false; // 전역 변수로 시간 종료 상태 관리

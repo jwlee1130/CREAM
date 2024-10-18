@@ -66,18 +66,18 @@
       .then(data => {
         contentDiv.innerHTML = data;
         if(page==="mypage_sell"){
-        	fetchAllSales();
+           fetchAllSales();
         }else if(page === "mypage_main"){
-        	fetchLatestPurchaseOrBid();
+           fetchLatestPurchaseOrBid();
             fetchSales();
             fetchWishlist();
         }else if(page==="mypage_parchase"){
-        	fetchAllPurchasesAndBids();
+           fetchAllPurchasesAndBids();
         }else if(page ==="mypage_user"){
-        	loadUser();
-        	bindChangeButtons();
+           loadUser();
+           bindChangeButtons();
         }else if(page==="mypage_rank"){
-        	fetchUserRank();
+           fetchUserRank();
         }
       })
       .catch(error => {
@@ -498,7 +498,6 @@
                     let bid = bids[currentBidIndex++];
                     purchaseHtml += '<div class="parchase-item">';
                     purchaseHtml += '<div class="item-img">';
-                    purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=sales&methodName=salesDetail&salesNo=' + purchase.salesNo + '">';
                     purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
                     purchaseHtml += '</div>';
                     purchaseHtml += '<div class="item-name">';
@@ -588,7 +587,7 @@
                 $('#purchase-container').html(purchaseHtml);
             },
             error: function() {
-            	showError("구매 내역을 불러오는 중 오류가 발생했습니다");
+               showError("구매 내역을 불러오는 중 오류가 발생했습니다");
             }
         });
     }
@@ -693,7 +692,7 @@
     
     
     function loadUser(){
-    	$.ajax({
+       $.ajax({
             url: '${pageContext.request.contextPath}/ajax',
             method: 'GET',
             dataType: 'json',
@@ -709,7 +708,7 @@
                 $('#address').val(response.address);
             },
             error: function() {
-            	showError("사용자 정보를 불러오는 중 오류가 발생했습니다");
+               showError("사용자 정보를 불러오는 중 오류가 발생했습니다");
             }
         });
     }
@@ -719,59 +718,59 @@
     
     
 
-	function saveClick(infoItem, newValue){		
-		  const $infoItem = $(infoItem);
-		  console.log($infoItem);
-		  const field = $infoItem.data('field');
-		  console.log(field);
+   function saveClick(infoItem, newValue){      
+        const $infoItem = $(infoItem);
+        console.log($infoItem);
+        const field = $infoItem.data('field');
+        console.log(field);
 
-	        $.ajax({
-	            url: '${pageContext.request.contextPath}/ajax',
-	            method: 'POST',
-	            data: {
-	                key: 'userAjax',
-	                methodName: `update${'${field}'}`,
-	                value: newValue
-	            },
-	            success: function(response) {
-	                if (response === 'success') {
-	                    $infoItem.find('input').prop('disabled', true);
-	                    $infoItem.find('.save-btn, .cancel-btn').remove();
-	                    $infoItem.find('.change-btn').show();
-	                } else {
-	                    showError("정보가 성공적으로 업데이트되었습니다");
-	                }
-	            },
-	            error: function() {
-	            	showError("사용자 정보를 업데이트하지 못했습니다 다시 시도해주세요");
-	            }
-	        });
-	}
-	
-	
-	function fetchUserRank() {
-	    $.ajax({
-	        url: '${pageContext.request.contextPath}/ajax',
-	        method: 'GET',
-	        data: {
-	            key: 'userAjax',
-	            methodName: 'getUserRank'
-	        },
-	        dataType: 'json',
-	        success: function(rank) {
-	            if (rank) {
-	                const commission = ((1 - rank.discount) * 100).toFixed(1);
-	                $('.current-rank h2').text(rank.rank);
-	                $('.current-commission h2').text(commission + '%');
-	            } else {
-	            	showError("랭크 정보를 불러올 수 없습니다");
-	            }
-	        },
-	        error: function(error) {
-	        	showError("랭크 정보를 불러오는 중 오류가 발생했습니다");
-	        }
-	    });
-	}
+           $.ajax({
+               url: '${pageContext.request.contextPath}/ajax',
+               method: 'POST',
+               data: {
+                   key: 'userAjax',
+                   methodName: `update${'${field}'}`,
+                   value: newValue
+               },
+               success: function(response) {
+                   if (response === 'success') {
+                       $infoItem.find('input').prop('disabled', true);
+                       $infoItem.find('.save-btn, .cancel-btn').remove();
+                       $infoItem.find('.change-btn').show();
+                   } else {
+                       showError("정보가 성공적으로 업데이트되었습니다");
+                   }
+               },
+               error: function() {
+                  showError("사용자 정보를 업데이트하지 못했습니다 다시 시도해주세요");
+               }
+           });
+   }
+   
+   
+   function fetchUserRank() {
+       $.ajax({
+           url: '${pageContext.request.contextPath}/ajax',
+           method: 'GET',
+           data: {
+               key: 'userAjax',
+               methodName: 'getUserRank'
+           },
+           dataType: 'json',
+           success: function(rank) {
+               if (rank) {
+                   const commission = ((1 - rank.discount) * 100).toFixed(1);
+                   $('.current-rank h2').text(rank.rank);
+                   $('.current-commission h2').text(commission + '%');
+               } else {
+                  showError("랭크 정보를 불러올 수 없습니다");
+               }
+           },
+           error: function(error) {
+              showError("랭크 정보를 불러오는 중 오류가 발생했습니다");
+           }
+       });
+   }
 
     
 
