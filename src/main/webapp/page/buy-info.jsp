@@ -1,6 +1,5 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +25,7 @@
         <h3>${sale.product.korName}</h3>
         <div style="display:flex; justify-content: space-between">
           <h2>${sale.shoesSize.shoesSize}</h2>
-          <h2><fmt:formatNumber>${sale.nowPrice}</fmt:formatNumber>원</h2>
+          <h2>${sale.nowPrice}원</h2>
         </div>
       </div>
     </div>
@@ -56,7 +55,7 @@
       <h1>구매 내역</h1>
       <div>
         <h2>최종 내역</h2>
-        <h2 style="font-weight: bold"><fmt:formatNumber>${purchase.price}</fmt:formatNumber>원</h2>
+        <h2 style="font-weight: bold">${purchase.price}원</h2>
       </div>
     </div>
   </div>

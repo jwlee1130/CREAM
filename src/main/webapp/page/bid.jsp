@@ -14,10 +14,9 @@
   	$(function(){
   		
   		$(".a-bid").click(function(){
-  			let str =$("#bid").val();
-  			let result = str.replace(/,/g, ''); 
+  			
   		
-  			window.location.href="front?key=sales&methodName=bidDetail&salesNo=${sale.no}&userNo=${loginUser.no}&bidPrice="+result;
+  			window.location.href="front?key=sales&methodName=bidDetail&salesNo=${sale.no}&userNo=${loginUser.no}&bidPrice="+$("#bid").val();
   			
   		
   		
@@ -103,8 +102,8 @@
 <jsp:include page="../includes/footer.jsp" />
 
 <script>
-   document.addEventListener('DOMContentLoaded', () => {
-     console.log("test income");
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("test income");
     const tabButtons = document.querySelectorAll(".tab-button");
     const tabContents = document.querySelectorAll(".tab-content");
 

@@ -1,7 +1,5 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <%@ page import="com.cream.dto.UserDTO" %>
 <%
     // 세션에서 사용자 정보 가져오기
@@ -131,24 +129,6 @@ $(document).ready(function() {
         }
     });
 
-    document.getElementById('startingPrice').addEventListener('input', function (e) {
-        let value = e.target.value.replace(/,/g, ''); // 쉼표 제거
-        if (!isNaN(value)) {
-            e.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 천 단위 콤마 추가
-        } else {
-            e.target.value = ''; // 숫자가 아닐 경우 빈 문자열로 설정
-        }
-    });
-    
-    document.getElementById('desiredPrice').addEventListener('input', function (e) {
-        let value = e.target.value.replace(/,/g, ''); // 쉼표 제거
-        if (!isNaN(value)) {
-            e.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 천 단위 콤마 추가
-        } else {
-            e.target.value = ''; // 숫자가 아닐 경우 빈 문자열로 설정
-        }
-    });
-    
     $('#sellBtn').on('click', function() {	
         const startingPrice = $('#startingPrice').val();
         const desiredPrice = $('#desiredPrice').val();
