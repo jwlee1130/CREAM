@@ -498,6 +498,7 @@
                     let bid = bids[currentBidIndex++];
                     purchaseHtml += '<div class="parchase-item">';
                     purchaseHtml += '<div class="item-img">';
+                    purchaseHtml += '<a href="${pageContext.request.contextPath}/front?key=sales&methodName=salesDetail&salesNo=' + purchase.salesNo + '">';
                     purchaseHtml += '<img style="width:100px; height:100px;" src="' + bid.filePath + '" alt="">';
                     purchaseHtml += '</div>';
                     purchaseHtml += '<div class="item-name">';
