@@ -15,10 +15,13 @@ import java.util.ResourceBundle;
 public class AWSService {
     private AmazonS3 s3Client;
     
-    
-    private static String accessKey = System.getenv("AWS_ACCESS_KEY_ID"); //액세스키
-    private static String secretKey = System.getenv("AWS_SECRET_ACCESS_KEY"); // 스크릿 엑세스 키
-    private Regions clientRegion = Regions.AP_NORTHEAST_2; // 한국 리전
+    private static String accessKey = "s3 서버 종료";
+    private static String secretKey = "s3 서버 종료";
+	/*s3 쓸때 키 지금은 종료해서 주석 처리 
+	 * private static String accessKey = System.getenv("AWS_ACCESS_KEY_ID"); //액세스키
+	 * private static String secretKey = System.getenv("AWS_SECRET_ACCESS_KEY"); //
+	 * 스크릿 엑세스 키
+	 */    private Regions clientRegion = Regions.AP_NORTHEAST_2; // 한국 리전
     private String bucket = "kosta-286-cream"; // 버킷 명
 
     // singleton 구현
@@ -26,9 +29,6 @@ public class AWSService {
 
     public static AWSService getInstance() {
         if (instance == null) {
-        	ResourceBundle keyInfoBundle = ResourceBundle.getBundle("keyInfo");
-        	 accessKey = keyInfoBundle.getString("accessKey");
-        	 secretKey =keyInfoBundle.getString("secretKey");
             instance = new AWSService();
         }
         return instance;

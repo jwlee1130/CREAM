@@ -30,10 +30,10 @@ public class HandlerMappingListener implements ServletContextListener {
         // SQL 쿼리 맵핑
 		Map<String,String> sqlMap = new HashMap<String, String>();
 
-        ResourceBundle actionMappingBundle = ResourceBundle.getBundle("actionMapping");
 
         try {
             // 일반 Controller와 관련된 설정 파일 로딩
+            ResourceBundle actionMappingBundle = ResourceBundle.getBundle("actionMapping");
             for (String key : actionMappingBundle.keySet()) {
             	String className = actionMappingBundle.getString(key);
             	actionMappingBundle.getString(key);

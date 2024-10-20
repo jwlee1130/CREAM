@@ -54,7 +54,7 @@
         </div>
         <div class="header-main">
             <div class="logo">
-                <a href="${pageContext.request.contextPath}">
+                <a href="${pageContext.request.contextPath}/index.jsp">
                     <img height="100px" src="https://kosta-286-cream.s3.ap-northeast-2.amazonaws.com/img/logo.png">
                 </a>
             </div>
