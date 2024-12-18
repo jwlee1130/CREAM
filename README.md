@@ -64,7 +64,7 @@ Kosta 286기 2차 Project
 ---
 
 ## 🌐 AWS Infrastructure  
-![aws최종](https://github.com/user-attachments/assets/74297328-f392-404e-9cce-0514579263c3)
+![AWS](https://github.com/user-attachments/assets/32dc947a-6639-4669-9aeb-3133fcbef338)
 
 ---
 
