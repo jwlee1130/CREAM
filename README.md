@@ -101,6 +101,6 @@ Kosta 286기 2차 Project
 ![경매 플로우차트](https://github.com/user-attachments/assets/1a7b5c26-9006-43b9-8091-bb8bec688f48)
 
 ### Layout Definition  
-- [레이아웃 정의서](https://www.figma.com/design/VS3O9n5gdeCGlE01srZnjg/finalProject_%ED%94%BC%EA%B7%B8%EB%A7%88?node-id=0-1&t=Ne12ajC3fU63yYDc-1)
+[[T적 사고] 2차프로젝트 요구 명세서_최종.docx](https://github.com/user-attachments/files/18176346/T.2._.docx)
 
 ---
