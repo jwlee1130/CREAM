@@ -21,17 +21,16 @@ Kosta 286기 2차 Project
 ## 💻 개발 환경
 
 ### Front-end:
-- ![React](https://img.shields.io/badge/react-black?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![HTML5](https://img.shields.io/badge/html5-%23E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3) ![JavaScript](https://img.shields.io/badge/javascript-black?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![IVS](https://img.shields.io/badge/IVS-%23ec7211?style=for-the-badge&logoColor=white)
+- ![Static Badge](https://img.shields.io/badge/JSP%26Servlet-000000?style=for-the-badge) ![HTML5](https://img.shields.io/badge/html5-%23E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3) ![JavaScript](https://img.shields.io/badge/javascript-black?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
 ### Back-end:
-- ![Spring Boot](https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&color=white) ![Java](https://img.shields.io/badge/java-%23e14a3a?style=for-the-badge) ![Flask](https://img.shields.io/badge/flask-%23000000?style=for-the-badge&logo=flask&logoColor=white) ![Python](https://img.shields.io/badge/python-%233776AB?style=for-the-badge&logo=python&logoColor=white)
+![Java](https://img.shields.io/badge/java-%23e14a3a?style=for-the-badge)
 
 ### Database:
 - ![MySQL](https://img.shields.io/badge/mysql-%234479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![AWS S3](https://img.shields.io/badge/s3-%23569A31?style=for-the-badge&logo=amazons3&logoColor=white)
 ![AWS RDS](https://img.shields.io/badge/rds-%23527FFF?style=for-the-badge&logo=amazonrds&logoColor=white)
-![Redis](https://img.shields.io/badge/redis-%23d82a20?style=for-the-badge)
 
 ### Version Control:
 - ![Git](https://img.shields.io/badge/git-%23F05032?style=for-the-badge&logo=git&logoColor=white)
@@ -40,27 +39,23 @@ Kosta 286기 2차 Project
 ### Project Management:
 - ![Jira](https://img.shields.io/badge/jira-%230052CC?style=for-the-badge&logo=jira)
 ![Notion](https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion)
+![Static Badge](https://img.shields.io/badge/slack-%234A154B?style=for-the-badge&logo=slack)
 
 ### OS:
 - ![Windows 11](https://img.shields.io/badge/window11-blue?style=for-the-badge)
 
 ### Tools:
 - ![IntelliJ IDEA](https://img.shields.io/badge/intellij-%23000000?style=for-the-badge&logo=intellijidea)
-![VSCode](https://img.shields.io/badge/VSCode-%232F80ED?style=for-the-badge)
-![Spyder](https://img.shields.io/badge/spyder-%238C0000?style=for-the-badge&logo=spyderide)
+![Static Badge](https://img.shields.io/badge/eclipseide-%232C2255?style=for-the-badge&logo=eclipseide)
+
 
 ### Architect:
 - ![ERDCLOUD](https://img.shields.io/badge/ERDCLOUD-black?style=for-the-badge&logo=icloud&logoColor=white)
-![Draw.io](https://img.shields.io/badge/DrawIO-%23F08705?style=for-the-badge&logo=diagramsdotnet&logoColor=white)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
 ### Infrastructure:
 - ![AWS](https://img.shields.io/badge/AWS-%23232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white)
-
-### Testing:
-- ![Postman](https://img.shields.io/badge/postman-%23FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![JUnit5](https://img.shields.io/badge/junit5-%2325A162?style=for-the-badge&logo=junit5&logoColor=white)
-
+- 
 ---
 
 ## 🌐 AWS Infrastructure  
