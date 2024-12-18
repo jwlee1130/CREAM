@@ -85,5 +85,6 @@ Kosta 286기 2차 Project
 ### SRS,Software Request Specification  
 
 [[T적 사고] 2차프로젝트 요구 명세서_최종.docx](https://github.com/user-attachments/files/18176346/T.2._.docx)
+[요구명세서.pdf](https://github.com/user-attachments/files/18176741/default.pdf)
 
 ---
