@@ -55,7 +55,7 @@ Kosta 286기 2차 Project
 
 ### Infrastructure:
 - ![AWS](https://img.shields.io/badge/AWS-%23232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white)
-- 
+
 ---
 
 ## 🌐 AWS Infrastructure  
