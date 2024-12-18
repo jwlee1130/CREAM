@@ -73,19 +73,6 @@ Kosta 286기 2차 Project
 
 ---
 
-## 🛠️ Service Overview  
-![서비스](https://github.com/user-attachments/assets/1e8b55d3-b3ac-41fc-bab5-4e53e588c3db)  
-
----
-
-## 🧑‍💻 Core Technologies  
-
-
-## 📈 Project Results  
-
-
----
-
 ### Final Outcome  
 ![최종결과물](https://github.com/user-attachments/assets/04ea78c1-4722-4ea2-8ab4-242cce8cdc73)
 
@@ -96,11 +83,12 @@ Kosta 286기 2차 Project
 ### ERD (Entity-Relationship Diagram)  
 ![ERD](https://github.com/user-attachments/assets/87bd1928-d508-48ff-974d-2602428efa57)
 
-### Sequence & Flow Charts  
-![경매 시퀀스 차트](https://github.com/user-attachments/assets/57d0f671-caa0-4a59-b4fe-d1ebb8580115)  
-![경매 플로우차트](https://github.com/user-attachments/assets/1a7b5c26-9006-43b9-8091-bb8bec688f48)
-
 ### Layout Definition  
+
+[레이아웃 정의서](https://www.figma.com/design/nCyCKo568Sx0qHetEk0MCe/Cream?node-id=0-1&p=f&t=g0DRtKQQK5wVMyxF-0)
+
+### SRS,Software Request Specification  
+
 [[T적 사고] 2차프로젝트 요구 명세서_최종.docx](https://github.com/user-attachments/files/18176346/T.2._.docx)
 
 ---
