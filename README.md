@@ -69,7 +69,7 @@ Kosta 286기 2차 Project
 ---
 
 ### Final Outcome  
-![최종결과물](https://github.com/user-attachments/assets/04ea78c1-4722-4ea2-8ab4-242cce8cdc73)
+![cream-입찰](https://github.com/user-attachments/assets/023ce291-60da-4df7-8cb2-b8c30d053b93)
 
 ---
 
