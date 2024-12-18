@@ -25,7 +25,7 @@ Kosta 286기 2차 Project
 ![CSS3](https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3) ![JavaScript](https://img.shields.io/badge/javascript-black?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
 ### Back-end:
-![Java](https://img.shields.io/badge/java-%23e14a3a?style=for-the-badge)
+- ![Java](https://img.shields.io/badge/java-%23e14a3a?style=for-the-badge)
 
 ### Database:
 - ![MySQL](https://img.shields.io/badge/mysql-%234479A1?style=for-the-badge&logo=mysql&logoColor=white)
