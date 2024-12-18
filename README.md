@@ -69,13 +69,7 @@ Kosta 286기 2차 Project
 ---
 
 ## 📚 Reference Sites  
-- [KAFB2B - 농수산물 온라인 도매시장](https://kafb2b.or.kr/client/mn/main/main.do)
-
----
-
-## 🔌 API Used  
-- [가락시장 데이터](https://data.seoul.go.kr/dataList/OA-2662/S/1/datasetView.do)
-- [결제시스템 - 포트원](https://portone.io/)
+- [Kream - 온라인 신발 경매 사이트](https://kream.co.kr/?airbridge_referrer=airbridge%3Dtrue%26event_uuid%3D0106418e-3582-4c15-928a-db6ebf741b10%26client_id%3Dbd892dce-96f7-456d-ba38-dc2939f41974%26referrer_timestamp%3D1734504220330%26channel%3Dnaver.searchad%26campaign%3DBS%26ad_group%3DPC_241216_2%26ad_creative%3DPC_241216_2_homelink%26term%3DKREAM%26sub_id%3D3&utm_source=naver.searchad&utm_campaign=BS&utm_medium=3&utm_term=KREAM&channel=naver.searchad&campaign=BS&ad_group=PC_241216_2&ad_creative=PC_241216_2_homelink&term=KREAM&sub_id=3&n_media=27758&n_query=KREAM&n_rank=1&n_ad_group=grp-a001-04-000000041246956&n_ad=nad-a001-04-000000339143353&n_keyword_id=nkw-a001-04-000006110978940&n_keyword=KREAM&n_campaign_type=4&n_contract=tct-a001-04-000000000993819&n_ad_group_type=5&NaPm=ct%3Dm4tj11ls%7Cci%3D0A00000qpQ9BK-33bLok%7Ctr%3Dbrnd%7Chk%3Df393f781f10e1ba57d1be2c11f2362e22c88a6cd%7Cnacn%3DbjXwBUwoDRnQ)
 
 ---
 
@@ -85,63 +79,10 @@ Kosta 286기 2차 Project
 ---
 
 ## 🧑‍💻 Core Technologies  
-### WebSocket + Redis  
-![WebSocket + Redis](https://github.com/user-attachments/assets/e9f0e4c9-ffc7-4c5d-bb6c-e1c56312c6c2)  
-![Redis속도](https://github.com/user-attachments/assets/31ba141e-951c-4021-9458-29156da89a25)  
- - 실시간 다중 사용자 환경에서의 발전된 경매 서비스를 제공하기 위해 사용  
- - Redis를 통한 캐시 기반의 빠른 경매 데이터 사용 및 공유
- - 안정적인 경매 환경제어를 위한 Redis Transaction기능 사용 
- - WebSocket과 Redis의 조합을 통한 다중 서버 환경에서의 알림 및 상태 공유 반영  
- - WebSocket과 Stomop라이브러리를 통한 구독 형태의 메세지 알림 구현 
 
-### Recommendation Model + RestAPI Server  
-![추천 기술](https://github.com/user-attachments/assets/18fa660d-a6de-4348-92cb-009f57b8db7c)
- - Python단에서 학습한 추천 모델을 사용하기 위해 Flask서버 기반의 응답용 내부 RestAPI서버 구축
- - Pandas, Numpy등을 활용한 데이터 전처리  
- - Scikit Learn라이브러리를 활용한 CosineSimilarity 모델과 TruncateSVD 모델 사용  
- - 사용자 구매와 리뷰를 통한 평가 데이터를 기반으로 추천 모델을 각각 적용   
-### IVS (Broadcasting Technology)  
-![IVS](https://github.com/user-attachments/assets/022cf312-6106-42ad-9892-05d0106a7048)
-
-- AWS IVS는 트위치 방송 플랫폼의 라이브 스트리밍 서비스
-- 사용자는 서버를 직접 관리할 필요없이 AWS에서 제공하는 Stream Key를 받아와서 OBS Studio 방송 프로그램에 입력하면 간편하게 사용 가능
-- WebSocket 기반의 실시간 채팅기능 또한 ChatRoom_URL을 받아서 입장과 동시에 생성
-- 사용자가 채팅 메세지 입력 시 API gateway로 HTTP 전송 후 Lambda를 통해 유저를 구분하여 메세지를 전달 및 출력
-
-### API Application  
-![가락시장](https://github.com/user-attachments/assets/f164e508-d3f1-4b06-b992-b06e0bd9affe)  
-![portone](https://github.com/user-attachments/assets/18f429af-98c7-47af-8447-f45a573e168e)
-
----
 
 ## 📈 Project Results  
 
-### Auction & Notification Features  
-- **Auction Registration & Subscription Notifications**  
-![경매등록알림](https://github.com/user-attachments/assets/52c63b58-22e9-477f-be7d-b4c44adf2489)
-
-- **Real-Time Data Updates & Highest Bidder Notifications**  
-![입찰및 알림](https://github.com/user-attachments/assets/dd79c8fd-68fd-4f62-a38a-8fdc54374eaa)
-
-- **sale off and Winning Bid Notification**  
-![낙찰및 알림](https://github.com/user-attachments/assets/af4c6291-399d-42b7-b2c2-fdfcf20c81bd)
-
-- **Streaming off**  
-![방송종료알림](https://github.com/user-attachments/assets/19b51d41-76ab-427f-880b-ab13c404edc6)
----
-
-### Notification Features  
-![알림1](https://github.com/user-attachments/assets/a8093ef5-dea1-4067-a145-46513b1152a5)
-
----
-
-### Recommendation Features  
-![추천화면](https://github.com/user-attachments/assets/edf4bdc3-a864-47d3-81b7-8d1cbd574abe)
-
----
-
-### Payment Features  
-![결제화면](https://github.com/user-attachments/assets/d7b38040-9cf5-47f0-bd6d-29413d93420f)
 
 ---
 
@@ -154,10 +95,6 @@ Kosta 286기 2차 Project
 
 ### ERD (Entity-Relationship Diagram)  
 ![ERD](https://github.com/user-attachments/assets/87bd1928-d508-48ff-974d-2602428efa57)
-
-### Use Case Diagrams  
-![actor1](https://github.com/user-attachments/assets/60c5da99-bb22-4296-a23a-6fe5941bc852)  
-![actor2](https://github.com/user-attachments/assets/02b8d4e6-9a48-494a-a5fd-475624278f49)
 
 ### Sequence & Flow Charts  
 ![경매 시퀀스 차트](https://github.com/user-attachments/assets/57d0f671-caa0-4a59-b4fe-d1ebb8580115)  
